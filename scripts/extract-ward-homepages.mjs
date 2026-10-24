@@ -58,7 +58,7 @@ for (const dir of dirs) {
 
 // 区のページ本文のリンク。「〇〇のホームページ」という文言のリンク（浪速区）か、
 // 表の施設名そのものがリンクになっているもの（西区。本園・分園を1つのリンクにまとめていることがある）
-for (const f of (await readdir(ROOT)).filter((f) => f.endsWith('.html')).sort()) {
+for (const f of (await readdir(ROOT)).filter((name) => name.endsWith('.html')).sort()) {
   const html = await readFile(path.join(ROOT, f), 'utf8');
   const tables = [...html.matchAll(/<table[\s\S]*?<\/table>/g)].map(([t]) => t).join('');
   const text = (s) =>

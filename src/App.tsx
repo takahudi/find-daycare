@@ -215,7 +215,7 @@ export default function App() {
               type="button"
               className={`chip${ages.includes(a) ? ' chip--on' : ''}`}
               aria-pressed={ages.includes(a)}
-              onClick={() => setAges((cur) => toggle(cur, a).sort())}
+              onClick={() => setAges((cur) => toggle(cur, a).sort((x, y) => x - y))}
             >
               {AGE_LABELS[a]}
             </button>

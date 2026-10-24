@@ -28,7 +28,7 @@ const KANJI_DIGITS = '〇一二三四五六七八九';
 const kanjiNumber = (s: string) =>
   s.includes('十')
     ? (s.startsWith('十') ? 1 : KANJI_DIGITS.indexOf(s[0])) * 10 + (s.endsWith('十') ? 0 : KANJI_DIGITS.indexOf(s.at(-1)!))
-    : Number([...s].map((c) => KANJI_DIGITS.indexOf(c)).join(''));
+    : Number(Array.from(s, (c) => KANJI_DIGITS.indexOf(c)).join(''));
 
 /** 住所の区より後ろを「町名」と最初の数字（丁目、丁目のない町は番地）に分ける。例:「中之島一丁目3番」→ 中之島 / 1 */
 function splitTown(address: string): { town: string; num: number | null } {

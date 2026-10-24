@@ -192,14 +192,14 @@ async function pdfTableRows(file, section = null) {
     const columnOf = (i) => bounds.filter((b) => i.x > b).length;
     const top = Math.min(...cols.map((c) => c.y)) - 3;
     const lines = [];
-    for (const i of items.filter((i) => i.y < top && !used.has(i)).sort((a, b) => b.y - a.y || a.x - b.x)) {
+    for (const i of items.filter((item) => item.y < top && !used.has(item)).sort((a, b) => b.y - a.y || a.x - b.x)) {
       const line = lines.find((l) => Math.abs(l.y - i.y) <= 3);
       if (line) line.items.push(i);
       else lines.push({ y: i.y, items: [i] });
     }
     // 所在地・連絡先を2〜3行に分けて書く区（鶴見区・旭区）は、施設名の列が空の行を、上下13pt以内にある施設名の行に含める
     const named = lines.filter((l) => l.items.some((i) => columnOf(i) === 0));
-    for (const l of lines.filter((l) => !named.includes(l))) {
+    for (const l of lines.filter((line) => !named.includes(line))) {
       const near = named.filter((n) => Math.abs(n.y - l.y) <= 13).sort((a, b) => Math.abs(a.y - l.y) - Math.abs(b.y - l.y))[0];
       if (near) near.items.push(...l.items);
     }
@@ -421,7 +421,7 @@ for (const ward of WARDS) {
     // 空きのある年齢があればその年齢だけを書く（区の表では枠のない年齢は空欄）
     const ages = l.vacancies.some((v) => v > 0) ? l.vacancies.map((v) => v > 0) : l.vacancies.map((v) => v !== null);
     const open = l.vacancies.map((v, age) => (ages[age] ? `${age}歳児${v}人` : null)).filter(Boolean);
-    f.note = `${f.note ? `${f.note}` : ''}期間限定保育の枠もあります（空き: ${open.join('・')}）。`;
+    f.note = `${f.note || ''}期間限定保育の枠もあります（空き: ${open.join('・')}）。`;
   }
 
   // --- 区の公表値との照合（CSV と区役所の空き情報が一致しているか）
@@ -589,6 +589,7 @@ for (const ward of WARDS) {
   const asOfMatch =
     decode(table.match(/<caption>([\s\S]*?)<\/caption>/)?.[1] ?? '').match(AS_OF) ?? decode(kigyoHtml).match(AS_OF);
   let kigyoAsOf = asOfMatch ? `${asOfMatch[1].replace(/\s+/g, '')}年${asOfMatch[2]}月${asOfMatch[3]}日現在` : null;
+  /** @type {Set<string>} */
   const surveyDates = new Set();
   // 区によっては表に「設置者」列がある（天王寺区）。あれば市のPDFより優先する（PDFは改行で途切れることがある）
   // 見出しは1行目のセル（施設名の列を th にしている区があるので、表全体の th は使わない）

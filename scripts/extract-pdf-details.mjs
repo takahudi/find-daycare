@@ -75,13 +75,13 @@ function capacity(items) {
     if (byAge.length !== 6) return null;
     const sum = (ns) => ns.reduce((a, b) => a + b, 0);
     // 幼稚園型認定こども園（公立）は「（１号）」「（２号）」の2行に分かれているので合算し、内訳を注記する
-    const second = numericRight(rowY - 19, label.x, label.x + 450);
+    const secondRow = numericRight(rowY - 19, label.x, label.x + 450);
     const hasTypeRows = items.some((i) => /^（[１1]号）$/.test(i.s)) && items.some((i) => /^（[２2]号）$/.test(i.s));
-    if (hasTypeRows && second.length === 6) {
+    if (hasTypeRows && secondRow.length === 6) {
       return {
-        total: sum(byAge) + sum(second),
-        byAge: byAge.map((n, k) => n + second[k]),
-        note: `認可定員は1号${sum(byAge)}人＋2号${sum(second)}人。`,
+        total: sum(byAge) + sum(secondRow),
+        byAge: byAge.map((n, k) => n + secondRow[k]),
+        note: `認可定員は1号${sum(byAge)}人＋2号${sum(secondRow)}人。`,
       };
     }
     return { total: sum(byAge), byAge };
