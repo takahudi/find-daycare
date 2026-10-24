@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -10,7 +14,7 @@
     "preview": "vite preview",
     "data:fetch": "node scripts/fetch-sources.mjs",
     "data:build": "node scripts/extract-pdf-details.mjs && node scripts/extract-kigyo-details.mjs && node scripts/build-data.mjs",
-    "data:update": "npm run data:fetch && npm run data:build"
+    "data:update": "pnpm data:fetch && pnpm data:build"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

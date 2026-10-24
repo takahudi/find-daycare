@@ -1,5 +1,5 @@
 // 対象の区と、その一次情報の取得元。区を追加するときはここに1件足し、
-// `npm run data:update` のあと sources/<id>/ に websites.json などの補完ファイルを用意する。
+// `pnpm data:update` のあと sources/<id>/ に websites.json などの補完ファイルを用意する。
 const ORIGIN = 'https://www.city.osaka.lg.jp';
 
 export const WARDS = [
