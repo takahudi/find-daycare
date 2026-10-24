@@ -13,6 +13,8 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
+    "typecheck": "tsc -b",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm build",
     "preview": "vite preview",
     "data:fetch": "node scripts/fetch-sources.mjs",
     "data:build": "node scripts/extract-pdf-details.mjs && node scripts/extract-kigyo-details.mjs && node scripts/build-data.mjs",
