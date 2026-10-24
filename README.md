@@ -31,13 +31,26 @@
 
 ## 起動方法
 
+Node.js 24 と pnpm 12 を使います。Node.js のバージョンは `.node-version`、pnpm のバージョンは `package.json` の `packageManager` で固定しています。pnpm が入っていなければ、`corepack enable pnpm` で使えるようにしてください。
+
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 # → http://localhost:5173 を開く
 ```
 
-Node.js 20 以上を想定しています。地図タイルと住所検索はインターネット経由（国土地理院）で取得するため、オンライン環境で使ってください。
+地図タイルと住所検索はインターネット経由（国土地理院）で取得するため、オンライン環境で使ってください。
+
+## 開発時のチェック
+
+```bash
+pnpm check      # 整形の確認・lint・型チェック・単体テスト・ビルド（CI と同じ内容）
+pnpm test       # 単体テスト（Vitest）
+pnpm test:e2e   # 本番ビルドに対するスモークテスト（Playwright。初回は pnpm exec playwright install chromium）
+pnpm format     # oxfmt で整形
+```
+
+`pnpm install` を実行すると、lefthook が Git フックを入れます。コミット時は、ステージしたファイルだけを oxlint（自動修正つき）と oxfmt にかけ、直したファイルをステージし直します。プッシュ時は型チェックと単体テストを実行します。
 
 ## できること
 
@@ -147,10 +160,10 @@ Node.js 20 以上を想定しています。地図タイルと住所検索はイ
 ## データの更新
 
 ```bash
-npm run data:update   # 一次情報を再取得 → PDFから抽出 → src/data/facilities.json を再生成
+pnpm data:update   # 一次情報を再取得 → PDFから抽出 → src/data/facilities.json を再生成
 ```
 
-対象の区と各区の取得元ページは `scripts/wards.mjs` にまとまっています。区を追加するときはここに1件足し、`npm run data:update` のあと `sources/<区>/` に補完ファイル（下記）を用意します。
+対象の区と各区の取得元ページは `scripts/wards.mjs` にまとまっています。区を追加するときはここに1件足し、`pnpm data:update` のあと `sources/<区>/` に補完ファイル（下記）を用意します。
 
 - `scripts/fetch-sources.mjs [区のid]` … 市・区のページから CSV / xlsx / PDF / HTML を `sources/` に取得（区のidを渡すとその区だけ）
 - `scripts/extract-pdf-details.mjs` … 各施設の基本情報PDFから定員・開園時間などを位置ベースで抽出 → `sources/<区>/pdf-details.json`（幼保連携型認定こども園の「1号」「2号・3号」に分かれた認可定員は合算し、内訳を注記）
