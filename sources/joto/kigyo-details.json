@@ -1,0 +1,93 @@
+{
+  "06-6935-1935": {
+    "wardTag": "(17城東区)",
+    "phone": "06-6935-1935",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年11月30日",
+    "name": "城東ゆずのき保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "536-0004",
+    "address": "大阪市城東区今福西3-10-4 イグレック今福1階",
+    "operator": "株式会社ノースリバー",
+    "page": 123
+  },
+  "06-6180-5050": {
+    "wardTag": "(17城東区)",
+    "phone": "06-6180-5050",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "08:00〜12:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年2月28日",
+    "operator": "株式会社オーケーケアサポート",
+    "name": "クローバー保育園 城東",
+    "type": "企業主導型保育事業",
+    "postalCode": "536-0004",
+    "address": "大阪市城東区今福西1-16-4-1階",
+    "page": 124
+  },
+  "06-4255-0155": {
+    "wardTag": "(17城東区)",
+    "phone": "06-4255-0155",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年10月31日",
+    "name": "アーモンド保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "536-0007",
+    "address": "大阪市城東区成育4-12-15 ウェステリア成育1F",
+    "operator": "株式会社 カラーズキッズ",
+    "page": 124
+  },
+  "06-6933-8777": {
+    "wardTag": "(17城東区)",
+    "phone": "06-6933-8777",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年3月30日",
+    "name": "すまいる保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "536-0007",
+    "address": "大阪市城東区成育2-4-18 マンション山本1F",
+    "operator": "アットスマイル株式会社",
+    "page": 125
+  },
+  "06-6962-0010": {
+    "wardTag": "(17城東区)",
+    "phone": "06-6962-0010",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年6月30日",
+    "name": "企業主導型保育園 のぞみ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "536-0013",
+    "address": "大阪市城東区鴫野東1-4-21 勝田ビル1F",
+    "operator": "株式会社アビメディカル",
+    "page": 126
+  }
+}

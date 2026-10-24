@@ -1,0 +1,293 @@
+{
+  "06-7708-5220": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-7708-5220",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年10月31日",
+    "name": "英才保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0001",
+    "address": "大阪市天王寺区上本町8-2-5 大阪珈琲会館2階",
+    "operator": "英才合同会社",
+    "page": 75
+  },
+  "06-6776-7526": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6776-7526",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 18,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年11月30日",
+    "operator": "株式会社ニチイ学館",
+    "name": "ニチイキッズ上本町保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0001",
+    "address": "大阪市天王寺区上本町8-2-1 クライス上本町1階",
+    "page": 76
+  },
+  "06-6768-7707": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6768-7707",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年12月28日",
+    "name": "ほまれ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0012",
+    "address": "大阪市天王寺区空堀町13-21",
+    "operator": "合同会社柚の葉",
+    "page": 77
+  },
+  "06-6761-0066": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6761-0066",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年8月31日",
+    "operator": "学校法人 岡崎学園",
+    "name": "キラナ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0017",
+    "address": "大阪市天王寺区城南寺町5-35",
+    "page": 77
+  },
+  "06-4303-3666": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-4303-3666",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 10,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年10月31日",
+    "name": "ひかり保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0021",
+    "address": "大阪市天王寺区東高津町3-6-101",
+    "operator": "光流通有限会社",
+    "page": 78
+  },
+  "06-7507-1079": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-7507-1079",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年11月30日",
+    "operator": "asse株式会社",
+    "name": "鶴橋いちご保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0027",
+    "address": "大阪市天王寺区筆ヶ崎町3-8",
+    "page": 79
+  },
+  "06-6796-7129": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6796-7129",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年4月28日",
+    "operator": "株式会社チックアンドヘン",
+    "name": "鶴橋保育園 チックアンドヘン",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0028",
+    "address": "大阪市天王寺区小橋町2-12 上本町NEXTAGEビル1F",
+    "page": 80
+  },
+  "06-6711-0083": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6711-0083",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 30,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年8月30日",
+    "name": "社会医療法人大阪国際メディカル＆サイエンスセンター事業所内保育施設さくら",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0031",
+    "address": "大阪市天王寺区石ヶ辻町8-5",
+    "operator": "社会医療法人大阪国際メディカル&サイエンスセンター",
+    "page": 81
+  },
+  "06-6777-7270": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6777-7270",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和6年6月30日",
+    "name": "いづる保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0031",
+    "address": "大阪市天王寺区石ヶ辻町14-14 銭屋ビル東館1F",
+    "operator": "株式会社シェンゲン",
+    "page": 81
+  },
+  "06-6772-1500": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6772-1500",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "平成31年1月31日",
+    "operator": "ワンコイン八尾株式会社",
+    "name": "マム保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0031",
+    "address": "大阪市天王寺区石ヶ辻町18-10 メゾンジュールイマ1･2階 202号室",
+    "page": 82
+  },
+  "06-6773-8933": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6773-8933",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜18:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年6月29日",
+    "name": "はぐみぃー保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0043",
+    "address": "大阪市天王寺区勝山3-12-3-101",
+    "operator": "合同会社はぐみぃー",
+    "page": 84
+  },
+  "06-6777-1102": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6777-1102",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 18,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年3月31日",
+    "name": "はばたき保育園 寺田町園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0044",
+    "address": "大阪市天王寺区国分町18-10",
+    "operator": "株式会社 アソシエイト創",
+    "page": 84
+  },
+  "06-6771-3101": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6771-3101",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "operator": "株式会社Lateral Kids",
+    "name": "もりのなかま保育園 天王寺ひよこ園サイエンス+",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0052",
+    "address": "大阪市天王寺区大道1-6-7プレーリー四天王寺101",
+    "page": 85
+  },
+  "06-6773-9451": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6773-9451",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年8月31日",
+    "name": "いんくるーじょん保育園 天王寺",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0052",
+    "address": "大阪市天王寺区大道1-8-15",
+    "operator": "株式会社インクルージョン",
+    "page": 85
+  },
+  "06-6796-7182": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6796-7182",
+    "hours": {
+      "weekday": "09:00〜22:00",
+      "saturday": "09:00〜22:00",
+      "holiday": "09:00〜22:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和6年6月30日",
+    "operator": "Animo株式会社",
+    "name": "なないろ天王寺保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0056",
+    "address": "大阪市天王寺区堀越町8-20 サンクレールナンガビル1階",
+    "page": 86
+  },
+  "06-6774-1152": {
+    "wardTag": "(09天王寺区)",
+    "phone": "06-6774-1152",
+    "hours": {
+      "weekday": "08:30〜18:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年9月29日",
+    "name": "蓮美幼児学園 夕陽丘プリメール",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0075",
+    "address": "大阪市天王寺区夕陽丘町4-2 朝日プラザ四天王寺106",
+    "operator": "社会福祉法人光聖会",
+    "page": 88
+  }
+}

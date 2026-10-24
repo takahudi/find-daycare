@@ -1,0 +1,202 @@
+{
+  "06-4302-4400": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-4302-4400",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 6,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年2月28日",
+    "name": "キンダーランドそうせい東住吉",
+    "type": "企業主導型保育事業",
+    "postalCode": "546-0022",
+    "address": "大阪市東住吉区住道矢田8-9-30",
+    "operator": "株式会社そうせい介護支援事業所",
+    "page": 149
+  },
+  "06-6769-1514": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-6769-1514",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30",
+      "holiday": "07:30〜18:30"
+    },
+    "capacity": 13,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年1月31日",
+    "operator": "アミコ株式会社",
+    "name": "キッズランド・東住吉",
+    "type": "企業主導型保育事業",
+    "postalCode": "546-0022",
+    "address": "大阪市東住吉区住道矢田6-2-24",
+    "page": 149
+  },
+  "06-7712-8113": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-7712-8113",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年9月30日",
+    "name": "FUJI English保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "546-0023",
+    "address": "大阪市東住吉区矢田2-17-7 2F",
+    "operator": "株式会社ミユキホーム",
+    "page": 150
+  },
+  "06-7177-7597": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-7177-7597",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年10月29日",
+    "name": "田辺保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "546-0031",
+    "address": "大阪市東住吉区田辺1-5-7",
+    "operator": "株式会社大木技研",
+    "page": 150
+  },
+  "06-6115-6667": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-6115-6667",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00",
+      "holiday": "08:00〜19:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年12月27日",
+    "operator": "株式会社スパイラル",
+    "name": "ハーモニープリスクール",
+    "type": "企業主導型保育事業",
+    "postalCode": "546-0033",
+    "address": "大阪市東住吉区南田辺3-2-10 サンライズマンション1階",
+    "page": 151
+  },
+  "06-6609-2255": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-6609-2255",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和6年11月18日",
+    "name": "病児対応型保育所ピーチランド",
+    "type": "企業主導型保育事業",
+    "postalCode": "546-0035",
+    "address": "大阪市東住吉区山坂4-1-2",
+    "operator": "株式会社雉子",
+    "page": 151
+  },
+  "06-6713-2255": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-6713-2255",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和5年7月31日",
+    "operator": "株式会社ライフケア",
+    "name": "企業主導型保育所 ひがしすみよしラララ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "546-0043",
+    "address": "大阪市東住吉区駒川1-9-7メゾン・ド・アミ101号",
+    "page": 152
+  },
+  "06-6790-1101": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-6790-1101",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 9,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年9月30日",
+    "name": "企業主導型保育所 Ｓｅｎｊｕ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "546-0043",
+    "address": "大阪市東住吉区駒川2-2-17 パークサイド駒川101",
+    "operator": "有限会社タニヒロ",
+    "page": 153
+  },
+  "06-6714-8333": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-6714-8333",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年1月31日",
+    "name": "アイオライト保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "546-0043",
+    "address": "大阪市東住吉区駒川1-11-15 1F",
+    "operator": "医療法人育笑会",
+    "page": 153
+  },
+  "06-6105-4386": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-6105-4386",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年7月31日",
+    "operator": "株式会社clover",
+    "name": "あにまど保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "546-0044",
+    "address": "大阪市東住吉区北田辺4-8-14 エルシア北田辺1F",
+    "page": 154
+  },
+  "06-6691-2621": {
+    "wardTag": "(22東住吉区)",
+    "phone": "06-6691-2621",
+    "hours": {
+      "weekday": "07:00〜18:00",
+      "saturday": "07:00〜18:00"
+    },
+    "capacity": 17,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "name": "まま保育園駒川",
+    "type": "企業主導型保育事業",
+    "postalCode": "564-0043",
+    "address": "大阪市東住吉区駒川4-13-7 センチュリープラザ１F",
+    "operator": "株式会社オーナーズ",
+    "page": 154
+  }
+}

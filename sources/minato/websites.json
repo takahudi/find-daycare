@@ -1,0 +1,7 @@
+{
+  "_comment": "キーは施設名（NFKC正規化・空白除去）。認可施設は区の資料に公式サイトの記載がないため市の施設基本情報PDFの「施設URL」欄を使う。企業主導型は港区役所「企業主導型保育事業所の空き情報を公表します」 https://www.city.osaka.lg.jp/minato/page/0000428485.html の施設名のリンク（いずれも所在地または電話番号が一致することを確認）。2026-10-23確認。",
+  "COCOROHOIKUEN弁天町園": { "url": "http://cocoro-hoikuen.jp/", "label": "公式サイト（港区役所の企業主導型保育事業所の空き情報ページに掲載）" },
+  "KIDACADEMYNURSERY朝潮橋園": { "url": "https://kidacademy-nursery.jp/nursery/#nursery01", "label": "公式サイト（港区役所の企業主導型保育事業所の空き情報ページに掲載）" },
+  "手をつなごうあおき保育園みなと": { "url": "http://kts-tewotsunagou.sunnyday.jp/ksh/ksh.html", "label": "公式サイト（港区役所の企業主導型保育事業所の空き情報ページに掲載）" },
+  "弁天町いちご保育園": { "url": "https://ichigo-kids.com/", "label": "公式サイト（港区役所の企業主導型保育事業所の空き情報ページに掲載）" }
+}

@@ -1,0 +1,112 @@
+{
+  "06-7507-1482": {
+    "wardTag": "(24西成区)",
+    "phone": "06-7507-1482",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30",
+      "holiday": "07:30〜18:30"
+    },
+    "capacity": 10,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年2月28日",
+    "name": "彩葉保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "557-0013",
+    "address": "大阪市西成区天神ノ森1-5-18",
+    "operator": "株式会社笑福",
+    "page": 160
+  },
+  "06-6563-3160": {
+    "wardTag": "(24西成区)",
+    "phone": "06-6563-3160",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "name": "ゆーとあい保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "557-0024",
+    "address": "大阪市西成区出城2-5-9 スタジオ2.3",
+    "operator": "一般財団法人ヒューマンライツ協会",
+    "page": 161
+  },
+  "06-7897-8999": {
+    "wardTag": "(24西成区)",
+    "phone": "06-7897-8999",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "08:00〜17:00"
+    },
+    "capacity": 18,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年10月29日",
+    "name": "くうとぴあ",
+    "type": "企業主導型保育事業",
+    "postalCode": "557-0032",
+    "address": "大阪市西成区旭2-3-8",
+    "operator": "株式会社BORN",
+    "page": 162
+  },
+  "080-7967-3287": {
+    "wardTag": "(24西成区)",
+    "phone": "080-7967-3287",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和6年2月29日",
+    "operator": "株式会社メディ・エイド",
+    "name": "企業主導型保育園 アルトキッズ",
+    "type": "企業主導型保育事業",
+    "postalCode": "557-0053",
+    "address": "大阪市西成区千本北2-29-15",
+    "page": 163
+  },
+  "06-6654-7510": {
+    "wardTag": "(24西成区)",
+    "phone": "06-6654-7510",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 31,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和8年10月1日",
+    "name": "エミリア保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "557-0054",
+    "address": "大阪市西成区千本南1-3-2 タイホウスクエア1F",
+    "operator": "株式会社GROW",
+    "page": 163
+  },
+  "06-6105-0319": {
+    "wardTag": "(24西成区)",
+    "phone": "06-6105-0319",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "就学前",
+    "freeOfCharge": true,
+    "startedOn": "令和4年1月31日",
+    "name": "だいいちキッズルーム南津守園",
+    "type": "企業主導型保育事業",
+    "postalCode": "557-0063",
+    "address": "大阪市西成区南津守3-1-63 南大阪第一交通（株）2階",
+    "operator": "南大阪第一交通株式会社",
+    "page": 164
+  }
+}

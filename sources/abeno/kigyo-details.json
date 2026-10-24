@@ -1,0 +1,164 @@
+{
+  "06-4305-7613": {
+    "wardTag": "(19阿倍野区)",
+    "phone": "06-4305-7613",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年7月31日",
+    "name": "あべの えがお保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "545-0002",
+    "address": "大阪市阿倍野区天王寺町南2-22-16",
+    "operator": "株式会社F-stage",
+    "page": 129
+  },
+  "06-6710-1051": {
+    "wardTag": "(19阿倍野区)",
+    "phone": "06-6710-1051",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年12月28日",
+    "operator": "特定非営利活動法人あいうえお",
+    "name": "あいうえお たんぽぽ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "545-0002",
+    "address": "大阪市阿倍野区天王寺町南2-5-11",
+    "page": 130
+  },
+  "06-6654-7961": {
+    "wardTag": "(19阿倍野区)",
+    "phone": "06-6654-7961",
+    "hours": {
+      "weekday": "07:00〜18:00",
+      "saturday": "07:00〜18:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年7月31日",
+    "name": "あいぐらん保育園阿倍野",
+    "type": "企業主導型保育事業",
+    "postalCode": "545-0011",
+    "address": "大阪市阿倍野区昭和町1-15-13",
+    "operator": "株式会社アイグラン",
+    "page": 131
+  },
+  "06-6621-1555": {
+    "wardTag": "(19阿倍野区)",
+    "phone": "06-6621-1555",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 17,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年10月31日",
+    "name": "まま保育園文の里",
+    "type": "企業主導型保育事業",
+    "postalCode": "545-0021",
+    "address": "大阪市阿倍野区阪南町1-11-35",
+    "operator": "株式会社オーナーズ",
+    "page": 132
+  },
+  "090-1676-7579": {
+    "wardTag": "(19阿倍野区)",
+    "phone": "090-1676-7579",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年3月30日",
+    "name": "なわしろ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "545-0021",
+    "address": "大阪市阿倍野区阪南町1-27-17",
+    "operator": "NPO法人全国おやこ福祉支援センター",
+    "page": 132
+  },
+  "06-6655-1162": {
+    "wardTag": "(19阿倍野区)",
+    "phone": "06-6655-1162",
+    "hours": {
+      "weekday": "08:30〜18:00"
+    },
+    "capacity": 8,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年9月29日",
+    "operator": "株式会社 日本介護医療センター",
+    "name": "蓮美幼児学園 阿倍野プリメール",
+    "type": "企業主導型保育事業",
+    "postalCode": "545-0021",
+    "address": "大阪市阿倍野区阪南町2-20-19-102",
+    "page": 133
+  },
+  "06-4703-5855": {
+    "wardTag": "(19阿倍野区)",
+    "phone": "06-4703-5855",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 31,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和6年12月1日",
+    "name": "やまとのやしろ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "545-0033",
+    "address": "大阪市阿倍野区相生通2-10-7",
+    "operator": "株式会社センシンイングリッシュクラブ",
+    "page": 134
+  },
+  "06-4398-3788": {
+    "wardTag": "(19阿倍野区)",
+    "phone": "06-4398-3788",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 48,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和7年8月1日",
+    "operator": "K-LINK株式会社",
+    "name": "ももはな帝塚山保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "545-0037",
+    "address": "大阪市阿倍野区帝塚山1-23-14",
+    "page": 134
+  },
+  "06-4398-3202": {
+    "wardTag": "(19阿倍野区)",
+    "phone": "06-4398-3202",
+    "hours": {
+      "weekday": "07:30〜18:30"
+    },
+    "capacity": 18,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年2月28日",
+    "name": "医療法人きずな歯科医院 きずな保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "545-0042",
+    "address": "大阪市阿倍野区丸山通1-6-1 ナチュレ阿倍野3階",
+    "operator": "医療法人きずな歯科医院",
+    "page": 135
+  }
+}

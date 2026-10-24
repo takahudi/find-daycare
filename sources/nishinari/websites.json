@@ -1,0 +1,5 @@
+{
+  "_comment": "キーは施設名（NFKC正規化・空白除去）。西成区は区の資料に公式サイトの記載がないため、市の施設基本情報PDFの「施設URL」欄を使う。ここではその補正のみ：PDFにURLがある2施設は、どちらも2026-10-22時点で接続できない（http・httpsとも接続拒否）ため非掲載。",
+  "大阪市立山王保育所": { "url": null, "label": "市の施設基本情報PDFのURL（http://www.shirohato.or.jp/sanno-hoikusho/）は2026-10-22時点で接続できないため非掲載" },
+  "松通東保育園": { "url": null, "label": "市の施設基本情報PDFのURL（http://www.yamatofukusi.jp）は2026-10-22時点で接続できないため非掲載" }
+}

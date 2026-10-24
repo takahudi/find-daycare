@@ -1,0 +1,113 @@
+{
+  "06-6952-2111": {
+    "wardTag": "(16旭区)",
+    "phone": "06-6952-2111",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年7月31日",
+    "operator": "社会福祉法人山の子会",
+    "name": "企業主導型 茶屋大宮保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "535-0002",
+    "address": "大阪市旭区大宮4-9-35",
+    "page": 119
+  },
+  "06-6777-3252": {
+    "wardTag": "(16旭区)",
+    "phone": "06-6777-3252",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年7月31日",
+    "name": "旭 きずな保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "535-0003",
+    "address": "大阪市旭区中宮1-12-27 コモドガーデン山一Ⅱ 1階",
+    "operator": "株式会社SALUS",
+    "page": 120
+  },
+  "06-6924-0030": {
+    "wardTag": "(16旭区)",
+    "phone": "06-6924-0030",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "startedOn": "令和5年11月30日",
+    "name": "くるみアカデミー保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "535-0005",
+    "address": "大阪市旭区赤川2-1-20",
+    "operator": "社会福祉法人ほしの会",
+    "page": 120
+  },
+  "06-6180-3325": {
+    "wardTag": "(16旭区)",
+    "phone": "06-6180-3325",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "満3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年1月31日",
+    "operator": "株式会社Be-er",
+    "name": "あんじゅ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "535-0012",
+    "address": "大阪市旭区千林2-11-32",
+    "page": 121
+  },
+  "06-6953-6170": {
+    "wardTag": "(16旭区)",
+    "phone": "06-6953-6170",
+    "hours": {
+      "weekday": "07:00〜18:00",
+      "saturday": "07:00〜18:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年3月31日",
+    "name": "はれるや保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "535-0013",
+    "address": "大阪市旭区森小路1-13-21",
+    "operator": "合同会社LIFEcreate",
+    "page": 121
+  },
+  "06-6955-3787": {
+    "wardTag": "(16旭区)",
+    "phone": "06-6955-3787",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年8月31日",
+    "name": "キッズ１ハート旭保育所",
+    "type": "企業主導型保育事業",
+    "postalCode": "535-0022",
+    "address": "大阪市旭区新森4-23-8 Villetta新森公園1階",
+    "operator": "株式会社キッズ1ハート",
+    "page": 122
+  }
+}

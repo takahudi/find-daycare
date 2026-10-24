@@ -1,0 +1,148 @@
+{
+  "06-6926-1515": {
+    "wardTag": "(02都島区)",
+    "phone": "06-6926-1515",
+    "hours": {
+      "weekday": "07:00〜18:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年9月28日",
+    "operator": "グローアップ株式会社",
+    "name": "ヤシの木保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "534-0001",
+    "address": "大阪市都島区毛馬町2-11-35-105",
+    "page": 22
+  },
+  "06-6925-2693": {
+    "wardTag": "(02都島区)",
+    "phone": "06-6925-2693",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 20,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年9月30日",
+    "operator": "株式会社Bell Kids",
+    "name": "株式会社Bell kids都島保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "534-0011",
+    "address": "大阪市都島区高倉町1-4-6 エンブレム都島1F",
+    "page": 22
+  },
+  "06-6921-5115": {
+    "wardTag": "(02都島区)",
+    "phone": "06-6921-5115",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年7月31日",
+    "operator": "株式会社ノースリバー",
+    "name": "都島ゆずのき保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "534-0021",
+    "address": "大阪市都島区都島本通1-8-12-2A",
+    "page": 23
+  },
+  "06-6924-5005": {
+    "wardTag": "(02都島区)",
+    "phone": "06-6924-5005",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年2月28日",
+    "name": "定 員 （年齢別内訳は施設にご確認ください）",
+    "type": "企業主導型保育事業",
+    "postalCode": "534-0021",
+    "address": "大阪市都島区都島本通3-1-22",
+    "operator": "株式会社ハピネスライフ",
+    "page": 24
+  },
+  "06-6353-1717": {
+    "wardTag": "(02都島区)",
+    "phone": "06-6353-1717",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30",
+      "holiday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "かがやき保育園 京橋",
+    "type": "企業主導型保育事業",
+    "postalCode": "534-0024",
+    "address": "大阪市都島区東野田町2-8-7 1F",
+    "startedOn": "令和3年3月30日",
+    "operator": "株式会社アカカベ",
+    "page": 25
+  },
+  "06-7710-7242": {
+    "wardTag": "(02都島区)",
+    "phone": "06-7710-7242",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "かたまち ふたば保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "534-0025",
+    "address": "大阪市都島区片町1-2-8 グランドステージ大阪城北1F",
+    "startedOn": "平成31年4月25日",
+    "operator": "有限会社クラッシーラボ",
+    "page": 25
+  },
+  "06-6352-7716": {
+    "wardTag": "(02都島区)",
+    "phone": "06-6352-7716",
+    "hours": {
+      "weekday": "09:00〜22:00",
+      "saturday": "09:00〜22:00",
+      "holiday": "09:00〜22:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "なないろ京橋保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "534-0025",
+    "address": "大阪市都島区片町1-2-16 河野ビル1F",
+    "startedOn": "平成29年2月20日",
+    "operator": "株式会社セブンキューブ",
+    "page": 26
+  },
+  "06-6351-0022": {
+    "wardTag": "(02都島区)",
+    "phone": "06-6351-0022",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "りありのきっず大阪京橋",
+    "type": "企業主導型保育事業",
+    "postalCode": "543-0025",
+    "address": "大阪市都島区片町2-10-6 SAKRAS城 2F",
+    "startedOn": "令和6年4月1日",
+    "operator": "株式会社リアリノ",
+    "page": 26
+  }
+}

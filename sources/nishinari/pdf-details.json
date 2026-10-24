@@ -1,0 +1,372 @@
+{
+  "24-kitatumori.pdf": {
+    "kana": "きたつもりほいくしょ",
+    "capacity": {
+      "total": 101,
+      "byAge": [
+        3,
+        6,
+        12,
+        20,
+        30,
+        30
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "1973年9月1日"
+  },
+  "24-matunomiya.pdf": {
+    "kana": "おおさかしりつまつのみやほいくしょ",
+    "capacity": {
+      "total": 138,
+      "byAge": [
+        6,
+        18,
+        24,
+        30,
+        30,
+        30
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "一時預かり",
+      "障がい児保育",
+      "休日保育",
+      "病後児対応型",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "1976年4月1日"
+  },
+  "24-minamitumori.pdf": {
+    "kana": "おおさかしりつみなみつもりほいくしょ",
+    "capacity": {
+      "total": 64,
+      "byAge": [
+        3,
+        6,
+        10,
+        15,
+        15,
+        15
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "1972年9月2日"
+  },
+  "24-sanno.pdf": {
+    "kana": "さんのうほいくしょ",
+    "capacity": {
+      "total": 113,
+      "byAge": [
+        15,
+        18,
+        18,
+        20,
+        21,
+        21
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": "http://www.shirohato.or.jp/sanno-hoikusho/",
+    "approvedOn": "1963年4月1日"
+  },
+  "24-sennbon.pdf": {
+    "kana": "おおさかしりつせんぼんほいくしょ",
+    "capacity": {
+      "total": 118,
+      "byAge": [
+        3,
+        12,
+        18,
+        25,
+        30,
+        30
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "1948年7月23日"
+  },
+  "24-tenngatyaya.pdf": {
+    "kana": "てんがちゃやほいくしょ",
+    "capacity": {
+      "total": 81,
+      "byAge": [
+        3,
+        12,
+        12,
+        16,
+        18,
+        20
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1976年7月1日"
+  },
+  "h24-1-gyoukoukaihikari.pdf": {
+    "kana": "ぎょうこうかいひかりがくえん",
+    "capacity": {
+      "total": 132,
+      "byAge": [
+        15,
+        19,
+        24,
+        24,
+        25,
+        25
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": null,
+    "approvedOn": "1960年4月1日"
+  },
+  "h24-10-nagahasidai2.pdf": {
+    "kana": "ながはしだいにほいくえん",
+    "capacity": {
+      "total": 103,
+      "byAge": [
+        3,
+        12,
+        18,
+        20,
+        25,
+        25
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2025年4月1日"
+  },
+  "h24-2-seika.pdf": {
+    "kana": "せいかほいくえん",
+    "capacity": {
+      "total": 197,
+      "byAge": [
+        6,
+        18,
+        34,
+        45,
+        45,
+        49
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "08:00〜18:00",
+    "services": [
+      "障がい児保育",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "1948年10月13日"
+  },
+  "h24-3-tamadenishi.pdf": {
+    "kana": "たまでにしほいくえん",
+    "capacity": {
+      "total": 137,
+      "byAge": [
+        6,
+        0,
+        30,
+        33,
+        33,
+        35
+      ]
+    },
+    "weekday": "08:00〜18:00",
+    "saturday": "08:00〜16:00",
+    "services": [
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1976年11月1日"
+  },
+  "h24-5-hanazonowakei.pdf": {
+    "kana": "はなぞのわけいがくえん",
+    "capacity": {
+      "total": 179,
+      "byAge": [
+        8,
+        24,
+        30,
+        35,
+        38,
+        44
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1952年9月1日"
+  },
+  "h24-6-wakakusa.pdf": {
+    "kana": "わかくさほいくえん",
+    "capacity": {
+      "total": 79,
+      "byAge": [
+        6,
+        12,
+        14,
+        15,
+        16,
+        16
+      ]
+    },
+    "weekday": "07:30〜19:00",
+    "saturday": "07:30〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1970年4月1日"
+  },
+  "h24-7-donguri.pdf": {
+    "kana": "どんぐりほいくえん",
+    "capacity": {
+      "total": 49,
+      "byAge": [
+        10,
+        13,
+        13,
+        13,
+        0,
+        0
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": null,
+    "approvedOn": "2002年4月1日"
+  },
+  "h24-8-tachibana.pdf": {
+    "kana": "たちばなほいくえん",
+    "capacity": {
+      "total": 111,
+      "byAge": [
+        9,
+        12,
+        18,
+        20,
+        25,
+        27
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "障がい児保育",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "2018年4月1日"
+  },
+  "h24-9-matsudorihigashi.pdf": {
+    "kana": "まつどおりひがしほいくえん",
+    "capacity": {
+      "total": 135,
+      "byAge": [
+        9,
+        18,
+        24,
+        28,
+        28,
+        28
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": "http://www.yamatofukusi.jp",
+    "approvedOn": "2022年10月1日"
+  },
+  "k24-1-tamadehigashi.pdf": {
+    "kana": "たまでひがしほいくえん",
+    "capacity": {
+      "total": 135,
+      "byAge": [
+        10,
+        22,
+        22,
+        27,
+        27,
+        27
+      ]
+    },
+    "note": "認可定員は1号15人＋2号・3号120人。",
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "一時預かり",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2025年4月1日"
+  },
+  "t24-2-richopenishinari.pdf": {
+    "kana": "りっくほーぷにしなりほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        5,
+        7,
+        7
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2015年4月1日"
+  }
+}

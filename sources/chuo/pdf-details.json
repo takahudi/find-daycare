@@ -1,0 +1,847 @@
+{
+  "05-minamiooe.pdf": {
+    "kana": "おおさかしりつみなみおおえほいくしょ",
+    "capacity": {
+      "total": 123,
+      "byAge": [
+        6,
+        14,
+        18,
+        28,
+        29,
+        28
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "一時預かり",
+      "障がい児保育",
+      "休日保育",
+      "病後児対応型",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "1975年5月1日"
+  },
+  "05-tamatukuri.pdf": {
+    "kana": "おおさかしりつたまつくりようちえん",
+    "capacity": {
+      "total": 160,
+      "byAge": [
+        0,
+        0,
+        0,
+        40,
+        60,
+        60
+      ]
+    },
+    "note": "認可定員は1号100人＋2号60人。",
+    "weekday": null,
+    "saturday": null,
+    "services": [
+      "一時預かり",
+      "障がい児保育"
+    ],
+    "url": "https://kindergarten.city-osaka.ed.jp/2780020",
+    "approvedOn": "1940年6月29日"
+  },
+  "h5-1-ayumi.pdf": {
+    "kana": "あゆみほいくえん",
+    "capacity": {
+      "total": 96,
+      "byAge": [
+        6,
+        14,
+        16,
+        20,
+        20,
+        20
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "08:00〜17:30",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1967年12月1日"
+  },
+  "h5-10-buraitotanimachi.pdf": {
+    "kana": "ぶらいとほいくえんおおさかたにまち",
+    "capacity": {
+      "total": 81,
+      "byAge": [
+        9,
+        12,
+        12,
+        16,
+        16,
+        16
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2015年4月1日"
+  },
+  "h5-11-ayumihigashi.pdf": {
+    "kana": "あゆみひがしほいくえん",
+    "capacity": {
+      "total": 115,
+      "byAge": [
+        12,
+        15,
+        18,
+        20,
+        25,
+        25
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜18:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2016年8月15日"
+  },
+  "h5-12-aiaianagahori.pdf": {
+    "kana": "あいあいなーさりーながほりばし",
+    "capacity": {
+      "total": 70,
+      "byAge": [
+        6,
+        12,
+        12,
+        13,
+        13,
+        14
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2016年4月1日"
+  },
+  "h5-13-senbachitose.pdf": {
+    "kana": "せんばちとせほいくえん",
+    "capacity": {
+      "total": 87,
+      "byAge": [
+        11,
+        11,
+        11,
+        18,
+        18,
+        18
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜18:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2017年4月1日"
+  },
+  "h5-14-pikkorotanimati.pdf": {
+    "kana": "ぴっころきっずたにまちえん",
+    "capacity": {
+      "total": 69,
+      "byAge": [
+        6,
+        9,
+        9,
+        15,
+        15,
+        15
+      ]
+    },
+    "weekday": "07:00〜20:00",
+    "saturday": "07:00〜20:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2017年6月1日"
+  },
+  "h5-15-ureshiitamatukuri.pdf": {
+    "kana": "うれしいほいくえんたまつくり",
+    "capacity": {
+      "total": 80,
+      "byAge": [
+        9,
+        12,
+        12,
+        15,
+        16,
+        16
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": null,
+    "approvedOn": "2019年4月1日"
+  },
+  "h5-16-naniwanomori.pdf": {
+    "kana": "なにわのもりほいくえん",
+    "capacity": {
+      "total": 137,
+      "byAge": [
+        9,
+        18,
+        20,
+        30,
+        30,
+        30
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": null,
+    "approvedOn": "2019年6月1日"
+  },
+  "h5-18-tanimachichuo.pdf": {
+    "kana": "たにまちちゅうおうほいくえん",
+    "capacity": {
+      "total": 84,
+      "byAge": [
+        12,
+        13,
+        14,
+        15,
+        15,
+        15
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2021年5月1日"
+  },
+  "h5-19-kuorisutaniroku.pdf": {
+    "kana": "くおりすきっずたにろくほいくえん",
+    "capacity": {
+      "total": 59,
+      "byAge": [
+        6,
+        10,
+        10,
+        11,
+        11,
+        11
+      ]
+    },
+    "weekday": "07:00〜20:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育"
+    ],
+    "url": null,
+    "approvedOn": "2022年4月1日"
+  },
+  "h5-20-honmachikeiai.pdf": {
+    "kana": "ほんまちけいあいほいくえん",
+    "capacity": {
+      "total": 70,
+      "byAge": [
+        5,
+        11,
+        12,
+        14,
+        14,
+        14
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": null,
+    "approvedOn": "2022年4月1日"
+  },
+  "h5-21-kujirayodoyabashi.pdf": {
+    "kana": "くじらほいくえんよどやばしえん",
+    "capacity": {
+      "total": 31,
+      "byAge": [
+        3,
+        5,
+        5,
+        6,
+        6,
+        6
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2022年4月1日"
+  },
+  "h5-22-bioskidsnipponbashi.pdf": {
+    "kana": "びおすきっずにっぽんばしほいくえん",
+    "capacity": {
+      "total": 96,
+      "byAge": [
+        9,
+        12,
+        18,
+        19,
+        19,
+        19
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜18:00",
+    "services": [
+      "延長保育",
+      "一時預かり",
+      "障がい児保育"
+    ],
+    "url": "https://bioskids.jp/",
+    "approvedOn": "2023年4月1日"
+  },
+  "h5-23-naniwanomiya.pdf": {
+    "kana": "なにわのみやぷれすくーる",
+    "capacity": {
+      "total": 36,
+      "byAge": [
+        3,
+        6,
+        6,
+        7,
+        7,
+        7
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2024年4月1日"
+  },
+  "h5-24-ohisamanakaooe.pdf": {
+    "kana": "おひさまなかおおえほいくえん",
+    "capacity": {
+      "total": 45,
+      "byAge": [
+        3,
+        6,
+        6,
+        10,
+        10,
+        10
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [],
+    "url": null,
+    "approvedOn": "2024年4月1日"
+  },
+  "h5-25-nagahorinijiiro.pdf": {
+    "kana": "ながほりにじいろほいくえん",
+    "capacity": {
+      "total": 67,
+      "byAge": [
+        9,
+        11,
+        11,
+        12,
+        12,
+        12
+      ]
+    },
+    "weekday": "07:30〜19:00",
+    "saturday": "07:30〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2024年4月1日"
+  },
+  "h5-26-wanwanhonmati.pdf": {
+    "kana": "わんわんほいくえんほんまちえん",
+    "capacity": {
+      "total": 97,
+      "byAge": [
+        9,
+        15,
+        16,
+        19,
+        19,
+        19
+      ]
+    },
+    "weekday": "07:30〜19:00",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2025年4月1日"
+  },
+  "h5-3-mothershipsenba.pdf": {
+    "kana": "まざーしっぷせんばほいくえん",
+    "capacity": {
+      "total": 69,
+      "byAge": [
+        12,
+        18,
+        19,
+        20,
+        0,
+        0
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "体調不良児対応型"
+    ],
+    "url": null,
+    "approvedOn": "2010年1月1日"
+  },
+  "h5-4-yumetyuou.pdf": {
+    "kana": "ゆめちゅうおうほいくえん",
+    "capacity": {
+      "total": 119,
+      "byAge": [
+        9,
+        14,
+        17,
+        26,
+        26,
+        27
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": null,
+    "approvedOn": "2010年4月1日"
+  },
+  "h5-5-renbimatyamachi.pdf": {
+    "kana": "れんびようじがくえんまつやまちなーさりー",
+    "capacity": {
+      "total": 45,
+      "byAge": [
+        8,
+        18,
+        19,
+        0,
+        0,
+        0
+      ]
+    },
+    "weekday": "07:30〜19:00",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": null,
+    "approvedOn": "2010年4月1日"
+  },
+  "h5-6-tubana.pdf": {
+    "kana": "つばなほいくえん",
+    "capacity": {
+      "total": 130,
+      "byAge": [
+        12,
+        22,
+        24,
+        24,
+        24,
+        24
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2012年11月1日"
+  },
+  "h5-8-uemachimidori.pdf": {
+    "kana": "けいせいかいうえまちみどりほいくえん",
+    "capacity": {
+      "total": 127,
+      "byAge": [
+        9,
+        20,
+        22,
+        22,
+        27,
+        27
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": null,
+    "approvedOn": "2014年2月1日"
+  },
+  "h5-9-midousujichidori.pdf": {
+    "kana": "みどうすじほんまちちどりほいくえん",
+    "capacity": {
+      "total": 96,
+      "byAge": [
+        7,
+        12,
+        17,
+        20,
+        20,
+        20
+      ]
+    },
+    "weekday": "07:00〜19:30",
+    "saturday": "07:00〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2015年1月1日"
+  },
+  "k5-5-arbanchilduemachi.pdf": {
+    "kana": "あーばんちゃいるどこどもえんうえまち",
+    "capacity": {
+      "total": 201,
+      "byAge": [
+        21,
+        31,
+        32,
+        35,
+        39,
+        43
+      ]
+    },
+    "note": "認可定員は1号9人＋2号・3号192人。",
+    "weekday": "07:30〜19:00",
+    "saturday": "07:30〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "体調不良児対応型",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "2023年4月1日"
+  },
+  "k5-6-renbimorinomiya.pdf": {
+    "kana": "にんていこどもえんれんびようじがくえんもりのみやきんだーすくーる",
+    "capacity": {
+      "total": 95,
+      "byAge": [
+        9,
+        11,
+        12,
+        21,
+        21,
+        21
+      ]
+    },
+    "note": "認可定員は1号3人＋2号・3号92人。",
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2025年4月1日"
+  },
+  "t5-1-skip.pdf": {
+    "kana": "ほいくえんすきっぷ",
+    "capacity": {
+      "total": 10,
+      "byAge": [
+        3,
+        3,
+        4
+      ]
+    },
+    "weekday": "08:00〜19:00",
+    "saturday": "08:00〜17:00",
+    "services": [],
+    "url": null,
+    "approvedOn": "2015年4月1日"
+  },
+  "t5-10-pinguminamihonmachi.pdf": {
+    "kana": "れもんのこみなみほんまちほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        6,
+        6,
+        7
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": "https://www.lemonkai.or.jp/school/small/baby-minamihonmachi/",
+    "approvedOn": "2018年4月1日"
+  },
+  "t5-11-pikkorotyuoukuyakusyo.pdf": {
+    "kana": "ぴっころきっずちゅうおうくやくしょえん",
+    "capacity": {
+      "total": 15,
+      "byAge": [
+        3,
+        6,
+        6
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2018年4月1日"
+  },
+  "t5-12-sakaisujihonmatisunfriends.pdf": {
+    "kana": "さかいすじほんまちさんふれんずほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        5,
+        6,
+        8
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [],
+    "url": null,
+    "approvedOn": "2019年4月1日"
+  },
+  "t5-13-dream.pdf": {
+    "kana": "どりーむほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        3,
+        8,
+        8
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2019年4月1日"
+  },
+  "t5-15-aporonkidsuemachi.pdf": {
+    "kana": "あぽろんきっずうえまちほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        6,
+        6,
+        7
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": "https://apollonkids.jp",
+    "approvedOn": "2023年4月1日"
+  },
+  "t5-16-ommchidori.pdf": {
+    "kana": "おーえむえむちどりきっず",
+    "capacity": {
+      "total": 15,
+      "byAge": [
+        3,
+        5,
+        7
+      ]
+    },
+    "weekday": "07:50〜18:50",
+    "saturday": "07:50〜18:50",
+    "services": [],
+    "url": null,
+    "approvedOn": "2024年12月1日"
+  },
+  "t5-2-ohisamahonmachi.pdf": {
+    "kana": "おひさまるーむほんまちえん",
+    "capacity": {
+      "total": 10,
+      "byAge": [
+        2,
+        4,
+        4
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2015年4月1日"
+  },
+  "t5-3-hoikuroomtentoumushi.pdf": {
+    "kana": "ほいくるーむてんとうむし",
+    "capacity": {
+      "total": 10,
+      "byAge": [
+        1,
+        1,
+        8
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2015年4月1日"
+  },
+  "t5-4-artchildcaretenmabashi.pdf": {
+    "kana": "あーとちゃいるどけあぱんぷきんがーでんてんまばし",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        6,
+        6,
+        7
+      ]
+    },
+    "weekday": "07:30〜19:00",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": "http://www.the0123child.com/",
+    "approvedOn": "2015年4月1日"
+  },
+  "t5-5-renbiizumi.pdf": {
+    "kana": "れんびようじがくえんいずみぷりめーる",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        3,
+        8,
+        8
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2016年4月1日"
+  },
+  "t5-6-tentoumushien.pdf": {
+    "kana": "てんとうむしえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        2,
+        2,
+        15
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2017年2月1日"
+  },
+  "t5-7-purelytanimachi4tyoume.pdf": {
+    "kana": "ぴゅありーたにまちよんちょうめほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        1,
+        9,
+        9
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2017年4月1日"
+  },
+  "t5-8-angelkidsotedori.pdf": {
+    "kana": "えんじぇるきっずおおてどおりえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        6,
+        6,
+        7
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2017年4月1日"
+  },
+  "t5-9-pingutamatukuri.pdf": {
+    "kana": "れもんのこたまつくりほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        3,
+        8,
+        8
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2018年1月1日"
+  }
+}

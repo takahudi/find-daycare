@@ -1,0 +1,169 @@
+{
+  "06-4307-5745": {
+    "wardTag": "(15生野区)",
+    "phone": "06-4307-5745",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和6年8月31日",
+    "name": "弘仁会にじいろ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "544-0001",
+    "address": "大阪市生野区新今里1-11-16",
+    "operator": "社会福祉法人弘仁会",
+    "page": 113
+  },
+  "06-6757-0560": {
+    "wardTag": "(15生野区)",
+    "phone": "06-6757-0560",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和6年10月1日",
+    "operator": "株式会社 be leef",
+    "name": "きらぼし保育園 生野園",
+    "type": "企業主導型保育事業",
+    "postalCode": "544-0013",
+    "address": "大阪市生野区巽中4-3-1",
+    "page": 113
+  },
+  "06-6756-7105": {
+    "wardTag": "(15生野区)",
+    "phone": "06-6756-7105",
+    "hours": {
+      "weekday": "06:30〜19:30",
+      "saturday": "06:30〜19:30",
+      "holiday": "06:30〜19:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年1月31日",
+    "name": "たつみこども園",
+    "type": "企業主導型保育事業",
+    "postalCode": "544-0013",
+    "address": "大阪市生野区巽中1-21-23",
+    "operator": "株式会社TRASPO",
+    "page": 114
+  },
+  "06-6794-6330": {
+    "wardTag": "(15生野区)",
+    "phone": "06-6794-6330",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "09:00〜18:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年8月31日",
+    "operator": "株式会社ほいくる",
+    "name": "アメリカンアカデミーたつみ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "544-0015",
+    "address": "大阪市生野区巽南5-1-33",
+    "page": 115
+  },
+  "06-6752-0390": {
+    "wardTag": "(15生野区)",
+    "phone": "06-6752-0390",
+    "hours": {
+      "weekday": "07:45〜18:45",
+      "saturday": "07:45〜18:45"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成31年3月29日",
+    "name": "いらか保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "544-0015",
+    "address": "大阪市生野区巽南3-6-5 サンキューハウス1階",
+    "operator": "社会福祉法人 三秀會",
+    "page": 115
+  },
+  "06-6796-7508": {
+    "wardTag": "(15生野区)",
+    "phone": "06-6796-7508",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年6月29日",
+    "name": "ナチュラル保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "544-0023",
+    "address": "大阪市生野区林寺5-8-3",
+    "operator": "医療法人ナチュラル内科クリニック",
+    "page": 117
+  },
+  "06-4303-4356": {
+    "wardTag": "(15生野区)",
+    "phone": "06-4303-4356",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年2月28日",
+    "name": "まつとかえでの保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "544-0023",
+    "address": "大阪市生野区林寺4-14-12 ヴィーブル林寺1階",
+    "operator": "社会福祉法人 浪速松楓会",
+    "page": 117
+  },
+  "06-6777-5423": {
+    "wardTag": "(15生野区)",
+    "phone": "06-6777-5423",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年6月29日",
+    "name": "リソーマ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "544-0024",
+    "address": "大阪市生野区生野西2-7-25 2F",
+    "operator": "リソーマプラス株式会社",
+    "page": 118
+  },
+  "06-4305-3262": {
+    "wardTag": "(15生野区)",
+    "phone": "06-4305-3262",
+    "hours": {
+      "weekday": "08:00〜18:00",
+      "saturday": "08:30〜17:00",
+      "holiday": "08:30〜17:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年8月31日",
+    "name": "あでらんて 一条通り保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "544-0033",
+    "address": "大阪市生野区勝山北5-17-25 ２階",
+    "operator": "アデランテ株式会社",
+    "page": 119
+  }
+}

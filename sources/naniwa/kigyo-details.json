@@ -1,0 +1,131 @@
+{
+  "06-6556-6740": {
+    "wardTag": "(10浪速区)",
+    "phone": "06-6556-6740",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年7月31日",
+    "name": "もりのなかま保育園 日本橋ひよこ園",
+    "type": "企業主導型保育事業",
+    "postalCode": "556-0004",
+    "address": "大阪市浪速区日本橋西2-1-1 リヴィエール川西1階",
+    "operator": "株式会社Lateral Kids",
+    "page": 89
+  },
+  "06-6684-9787": {
+    "wardTag": "(10浪速区)",
+    "phone": "06-6684-9787",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 30,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年2月28日",
+    "operator": "株式会社エブリープラン",
+    "name": "保育園ツースキップ",
+    "type": "企業主導型保育事業",
+    "postalCode": "556-0012",
+    "address": "大阪市浪速区敷津東2-1-24 なんばグランドマスターズタワー202",
+    "page": 89
+  },
+  "06-6626-9101": {
+    "wardTag": "(10浪速区)",
+    "phone": "06-6626-9101",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年7月30日",
+    "name": "ひよこルーム浪速保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "556-0015",
+    "address": "大阪市浪速区敷津西2-8-20 CREST88 1F",
+    "operator": "株式会社パーフェクト",
+    "page": 90
+  },
+  "06-6644-0020": {
+    "wardTag": "(10浪速区)",
+    "phone": "06-6644-0020",
+    "hours": {
+      "weekday": "08:30〜19:30",
+      "saturday": "08:30〜19:30",
+      "holiday": "08:30〜19:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年7月31日",
+    "name": "医療法人時和会 てらすなんば元町保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "556-0016",
+    "address": "大阪市浪速区元町2-3-19 TCAビル7F",
+    "operator": "医療法人 時和会",
+    "page": 90
+  },
+  "06-6630-6108": {
+    "wardTag": "(10浪速区)",
+    "phone": "06-6630-6108",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和7年6月1日",
+    "operator": "特定非営利活動法人あいうえお",
+    "name": "あいうえお なんば保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "556-0016",
+    "address": "大阪市浪速区元町1-9-6",
+    "page": 91
+  },
+  "06-6644-1350": {
+    "wardTag": "(10浪速区)",
+    "phone": "06-6644-1350",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00",
+      "holiday": "08:00〜19:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年1月31日",
+    "name": "OCAT保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "556-0017",
+    "address": "大阪市浪速区湊町1-4-1 OCATビル2F",
+    "operator": "株式会社RETOWN",
+    "page": 91
+  },
+  "06-4981-3514": {
+    "wardTag": "(10浪速区)",
+    "phone": "06-4981-3514",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年7月29日",
+    "name": "JAPAN保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "556-0022",
+    "address": "大阪市浪速区桜川2-4-6 青風ハイツ1F",
+    "operator": "株式会社JAPAN",
+    "page": 92
+  }
+}

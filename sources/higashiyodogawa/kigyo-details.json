@@ -1,0 +1,167 @@
+{
+  "06-7777-4771": {
+    "wardTag": "(13東淀川区)",
+    "phone": "06-7777-4771",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳児",
+    "freeOfCharge": true,
+    "startedOn": "令和6年1月31日",
+    "operator": "株式会社ファンデイト",
+    "name": "上新庄ひなた保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "533-0005",
+    "address": "大阪市東淀川区瑞光1-6-12",
+    "page": 103
+  },
+  "06-6829-2750": {
+    "wardTag": "(13東淀川区)",
+    "phone": "06-6829-2750",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年9月28日",
+    "name": "くるみ保育園 相川",
+    "type": "企業主導型保育事業",
+    "postalCode": "533-0007",
+    "address": "大阪市東淀川区相川2-11-4",
+    "operator": "株式会社グリーンプラス",
+    "page": 103
+  },
+  "06-6770-9864": {
+    "wardTag": "(13東淀川区)",
+    "phone": "06-6770-9864",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年9月28日",
+    "operator": "株式会社ソレイユ",
+    "name": "それいゆキッズ保育園＠大桐",
+    "type": "企業主導型保育事業",
+    "postalCode": "533-0011",
+    "address": "大阪市東淀川区大桐1-9-4 1F",
+    "page": 104
+  },
+  "06-6195-2268": {
+    "wardTag": "(13東淀川区)",
+    "phone": "06-6195-2268",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年8月31日",
+    "name": "ひまわり保育園 上新庄園",
+    "type": "企業主導型保育事業",
+    "postalCode": "533-0011",
+    "address": "大阪市東淀川区大桐2-19-8 1F",
+    "operator": "株式会社メディアソリューション",
+    "page": 105
+  },
+  "06-7161-1271": {
+    "wardTag": "(13東淀川区)",
+    "phone": "06-7161-1271",
+    "hours": {
+      "weekday": "09:00〜17:00",
+      "saturday": "09:00〜12:00"
+    },
+    "capacity": 14,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和5年3月31日",
+    "name": "ちいさなおひさま保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "533-0014",
+    "address": "大阪市東淀川区豊新1-10-15 メゾンドウボナール1階",
+    "operator": "株式会社KAMEI",
+    "page": 106
+  },
+  "06-6328-6079": {
+    "wardTag": "(13東淀川区)",
+    "phone": "06-6328-6079",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年3月31日",
+    "name": "菅原天満くすのき保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "533-0022",
+    "address": "大阪市東淀川区菅原2-5-47",
+    "operator": "学校法人 菅原天満宮学園",
+    "page": 107
+  },
+  "06-7164-6988": {
+    "wardTag": "(13東淀川区)",
+    "phone": "06-7164-6988",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年7月31日",
+    "operator": "株式会社MOOL h",
+    "name": "つばさ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "533-0022",
+    "address": "大阪市東淀川区菅原2-9-27",
+    "page": 107
+  },
+  "06-6328-8830": {
+    "wardTag": "(13東淀川区)",
+    "phone": "06-6328-8830",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 30,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和5年8月31日",
+    "name": "スマイルインターナショナルプリスクール 淡路校",
+    "type": "企業主導型保育事業",
+    "postalCode": "533-0032",
+    "address": "大阪市東淀川区淡路4-3-19 渡辺ビル1･2F",
+    "operator": "アットスマイル株式会社",
+    "page": 108
+  },
+  "06-6829-6940": {
+    "wardTag": "(13東淀川区)",
+    "phone": "06-6829-6940",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 66,
+    "monthlyUpTo": "就学前",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "name": "GreenHouse新大阪園",
+    "type": "企業主導型保育事業",
+    "postalCode": "533-0033",
+    "address": "大阪市東淀川区東中島2-23-30",
+    "operator": "株式会社カナモリコーポレーション",
+    "page": 108
+  }
+}

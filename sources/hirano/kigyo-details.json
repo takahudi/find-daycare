@@ -1,0 +1,151 @@
+{
+  "06-4305-4213": {
+    "wardTag": "(23平野区)",
+    "phone": "06-4305-4213",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年6月30日",
+    "name": "みんなのおうち保育園南館",
+    "type": "企業主導型保育事業",
+    "postalCode": "547-0011",
+    "address": "大阪市平野区長吉出戸7-12-10 ブリッジフィールド102号",
+    "operator": "社会福祉法人むぎの会",
+    "page": 155
+  },
+  "06-7709-0390": {
+    "wardTag": "(23平野区)",
+    "phone": "06-7709-0390",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年2月28日",
+    "operator": "株式会社チェリッシュ",
+    "name": "チェリッシュ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "547-0032",
+    "address": "大阪市平野区流町1-5-25 レクシア平野DUO101",
+    "page": 157
+  },
+  "06-6718-4105": {
+    "wardTag": "(23平野区)",
+    "phone": "06-6718-4105",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年12月27日",
+    "name": "なぎの木保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "547-0033",
+    "address": "大阪市平野区平野西1-2-8 GRAZZIARE平野西1階",
+    "operator": "なぎの木株式会社",
+    "page": 157
+  },
+  "06-4305-4506": {
+    "wardTag": "(23平野区)",
+    "phone": "06-4305-4506",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 30,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年7月30日",
+    "name": "ＭＯＳＨ ＬＡＮＤ",
+    "type": "企業主導型保育事業",
+    "postalCode": "547-0034",
+    "address": "大阪市平野区背戸口1-22-16 ヴェルデ瑞穂壱番館1Ｆ",
+    "operator": "株式会社モッシュ",
+    "page": 158
+  },
+  "06-6718-4124": {
+    "wardTag": "(23平野区)",
+    "phone": "06-6718-4124",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年7月31日",
+    "operator": "一般社団法人カンガルーママ",
+    "name": "ドルチェ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "547-0034",
+    "address": "大阪市平野区背戸口3-6-2 エレガントグリーンハイツ１階",
+    "page": 158
+  },
+  "06-4302-2931": {
+    "wardTag": "(23平野区)",
+    "phone": "06-4302-2931",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和8年4月1日",
+    "name": "カンガルーママ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "547-0034",
+    "address": "大阪市平野区背戸口3-4-14",
+    "operator": "一般社団法人カンガルーママ",
+    "page": 159
+  },
+  "06-6795-1020": {
+    "wardTag": "(23平野区)",
+    "phone": "06-6795-1020",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年8月31日",
+    "name": "オリーブ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "547-0041",
+    "address": "大阪市平野区平野北2-12-12",
+    "operator": "株式会社Bond",
+    "page": 159
+  },
+  "06-6777-1380": {
+    "wardTag": "(23平野区)",
+    "phone": "06-6777-1380",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00",
+      "holiday": "08:00〜19:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年9月30日",
+    "operator": "株式会社 楽笑",
+    "name": "ふぃーるど保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "547-0045",
+    "address": "大阪市平野区平野上町1-5-10 楽笑ビル2F",
+    "page": 160
+  }
+}

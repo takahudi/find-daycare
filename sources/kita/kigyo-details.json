@@ -1,0 +1,422 @@
+{
+  "06-6292-4040": {
+    "wardTag": "(01北区)",
+    "phone": "06-6292-4040",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "postalCode": "530-0022",
+    "address": "大阪市北区浪花町14-34 アジュレーブ天六1階",
+    "startedOn": "令和元年5月14日",
+    "operator": "株式会社AEG 月極あり 2ヶ月 一時保育あり",
+    "name": "一時保育あり 2ヶ月",
+    "type": "企業主導型保育事業",
+    "page": 6
+  },
+  "06-6358-4613": {
+    "wardTag": "(01北区)",
+    "phone": "06-6358-4613",
+    "hours": {
+      "weekday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "postalCode": "530-0035",
+    "address": "大阪市北区同心1-6-27",
+    "startedOn": "平成30年4月1日",
+    "operator": "株式会社 千趣会",
+    "name": "えがおの種 保育園",
+    "type": "企業主導型保育事業",
+    "page": 7
+  },
+  "06-6585-0921": {
+    "wardTag": "(01北区)",
+    "phone": "06-6585-0921",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年7月31日",
+    "operator": "株式会社ReBORN",
+    "name": "同心なないろ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0035",
+    "address": "大阪市北区同心2-5-16 岡本ビル1F",
+    "page": 8
+  },
+  "06-6352-7610": {
+    "wardTag": "(01北区)",
+    "phone": "06-6352-7610",
+    "hours": {
+      "weekday": "08:00〜18:00",
+      "saturday": "08:00〜17:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年3月30日",
+    "operator": "合同会社H style",
+    "name": "同心ぴーす保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0035",
+    "address": "大阪市北区同心1-7-13 ヒルズ扇町101号",
+    "page": 8
+  },
+  "06-6809-5006": {
+    "wardTag": "(01北区)",
+    "phone": "06-6809-5006",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 8,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年9月28日",
+    "operator": "株式会社 Laulau703",
+    "name": "らうらう ベビールーム",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0035",
+    "address": "大阪市北区同心2-2-16 １F",
+    "page": 9
+  },
+  "06-7710-2646": {
+    "wardTag": "(01北区)",
+    "phone": "06-7710-2646",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 27,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和5年11月30日",
+    "operator": "株式会社 フジオチャイルド",
+    "name": "フジオ ひまわり保育園松ヶ枝町",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0037",
+    "address": "大阪市北区松ヶ枝町7-7",
+    "page": 10
+  },
+  "06-6949-8338": {
+    "wardTag": "(01北区)",
+    "phone": "06-6949-8338",
+    "hours": {
+      "weekday": "08:00〜18:00",
+      "saturday": "08:00〜17:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年10月31日",
+    "operator": "合同会社H style",
+    "name": "南森町ぴーす保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0038",
+    "address": "大阪市北区紅梅町2-2 カザリーノⅡ201",
+    "page": 10
+  },
+  "06-6948-8385": {
+    "wardTag": "(01北区)",
+    "phone": "06-6948-8385",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年7月30日",
+    "operator": "株式会社アビメディカル",
+    "name": "アクア保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0041",
+    "address": "大阪市北区天神橋4-7-5 扇町ダイヤモンドビル1,2階",
+    "page": 11
+  },
+  "06-6355-0115": {
+    "wardTag": "(01北区)",
+    "phone": "06-6355-0115",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 11,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "operator": "株式会社Eikyu",
+    "name": "天満いるか保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0043",
+    "address": "大阪市北区天満2-12-14",
+    "page": 12
+  },
+  "06-4792-8762": {
+    "wardTag": "(01北区)",
+    "phone": "06-4792-8762",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 23,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年1月31日",
+    "operator": "株式会社 フジオチャイルド",
+    "name": "フジオ ひまわり保育園天満",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0043",
+    "address": "大阪市北区天満2-7-11 サンバレー天満1F",
+    "page": 12
+  },
+  "06-6949-8693": {
+    "wardTag": "(01北区)",
+    "phone": "06-6949-8693",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年2月28日",
+    "operator": "株式会社にじのとり",
+    "name": "ななつぼし保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0044",
+    "address": "大阪市北区東天満1-6-8 ラシーヌ東天満1F",
+    "page": 13
+  },
+  "06-6881-3808": {
+    "wardTag": "(01北区)",
+    "phone": "06-6881-3808",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 20,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年7月30日",
+    "operator": "株式会社ノースリバー",
+    "name": "東天満ゆずのき保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0044",
+    "address": "大阪市北区東天満2-10-41 １F",
+    "page": 13
+  },
+  "06-6355-4799": {
+    "wardTag": "(01北区)",
+    "phone": "06-6355-4799",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30",
+      "holiday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年6月28日",
+    "operator": "株式会社EXY",
+    "name": "企業主導型保育園COCOROHOIKUEN中之島園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0046",
+    "address": "大阪市北区菅原町9-16 天神橋Ｒ＆Ｔビル１F",
+    "page": 14
+  },
+  "06-4792-7548": {
+    "wardTag": "(01北区)",
+    "phone": "06-4792-7548",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年8月31日",
+    "operator": "株式会社スプラウト",
+    "name": "みなみの森保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0047",
+    "address": "大阪市北区西天満3-3-21 レジディア西天満1F",
+    "page": 14
+  },
+  "06-6484-9480": {
+    "wardTag": "(01北区)",
+    "phone": "06-6484-9480",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00",
+      "holiday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳11ヶ月",
+    "freeOfCharge": true,
+    "startedOn": "令和2年1月31日",
+    "operator": "特定非営利活動法人 和音",
+    "name": "令和保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0047",
+    "address": "大阪市北区西天満5-9-11 総合西天満ビル1F",
+    "page": 15
+  },
+  "06-6948-8317": {
+    "wardTag": "(01北区)",
+    "phone": "06-6948-8317",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 33,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年6月29日",
+    "operator": "株式会社 フジオチャイルド",
+    "name": "フジオひまわり保育園西天満",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0047",
+    "address": "大阪市北区西天満6-3-16 梅田ステートビル1階",
+    "page": 15
+  },
+  "06-6755-4642": {
+    "wardTag": "(01北区)",
+    "phone": "06-6755-4642",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 29,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年3月31日",
+    "operator": "株式会社チックアンドヘン",
+    "name": "西天満保育園 和音",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0047",
+    "address": "大阪市北区西天満5-9-3 アールビル1階",
+    "page": 16
+  },
+  "06-4392-7663": {
+    "wardTag": "(01北区)",
+    "phone": "06-4392-7663",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年10月31日",
+    "operator": "株式会社M-adjust",
+    "name": "つくし保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "530-0056",
+    "address": "大阪市北区兎我野町4-21 Comenz梅田1F",
+    "page": 18
+  },
+  "06-4800-1535": {
+    "wardTag": "(01北区)",
+    "phone": "06-4800-1535",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 30,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年8月30日",
+    "operator": "株式会社リアリノ",
+    "name": "りありのきっず 大阪",
+    "type": "企業主導型保育事業",
+    "postalCode": "531-0041",
+    "address": "大阪市北区天神橋7-12-6",
+    "page": 19
+  },
+  "06-4792-7430": {
+    "wardTag": "(01北区)",
+    "phone": "06-4792-7430",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年11月29日",
+    "operator": "合同会社 COLORS",
+    "name": "ＣＯＬＯＲＳ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "531-0061",
+    "address": "大阪市北区長柄西1-3-20",
+    "page": 19
+  },
+  "06-6147-4522": {
+    "wardTag": "(01北区)",
+    "phone": "06-6147-4522",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年7月31日",
+    "operator": "合同会社ウェイラーズ",
+    "name": "どんぐり保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "531-0074",
+    "address": "大阪市北区本庄東2-15-14 天六ビューハイツ103",
+    "page": 20
+  },
+  "06-6377-6780": {
+    "wardTag": "(01北区)",
+    "phone": "06-6377-6780",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和5年8月31日",
+    "operator": "株式会社リンクス",
+    "name": "フェアリーガーデン",
+    "type": "企業主導型保育事業",
+    "postalCode": "531-0074",
+    "address": "大阪市北区本庄東2-2-30 WISH大阪ビル1F",
+    "page": 20
+  },
+  "06-6345-0567": {
+    "wardTag": "(01北区)",
+    "phone": "06-6345-0567",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年8月31日",
+    "operator": "学校法人 平成医療学園",
+    "name": "平成保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "531-0075",
+    "address": "大阪市北区大淀南1-3-11 ランドマーク新梅田シティ2階",
+    "page": 21
+  }
+}

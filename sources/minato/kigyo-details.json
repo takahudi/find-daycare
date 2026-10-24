@@ -1,0 +1,77 @@
+{
+  "06-6539-8484": {
+    "wardTag": "(07港区)",
+    "phone": "06-6539-8484",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00",
+      "holiday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年2月28日",
+    "operator": "株式会社EXY",
+    "name": "企業主導型保育園COCOROHOIKUEN弁天町園",
+    "type": "企業主導型保育事業",
+    "postalCode": "552-0002",
+    "address": "大阪市港区市岡元町2-11-30",
+    "page": 71
+  },
+  "080-7419-5297": {
+    "wardTag": "(07港区)",
+    "phone": "080-7419-5297",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年8月31日",
+    "name": "弁天町いちご保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "552-0003",
+    "address": "大阪市港区磯路2-1-2-201",
+    "operator": "asse株式会社",
+    "page": 72
+  },
+  "06-4394-7923": {
+    "wardTag": "(07港区)",
+    "phone": "06-4394-7923",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年8月31日",
+    "name": "手をつなごうあおき保育園みなと",
+    "type": "企業主導型保育事業",
+    "postalCode": "552-0003",
+    "address": "大阪市港区磯路2-1-2 ボンジュールアマデウス1F",
+    "operator": "一般社団法人HoldHandsGroupKB",
+    "page": 72
+  },
+  "06-6575-9554": {
+    "wardTag": "(07港区)",
+    "phone": "06-6575-9554",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年7月29日",
+    "name": "KID ACADEMY NURSERY 朝潮橋園",
+    "type": "企業主導型保育事業",
+    "postalCode": "552-0014",
+    "address": "大阪市港区八幡屋1-1-5 デイズハイツ朝潮橋101",
+    "operator": "マグチグループ株式会社",
+    "page": 73
+  }
+}

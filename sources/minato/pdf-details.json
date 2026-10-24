@@ -1,0 +1,459 @@
+{
+  "07-isoji.pdf": {
+    "kana": "おおさかしりついそじほいくしょ",
+    "capacity": {
+      "total": 99,
+      "byAge": [
+        3,
+        10,
+        12,
+        20,
+        26,
+        28
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "休日保育",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "1973年4月1日"
+  },
+  "7-tanaka.pdf": {
+    "kana": "たなかほいくしょ",
+    "capacity": {
+      "total": 120,
+      "byAge": [
+        6,
+        12,
+        21,
+        27,
+        27,
+        27
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": "https://junpu-kai.or.jp/facility/detail/facility_child6.php",
+    "approvedOn": "1974年7月1日"
+  },
+  "h7-1-ajigawa.pdf": {
+    "kana": "あじがわほいくえん",
+    "capacity": {
+      "total": 138,
+      "byAge": [
+        0,
+        0,
+        30,
+        34,
+        36,
+        38
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜18:00",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": null,
+    "approvedOn": "1979年4月1日"
+  },
+  "h7-10-dai2zenjien.pdf": {
+    "kana": "だいにぜんじえん",
+    "capacity": {
+      "total": 89,
+      "byAge": [
+        6,
+        13,
+        16,
+        18,
+        18,
+        18
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2014年9月1日"
+  },
+  "h7-11-harappa.pdf": {
+    "kana": "はらっぱしゃ",
+    "capacity": {
+      "total": 63,
+      "byAge": [
+        4,
+        7,
+        7,
+        15,
+        15,
+        15
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2017年4月1日"
+  },
+  "h7-12-ureshiibententyou.pdf": {
+    "kana": "うれしいほいくえんべんてんちょう",
+    "capacity": {
+      "total": 70,
+      "byAge": [
+        6,
+        10,
+        12,
+        14,
+        14,
+        14
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2024年9月1日"
+  },
+  "h7-12-yahatayayuyu.pdf": {
+    "kana": "やはたやゆうゆうほいくえん",
+    "capacity": {
+      "total": 106,
+      "byAge": [
+        6,
+        12,
+        18,
+        20,
+        25,
+        25
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "一時預かり",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2026年1月1日"
+  },
+  "h7-2-asoka.pdf": {
+    "kana": "あそかがくえん",
+    "capacity": {
+      "total": 236,
+      "byAge": [
+        3,
+        12,
+        31,
+        62,
+        64,
+        64
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜12:00",
+    "services": [
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1954年6月29日"
+  },
+  "h7-3-ikejima.pdf": {
+    "kana": "いけじまほいくえん",
+    "capacity": {
+      "total": 110,
+      "byAge": [
+        6,
+        18,
+        20,
+        20,
+        23,
+        23
+      ]
+    },
+    "weekday": "07:00〜18:00",
+    "saturday": "07:00〜18:00",
+    "services": [
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1971年3月1日"
+  },
+  "h7-4-zenjien.pdf": {
+    "kana": "ぜんじえん",
+    "capacity": {
+      "total": 124,
+      "byAge": [
+        3,
+        20,
+        23,
+        26,
+        26,
+        26
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "一時預かり",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1976年4月1日"
+  },
+  "h7-5-chikkou.pdf": {
+    "kana": "ちっこうほいくえん",
+    "capacity": {
+      "total": 51,
+      "byAge": [
+        3,
+        6,
+        10,
+        10,
+        10,
+        12
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜16:00",
+    "services": [
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1974年2月1日"
+  },
+  "h7-7-nichirin.pdf": {
+    "kana": "にちりんがくえんほいくしょ",
+    "capacity": {
+      "total": 282,
+      "byAge": [
+        12,
+        36,
+        54,
+        60,
+        60,
+        60
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1956年10月18日"
+  },
+  "h7-8-minatonyuji.pdf": {
+    "kana": "みなとにゅうじほいくせんたー",
+    "capacity": {
+      "total": 62,
+      "byAge": [
+        8,
+        27,
+        27,
+        0,
+        0,
+        0
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1974年7月1日"
+  },
+  "h7-9-minato.pdf": {
+    "kana": "みなとほいくしょ",
+    "capacity": {
+      "total": 139,
+      "byAge": [
+        0,
+        0,
+        13,
+        42,
+        42,
+        42
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1966年4月11日"
+  },
+  "k7-1-namiyoke.pdf": {
+    "kana": "にんていこどもえんなみよけがくえん",
+    "capacity": {
+      "total": 170,
+      "byAge": [
+        17,
+        20,
+        30,
+        33,
+        35,
+        35
+      ]
+    },
+    "note": "認可定員は1号6人＋2号・3号164人。",
+    "weekday": "07:00〜20:00",
+    "saturday": "07:00〜18:00",
+    "services": [
+      "延長保育",
+      "一時預かり",
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": "https://junpu-kai.or.jp/facility/detail/facility_child2.php",
+    "approvedOn": "2019年4月1日"
+  },
+  "t7-1-kiraramotomachi.pdf": {
+    "kana": "きららもとまちほいくえん",
+    "capacity": {
+      "total": 10,
+      "byAge": [
+        3,
+        3,
+        4
+      ]
+    },
+    "weekday": "08:00〜19:00",
+    "saturday": "08:00〜19:00",
+    "services": [],
+    "url": null,
+    "approvedOn": "2015年4月1日"
+  },
+  "t7-2-kazenooka.pdf": {
+    "kana": "かぜのおかほいくえん",
+    "capacity": {
+      "total": 10,
+      "byAge": [
+        1,
+        2,
+        7
+      ]
+    },
+    "weekday": "08:00〜18:00",
+    "saturday": "08:00〜18:00",
+    "services": [],
+    "url": null,
+    "approvedOn": "2015年4月1日"
+  },
+  "t7-3-banbi.pdf": {
+    "kana": "ばんびほいくしょ",
+    "capacity": {
+      "total": 10,
+      "byAge": [
+        1,
+        4,
+        5
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2015年4月1日"
+  },
+  "t7-4-kingdomkidsisoji.pdf": {
+    "kana": "きんぐだむ・きっずいそじ",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        5,
+        7,
+        7
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": "https://www.kingdomkids-nursery.jp/isoji/",
+    "approvedOn": "2015年4月1日"
+  },
+  "t7-5-harappaaiai.pdf": {
+    "kana": "はらっぱしゃあいあい",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        4,
+        7,
+        8
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2016年4月1日"
+  },
+  "t7-6-himawariminato.pdf": {
+    "kana": "ひまわりほいくえんみなと",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        5,
+        7,
+        7
+      ]
+    },
+    "weekday": "07:00〜20:00",
+    "saturday": "07:00〜20:00",
+    "services": [],
+    "url": null,
+    "approvedOn": "2018年7月1日"
+  },
+  "t7-7-yoikoen.pdf": {
+    "kana": "よいこえん",
+    "capacity": {
+      "total": 12,
+      "byAge": [
+        3,
+        4,
+        5
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [],
+    "url": null,
+    "approvedOn": "2018年4月1日"
+  },
+  "t7-8-minnanosatominato.pdf": {
+    "kana": "みんなのさとみなとほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        2,
+        8,
+        9
+      ]
+    },
+    "weekday": "07:30〜19:00",
+    "saturday": "07:30〜19:00",
+    "services": [],
+    "url": null,
+    "approvedOn": "2023年4月1日"
+  }
+}

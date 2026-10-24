@@ -1,0 +1,4 @@
+{
+  "_comment": "キーは施設名（NFKC正規化・空白除去）。此花区役所の資料には公式サイトの記載がないため、市の施設基本情報PDFの「施設URL」欄を使う。ここではそれを補正する施設だけを書く。2026-10-23確認。",
+  "キングダム・キッズ春日出": { "url": "https://www.kingdomkids-nursery.jp/kasugade/", "label": "公式サイト（市の基本情報PDFのURL https://www.kingdomkids-nursery.jp/kasugade/index.html は2026-10-23時点で存在しないドメインへ転送されるため、運営法人サイト上の施設ページ。所在地・電話番号が一致）" }
+}

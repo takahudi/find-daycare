@@ -1,0 +1,20 @@
+{
+  "06-6467-8385": {
+    "wardTag": "(04此花区)",
+    "phone": "06-6467-8385",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "あっぷる保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "554-0002",
+    "address": "大阪市此花区伝法2-4-16",
+    "startedOn": "令和元年8月10日",
+    "operator": "医療法人 徳旺会 長谷川歯科医院",
+    "page": 32
+  }
+}

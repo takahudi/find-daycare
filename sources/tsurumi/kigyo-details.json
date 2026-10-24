@@ -1,0 +1,77 @@
+{
+  "06-4258-6988": {
+    "wardTag": "(18鶴見区)",
+    "phone": "06-4258-6988",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年2月28日",
+    "name": "放出まほろ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "538-0044",
+    "address": "大阪市鶴見区放出東3-6-20",
+    "operator": "株式会社ハピネスライフ",
+    "page": 126
+  },
+  "06-6914-6005": {
+    "wardTag": "(18鶴見区)",
+    "phone": "06-6914-6005",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年8月31日",
+    "operator": "特定非営利活動法人ちいさいほいくえんみんなの里",
+    "name": "みんなの里っこほいくえん",
+    "type": "企業主導型保育事業",
+    "postalCode": "538-0052",
+    "address": "大阪市鶴見区横堤5-13-41 だるま園1階",
+    "page": 127
+  },
+  "06-6913-6578": {
+    "wardTag": "(18鶴見区)",
+    "phone": "06-6913-6578",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年4月28日",
+    "name": "ぴじょんがーでん保育園 優",
+    "type": "企業主導型保育事業",
+    "postalCode": "538-0052",
+    "address": "大阪市鶴見区横堤1-5-43",
+    "operator": "株式会社プレス技術研究所",
+    "page": 127
+  },
+  "06-6780-4763": {
+    "wardTag": "(18鶴見区)",
+    "phone": "06-6780-4763",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年8月31日",
+    "name": "みらいきっず今福鶴見園",
+    "type": "企業主導型保育事業",
+    "postalCode": "538-0053",
+    "address": "大阪市鶴見区鶴見5-5-5",
+    "operator": "一般社団法人ミライツナグ創造社",
+    "page": 129
+  }
+}

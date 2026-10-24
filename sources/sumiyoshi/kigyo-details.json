@@ -1,0 +1,166 @@
+{
+  "06-6629-8640": {
+    "wardTag": "(21住吉区)",
+    "phone": "06-6629-8640",
+    "hours": {
+      "weekday": "07:15〜20:15",
+      "saturday": "07:15〜20:15",
+      "holiday": "07:15〜20:15"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年7月30日",
+    "operator": "株式会社すまいる",
+    "name": "すまいる保育園長居",
+    "type": "企業主導型保育事業",
+    "postalCode": "558-0003",
+    "address": "大阪市住吉区長居3-7-3 ソニード長居公園1階",
+    "page": 142
+  },
+  "06-4703-3672": {
+    "wardTag": "(21住吉区)",
+    "phone": "06-4703-3672",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30",
+      "holiday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年6月29日",
+    "name": "H2Oほいくえん あびこ",
+    "type": "企業主導型保育事業",
+    "postalCode": "558-0013",
+    "address": "大阪市住吉区我孫子東2-5-15",
+    "operator": "エイチ・ツー・オー リテイリング株式会社",
+    "page": 142
+  },
+  "06-6654-8788": {
+    "wardTag": "(21住吉区)",
+    "phone": "06-6654-8788",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年3月31日",
+    "name": "Ｋｉｄ’ｓ＆Ｍｏｒｅ杉本保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "558-0022",
+    "address": "大阪市住吉区杉本2-30-5",
+    "operator": "社会福祉法人檸檬会",
+    "page": 143
+  },
+  "06-7890-7552": {
+    "wardTag": "(21住吉区)",
+    "phone": "06-7890-7552",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年2月28日",
+    "name": "かけはし保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "558-0023",
+    "address": "大阪市住吉区山之内1-25-15 プロスド住吉1階",
+    "operator": "株式会社ウェルフェアライフ",
+    "page": 144
+  },
+  "06-6698-7500": {
+    "wardTag": "(21住吉区)",
+    "phone": "06-6698-7500",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年6月30日",
+    "operator": "株式会社NSA",
+    "name": "なでちゃん保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "558-0023",
+    "address": "大阪市住吉区山之内3-3-12 中川ビル2階",
+    "page": 145
+  },
+  "06-6690-7909": {
+    "wardTag": "(21住吉区)",
+    "phone": "06-6690-7909",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 30,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年7月30日",
+    "name": "ＡＮＩＭＡＤＯ ＬＡＮＤ",
+    "type": "企業主導型保育事業",
+    "postalCode": "558-0033",
+    "address": "大阪市住吉区清水丘2-3-6 グリオコート1F",
+    "operator": "株式会社clover",
+    "page": 145
+  },
+  "06-7181-8215": {
+    "wardTag": "(21住吉区)",
+    "phone": "06-7181-8215",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "08:00〜16:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年8月30日",
+    "name": "オレンジ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "558-0041",
+    "address": "大阪市住吉区南住吉4-5-3 ライフィン南住吉1F",
+    "operator": "株式会社 ネクストフロンティア",
+    "page": 146
+  },
+  "06-6627-9081": {
+    "wardTag": "(21住吉区)",
+    "phone": "06-6627-9081",
+    "hours": {
+      "weekday": "07:30〜18:30"
+    },
+    "capacity": 17,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "name": "まま保育園帝塚山",
+    "type": "企業主導型保育事業",
+    "postalCode": "558-0053",
+    "address": "大阪市住吉区帝塚山中3-5-9 グランドリーム帝塚山1F",
+    "operator": "株式会社オーナーズ",
+    "page": 147
+  },
+  "06-6569-9840": {
+    "wardTag": "(21住吉区)",
+    "phone": "06-6569-9840",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 28,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年9月28日",
+    "name": "オズ保育園帝塚山",
+    "type": "企業主導型保育事業",
+    "postalCode": "558-0054",
+    "address": "大阪市住吉区帝塚山東3-8-20",
+    "operator": "株式会社OZ",
+    "page": 147
+  }
+}

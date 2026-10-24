@@ -1,0 +1,569 @@
+{
+  "06-6479-1154": {
+    "wardTag": "(06西区)",
+    "phone": "06-6479-1154",
+    "hours": {
+      "weekday": "08:30〜18:00",
+      "saturday": "08:30〜18:00"
+    },
+    "capacity": 49,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "name": "蓮美幼児学園 京町堀ナーサリースクール",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0003",
+    "address": "大阪市西区京町堀3-5-6",
+    "startedOn": "平成31年4月1日",
+    "operator": "大阪トヨペット株式会社",
+    "page": 49
+  },
+  "06-6940-7569": {
+    "wardTag": "(06西区)",
+    "phone": "06-6940-7569",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 44,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "name": "いづる保育園 うつぼ園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0004",
+    "address": "大阪市西区靱本町2-2-12 GLASHAUS 1F",
+    "startedOn": "令和3年3月3日",
+    "operator": "株式会社シェンゲン",
+    "page": 51
+  },
+  "06-4300-5235": {
+    "wardTag": "(06西区)",
+    "phone": "06-4300-5235",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "08:00〜18:00",
+      "holiday": "09:00〜18:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "KID ACADEMY NURSERY 靱本町園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0004",
+    "address": "大阪市西区靱本町3-1-17",
+    "startedOn": "令和元年5月1日",
+    "operator": "株式会社スーパーホテルクリーン",
+    "page": 52
+  },
+  "06-7166-0575": {
+    "wardTag": "(06西区)",
+    "phone": "06-7166-0575",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 40,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "name": "本町おひさま保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0004",
+    "address": "大阪市西区靭本町1-6-3 6F",
+    "startedOn": "平成31年3月1日",
+    "operator": "株式会社ユニクエスト",
+    "page": 52
+  },
+  "06-6447-7011": {
+    "wardTag": "(06西区)",
+    "phone": "06-6447-7011",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "キッズルーム京町堀",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0004",
+    "address": "大阪市西区靱本町3-5-23",
+    "startedOn": "平成30年4月2日",
+    "operator": "堀江木工株式会社",
+    "page": 53
+  },
+  "06-6147-6603": {
+    "wardTag": "(06西区)",
+    "phone": "06-6147-6603",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "くれよんきっず保育園 うつぼ南園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0004",
+    "address": "大阪市西区靭本町1-15-1 リバーライズ靭本町ビル1･2F",
+    "startedOn": "平成29年10月2日",
+    "operator": "株式会社ロピ",
+    "page": 53
+  },
+  "06-6131-9282": {
+    "wardTag": "(06西区)",
+    "phone": "06-6131-9282",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "name": "くれよんきっず保育園 うつぼ東園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0004",
+    "address": "大阪市西区靭本町1-7-17 ラシーヌ四ツ橋1･2F",
+    "startedOn": "平成29年4月1日",
+    "operator": "合同会社M3 office",
+    "page": 54
+  },
+  "06-6441-0872": {
+    "wardTag": "(06西区)",
+    "phone": "06-6441-0872",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "name": "ロータスナーサリー靭公園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0004",
+    "address": "大阪市西区靭本町2-5-12 靭公園プライマリーワン1F",
+    "startedOn": "平成29年4月1日",
+    "operator": "一般社団法人メッター",
+    "page": 54
+  },
+  "06-6585-9780": {
+    "wardTag": "(06西区)",
+    "phone": "06-6585-9780",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 13,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "あいのて保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0005",
+    "address": "大阪市西区西本町1-15-24 マリビル1階",
+    "startedOn": "平成29年8月21日",
+    "operator": "有限会社LIFE STAGE",
+    "page": 55
+  },
+  "06-6445-3555": {
+    "wardTag": "(06西区)",
+    "phone": "06-6445-3555",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "アリス保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0006",
+    "address": "大阪市西区江之子島1-1-9-114",
+    "startedOn": "平成29年4月1日",
+    "operator": "株式会社アーバンプラネット",
+    "page": 56
+  },
+  "06-6684-9372": {
+    "wardTag": "(06西区)",
+    "phone": "06-6684-9372",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00",
+      "holiday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "栞保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0012",
+    "address": "大阪市西区立売堀5-6-28",
+    "startedOn": "令和元年5月1日",
+    "operator": "共同産業株式会社",
+    "page": 57
+  },
+  "06-4394-7665": {
+    "wardTag": "(06西区)",
+    "phone": "06-4394-7665",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 30,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "SunnySide新町園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0013",
+    "address": "大阪市西区新町1-25-17 新町フィルパーク2階",
+    "startedOn": "平成30年3月1日",
+    "operator": "株式会社マカロンベビー",
+    "page": 59
+  },
+  "06-6539-8484": {
+    "wardTag": "(06西区)",
+    "phone": "06-6539-8484",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30",
+      "holiday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "企業主導型保育園COCOROHOIKUEN新町園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0013",
+    "address": "大阪市西区新町1-19-3 サンライズ新町ビル1･2F",
+    "startedOn": "平成29年10月10日",
+    "operator": "株式会社EXY",
+    "page": 59
+  },
+  "06-6541-2210": {
+    "wardTag": "(06西区)",
+    "phone": "06-6541-2210",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30",
+      "holiday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "北堀江つぐみ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0014",
+    "address": "大阪市西区北堀江1-5-8 StoRK北堀江1階",
+    "startedOn": "令和3年4月30日",
+    "operator": "株式会社iDA",
+    "page": 61
+  },
+  "06-6537-9333": {
+    "wardTag": "(06西区)",
+    "phone": "06-6537-9333",
+    "hours": {
+      "weekday": "08:30〜19:30",
+      "saturday": "08:30〜19:30",
+      "holiday": "08:30〜19:30"
+    },
+    "capacity": 30,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "ふり～保育園 四ツ橋園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0014",
+    "address": "大阪市西区北堀江1-1-7 四ツ橋日生ビル101",
+    "startedOn": "平成30年1月22日",
+    "operator": "有限会社 casa・mari",
+    "page": 61
+  },
+  "06-6585-7817": {
+    "wardTag": "(06西区)",
+    "phone": "06-6585-7817",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 27,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "name": "グローバル南堀江第２保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江1-15-9 南堀江コレット201",
+    "startedOn": "令和3年3月29日",
+    "operator": "大阪グローバル株式会社",
+    "page": 64
+  },
+  "06-4400-2200": {
+    "wardTag": "(06西区)",
+    "phone": "06-4400-2200",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 18,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "ひじり保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江4-10-9 パークヴィレッジ南堀江201",
+    "startedOn": "平成28年8月7日",
+    "operator": "株式会社白石",
+    "page": 63
+  },
+  "06-7659-4598": {
+    "wardTag": "(06西区)",
+    "phone": "06-7659-4598",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 27,
+    "monthlyUpTo": "就学前",
+    "freeOfCharge": true,
+    "name": "医療法人時和会 てらす南堀江保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江2-9-27 PEACE南堀江0001",
+    "startedOn": "令和4年3月23日",
+    "operator": "医療法人 時和会",
+    "page": 63
+  },
+  "06-6541-2552": {
+    "wardTag": "(06西区)",
+    "phone": "06-6541-2552",
+    "hours": {
+      "weekday": "07:00〜18:00",
+      "saturday": "07:00〜18:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "PEEK A BOO 保育園南堀江",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江2-12-11",
+    "startedOn": "令和元年5月7日",
+    "operator": "株式会社クラフト・ワークス",
+    "page": 64
+  },
+  "06-6538-8180": {
+    "wardTag": "(06西区)",
+    "phone": "06-6538-8180",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "name": "第２堀江やまびこ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江2-9-13 8STAR BLD. 1F",
+    "startedOn": "平成31年3月25日",
+    "operator": "株式会社M.I.Partners",
+    "page": 65
+  },
+  "06-4391-3760": {
+    "wardTag": "(06西区)",
+    "phone": "06-4391-3760",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 18,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "ニチイキッズ南堀江保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江1-4-14 銀泉道頓堀ビル2階",
+    "startedOn": "平成30年8月1日",
+    "operator": "株式会社ニチイ学館",
+    "page": 65
+  },
+  "06-4390-4152": {
+    "wardTag": "(06西区)",
+    "phone": "06-4390-4152",
+    "hours": {
+      "weekday": "08:30〜18:00"
+    },
+    "capacity": 10,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年8月31日",
+    "name": "蓮美幼児学園 南堀江プリメール",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江4-24-18",
+    "operator": "医療法人 敬英会",
+    "page": 66
+  },
+  "06-6626-9017": {
+    "wardTag": "(06西区)",
+    "phone": "06-6626-9017",
+    "hours": {
+      "weekday": "08:00〜19:00"
+    },
+    "capacity": 18,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "ポピンズナーサリースクールなんば すみせいキッズ",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江1-18-4 OsakaMetro南堀江ビル5F",
+    "startedOn": "平成30年10月31日",
+    "operator": "株式会社ポピンズエデュケア",
+    "page": 66
+  },
+  "06-6538-8080": {
+    "wardTag": "(06西区)",
+    "phone": "06-6538-8080",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "operator": "株式会社M.I.Partners",
+    "name": "堀江やまびこ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江3-8-8 ビーバープレイス南堀江1F･2F",
+    "startedOn": "平成30年3月28日",
+    "page": 67
+  },
+  "06-6556-6323": {
+    "wardTag": "(06西区)",
+    "phone": "06-6556-6323",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00",
+      "holiday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年7月31日",
+    "name": "企業主導型保育園COCOROHOIKUEN南堀江園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江3-7-12 エムテック南堀江1階",
+    "operator": "株式会社EXY",
+    "page": 67
+  },
+  "06-6532-3017": {
+    "wardTag": "(06西区)",
+    "phone": "06-6532-3017",
+    "hours": {
+      "weekday": "07:30〜18:30"
+    },
+    "capacity": 14,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成29年10月31日",
+    "name": "ソフィア南堀江プリモ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0015",
+    "address": "大阪市西区南堀江3-13-5 1階",
+    "operator": "社会福祉法人みやび",
+    "page": 68
+  },
+  "06-6585-2360": {
+    "wardTag": "(06西区)",
+    "phone": "06-6585-2360",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 108,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年2月28日",
+    "operator": "株式会社Bell Kids",
+    "name": "Bell kids保育園西区",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0021",
+    "address": "大阪市西区川口2-4-2 1･2階",
+    "page": 68
+  },
+  "06-7777-1229": {
+    "wardTag": "(06西区)",
+    "phone": "06-7777-1229",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年11月29日",
+    "name": "ここえみ保育園大阪西",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0022",
+    "address": "大阪市西区本田2-1-39",
+    "operator": "東食品株式会社",
+    "page": 69
+  },
+  "06-6581-5188": {
+    "wardTag": "(06西区)",
+    "phone": "06-6581-5188",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 30,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年1月31日",
+    "operator": "株式会社 すきっぷ",
+    "name": "九条の星保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0022",
+    "address": "大阪市西区本田2-5-23 レジュールアッシュウエスト1階",
+    "page": 70
+  },
+  "06-6648-8823": {
+    "wardTag": "(06西区)",
+    "phone": "06-6648-8823",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年12月28日",
+    "name": "オハナ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0023",
+    "address": "大阪市西区千代崎2-4-11センチュリー千代崎1F",
+    "operator": "株式会社ウエスト",
+    "page": 70
+  },
+  "06-6643-9177": {
+    "wardTag": "(06西区)",
+    "phone": "06-6643-9177",
+    "hours": {
+      "weekday": "07:00〜18:00",
+      "saturday": "08:00〜18:00"
+    },
+    "capacity": 18,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "name": "クラウン保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "550-0024",
+    "address": "大阪市西区境川1-1-31-6F",
+    "operator": "ゼンスイシステム株式会社",
+    "page": 71
+  }
+}

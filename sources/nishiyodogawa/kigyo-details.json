@@ -1,0 +1,109 @@
+{
+  "06-7164-0047": {
+    "wardTag": "(11西淀川区)",
+    "phone": "06-7164-0047",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年8月31日",
+    "operator": "NPO法人おひさま",
+    "name": "企業主導型保育所ゆりかごハウス",
+    "type": "企業主導型保育事業",
+    "postalCode": "555-0001",
+    "address": "大阪市西淀川区佃3-15-4 幼老複合施設おひさまハウス2･3階",
+    "page": 92
+  },
+  "06-7164-6247": {
+    "wardTag": "(11西淀川区)",
+    "phone": "06-7164-6247",
+    "hours": {
+      "weekday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "name": "企業主導型保育所ゆりかご佃",
+    "type": "企業主導型保育事業",
+    "postalCode": "555-0001",
+    "address": "大阪市西淀川区佃2-5-24-102",
+    "operator": "NPO法人おひさま",
+    "page": 93
+  },
+  "06-6478-5556": {
+    "wardTag": "(11西淀川区)",
+    "phone": "06-6478-5556",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年11月30日",
+    "name": "保育園ドルフィンキッズランド",
+    "type": "企業主導型保育事業",
+    "postalCode": "555-0012",
+    "address": "大阪市西淀川区御幣島6-17-16",
+    "operator": "株式会社ビジネスジャパンエキスプレス",
+    "page": 93
+  },
+  "06-6473-7088": {
+    "wardTag": "(11西淀川区)",
+    "phone": "06-6473-7088",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年8月31日",
+    "operator": "株式会社ロピ",
+    "name": "くれよんきっず保育園塚本園",
+    "type": "企業主導型保育事業",
+    "postalCode": "555-0022",
+    "address": "大阪市西淀川区柏里2-1-23 クインテス塚本1Ｆ",
+    "page": 94
+  },
+  "06-7709-5241": {
+    "wardTag": "(11西淀川区)",
+    "phone": "06-7709-5241",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 10,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年6月28日",
+    "name": "きらら つかもと保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "555-0022",
+    "address": "大阪市西淀川区柏里3-12-24",
+    "operator": "オールヒューマンサポート株式会社",
+    "page": 94
+  },
+  "(電話番号なし)西大阪保育園": {
+    "wardTag": "(11西淀川区)",
+    "phone": null,
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年6月29日",
+    "name": "西大阪保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "555-0031",
+    "address": "大阪市西淀川区出来島1-6-11",
+    "operator": "株式会社Re BORN",
+    "page": 95
+  }
+}

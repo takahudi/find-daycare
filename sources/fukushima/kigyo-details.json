@@ -1,0 +1,93 @@
+{
+  "06-4256-6556": {
+    "wardTag": "(03福島区)",
+    "phone": "06-4256-6556",
+    "hours": {
+      "weekday": "07:00〜18:00",
+      "saturday": "07:00〜18:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "あいぐらん保育園福島",
+    "type": "企業主導型保育事業",
+    "postalCode": "553-0001",
+    "address": "大阪市福島区海老江8-1-5 エスペランサ海老江1F",
+    "startedOn": "平成31年4月1日",
+    "operator": "株式会社アイグラン",
+    "page": 27
+  },
+  "06-6485-8855": {
+    "wardTag": "(03福島区)",
+    "phone": "06-6485-8855",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "就学前",
+    "freeOfCharge": true,
+    "name": "ハートフルえびえ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "553-0001",
+    "address": "大阪市福島区海老江2-2-5 SYDビル1F",
+    "startedOn": "平成30年6月1日",
+    "operator": "日本チャイルドケア株式会社",
+    "page": 27
+  },
+  "06-6225-7363": {
+    "wardTag": "(03福島区)",
+    "phone": "06-6225-7363",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 13,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "name": "ここはぐ ふたば保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "553-0002",
+    "address": "大阪市福島区鷺洲1-12-24",
+    "startedOn": "平成31年4月27日",
+    "operator": "株式会社クリエイティブコミュニケーションズ",
+    "page": 28
+  },
+  "06-7174-9489": {
+    "wardTag": "(03福島区)",
+    "phone": "06-7174-9489",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 13,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "name": "ここはぐ つぼみ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "553-0003",
+    "address": "大阪市福島区福島5-6-38 ラグザ大阪レジデンス1階",
+    "startedOn": "平成29年4月25日",
+    "operator": "株式会社クリエイティブコミュニケーションズ",
+    "page": 29
+  },
+  "06-6940-7292": {
+    "wardTag": "(03福島区)",
+    "phone": "06-6940-7292",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "クレア保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "553-0006",
+    "address": "大阪市福島区吉野2-8-8 ハイアットコート藪野1Ｆ",
+    "startedOn": "平成30年3月26日",
+    "operator": "株式会社ゆいぴよ",
+    "page": 31
+  }
+}

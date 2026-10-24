@@ -1,0 +1,52 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+*.tsbuildinfo
+
+# 市から取得した一次情報は R2 に保管する（docs/adr/0001）。手で整えた JSON と抽出結果だけをコミットする
+/sources/*
+!/sources/*/
+/sources/*/*
+!/sources/*/*.json
+
+# Secrets
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+
+# Cloudflare
+.wrangler
+
+# Test output
+coverage
+playwright-report
+test-results
+blob-report
+
+# Agent scratch
+.audit
+.claude/settings.local.json
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+desktop.ini
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

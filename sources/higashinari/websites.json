@@ -1,0 +1,23 @@
+{
+  "_comment": "キーは施設名（NFKC正規化・空白除去）。東成区役所「Web版ひがしなりっ子すくすく・つながるフェア」(保育園(所)・認定こども園編 https://www.city.osaka.lg.jp/higashinari/page/0000533602.html ／ 小規模保育事業編 https://www.city.osaka.lg.jp/higashinari/page/0000537377.html) の各施設のリンク先。",
+  "大阪市立東中本保育所": { "url": "https://www.chidori.or.jp/facility/hoiku_higashinakamoto/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "大阪市立大成保育所": { "url": "http://www.namihaya.or.jp/taisei/index.html", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "中本保育園": { "url": "http://namihaya.or.jp/nakamoto/index.html", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "北中本保育園": { "url": "https://hoiku.miotsukushi.or.jp/kitanakamoto/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "今里保育園": { "url": "https://imazato-hoikuen.jp/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "東成山水学園": { "url": "http://higashinarisansui.jp/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "小市保育園": { "url": "https://koichifukushi.jp/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "つみき保育園": { "url": "https://tsumiki-hoikuen.jp/introduction/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "キッズファースト保育園": { "url": "https://taiyo-osaka.com/nagisa/kidsfast.html", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "AIAINURSERY新深江": { "url": "https://nursery.aiai-cc.co.jp/facility/shinfukae/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "東成かいせい保育園": { "url": "https://hoiku.kaisei-group.co.jp/list/detail.php?seq=14", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "深江幼稚園": { "url": "http://fukae.ed.jp/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "明の守たまつ保育園": { "url": "https://akinomori.ed.jp/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "東中本みらい保育園": { "url": "https://miraihoikuen.net/higashi_nakamoto2/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "新深江ピース保育園": { "url": "https://shinfukae-peace.com/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "今里ピース保育園": { "url": "https://shinfukae-peace.com/index.html", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "エンジェルキッズ森ノ宮園": { "url": "https://www.serio-corp.com/nursery/parents/list/ak_morinomiya/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "ふかえサンサン保育園": { "url": "http://fukae.ed.jp/enterprise/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "キッズベアー緑橋": { "url": "https://www.wfa.co.jp/kidsbear/midoribasi/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" },
+  "みんなの里いもほいくえん": { "url": "https://min-satoimo.com/", "label": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）" }
+}

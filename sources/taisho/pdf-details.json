@@ -1,0 +1,367 @@
+{
+  "08-oonami.pdf": {
+    "kana": "おおさかしりつおおなみほいくしょ",
+    "capacity": {
+      "total": 102,
+      "byAge": [
+        5,
+        10,
+        15,
+        20,
+        25,
+        27
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "1975年12月1日"
+  },
+  "08-taisyou.pdf": {
+    "kana": "おおさかしりつたいしょうほいくしょ",
+    "capacity": {
+      "total": 112,
+      "byAge": [
+        3,
+        12,
+        17,
+        20,
+        30,
+        30
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "1968年6月1日"
+  },
+  "8-chishima.pdf": {
+    "kana": "ちしまほいくしょ",
+    "capacity": {
+      "total": 129,
+      "byAge": [
+        6,
+        15,
+        18,
+        30,
+        30,
+        30
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "障がい児保育",
+      "体調不良児対応型"
+    ],
+    "url": "https://chishima.osaka-christ.or.jp/",
+    "approvedOn": "1978年7月1日"
+  },
+  "8-kitaokajima.pdf": {
+    "kana": "きたおかじまほいくしょ",
+    "capacity": {
+      "total": 104,
+      "byAge": [
+        3,
+        12,
+        17,
+        20,
+        25,
+        27
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": "https://www.chidori.or.jp/facility/hoiku_kitaokajima/",
+    "approvedOn": "1973年9月1日"
+  },
+  "h8-2-familyjunior.pdf": {
+    "kana": "ふぁみりーじゅにあ",
+    "capacity": {
+      "total": 85,
+      "byAge": [
+        15,
+        50,
+        20,
+        0,
+        0,
+        0
+      ]
+    },
+    "weekday": "08:00〜19:00",
+    "saturday": "08:00〜19:00",
+    "services": [
+      "一時預かり",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1982年4月1日"
+  },
+  "h8-3-megumi.pdf": {
+    "kana": "めぐみほいくえん",
+    "capacity": {
+      "total": 126,
+      "byAge": [
+        8,
+        17,
+        18,
+        27,
+        28,
+        28
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "1971年7月1日"
+  },
+  "h8-4-tsurumachisweetbabygarden.pdf": {
+    "kana": "つるまちがくえんすいーとべびーがーでん",
+    "capacity": {
+      "total": 117,
+      "byAge": [
+        15,
+        15,
+        15,
+        22,
+        25,
+        25
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2023年4月1日"
+  },
+  "h8-5-mominokitaishoukita.pdf": {
+    "kana": "もみのきたいしょうきたほいくえん",
+    "capacity": {
+      "total": 117,
+      "byAge": [
+        6,
+        12,
+        18,
+        27,
+        27,
+        27
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": "https://suitamidori-f.jp/publics/index/20/",
+    "approvedOn": "2026年1月1日"
+  },
+  "k8-2-syouwa.pdf": {
+    "kana": "にんていこどもえんしょうわようちえん",
+    "capacity": {
+      "total": 95,
+      "byAge": [
+        0,
+        0,
+        6,
+        29,
+        30,
+        30
+      ]
+    },
+    "note": "認可定員は1号59人＋2号・3号36人。",
+    "weekday": "08:00〜19:00",
+    "saturday": "08:00〜19:00",
+    "services": [
+      "延長保育",
+      "一時預かり",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2015年4月1日"
+  },
+  "k8-3-familychishima.pdf": {
+    "kana": "ようほれんけいがたにんていこどもえんふぁみりーちしま",
+    "capacity": {
+      "total": 278,
+      "byAge": [
+        14,
+        42,
+        42,
+        60,
+        60,
+        60
+      ]
+    },
+    "note": "認可定員は1号45人＋2号・3号233人。",
+    "weekday": "08:00〜19:00",
+    "saturday": "08:00〜19:00",
+    "services": [
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2016年4月1日"
+  },
+  "k8-4-family.pdf": {
+    "kana": "ようほれんけいがたにんていこどもえんふぁみりー",
+    "capacity": {
+      "total": 282,
+      "byAge": [
+        0,
+        0,
+        40,
+        80,
+        81,
+        81
+      ]
+    },
+    "note": "認可定員は1号75人＋2号・3号207人。",
+    "weekday": "08:00〜19:00",
+    "saturday": "08:00〜19:00",
+    "services": [
+      "一時預かり",
+      "障がい児保育",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "2021年4月1日"
+  },
+  "k8-5-tsurumachiuminokaze.pdf": {
+    "kana": "つるまちうみのかぜこどもえん",
+    "capacity": {
+      "total": 123,
+      "byAge": [
+        18,
+        18,
+        18,
+        23,
+        23,
+        23
+      ]
+    },
+    "note": "認可定員は1号15人＋2号・3号108人。",
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [
+      "延長保育",
+      "一時預かり",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2022年4月1日"
+  },
+  "k8-6-taisyoyumenoki.pdf": {
+    "kana": "ようほれんけいがたにんていこどもえんたいしょうゆめのきほいくえん",
+    "capacity": {
+      "total": 136,
+      "byAge": [
+        12,
+        15,
+        18,
+        27,
+        32,
+        32
+      ]
+    },
+    "note": "認可定員は1号6人＋2号・3号130人。",
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜18:30",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "2023年4月1日"
+  },
+  "k8-7-tsurumachi.pdf": {
+    "kana": "ようほれんけいがたにんていこどもえんつるまちがくえん",
+    "capacity": {
+      "total": 406,
+      "byAge": [
+        50,
+        54,
+        62,
+        80,
+        80,
+        80
+      ]
+    },
+    "note": "認可定員は1号15人＋2号・3号391人。",
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜18:00",
+    "services": [
+      "延長保育",
+      "障がい児保育",
+      "地域子育て支援事業"
+    ],
+    "url": null,
+    "approvedOn": "2023年4月1日"
+  },
+  "t8-1-nukumorichishima.pdf": {
+    "kana": "ぬくもりのおうちほいくちしまえん",
+    "capacity": {
+      "total": 12,
+      "byAge": [
+        2,
+        4,
+        6
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2015年4月1日"
+  },
+  "t8-2-kingdomkidstaisyou.pdf": {
+    "kana": "きんぐだむ・きっずたいしょう",
+    "capacity": {
+      "total": 13,
+      "byAge": [
+        3,
+        5,
+        5
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": "https://www.kingdomkids-nursery.jp/taisho/",
+    "approvedOn": "2018年4月1日"
+  },
+  "t8-3-yotuba.pdf": {
+    "kana": "よつばほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        5,
+        6,
+        8
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜19:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2020年4月1日"
+  }
+}

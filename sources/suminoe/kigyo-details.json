@@ -1,0 +1,167 @@
+{
+  "06-4703-3296": {
+    "wardTag": "(20住之江区)",
+    "phone": "06-4703-3296",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30",
+      "holiday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年7月31日",
+    "name": "♪ドレミ保育園 住之江公園",
+    "type": "企業主導型保育事業",
+    "postalCode": "559-0006",
+    "address": "大阪市住之江区浜口西2-12-7 ローズライフ住之江1Ｆ",
+    "operator": "マグチグループ株式会社",
+    "page": 137
+  },
+  "06-4701-8060": {
+    "wardTag": "(20住之江区)",
+    "phone": "06-4701-8060",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年10月31日",
+    "operator": "株式会社アンド・ウィル",
+    "name": "粉浜こころ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "559-0007",
+    "address": "大阪市住之江区粉浜西2-1-2",
+    "page": 137
+  },
+  "06-6655-1567": {
+    "wardTag": "(20住之江区)",
+    "phone": "06-6655-1567",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年4月30日",
+    "name": "オリコキッズカルチェ住吉川園",
+    "type": "企業主導型保育事業",
+    "postalCode": "559-0011",
+    "address": "大阪市住之江区北加賀屋1-11-22",
+    "operator": "社会福祉法人南の風",
+    "page": 138
+  },
+  "06-6685-6777": {
+    "wardTag": "(20住之江区)",
+    "phone": "06-6685-6777",
+    "hours": {
+      "weekday": "07:45〜18:00",
+      "saturday": "08:00〜18:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年8月31日",
+    "name": "スマイルほいくえん",
+    "type": "企業主導型保育事業",
+    "postalCode": "559-0011",
+    "address": "大阪市住之江区北加賀屋5-2-2",
+    "operator": "社会福祉法人 健成会",
+    "page": 138
+  },
+  "080-3579-8078": {
+    "wardTag": "(20住之江区)",
+    "phone": "080-3579-8078",
+    "hours": {
+      "weekday": "08:30〜17:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年12月28日",
+    "operator": "南大阪ヤクルト販売株式会社",
+    "name": "ヤクルトかがや保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "559-0012",
+    "address": "大阪市住之江区東加賀屋2-10-25",
+    "page": 139
+  },
+  "06-6654-6141": {
+    "wardTag": "(20住之江区)",
+    "phone": "06-6654-6141",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜16:00"
+    },
+    "capacity": 18,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年2月28日",
+    "name": "みさきピッコロ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "559-0013",
+    "address": "大阪市住之江区御崎3-3-22",
+    "operator": "学校法人片上学園",
+    "page": 139
+  },
+  "06-6569-9224": {
+    "wardTag": "(20住之江区)",
+    "phone": "06-6569-9224",
+    "hours": {
+      "weekday": "06:30〜19:30",
+      "saturday": "06:30〜19:30",
+      "holiday": "06:30〜19:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和2年5月29日",
+    "name": "Ohana保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "559-0017",
+    "address": "大阪市住之江区中加賀屋2-6-25",
+    "operator": "有限会社エヌアール",
+    "page": 140
+  },
+  "06-6586-6480": {
+    "wardTag": "(20住之江区)",
+    "phone": "06-6586-6480",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30",
+      "holiday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "operator": "株式会社ゆいぴよ",
+    "name": "ゆいぴよ園",
+    "type": "企業主導型保育事業",
+    "postalCode": "559-0017",
+    "address": "大阪市住之江区中加賀屋3-11-17",
+    "page": 140
+  },
+  "06-6629-8115": {
+    "wardTag": "(20住之江区)",
+    "phone": "06-6629-8115",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "startedOn": "令和5年7月31日",
+    "name": "オハナ保育園 住之江園",
+    "type": "企業主導型保育事業",
+    "postalCode": "559-0017",
+    "address": "大阪市住之江区中加賀屋4-1-25",
+    "operator": "株式会社ウエスト",
+    "page": 141
+  }
+}

@@ -1,0 +1,402 @@
+{
+  "06-6948-5969": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6948-5969",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 24,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "OBPキッズオアシス",
+    "type": "企業主導型保育事業",
+    "postalCode": "540-0001",
+    "address": "大阪市中央区城見2-2-53 大阪東京海上日動ビルディングサンクンガーデンB1",
+    "startedOn": "平成30年4月1日",
+    "operator": "学校法人慈光学園",
+    "page": 33
+  },
+  "06-6777-1102": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6777-1102",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 60,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "name": "はばたき保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "540-0003",
+    "address": "大阪市中央区森ノ宮中央1-14-12",
+    "startedOn": "平成29年6月1日",
+    "operator": "株式会社アソシエイト創",
+    "page": 34
+  },
+  "06-6768-8408": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6768-8408",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "森ノ宮もっきん保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "540-0004",
+    "address": "大阪市中央区玉造1-23-17",
+    "startedOn": "平成30年4月1日",
+    "operator": "株式会社島商会",
+    "page": 35
+  },
+  "06-6710-4022": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6710-4022",
+    "hours": {
+      "weekday": "09:00〜16:00"
+    },
+    "capacity": 50,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "name": "スマイルインターナショナルプリスクール森ノ宮校",
+    "type": "企業主導型保育事業",
+    "postalCode": "540-0005",
+    "address": "大阪市中央区上町1-1-23 アルシオーネ上町2F",
+    "startedOn": "平成31年3月20日",
+    "operator": "アットスマイル株式会社",
+    "page": 35
+  },
+  "06-6945-6686": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6945-6686",
+    "hours": {
+      "weekday": "09:00〜20:00",
+      "saturday": "09:00〜20:00",
+      "holiday": "09:00〜20:00"
+    },
+    "capacity": 30,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "ふり～保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "540-0012",
+    "address": "大阪市中央区谷町3-1-11 大晋第二ビル",
+    "startedOn": "平成29年2月20日",
+    "operator": "有限会社 casa・mari",
+    "page": 36
+  },
+  "06-6940-4666": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6940-4666",
+    "hours": {
+      "weekday": "07:00〜18:00",
+      "saturday": "07:00〜18:00"
+    },
+    "capacity": 66,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "name": "ピッコロ子ども倶楽部谷町園",
+    "type": "企業主導型保育事業",
+    "postalCode": "540-0013",
+    "address": "大阪市中央区内久宝寺町3-1-9 ヒガシ21ビル3Ｆ",
+    "startedOn": "平成31年4月1日",
+    "operator": "株式会社プライムツーワン",
+    "page": 37
+  },
+  "06-6360-4377": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6360-4377",
+    "hours": {
+      "weekday": "08:00〜20:00",
+      "saturday": "08:00〜20:00",
+      "holiday": "08:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "みらい保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "540-0034",
+    "address": "大阪市中央区島町2-1-8 天満ファーストビル",
+    "startedOn": "平成31年1月7日",
+    "operator": "ジェイエフエフシステムズ株式会社",
+    "page": 38
+  },
+  "06-6203-8161": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6203-8161",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 18,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "ニチイキッズニッセイみらい淀屋橋保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "541-0042",
+    "address": "大阪市中央区今橋３-2-20",
+    "startedOn": "平成29年6月1日",
+    "operator": "株式会社ニチイ学館",
+    "page": 39
+  },
+  "06-7507-2354": {
+    "wardTag": "(05中央区)",
+    "phone": "06-7507-2354",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "name": "あいある保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "541-0045",
+    "address": "大阪市中央区道修町1-2-4",
+    "startedOn": "平成29年11月1日",
+    "operator": "株式会社アール・ジェイ",
+    "page": 39
+  },
+  "06-6484-7390": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6484-7390",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "5歳",
+    "freeOfCharge": true,
+    "name": "Ｋｉｄ’ｓ＆Ｍｏｒｅ南本町保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "541-0054",
+    "address": "大阪市中央区南本町3-2-4大泉ビル1F",
+    "startedOn": "令和3年5月1日",
+    "operator": "社会福祉法人檸檬会",
+    "page": 40
+  },
+  "06-6281-0554": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6281-0554",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "おおにし保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "541-0056",
+    "address": "大阪市中央区久太郎町3-4-12 10F",
+    "startedOn": "平成31年4月1日",
+    "operator": "株式会社大西",
+    "page": 41
+  },
+  "06-6241-6088": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6241-6088",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "name": "企業主導型保育施設mofu",
+    "type": "企業主導型保育事業",
+    "postalCode": "541-0058",
+    "address": "大阪市中央区南久宝寺町4-7-3",
+    "startedOn": "平成30年11月1日",
+    "operator": "株式会社グラインドニード",
+    "page": 41
+  },
+  "06-6121-6576": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6121-6576",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "企業主導型保育所 きゅうほうじ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "541-0058",
+    "address": "大阪市中央区南久宝寺町1-4-15 EIKAビル1階",
+    "startedOn": "平成30年3月1日",
+    "operator": "株式会社ライフケア",
+    "page": 42
+  },
+  "06-6210-4411": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6210-4411",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "Animo Kids本町園",
+    "type": "企業主導型保育事業",
+    "postalCode": "541-0058",
+    "address": "大阪市中央区南久宝寺町3-1-2",
+    "startedOn": "平成29年1月10日",
+    "operator": "Animo株式会社",
+    "page": 42
+  },
+  "06-6191-1152": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6191-1152",
+    "hours": {
+      "weekday": "08:30〜18:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "name": "蓮美幼児学園 上本町プリメール",
+    "type": "企業主導型保育事業",
+    "postalCode": "542-0063",
+    "address": "大阪市中央区東平2-3-5",
+    "startedOn": "平成30年4月1日",
+    "operator": "社会福祉法人光聖会",
+    "page": 43
+  },
+  "06-6777-8883": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6777-8883",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "name": "保育園レオラ",
+    "type": "企業主導型保育事業",
+    "postalCode": "542-0064",
+    "address": "大阪市中央区上汐2-5-18 HYSビル３F",
+    "startedOn": "平成31年3月25日",
+    "operator": "株式会社エムズ",
+    "page": 43
+  },
+  "06-6191-2929": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6191-2929",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "つくしんぼ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "542-0065",
+    "address": "大阪市中央区中寺1-1-32 法性寺内",
+    "startedOn": "令和元年9月2日",
+    "operator": "株式会社T.M.Y",
+    "page": 44
+  },
+  "06-7507-2342": {
+    "wardTag": "(05中央区)",
+    "phone": "06-7507-2342",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "09:00〜15:00"
+    },
+    "capacity": 45,
+    "monthlyUpTo": "6歳",
+    "freeOfCharge": true,
+    "name": "ハピオスインターナショナルスクール",
+    "type": "企業主導型保育事業",
+    "postalCode": "542-0081",
+    "address": "大阪市中央区南船場1-8-11 日宝アラメゾン２階",
+    "startedOn": "平成30年3月1日",
+    "operator": "株式会社Happious international",
+    "page": 44
+  },
+  "06-6210-1311": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6210-1311",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "テノ．キッズルーム心斎橋",
+    "type": "企業主導型保育事業",
+    "postalCode": "542-0081",
+    "address": "大阪市中央区南船場3-2-4",
+    "startedOn": "平成29年6月1日",
+    "operator": "株式会社テノ.コーポレーション",
+    "page": 45
+  },
+  "06-6121-8555": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6121-8555",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30",
+      "holiday": "08:30〜17:30"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "name": "ヤドリギの森保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "542-0082",
+    "address": "大阪市中央区島之内1-4-17",
+    "startedOn": "平成29年7月1日",
+    "operator": "株式会社Bond",
+    "page": 46
+  },
+  "06-6125-5441": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6125-5441",
+    "hours": {
+      "weekday": "09:00〜22:00",
+      "saturday": "09:00〜22:00",
+      "holiday": "09:00〜22:00"
+    },
+    "capacity": 19,
+    "monthlyUpTo": "3歳",
+    "freeOfCharge": true,
+    "name": "保育園リコラ",
+    "type": "企業主導型保育事業",
+    "postalCode": "542-0083",
+    "address": "大阪市中央区東心斎橋1-6-6-102",
+    "startedOn": "令和3年2月22日",
+    "operator": "株式会社エムズ",
+    "page": 47
+  },
+  "06-6241-8623": {
+    "wardTag": "(05中央区)",
+    "phone": "06-6241-8623",
+    "hours": {
+      "weekday": "08:00〜19:00",
+      "saturday": "08:00〜19:00",
+      "holiday": "08:00〜19:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "3歳11ヶ月",
+    "freeOfCharge": true,
+    "name": "心斎橋保育園 リトルガーデン",
+    "type": "企業主導型保育事業",
+    "postalCode": "542-0083",
+    "address": "大阪市中央区東心斎橋1-8-5 おおきに心斎橋千年町ビル１F",
+    "startedOn": "平成29年4月12日",
+    "operator": "株式会社チックアンドヘン",
+    "page": 48
+  }
+}

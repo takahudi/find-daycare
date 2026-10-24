@@ -1,0 +1,114 @@
+{
+  "06-7777-4959": {
+    "wardTag": "(14東成区)",
+    "phone": "06-7777-4959",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 16,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和3年7月30日",
+    "name": "まんま保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "537-0013",
+    "address": "大阪市東成区大今里南3-2-7",
+    "operator": "株式会社 リ・クリエイム",
+    "page": 109
+  },
+  "06-7777-4447": {
+    "wardTag": "(14東成区)",
+    "phone": "06-7777-4447",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年1月31日",
+    "name": "布施かなた保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "537-0013",
+    "address": "大阪市東成区大今里南6-19-20 アラモード今里101",
+    "operator": "株式会社ファンデイト",
+    "page": 110
+  },
+  "06-6978-5178": {
+    "wardTag": "(14東成区)",
+    "phone": "06-6978-5178",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00",
+      "holiday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "operator": "株式会社ワンシング",
+    "name": "新深江 わんわん保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "537-0013",
+    "address": "大阪市東成区大今里南6-3-10 ローズマンション新深江1F",
+    "page": 110
+  },
+  "06-7708-4494": {
+    "wardTag": "(14東成区)",
+    "phone": "06-7708-4494",
+    "hours": {
+      "weekday": "07:00〜20:00",
+      "saturday": "07:00〜20:00"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和元年9月30日",
+    "name": "かたえ ふたば保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "537-0013",
+    "address": "大阪市東成区大今里南3-2-18 サンポートハイム大今里101",
+    "operator": "有限会社クラッシーラボ",
+    "page": 111
+  },
+  "06-6976-3021": {
+    "wardTag": "(14東成区)",
+    "phone": "06-6976-3021",
+    "hours": {
+      "weekday": "07:30〜20:30",
+      "saturday": "07:30〜20:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "平成30年3月30日",
+    "name": "はないろ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "537-0013",
+    "address": "大阪市東成区大今里南5-11-2 1･2F",
+    "operator": "株式会社コロレ",
+    "page": 111
+  },
+  "06-7506-9837": {
+    "wardTag": "(14東成区)",
+    "phone": "06-7506-9837",
+    "hours": {
+      "weekday": "07:30〜18:30",
+      "saturday": "07:30〜18:30",
+      "holiday": "07:30〜18:30"
+    },
+    "capacity": 12,
+    "monthlyUpTo": "2歳",
+    "freeOfCharge": true,
+    "startedOn": "令和4年7月29日",
+    "name": "玉造にじいろ保育園",
+    "type": "企業主導型保育事業",
+    "postalCode": "537-0025",
+    "address": "大阪市東成区中道3-11-5",
+    "operator": "株式会社シンエイ",
+    "page": 112
+  }
+}
