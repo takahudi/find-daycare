@@ -28,8 +28,14 @@ export const WARDS = [
     vacancyFile: /\/\d{6}\.xlsx$/,
     kigyoPage: `${ORIGIN}/higashinari/page/0000498053.html`,
     homepageSources: [
-      { label: 'Web版ひがしなりっ子すくすく・つながるフェア（保育園(所)・認定こども園編）', url: `${ORIGIN}/higashinari/page/0000533602.html` },
-      { label: 'Web版ひがしなりっ子すくすく・つながるフェア（小規模保育事業編）', url: `${ORIGIN}/higashinari/page/0000537377.html` },
+      {
+        label: 'Web版ひがしなりっ子すくすく・つながるフェア（保育園(所)・認定こども園編）',
+        url: `${ORIGIN}/higashinari/page/0000533602.html`,
+      },
+      {
+        label: 'Web版ひがしなりっ子すくすく・つながるフェア（小規模保育事業編）',
+        url: `${ORIGIN}/higashinari/page/0000537377.html`,
+      },
     ],
   },
   {
@@ -186,7 +192,9 @@ export const WARDS = [
     vacancyPage: `${ORIGIN}/sumiyoshi/page/0000293166.html`,
     vacancyFile: null,
     kigyoPage: `${ORIGIN}/sumiyoshi/page/0000466572.html`,
-    homepageSources: [{ label: '幼稚園・認定こども園・保育所（園）・地域型保育事業所', url: `${ORIGIN}/sumiyoshi/page/0000191601.html` }],
+    homepageSources: [
+      { label: '幼稚園・認定こども園・保育所（園）・地域型保育事業所', url: `${ORIGIN}/sumiyoshi/page/0000191601.html` },
+    ],
   },
   {
     id: 'hirano',
@@ -198,7 +206,9 @@ export const WARDS = [
     vacancyFile: null,
     kigyoPage: `${ORIGIN}/hirano/page/0000563316.html`,
     // 施設ごとの紹介PDFの「URL」欄
-    homepageSources: [{ label: '平野区幼稚園・保育園(所)等情報（保育施設等一覧）', url: `${ORIGIN}/hirano/page/0000566457.html` }],
+    homepageSources: [
+      { label: '平野区幼稚園・保育園(所)等情報（保育施設等一覧）', url: `${ORIGIN}/hirano/page/0000566457.html` },
+    ],
   },
   {
     id: 'tsurumi',
@@ -210,7 +220,9 @@ export const WARDS = [
     kigyoPage: `${ORIGIN}/tsurumi/page/0000431965.html`,
     kigyoFile: /\/\d{6}\.pdf$/,
     // 施設の写真が公式サイトへのリンクになっている
-    homepageSources: [{ label: '鶴見区幼稚園・保育所等への入所をお考えの方に情報を提供します', url: `${ORIGIN}/tsurumi/page/0000605717.html` }],
+    homepageSources: [
+      { label: '鶴見区幼稚園・保育所等への入所をお考えの方に情報を提供します', url: `${ORIGIN}/tsurumi/page/0000605717.html` },
+    ],
   },
   {
     id: 'asahi',
@@ -262,7 +274,12 @@ export const WARDS = [
     vacancyFile: null,
     // 所在地・電話の一覧表（大阪市マップナビの座標つき）と空き情報の表の2つがある
     kigyoPage: `${ORIGIN}/nishiyodogawa/page/0000532065.html`,
-    homepageSources: [{ label: '認可保育施設等（保育所・認定こども園・地域型保育事業）一覧表', url: `${ORIGIN}/nishiyodogawa/page/0000142294.html` }],
+    homepageSources: [
+      {
+        label: '認可保育施設等（保育所・認定こども園・地域型保育事業）一覧表',
+        url: `${ORIGIN}/nishiyodogawa/page/0000142294.html`,
+      },
+    ],
   },
   {
     id: 'konohana',

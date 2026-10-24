@@ -7,7 +7,16 @@ import path from 'node:path';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.mjs';
 
-const SERVICES = ['延長保育', '一時預かり', '障がい児保育', '休日保育', '病児対応型', '病後児対応型', '体調不良児対応型', '地域子育て支援事業'];
+const SERVICES = [
+  '延長保育',
+  '一時預かり',
+  '障がい児保育',
+  '休日保育',
+  '病児対応型',
+  '病後児対応型',
+  '体調不良児対応型',
+  '地域子育て支援事業',
+];
 const MARKS = new Set(['〇', '○', '◎', '●', '■', '☑', '✓', 'レ']);
 const TIME = /^(\d{1,2})時(\d{2})分$/;
 
@@ -16,11 +25,7 @@ async function loadPages(file) {
   const pages = [];
   for (let p = 1; p <= Math.min(doc.numPages, 2); p++) {
     const { items } = await (await doc.getPage(p)).getTextContent();
-    pages.push(
-      items
-        .filter((it) => it.str.trim())
-        .map((it) => ({ s: it.str.trim(), x: it.transform[4], y: it.transform[5] })),
-    );
+    pages.push(items.filter((it) => it.str.trim()).map((it) => ({ s: it.str.trim(), x: it.transform[4], y: it.transform[5] })));
   }
   return pages;
 }
@@ -86,7 +91,9 @@ function capacity(items) {
 
 function hours(items, labelText) {
   // 認定こども園の様式は「●１号 開園時間等」（教育）と「●２・３号 開園時間等」（保育）が左右に並ぶ。保育の側を読む
-  const nursery = items.find((i) => /^●[２2]・[３3]号$/.test(i.s) && items.some((h) => h.s === '開園時間等' && sameRow(h, i) && h.x > i.x));
+  const nursery = items.find(
+    (i) => /^●[２2]・[３3]号$/.test(i.s) && items.some((h) => h.s === '開園時間等' && sameRow(h, i) && h.x > i.x),
+  );
   const labels = items
     .filter((i) => (i.s === labelText || i.s === `${labelText}日`) && (!nursery || (i.x > nursery.x && i.y < nursery.y)))
     .sort((a, b) => b.y - a.y || a.x - b.x);
@@ -115,7 +122,8 @@ function maxOpeningHours(items) {
     .filter((c) => c.m)
     .sort((a, b) => a.x - b.x);
   if (cells.length !== 2) return null;
-  const range = (k) => (cells.every((c) => c.m[k]) ? `${cells[0].m[k].padStart(5, '0')}〜${cells[1].m[k].padStart(5, '0')}` : null);
+  const range = (k) =>
+    cells.every((c) => c.m[k]) ? `${cells[0].m[k].padStart(5, '0')}〜${cells[1].m[k].padStart(5, '0')}` : null;
   return { day: range(1), night: range(2) };
 }
 
@@ -193,7 +201,16 @@ for (const ward of WARDS) {
   console.log(`== ${ward.name}`);
   for (const [f, d] of Object.entries(out)) {
     console.log(
-      [f.padEnd(36), d.kana ?? '-', `定員=${d.capacity?.total ?? '-'}(${d.capacity?.byAge.join('/') ?? ''})`, `平日=${d.weekday ?? '-'}`, `土=${d.saturday ?? '-'}`, d.services.join('・') || '-', d.url ?? '-', d.approvedOn ?? '-'].join(' | '),
+      [
+        f.padEnd(36),
+        d.kana ?? '-',
+        `定員=${d.capacity?.total ?? '-'}(${d.capacity?.byAge.join('/') ?? ''})`,
+        `平日=${d.weekday ?? '-'}`,
+        `土=${d.saturday ?? '-'}`,
+        d.services.join('・') || '-',
+        d.url ?? '-',
+        d.approvedOn ?? '-',
+      ].join(' | '),
     );
   }
 }

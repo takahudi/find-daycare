@@ -22,8 +22,7 @@ interface GsiFeature {
   properties: { title: string };
 }
 
-const inOsakaCity = ({ lat, lng }: { lat: number; lng: number }) =>
-  lat > 34.55 && lat < 34.8 && lng > 135.35 && lng < 135.6;
+const inOsakaCity = ({ lat, lng }: { lat: number; lng: number }) => lat > 34.55 && lat < 34.8 && lng > 135.35 && lng < 135.6;
 
 const KANJI_DIGITS = '〇一二三四五六七八九';
 const kanjiNumber = (s: string) =>
@@ -33,7 +32,11 @@ const kanjiNumber = (s: string) =>
 
 /** 住所の区より後ろを「町名」と最初の数字（丁目、丁目のない町は番地）に分ける。例:「中之島一丁目3番」→ 中之島 / 1 */
 function splitTown(address: string): { town: string; num: number | null } {
-  const rest = address.normalize('NFKC').replace(/^.*?区/, '').replace(/^.*?市/, '').trim();
+  const rest = address
+    .normalize('NFKC')
+    .replace(/^.*?区/, '')
+    .replace(/^.*?市/, '')
+    .trim();
   const m = rest.match(/^(.+?)(?:([一二三四五六七八九十]+)丁目|(\d+))/);
   if (!m) return { town: rest.replace(/丁目$/, ''), num: null };
   return { town: m[1], num: m[2] ? kanjiNumber(m[2]) : Number(m[3]) };
@@ -48,11 +51,7 @@ function splitTown(address: string): { town: string; num: number | null } {
 export async function geocode(query: string, wardNames: string[], signal?: AbortSignal): Promise<Home> {
   const q = query.trim().normalize('NFKC');
   // 町名だけの入力は区名を付けないと検索に掛からない（「大阪市〇〇町6丁目」は市レベルの結果しか返らない）
-  const candidates = /大阪/.test(q)
-    ? [q]
-    : /^\D+?区/.test(q)
-      ? [`大阪市${q}`]
-      : [...wardNames.map((w) => `大阪市${w}${q}`), q];
+  const candidates = /大阪/.test(q) ? [q] : /^\D+?区/.test(q) ? [`大阪市${q}`] : [...wardNames.map((w) => `大阪市${w}${q}`), q];
   const input = splitTown(q);
   // 区の数だけ順に問い合わせると遅いので並列に投げ、結果は候補の順（対象の区の並び）で選ぶ
   const results = await Promise.all(
