@@ -3,3 +3,5 @@ minimumReleaseAge: 4320
 allowBuilds:
   # fsevents ships a prebuilt fsevents.node; its install script only rebuilds it with node-gyp
   fsevents: false
+  # The prepare script runs `lefthook install` instead
+  lefthook: false

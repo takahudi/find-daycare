@@ -1,0 +1,18 @@
+pre-commit:
+  piped: true
+  jobs:
+    - name: lint
+      glob: '*.{js,mjs,cjs,ts,tsx}'
+      run: pnpm lint --fix {staged_files}
+      stage_fixed: true
+    - name: format
+      glob: '*.{js,mjs,cjs,ts,tsx,json,jsonc,css,html,yaml,yml}'
+      run: pnpm format --no-error-on-unmatched-pattern {staged_files}
+      stage_fixed: true
+
+pre-push:
+  jobs:
+    - name: typecheck
+      run: pnpm typecheck
+    - name: test
+      run: pnpm test
