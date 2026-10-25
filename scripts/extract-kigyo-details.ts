@@ -9,7 +9,7 @@ import { WARDS } from './wards.ts';
 import { pageTextItems } from './pdf-text.ts';
 import type { KigyoDetail } from './data-types.ts';
 
-type BlockField = 'name' | 'type' | 'postalCode' | 'address' | 'startedOn' | 'operator';
+type BlockField = 'name' | 'type' | 'address';
 type KigyoBlock = Omit<KigyoDetail, BlockField | 'page'> & Partial<Pick<KigyoDetail, BlockField>>;
 
 type Token = { s: string; y: number };
@@ -94,12 +94,6 @@ function parsePage(items: Token[]) {
   return tags.map((tag) => parseBlock([tag, ...items.filter((i) => i !== tag && regionOf(i) === tag)]));
 }
 
-function required(block: KigyoBlock, field: BlockField, page: number): string {
-  const value = block[field];
-  if (value === undefined) throw new Error(`${block.wardTag} page ${page}: ${field} がない`);
-  return value;
-}
-
 const doc = await getDocument({ data: new Uint8Array(await readFile(PDF)), verbosity: 0 }).promise;
 const outByTag = new Map<string, Record<string, KigyoDetail>>(WARDS.map((w) => [w.ninkagaiTag, {}]));
 for (let p = 1; p <= doc.numPages; p++) {
@@ -109,16 +103,9 @@ for (let p = 1; p <= doc.numPages; p++) {
   for (const block of parsePage(tokens)) {
     if (!block.name) throw new Error(`page ${p}: ${block.phone} の施設名が読めない`);
     if (block.type !== '企業主導型保育事業' || !outByTag.has(block.wardTag)) continue;
-    const detail: KigyoDetail = {
-      ...block,
-      name: block.name,
-      type: block.type,
-      postalCode: required(block, 'postalCode', p),
-      address: required(block, 'address', p),
-      startedOn: required(block, 'startedOn', p),
-      operator: required(block, 'operator', p),
-      page: p,
-    };
+    // build-data.ts は所在地でも対応付けるので、所在地のない施設は書き出さない
+    if (!block.address) throw new Error(`page ${p}: ${block.phone} の所在地が読めない`);
+    const detail: KigyoDetail = { ...block, name: block.name, type: block.type, address: block.address, page: p };
     // キーは電話番号（ない施設は施設名。build-data.ts は電話番号のほか所在地でも対応付ける）
     outByTag.get(block.wardTag)![block.phone ?? `(電話番号なし)${block.name}`] = detail;
   }

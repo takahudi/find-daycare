@@ -37,10 +37,10 @@ export interface KigyoDetail {
   freeOfCharge: boolean | null;
   name: string;
   type: string;
-  postalCode: string;
+  postalCode?: string;
   address: string;
-  startedOn: string;
-  operator: string;
+  startedOn?: string;
+  operator?: string;
   page: number;
 }
 
@@ -50,7 +50,10 @@ export interface GeocodePosition {
   label: string;
 }
 
-/** 手書きの出典・補正メモを表す _ キーを除去した後の区データ。 */
+/** 手で書くファイル。_ で始まるキーは出典や補正理由のメモで、読み込み時に除く */
+export const ANNOTATED_FILES = ['manual-details.json', 'ward-details.json', 'websites.json'] as const;
+
+/** 区データの形。ANNOTATED_FILES は _ キーを除いた後の形 */
 export interface WardDataFiles {
   'pdf-details.json': Record<string, PdfDetail>;
   'manual-details.json': Record<string, ManualDetail>;
