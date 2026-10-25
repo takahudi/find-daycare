@@ -1,5 +1,5 @@
 // Debug helper: dump positioned text items of the first pages of a PDF.
-// Usage: node scripts/dump-pdf-text.mjs <pdf> [maxPages]
+// Usage: node scripts/dump-pdf-text.ts <pdf> [maxPages]
 import { readFile } from 'node:fs/promises';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 
@@ -10,7 +10,7 @@ for (let p = 1; p <= Math.min(doc.numPages, Number(maxPages)); p++) {
   const { items } = await page.getTextContent();
   console.log(`--- page ${p}`);
   for (const it of items) {
-    if (!it.str.trim()) continue;
+    if (!('str' in it) || !it.str.trim()) continue;
     console.log(`${Math.round(it.transform[4])}\t${Math.round(it.transform[5])}\t${it.str}`);
   }
 }

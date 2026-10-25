@@ -2,7 +2,7 @@ export type Category = 'nursery' | 'kodomoen' | 'community' | 'kigyo';
 
 export interface Facility {
   id: string;
-  /** 区の id（scripts/wards.mjs） */
+  /** 区の id（scripts/wards.ts） */
   ward: string;
   wardName: string;
   name: string;

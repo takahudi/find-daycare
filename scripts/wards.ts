@@ -1,8 +1,26 @@
+import type { Source } from '../src/types.ts';
+
+export interface WardConfig {
+  id: string;
+  name: string;
+  ninkagaiTag: string;
+  listPage: string;
+  vacancyPage: string;
+  vacancyFile: RegExp | null;
+  kigyoPage: string;
+  homepageSources: Source[];
+  kigyoInfoPage?: string;
+  kigyoInfoFile?: RegExp;
+  kigyoFile?: RegExp;
+  kigyoPdfSection?: string;
+  blankIsZero?: boolean;
+}
+
 // 対象の区と、その一次情報の取得元。区を追加するときはここに1件足し、
 // `pnpm data:update` のあと data/<id>/ に websites.json などの補完ファイルを用意する。
 const ORIGIN = 'https://www.city.osaka.lg.jp';
 
-export const WARDS = [
+export const WARDS: WardConfig[] = [
   {
     id: 'chuo',
     name: '中央区',

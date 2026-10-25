@@ -18,9 +18,9 @@
     "test:e2e": "playwright test",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "preview": "vite preview",
-    "prepare": "node scripts/install-git-hooks.mjs",
-    "data:fetch": "node scripts/fetch-sources.mjs",
-    "data:build": "node scripts/extract-pdf-details.mjs && node scripts/extract-kigyo-details.mjs && node scripts/build-data.mjs",
+    "prepare": "node scripts/install-git-hooks.ts",
+    "data:fetch": "node scripts/fetch-sources.ts",
+    "data:build": "node scripts/extract-pdf-details.ts && node scripts/extract-kigyo-details.ts && node scripts/build-data.ts",
     "data:update": "pnpm data:fetch && pnpm data:build"
   },
   "dependencies": {
