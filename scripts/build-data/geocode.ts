@@ -12,7 +12,8 @@ export async function geocode(address: string, cache: WardDataFiles['geocode-cac
   if (!res.ok) throw new Error(`住所検索に失敗 (${res.status}): ${query}`);
   const hits: unknown = await res.json();
   if (!v.is(v.array(v.unknown()), hits)) throw new Error(`住所検索の応答形式が不正: ${query}`);
-  const [hit] = gsiCandidates(hits);
+  // 先頭の結果だけを見る。後ろの候補は別の町への近似結果のことがある
+  const [hit] = gsiCandidates(hits.slice(0, 1));
   if (!hit || /[区市]$/.test(hit.label)) throw new Error(`住所検索で町名まで一致しない: ${query}`);
   if (!inOsakaCity(hit)) throw new Error(`住所検索の結果が大阪市外です: ${query}`);
   cache[query] = hit;
