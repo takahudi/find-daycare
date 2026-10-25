@@ -18,7 +18,7 @@
     "test:e2e": "playwright test",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "preview": "vite preview",
-    "prepare": "lefthook install || exit 0",
+    "prepare": "node scripts/install-git-hooks.mjs",
     "data:fetch": "node scripts/fetch-sources.mjs",
     "data:build": "node scripts/extract-pdf-details.mjs && node scripts/extract-kigyo-details.mjs && node scripts/build-data.mjs",
     "data:update": "pnpm data:fetch && pnpm data:build"
