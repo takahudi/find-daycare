@@ -1,7 +1,6 @@
-import type { CellValue } from '../data-types.ts';
+import type { CellValue } from './types.ts';
 import XLSX from 'xlsx';
-import { cell } from './text.ts';
-import { HEADER_NAME } from './html.ts';
+import { cell, HEADER_NAME } from './text.ts';
 
 /**
  * xlsx の表（東成区・北区）を、見出し行（施設名の列がある行）と、その下の行ごとのセルに直す。

@@ -6,8 +6,9 @@ import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.ts';
-import type { TextItem } from 'pdfjs-dist/types/src/display/api.js';
-import type { PdfDetail, PositionedText } from './data-types.ts';
+import { pageTextItems } from './pdf-text.ts';
+import type { PositionedText } from './pdf-text.ts';
+import type { PdfDetail } from './data-types.ts';
 
 const SERVICES = [
   '延長保育',
@@ -26,10 +27,9 @@ async function loadPages(file: string) {
   const doc = await getDocument({ data: new Uint8Array(await readFile(file)), verbosity: 0 }).promise;
   const pages: PositionedText[][] = [];
   for (let p = 1; p <= Math.min(doc.numPages, 2); p++) {
-    const { items } = await (await doc.getPage(p)).getTextContent();
+    const items = await pageTextItems(await doc.getPage(p));
     pages.push(
       items
-        .filter((it): it is TextItem => 'str' in it)
         .filter((it) => it.str.trim())
         .map((it): PositionedText => ({ s: it.str.trim(), x: it.transform[4], y: it.transform[5] })),
     );
@@ -191,12 +191,12 @@ for (const ward of WARDS) {
     const pages = await loadPages(path.join(pdfDir, f));
     const all = pages.flat();
     const hourItems = pages[1] ?? pages[0];
-    const { note, ...cap }: Partial<NonNullable<PdfDetail['capacity']>> & { note?: string } = capacity(pages[0]) ?? {};
+    const c = capacity(pages[0]);
     const monToSat = maxOpeningHours(hourItems);
     out[f] = {
       kana: kana(pages[0]),
-      capacity: cap.total ? { total: cap.total, byAge: cap.byAge! } : null,
-      ...(note && { note }),
+      capacity: c?.total ? { total: c.total, byAge: c.byAge } : null,
+      ...(c?.note && { note: c.note }),
       weekday: hours(hourItems, '平日') ?? monToSat?.day ?? null,
       saturday: hours(hourItems, '土曜') ?? monToSat?.day ?? null,
       ...(monToSat?.night && { nightHours: monToSat.night }),

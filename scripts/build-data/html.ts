@@ -1,4 +1,5 @@
-import type { TableCell } from '../data-types.ts';
+import type { TableCell } from './types.ts';
+import { HEADER_NAME } from './text.ts';
 
 export const decode = (s: string) =>
   s
@@ -19,6 +20,4 @@ export const tableRows = (tableHtml: string): TableCell[][] =>
       text: decode(html),
     })),
   );
-// 見出しの施設名の列は「施設名」「保育事業所名」「施設・事業名」（城東区）「名称」（東住吉区）など
-export const HEADER_NAME = /施設名|事業所名|施設・事業名|^名称$/;
 export const isHeaderRow = (cells: TableCell[]) => cells.some((c) => HEADER_NAME.test(c.text));

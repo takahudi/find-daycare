@@ -19,10 +19,10 @@ import path from 'node:path';
 import type { Dataset, Facility, Ward } from '../src/types.ts';
 import { CITY_SOURCES, WARDS } from './wards.ts';
 import { parseCsv } from './build-data/csv.ts';
-import { SRC, loadWardInputs } from './build-data/inputs.ts';
+import { SRC, DATA, loadWardInputs } from './build-data/inputs.ts';
 import { buildLicensed } from './build-data/licensed.ts';
 import { reconcileVacancies } from './build-data/reconcile.ts';
-import { appendKigyo } from './build-data/kigyo.ts';
+import { buildKigyo } from './build-data/kigyo.ts';
 import { finishWard } from './build-data/ward.ts';
 
 const OUT = path.resolve('src/data/facilities.json');
@@ -38,9 +38,14 @@ for (const ward of WARDS) {
   const wardRows = csvRows.filter((r) => r[6] === ward.name);
   if (!wardRows.length) throw new Error(`${ward.name}: 空き情報CSVに該当行がない`);
   const input = await loadWardInputs(ward);
-  const wardFacilities = buildLicensed(ward, wardRows, input, warn);
-  await reconcileVacancies(ward, wardFacilities, warn);
-  const kigyoAsOf = await appendKigyo(ward, wardFacilities, input, warn);
+  const licensed = buildLicensed(ward, wardRows, input, warn);
+  await reconcileVacancies(ward, licensed, warn);
+  const { facilities: kigyo, asOf: kigyoAsOf } = await buildKigyo(ward, input, warn);
+  if (Object.keys(input.geocodeCache).length) {
+    await mkdir(path.join(DATA, ward.id), { recursive: true });
+    await writeFile(path.join(DATA, ward.id, 'geocode-cache.json'), JSON.stringify(input.geocodeCache, null, 2) + '\n');
+  }
+  const wardFacilities = [...licensed, ...kigyo];
   wards.push(finishWard(ward, wardRows, wardFacilities, input, kigyoAsOf, now, warn));
   facilities.push(...wardFacilities);
 }

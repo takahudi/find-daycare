@@ -1,7 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
-import type { TextItem } from 'pdfjs-dist/types/src/display/api.js';
-import type { PdfTable, PositionedText } from '../data-types.ts';
+import { pageTextItems } from '../pdf-text.ts';
+import type { PositionedText } from '../pdf-text.ts';
+import type { TableCell } from './types.ts';
 
 /**
  * PDFの表（生野区・鶴見区・旭区の企業主導型の空き情報、旭区の空き情報）を、HTMLの表と同じ「行ごとのセル」に直す。
@@ -9,12 +10,15 @@ import type { PdfTable, PositionedText } from '../data-types.ts';
  * 同じ高さの文字を同じ行として各列に振り分ける。空欄の年齢は空文字のセル（= 受入れなし）になる
  * section: 1ページに複数の表がある資料（住之江区の空き情報は認可施設と企業主導型）で、この見出しより下の表だけを読む
  */
-export async function pdfTableRows(file: string, section: string | null = null): Promise<PdfTable> {
+export async function pdfTableRows(
+  file: string,
+  section: string | null = null,
+): Promise<{ headers: string[]; rows: TableCell[][] }> {
   const doc = await getDocument({ data: new Uint8Array(await readFile(file)), verbosity: 0 }).promise;
-  const rows: PdfTable = [];
+  const rows: TableCell[][] = [];
+  let headers: string[] | undefined;
   for (let p = 1; p <= doc.numPages; p++) {
-    const items = (await (await doc.getPage(p)).getTextContent()).items
-      .filter((i): i is TextItem => 'str' in i)
+    const items = (await pageTextItems(await doc.getPage(p)))
       .filter((i) => i.str.trim())
       .map((i): PositionedText => ({ s: i.str.trim(), x: i.transform[4], y: i.transform[5] }));
     const marker = section && items.find((i) => i.s === section);
@@ -46,7 +50,7 @@ export async function pdfTableRows(file: string, section: string | null = null):
         .normalize('NFKC')
         .replace(/\s+/g, '');
     };
-    rows.header ??= cols.map(headerText);
+    headers ??= cols.map(headerText);
     const bounds = cols.slice(1).map((c, k) => (cols[k].x + c.x) / 2);
     const columnOf = (i: PositionedText) => bounds.filter((b) => i.x > b).length;
     const top = Math.min(...cols.map((c) => c.y)) - 3;
@@ -75,5 +79,5 @@ export async function pdfTableRows(file: string, section: string | null = null):
       );
     }
   }
-  return rows;
+  return { headers: headers ?? [], rows };
 }

@@ -3,7 +3,8 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import XLSX from 'xlsx';
 import { parseJson } from '../json.ts';
-import type { WardDataFiles, CellValue } from '../data-types.ts';
+import type { WardDataFiles } from '../data-types.ts';
+import type { CellValue } from './types.ts';
 import type { WardConfig } from '../wards.ts';
 import { cell } from './text.ts';
 

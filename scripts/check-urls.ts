@@ -2,12 +2,11 @@
 // Usage: node scripts/check-urls.ts <区のid>
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import type { Website } from './data-types.ts';
 import { parseJson } from './json.ts';
 
 const wardId = process.argv[2] ?? 'chuo';
 const sites = parseJson(await readFile(path.resolve('data', wardId, 'websites.json'), 'utf8'), 'websites.json');
-const entries = Object.entries<Website>(sites).filter(([k, v]) => !k.startsWith('_') && v.url);
+const entries = Object.entries(sites).filter(([, v]) => v.url);
 
 await Promise.all(
   entries.map(async ([name, { url }]) => {
@@ -24,11 +23,12 @@ await Promise.all(
           .slice(0, 50) ?? '';
       console.log(`${res.status}\t${name}\t${url}${res.url !== url ? ` -> ${res.url}` : ''}\t${title}`);
     } catch (e: unknown) {
-      if (!(e instanceof Error)) throw e;
-      const cause = e.cause;
+      const error = e !== null && (typeof e === 'object' || typeof e === 'function') ? e : {};
+      const cause = 'cause' in error ? error.cause : undefined;
       const code =
-        typeof cause === 'object' && cause !== null && 'code' in cause && typeof cause.code === 'string' ? cause.code : undefined;
-      console.log(`ERR\t${name}\t${url}\t${code ?? e.message}`);
+        cause !== null && (typeof cause === 'object' || typeof cause === 'function') && 'code' in cause ? cause.code : undefined;
+      const message = 'message' in error ? error.message : undefined;
+      console.log(`ERR\t${name}\t${url}\t${String(code ?? message)}`);
     }
   }),
 );

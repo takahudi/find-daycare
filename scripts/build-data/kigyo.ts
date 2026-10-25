@@ -1,10 +1,11 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import type { Facility } from '../../src/types.ts';
 import type { WardConfig } from '../wards.ts';
-import type { PdfTable, TableCell, KigyoDetail, Warn } from '../data-types.ts';
-import { SRC, DATA } from './inputs.ts';
+import type { KigyoDetail } from '../data-types.ts';
+import type { TableCell, Warn } from './types.ts';
+import { SRC } from './inputs.ts';
 import type { WardInputs } from './inputs.ts';
 import { normName, stripNoteRef, parseShared, vacancy } from './text.ts';
 import { decode, tableRows, isHeaderRow } from './html.ts';
@@ -28,7 +29,10 @@ function pickOperator(fromPdf: string | undefined, fromWard: string | undefined)
   return i === p.length && w.length > p.length ? fromWard : fromPdf;
 }
 
-export async function appendKigyo(ward: WardConfig, wardFacilities: Facility[], input: WardInputs, warn: Warn) {
+type MatchedKigyo = KigyoDetail & { phone: string };
+
+export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn) {
+  const facilities: Facility[] = [];
   const { kigyoDetails, geocodeCache, websites, wardDetails } = input;
   // 空き人数【地域枠】: 区役所「企業主導型保育事業所の空き情報」ページの表。
   // 位置: 住所セルに大阪市マップナビのリンクがあればその座標、なければ国土地理院の住所検索。
@@ -50,18 +54,17 @@ export async function appendKigyo(ward: WardConfig, wardFacilities: Facility[], 
   const kigyoXlsx = path.join(SRC, ward.id, 'kigyo.xlsx');
   const kigyoPdf = path.join(SRC, ward.id, 'kigyo.pdf');
   let headers: string[];
-  let kigyoRows: PdfTable;
+  let kigyoRows: TableCell[][];
   if (ward.kigyoFile && existsSync(kigyoXlsx)) {
     ({ headers, rows: kigyoRows } = xlsxTable(kigyoXlsx));
   } else if (ward.kigyoFile) {
-    kigyoRows = await pdfTableRows(kigyoPdf, ward.kigyoPdfSection);
-    headers = kigyoRows.header ?? [];
+    ({ headers, rows: kigyoRows } = await pdfTableRows(kigyoPdf, ward.kigyoPdfSection));
   } else {
     headers = (tableRows(table).find(isHeaderRow) ?? []).map((c) => c.text);
     kigyoRows = tableRows(table);
   }
   const operatorCol = headers.indexOf('設置者');
-  const kigyoByAddress = (address: string) => {
+  const kigyoByAddress = (address: string): MatchedKigyo | undefined => {
     // 「靭」「靱」の異体字や、部屋番号を番地に続けて書くか（1-15-9-201）建物名の後に書くかの違いを吸収する
     const key = (s: string) =>
       s
@@ -85,13 +88,14 @@ export async function appendKigyo(ward: WardConfig, wardFacilities: Facility[], 
   // 添付の企業主導型保育事業所一覧PDF（阿倍野区。「所在地」「電話番号」列）から補う
   const infoFile = path.join(SRC, ward.id, 'kigyo_info_page.html');
   const infoPdf = path.join(SRC, ward.id, 'kigyo_info.pdf');
-  let infoRows: PdfTable = [];
+  let infoRows: TableCell[][] = [];
   let infoCols = [1];
   if (existsSync(infoFile)) {
     infoRows = [...(await readFile(infoFile, 'utf8')).matchAll(/<table[\s\S]*?<\/table>/g)].flatMap(([t]) => tableRows(t));
   } else if (ward.kigyoInfoFile) {
-    infoRows = await pdfTableRows(infoPdf);
-    infoCols = infoRows.header!.flatMap((h, k) => (/所在地|電話/.test(h) ? [k] : []));
+    const { headers: infoHeaders, rows: pdfInfoRows } = await pdfTableRows(infoPdf);
+    infoRows = pdfInfoRows;
+    infoCols = infoHeaders.flatMap((h, k) => (/所在地|電話/.test(h) ? [k] : []));
   } else if (!ward.kigyoFile && kigyoTables.length > 1) {
     // 空き情報の表とは別に「所在地」「連絡先」の一覧表を載せている区（西成区は空き情報の下、淀川区は上）
     infoRows = kigyoTables.filter((t) => t !== table).flatMap((t) => tableRows(t));
@@ -131,7 +135,7 @@ export async function appendKigyo(ward: WardConfig, wardFacilities: Facility[], 
     let infoCells = ownInfoCells;
     // 区の表に所在地も補う資料もない区（福島区）は、市の認可外保育施設一覧（詳細）と施設名で対応付ける
     // （区の表と市の一覧で冠の有無が違うことがあるので、どちらかがもう一方を含むものを1件だけ探す）
-    let byName: KigyoDetail | null = null;
+    let byName: MatchedKigyo | null = null;
     if (!infoCells.length && !infoRows.length) {
       const k = infoKey(name);
       const hits = Object.entries(kigyoDetails).filter(([, d]) => {
@@ -183,10 +187,11 @@ export async function appendKigyo(ward: WardConfig, wardFacilities: Facility[], 
       .trim()
       .replace(new RegExp(`^${ward.name}`), '');
     // 電話番号で対応付け。区の表と市のPDFで電話番号が違う施設は所在地（番地まで）で対応付ける
-    const d = byName ?? kigyoDetails[phone] ?? kigyoByAddress(shortAddress);
+    const byPhone = kigyoDetails[phone];
+    const d = byName ?? (byPhone && { ...byPhone, phone }) ?? kigyoByAddress(shortAddress);
     if (!d) warn(`認可外保育施設一覧（詳細）に見つからない: ${name}`);
     else if (byName) warn(`区の表に所在地がないため、市の一覧の「${d.name}」と施設名で対応付け: ${name}`);
-    else if (d.phone!.startsWith('(電話番号なし)')) warn(`市の一覧に電話番号がないため所在地で対応付け: ${name}`);
+    else if (d.phone.startsWith('(電話番号なし)')) warn(`市の一覧に電話番号がないため所在地で対応付け: ${name}`);
     else if (!kigyoDetails[phone]) warn(`電話番号が市の一覧（${d.phone}）と違うため所在地で対応付け: ${name} ${phone}`);
     const address = d?.address.normalize('NFKC') ?? `大阪市${ward.name}${shortAddress}`;
     // PDFの表（鶴見区）では、施設名の末尾の語（「ぴじょんがーでん保育園 優」の「優」）が隣の所在地の列に入ってしまうことがある。
@@ -202,7 +207,7 @@ export async function appendKigyo(ward: WardConfig, wardFacilities: Facility[], 
     const position = mpx && mpy ? { lat: mpy, lng: mpx } : await geocode(address, geocodeCache);
     const site = websites[normName(name)];
 
-    wardFacilities.push({
+    facilities.push({
       id: `${ward.id}-kigyo-${String(idx + 1).padStart(2, '0')}`,
       ward: ward.id,
       wardName: ward.name,
@@ -249,10 +254,5 @@ export async function appendKigyo(ward: WardConfig, wardFacilities: Facility[], 
   }
   // 表に時点の記載がなく施設ごとの調査日だけがある区（阿倍野区）は、調査日を時点として出す
   if (!kigyoAsOf && surveyDates.size) kigyoAsOf = `${[...surveyDates].sort().join('・')}調査`;
-  if (Object.keys(geocodeCache).length) {
-    await mkdir(path.join(DATA, ward.id), { recursive: true });
-    await writeFile(path.join(DATA, ward.id, 'geocode-cache.json'), JSON.stringify(geocodeCache, null, 2) + '\n');
-  }
-
-  return kigyoAsOf;
+  return { facilities, asOf: kigyoAsOf };
 }

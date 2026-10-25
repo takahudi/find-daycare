@@ -6,7 +6,7 @@ import { MapView } from './components/MapView';
 import { distanceMeters, geocode } from './lib/geo';
 import { AGE_LABELS, AGES, acceptsAny, vacancyCount } from './lib/vacancy';
 
-// oxlint-disable-next-line typescript/no-unsafe-type-assertion -- build-data.mjs が生成する JSON。実行時の検証はデータのスキーマ検証で入れる
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion -- build-data.ts が生成する JSON。実行時の検証はデータのスキーマ検証で入れる
 const data = rawData as Dataset;
 const WARD_NAMES = data.wards.map((w) => w.name);
 // 区が増えると区名を並べきれないので、5区以上は区の数で表す（区名は見出しのツールチップに出す）

@@ -1,6 +1,6 @@
 import type { Facility, Ward } from '../../src/types.ts';
 import type { WardConfig } from '../wards.ts';
-import type { Warn, WardDetail } from '../data-types.ts';
+import type { Warn } from './types.ts';
 import type { WardInputs } from './inputs.ts';
 import { normName } from './text.ts';
 
@@ -20,13 +20,13 @@ export function finishWard(
 
   // 補完ファイルのキーの打ち間違い検出
   // 施設名を直したもの（ward-details.json の name）は、CSVの名前のキーで書いている
-  const renamedKeys = Object.entries<WardDetail>(wardDetails).flatMap(([k, d]) =>
+  const renamedKeys = Object.entries(wardDetails).flatMap(([k, d]) =>
     d.name && wardFacilities.some((f) => f.name === d.name) ? [k] : [],
   );
   const knownKeys = new Set([...wardFacilities.map((f) => normName(f.name)), ...renamedKeys]);
   for (const file of [websites, wardDetails]) {
     for (const k of Object.keys(file)) {
-      if (!k.startsWith('_') && !knownKeys.has(k)) warn(`対応する施設がないキー: ${k}`);
+      if (!knownKeys.has(k)) warn(`対応する施設がないキー: ${k}`);
     }
   }
 

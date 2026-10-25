@@ -3,11 +3,17 @@ import type { Source } from '../src/types.ts';
 export interface WardConfig {
   id: string;
   name: string;
+  /** 大阪市「認可外保育施設一覧（詳細）」PDFでの区の見出し */
   ninkagaiTag: string;
+  /** 大阪市「保育施設等一覧」の区ページ（xlsx と各施設の基本情報PDF） */
   listPage: string;
+  /** 区役所「保育施設等の空き状況」ページ */
   vacancyPage: string;
+  /** 空き情報ページの添付のうち空き人数の表（申込書の様式などと区別する） */
   vacancyFile: RegExp | null;
+  /** 区役所「企業主導型保育事業所の空き情報」ページ（ページ内の表を使う） */
   kigyoPage: string;
+  /** 各施設のホームページが載っている区の資料（websites.json の出典） */
   homepageSources: Source[];
   kigyoInfoPage?: string;
   kigyoInfoFile?: RegExp;
@@ -24,17 +30,11 @@ export const WARDS: WardConfig[] = [
   {
     id: 'chuo',
     name: '中央区',
-    /** 大阪市「認可外保育施設一覧（詳細）」PDFでの区の見出し */
     ninkagaiTag: '(05中央区)',
-    /** 大阪市「保育施設等一覧」の区ページ（xlsx と各施設の基本情報PDF） */
     listPage: `${ORIGIN}/kodomo/page/0000012677.html`,
-    /** 区役所「保育施設等の空き状況」ページ */
     vacancyPage: `${ORIGIN}/chuo/page/0000304732.html`,
-    /** 空き情報ページの添付のうち空き人数の表（申込書の様式などと区別する） */
     vacancyFile: /\/\d{8}\.pdf$/,
-    /** 区役所「企業主導型保育事業所の空き情報」ページ（ページ内の表を使う） */
     kigyoPage: `${ORIGIN}/chuo/page/0000427719.html`,
-    /** 各施設のホームページが載っている区の資料（websites.json の出典） */
     homepageSources: [{ label: '中央区内の認可保育施設情報提供資料', url: `${ORIGIN}/chuo/page/0000683899.html` }],
   },
   {

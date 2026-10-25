@@ -6,8 +6,11 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.ts';
-import type { TextItem } from 'pdfjs-dist/types/src/display/api.js';
-import type { KigyoBlock } from './data-types.ts';
+import { pageTextItems } from './pdf-text.ts';
+import type { KigyoDetail } from './data-types.ts';
+
+type BlockField = 'name' | 'type' | 'postalCode' | 'address' | 'startedOn' | 'operator';
+type KigyoBlock = Omit<KigyoDetail, BlockField | 'page'> & Partial<Pick<KigyoDetail, BlockField>>;
 
 type Token = { s: string; y: number };
 
@@ -92,19 +95,31 @@ function parsePage(items: Token[]) {
 }
 
 const doc = await getDocument({ data: new Uint8Array(await readFile(PDF)), verbosity: 0 }).promise;
-const outByTag = new Map<string, Record<string, KigyoBlock & { page: number }>>(WARDS.map((w) => [w.ninkagaiTag, {}]));
+const outByTag = new Map<string, Record<string, KigyoDetail>>(WARDS.map((w) => [w.ninkagaiTag, {}]));
 for (let p = 1; p <= doc.numPages; p++) {
-  const { items } = await (await doc.getPage(p)).getTextContent();
-  const tokens = items
-    .filter((i): i is TextItem => 'str' in i)
-    .map((i): Token => ({ s: i.str.trim(), y: i.transform[5] }))
-    .filter((i) => i.s);
+  const items = await pageTextItems(await doc.getPage(p));
+  const tokens = items.map((i): Token => ({ s: i.str.trim(), y: i.transform[5] })).filter((i) => i.s);
   if (!tokens.some((t) => outByTag.has(t.s))) continue;
   for (const block of parsePage(tokens)) {
-    if (!block.name) throw new Error(`page ${p}: ${block.phone} の施設名が読めない`);
+    const required = (field: BlockField): string => {
+      const value = block[field];
+      if (value === undefined) throw new Error(`${block.wardTag} page ${p}: ${field} がない`);
+      return value;
+    };
+    const name = required('name');
     if (block.type !== '企業主導型保育事業' || !outByTag.has(block.wardTag)) continue;
+    const detail: KigyoDetail = {
+      ...block,
+      name,
+      type: required('type'),
+      postalCode: required('postalCode'),
+      address: required('address'),
+      startedOn: required('startedOn'),
+      operator: required('operator'),
+      page: p,
+    };
     // キーは電話番号（ない施設は施設名。build-data.ts は電話番号のほか所在地でも対応付ける）
-    outByTag.get(block.wardTag)![block.phone ?? `(電話番号なし)${block.name}`] = { ...block, page: p };
+    outByTag.get(block.wardTag)![block.phone ?? `(電話番号なし)${block.name}`] = detail;
   }
 }
 

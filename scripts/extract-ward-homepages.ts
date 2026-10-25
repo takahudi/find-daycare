@@ -6,7 +6,7 @@ import { readdir, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
-import type { TextItem } from 'pdfjs-dist/types/src/display/api.js';
+import { pageTextItems } from './pdf-text.ts';
 import type { Website } from './data-types.ts';
 import { parseJson } from './json.ts';
 
@@ -32,11 +32,8 @@ for (const dir of dirs) {
   const files = (await readdir(DIR)).filter((f) => f.endsWith('.pdf')).sort();
   for (const f of files) {
     const doc = await getDocument({ data: new Uint8Array(await readFile(path.join(DIR, f))), verbosity: 0 }).promise;
-    const { items } = await (await doc.getPage(1)).getTextContent();
-    const strs = items
-      .filter((i): i is TextItem => 'str' in i)
-      .map((i) => i.str.trim())
-      .filter(Boolean);
+    const items = await pageTextItems(await doc.getPage(1));
+    const strs = items.map((i) => i.str.trim()).filter(Boolean);
     const text = strs.join('');
     // 天王寺区の様式は「〔施設名〕」の次の項目が施設名。中央区の様式は先頭が施設名
     const nameAt = strs.indexOf('〔施設名〕');

@@ -1,6 +1,6 @@
 import type { Facility } from '../../src/types.ts';
 import type { WardConfig } from '../wards.ts';
-import type { Warn } from '../data-types.ts';
+import type { Warn } from './types.ts';
 import type { WardInputs } from './inputs.ts';
 import { cell, normName, normPhone, parseShared, vacancy } from './text.ts';
 

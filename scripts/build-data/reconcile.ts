@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import type { Facility } from '../../src/types.ts';
 import type { WardConfig } from '../wards.ts';
-import type { Warn } from '../data-types.ts';
+import type { Warn } from './types.ts';
 import { SRC } from './inputs.ts';
 import { decode, tableRows, isHeaderRow } from './html.ts';
 import { xlsxTable } from './xlsx.ts';
@@ -70,7 +70,7 @@ export async function reconcileVacancies(ward: WardConfig, wardFacilities: Facil
   // 添付PDFの表だけで公表している区（旭区）は、PDFの表を列の位置で読む
   const vacancyPdf = path.join(SRC, ward.id, 'vacancy.pdf');
   if (!wardRowsToCheck.length && existsSync(vacancyPdf)) {
-    for (const r of await pdfTableRows(vacancyPdf))
+    for (const r of (await pdfTableRows(vacancyPdf)).rows)
       wardRowsToCheck.push({ names: [r[0].text], vals: r.slice(-6).map((c) => c.text) });
   }
   if (wardRowsToCheck.length) console.log(`[${ward.name}] 区の空き情報 ${wardRowsToCheck.length} 施設とCSVを照合`);
