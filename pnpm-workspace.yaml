@@ -5,3 +5,7 @@ allowBuilds:
   fsevents: false
   # The prepare script runs `lefthook install` instead
   lefthook: false
+  # esbuild resolves its optional platform binary without the install-time optimization
+  esbuild: false
+  # workerd resolves its optional platform binary without the install-time optimization
+  workerd: false
