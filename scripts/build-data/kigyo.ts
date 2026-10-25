@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import type { Facility } from '../../src/schema.ts';
+import { LICENSING_BY_FACILITY_TYPE, type Facility } from '../../src/schema.ts';
 import type { WardConfig } from '../wards.ts';
 import type { KigyoDetail } from '../data-schema.ts';
 import type { TableCell, Warn } from './types.ts';
@@ -221,8 +221,8 @@ export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn
       name,
       kana: '',
       facilityType: 'kigyo',
-      licensing: 'unlicensed',
-      detailType: '認可外保育施設',
+      licensing: LICENSING_BY_FACILITY_TYPE.kigyo,
+      detailType: null,
       ownership: null,
       operator: pickOperator(d?.operator, operatorCell?.text),
       postalCode: d?.postalCode ?? null,

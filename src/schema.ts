@@ -31,7 +31,7 @@ export const LicensingSchema = v.picklist(['licensed', 'unlicensed'], '認可区
 export type FacilityType = v.InferOutput<typeof FacilityTypeSchema>;
 export type Licensing = v.InferOutput<typeof LicensingSchema>;
 
-const LICENSING_BY_FACILITY_TYPE: Record<FacilityType, Licensing> = {
+export const LICENSING_BY_FACILITY_TYPE: Record<FacilityType, Licensing> = {
   nursery: 'licensed',
   kodomoen: 'licensed',
   community: 'licensed',

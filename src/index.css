@@ -14,6 +14,8 @@
   --kodomoen: #c2558f;
   --community: #8a6bd1;
   --kigyo: #b7791f;
+  --unlicensed: #8a5a12;
+  --unlicensed-bg: #fbf1df;
   --radius: 14px;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 4px 16px rgb(0 0 0 / 0.05);
 
@@ -346,16 +348,16 @@ button.link {
 }
 
 .badge--unlicensed {
-  background: #fbf1df;
-  color: #8a5a12;
+  background: var(--unlicensed-bg);
+  color: var(--unlicensed);
 }
 
 .card__caution {
   margin: 4px 0 0;
   padding: 4px 8px;
   border-radius: 6px;
-  background: #fbf1df;
-  color: #8a5a12;
+  background: var(--unlicensed-bg);
+  color: var(--unlicensed);
   font-size: 0.75rem;
 }
 
@@ -541,9 +543,10 @@ button.link {
   background: var(--full);
 }
 
+/* 認可外は四角いピンで区別する */
 .pin--unlicensed {
   border-radius: 7px;
-  border-color: var(--kigyo);
+  border-color: var(--unlicensed);
 }
 
 .pin--selected {

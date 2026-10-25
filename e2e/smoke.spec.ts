@@ -153,3 +153,29 @@ test('施設種別の選択肢を保ち、企業主導型と認可外を別の�
   await expect(cards.first().locator('.card__caution')).toHaveCount(0);
   await expect(page.locator('.leaflet-marker-icon .pin--unlicensed')).toHaveCount(0);
 });
+
+test('モバイルの地図タブで企業主導型のポップアップに認可外と表示する', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
+    await page.getByRole('button', { name: label, exact: true }).click();
+  }
+  await page.getByRole('button', { name: '地図', exact: true }).click();
+  const map = page.getByRole('region', { name: '地図' });
+  await map.scrollIntoViewIfNeeded();
+  const pins = map.locator('.leaflet-marker-icon .pin--unlicensed');
+  const index = await pins.evaluateAll((nodes) =>
+    nodes.findIndex((node) => {
+      const box = node.getBoundingClientRect();
+      return (
+        document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2)?.closest('.leaflet-marker-icon') ===
+        node.parentElement
+      );
+    }),
+  );
+  expect(index, '地図内に操作できる認可外ピンがある').toBeGreaterThanOrEqual(0);
+  await pins.nth(index).click();
+  await expect(page.getByRole('button', { name: '地図', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('region', { name: '施設一覧' })).toBeHidden();
+  await expect(page.locator('.leaflet-popup')).toBeVisible();
+  await expect(page.locator('.popup-meta')).toHaveText(/.+区 ・ 企業主導型 ・ 認可外/);
+});

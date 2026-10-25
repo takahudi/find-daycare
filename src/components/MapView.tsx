@@ -4,7 +4,7 @@ import { MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip, useMap } fro
 import type { Facility, Home, Licensing } from '../schema';
 import { formatDistance } from '../lib/geo';
 import { AGE_LABELS } from '../lib/vacancy';
-import { FACILITY_TYPE_LABELS } from '../lib/facility-labels';
+import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../lib/facility-labels';
 
 interface Props {
   facilities: Facility[];
@@ -141,6 +141,7 @@ export function MapView({ facilities, vacancyOf, distanceOf, home, selectedId, o
               <strong>{f.name}</strong>
               <div className="popup-meta">
                 {f.wardName} ・ {FACILITY_TYPE_LABELS[f.facilityType].label}
+                {f.licensing === 'unlicensed' && ` ・ ${LICENSING_LABELS[f.licensing].label}`}
                 {distance !== null && ` ・ 自宅から${formatDistance(distance)}`}
               </div>
               <div className="popup-vacancy">

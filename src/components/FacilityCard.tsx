@@ -20,7 +20,7 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
   const shared = f.sharedVacancy;
   const typeLabel = FACILITY_TYPE_LABELS[f.facilityType].label;
   const licensingLabel = LICENSING_LABELS[f.licensing];
-  const showDetailType = f.detailType && ![typeLabel, licensingLabel.label, licensingLabel.detailLabel].includes(f.detailType);
+  const showDetailType = f.detailType && f.detailType !== typeLabel;
 
   return (
     <article
@@ -42,9 +42,9 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
           {f.name}
         </h2>
         {f.kana && <p className="card__kana">{f.kana}</p>}
-        {(f.licensing === 'unlicensed' || f.facilityType === 'kigyo') && (
+        {f.licensing === 'unlicensed' && (
           <p className="card__caution">
-            {f.licensing === 'unlicensed' && '認可外保育施設です。申込みは区役所ではなく施設との直接契約です'}
+            認可外保育施設です。申込みは区役所ではなく施設との直接契約です
             {f.facilityType === 'kigyo' && '（空き人数は地域枠）'}。
           </p>
         )}

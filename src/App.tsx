@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import rawData from './data/facilities.json';
 import * as v from 'valibot';
-import { DatasetSchema, FacilityTypeSchema, HomeSchema } from './schema';
+import { DatasetSchema, HomeSchema } from './schema';
 import type { FacilityType, Facility, Home } from './schema';
 import { FacilityCard } from './components/FacilityCard';
 import { MapView } from './components/MapView';
 import { distanceMeters, geocode } from './lib/geo';
 import { AGE_LABELS, AGES, acceptsAny, vacancyCount } from './lib/vacancy';
-import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from './lib/facility-labels';
+import { FACILITY_TYPES, FACILITY_TYPE_LABELS, LICENSING_LABELS } from './lib/facility-labels';
 
 const data = v.parse(DatasetSchema, rawData);
 const WARD_NAMES = data.wards.map((w) => w.name);
@@ -50,7 +50,7 @@ function loadHome(): Home | null {
 export default function App() {
   const [ages, setAges] = useState<number[]>([]);
   const [wardIds, setWardIds] = useState<string[]>(data.wards.map((w) => w.id));
-  const [facilityTypes, setFacilityTypes] = useState<FacilityType[]>(FacilityTypeSchema.options);
+  const [facilityTypes, setFacilityTypes] = useState<FacilityType[]>(FACILITY_TYPES);
   const [onlyOpen, setOnlyOpen] = useState(false);
   const [home, setHome] = useState<Home | null>(loadHome);
   const [sort, setSort] = useState<SortKey>(home ? 'distance' : 'vacancy');
@@ -224,7 +224,7 @@ export default function App() {
         </div>
         <div className="filters__group">
           <span className="filters__label">種別</span>
-          {FacilityTypeSchema.options.map((facilityType) => (
+          {FACILITY_TYPES.map((facilityType) => (
             <button
               key={facilityType}
               type="button"

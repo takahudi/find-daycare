@@ -109,12 +109,7 @@ describe('公開データ', () => {
     const f = data.facilities[0];
     f.facilityType = facilityType;
     f.licensing = licensing;
-    const result = v.safeParse(FacilitySchema, f);
-    expect(result.success).toBe(false);
-    if (!result.success)
-      expect(result.issues.map((issue) => issue.message)).toContain(
-        `${f.wardName} (${f.ward}) 施設 ${f.id}: 施設種別に対応する認可区分と一致しません`,
-      );
+    expectFacilityIssue(data, f.id, '施設種別に対応する認可区分と一致しません');
   });
 
   it('大阪市外の施設座標を施設ID付きで拒否する', () => {
