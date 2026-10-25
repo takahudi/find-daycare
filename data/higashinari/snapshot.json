@@ -1,0 +1,125 @@
+{
+  "fetchedOn": "2026-10-21",
+  "files": {
+    "facility-pdfs/14-higashinakamoto.pdf": {
+      "sha256": "f5189a9280ac0d36975b6280a595ae374566b5e0a2d91714bab0bfe324bcb525",
+      "size": 973368
+    },
+    "facility-pdfs/14-higasiobase.pdf": {
+      "sha256": "77de5b162c7930c8b7c3737c49a84145e281d4c5dc67400ec4015bf03f635c68",
+      "size": 143075
+    },
+    "facility-pdfs/14-taisei.pdf": {
+      "sha256": "0dc15f0269a4808e7724e1a1ac7cb2cf0c5a7bbbf476ac958571e27f7f82c7a7",
+      "size": 994687
+    },
+    "facility-pdfs/h14-1-imazato.pdf": {
+      "sha256": "877bc4a58fb88355ddebedf38f426a4c0e1fbd61cd80a624ed1564f95f59c727",
+      "size": 995291
+    },
+    "facility-pdfs/h14-10-nakamoto.pdf": {
+      "sha256": "c3001d3f4efb8c7a39545b4e63b0a9e476a2d096f3b95e59cdc1fde189c6ceb7",
+      "size": 980580
+    },
+    "facility-pdfs/h14-2-koichi.pdf": {
+      "sha256": "0373b5a764a6e1d1a049c22db714b02fb074f3bb047e49ada3bd8b29a208cf2d",
+      "size": 1000000
+    },
+    "facility-pdfs/h14-3-tumiki.pdf": {
+      "sha256": "617eff87d67485abca53eb0e5deaab3a60d20640bcdf4a899be3c8de50ebcc5e",
+      "size": 1003760
+    },
+    "facility-pdfs/h14-4-higashinarisansui.pdf": {
+      "sha256": "88c439375f3568407d25932045d6f15bce87c234d3df14036c2065f70716f4d9",
+      "size": 1003872
+    },
+    "facility-pdfs/h14-5-dai2akinomoritamatu.pdf": {
+      "sha256": "4a4b07957fcf5ad5c1475acc1a0e293ed40cf5268245f68579dba757312e8327",
+      "size": 998823
+    },
+    "facility-pdfs/h14-6-kidsfirst.pdf": {
+      "sha256": "541ff199e0e38996355e932db1ade0483f948db288a68b0e1d0274fb2452e5da",
+      "size": 1002268
+    },
+    "facility-pdfs/h14-7-kitanakamto.pdf": {
+      "sha256": "1022828e845d7b33a9e81598dc4cb6661e2ffa936ba0e961ba52559c4b26aeb5",
+      "size": 999842
+    },
+    "facility-pdfs/h14-8-higashinarikaisei.pdf": {
+      "sha256": "1eb85e003f10790e0389e6ad2cf5524d418ab4763933b2a0279ef5fb7dda7925",
+      "size": 1002150
+    },
+    "facility-pdfs/h14-9-aiaishinfukae.pdf": {
+      "sha256": "61a8d7d87b53c5aae76a220406abce8c0422467656d9eaf952f6f8882b66075d",
+      "size": 995431
+    },
+    "facility-pdfs/k14-1-fukae.pdf": {
+      "sha256": "9d1c6fdf8795d48c2226958a6bc6b144fb33a7fc0ef58ef275f6af190ba6086f",
+      "size": 1290608
+    },
+    "facility-pdfs/t14-2-higashimnakamotomirai.pdf": {
+      "sha256": "de126d8b3526d1e37b21c63b47d97e4c64eeaf9feb73c430bb7f4eb9c97fd136",
+      "size": 959724
+    },
+    "facility-pdfs/t14-3-shinfukaepeace.pdf": {
+      "sha256": "fc8377da721dfa5202fe11f4f175b15540b5d761595d0504d56491e7f8e25e71",
+      "size": 974043
+    },
+    "facility-pdfs/t14-4-imazatopeace.pdf": {
+      "sha256": "3abeba2093fc24174db68737facb2d50712946e8f1cd7a6e1b22c63562bf3aac",
+      "size": 971990
+    },
+    "facility-pdfs/t14-5-angelkidsmorinomiya.pdf": {
+      "sha256": "a40b328af3ea210961c9623758214cccdf700361c9b647b5c38266f835d2d0e4",
+      "size": 961323
+    },
+    "facility-pdfs/t14-6-fukaesansan.pdf": {
+      "sha256": "2fab5b2fb3195995d295964e880bc6cd908c68fa10cac04d23c6e59362d470f4",
+      "size": 952000
+    },
+    "facility-pdfs/t14-7-kidsbearmidoribashi.pdf": {
+      "sha256": "1acd5bded807a1589ae5b54eb9532e99f2fdf15e9c3d807c25986c7d98fd28e4",
+      "size": 968527
+    },
+    "facility-pdfs/t14-8-minnanosatoimo.pdf": {
+      "sha256": "a9a2c46cb2eb3964bec2738aea778c5d5e1473a9951796a7c9ed00d032f60f08",
+      "size": 961524
+    },
+    "homepage-sources/1.html": {
+      "sha256": "a4498d1f624699aa80a62705d422113dd52130d8d7cda28e04ecb76b3374d18f",
+      "size": 52436
+    },
+    "homepage-sources/1/r8-7-17.pdf": {
+      "sha256": "9ad492bf0623540a11e9c678bac47ebc3a4ae71a33ba7ee339502174c9664ddf",
+      "size": 588221
+    },
+    "homepage-sources/2.html": {
+      "sha256": "323c9b5b0f47315cb4d5e8c9d344b6e0b1f9c86ec608c92be57a5908ec3d1fc8",
+      "size": 41852
+    },
+    "homepage-sources/2/r8-4syoukibo.pdf": {
+      "sha256": "e74ffc49c90e782084d34b5817b8e0531447711ace577db0bfe104ee9dee9679",
+      "size": 440929
+    },
+    "kigyo_page.html": {
+      "sha256": "301fc6c5ccf60e2e72a7dac69ab7ef9fc3079b893626aefac1d864f389010d35",
+      "size": 34750
+    },
+    "list.pdf": {
+      "sha256": "ffec059d2db94409770129d25ff8f3ebdb22942bbf53af69f6ce0c2db20cdebd",
+      "size": 390824
+    },
+    "list.xlsx": {
+      "sha256": "a5fa05b79a34805a544c9e8da819a6eb0d5ac57d5382ff1a72b4ebd6cd8dd922",
+      "size": 12308
+    },
+    "vacancy.xlsx": {
+      "sha256": "b2791a6ba76683359ad82797985617f0f4bd3d8a681824d40490750c290f0a4d",
+      "size": 12549
+    },
+    "vacancy_page.html": {
+      "sha256": "bb1604e747a67a5bdd5ca78de4ccd2c7d0f1874dbdbc87c52efa191962b0c004",
+      "size": 37340
+    }
+  }
+}

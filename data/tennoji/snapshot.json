@@ -1,0 +1,385 @@
+{
+  "fetchedOn": "2026-10-21",
+  "files": {
+    "facility-pdfs/09-ajihara.pdf": {
+      "sha256": "8fcd73fb2729cb7079bf235dcd44b2bd95a3b714f6bb9a7f51d8dbf668c4ab1e",
+      "size": 143746
+    },
+    "facility-pdfs/h9-1-shitennoujiyuuhigaoka.pdf": {
+      "sha256": "3b1f03a497909d4d75ec2dcc5ce9572364dad49829acdcdbfb2a03e0c7d065ba",
+      "size": 1006331
+    },
+    "facility-pdfs/h9-10-popinstennouji.pdf": {
+      "sha256": "4700d3eca0f70104f7ca563b03d9f6c4a7f3461840be75ea430b919f5a2edb7b",
+      "size": 991353
+    },
+    "facility-pdfs/h9-11-sanadayamakaisei.pdf": {
+      "sha256": "c5c328097f711ccccf245b546c7cf4935140052e05cca119a10c05c74aa22154",
+      "size": 1004131
+    },
+    "facility-pdfs/h9-12-seiwakaisei.pdf": {
+      "sha256": "b750228fff3673f621ddba7cbeb221b22bc2dde7bbdc6117fcbf697122eb67b1",
+      "size": 1004314
+    },
+    "facility-pdfs/h9-13-hopperutennoujiuehonmachi.pdf": {
+      "sha256": "0bf8931b4660faf7152ca449cec29f91a2b2fedf181712f73147dad3485b3ae3",
+      "size": 1001368
+    },
+    "facility-pdfs/h9-14-kujiratennouji.pdf": {
+      "sha256": "8e69da9348046ea7bf9184e6be74c1dace60cbdabe7a3eb297290011f3a80bfa",
+      "size": 988814
+    },
+    "facility-pdfs/h9-15-arontiakids.pdf": {
+      "sha256": "40188c0697888a9faa710ab84ee8a64dc28c59b0e9d4322a63d1a46d4ae925e4",
+      "size": 1001016
+    },
+    "facility-pdfs/h9-16-osakasaisyouyama.pdf": {
+      "sha256": "f55299ca15fd3cfc5c4506c455e4de76bd340f126ff01f4dd94f63fbe6ea250a",
+      "size": 1003541
+    },
+    "facility-pdfs/h9-17-yumetamatukuri.pdf": {
+      "sha256": "d742bfbd9cbdd05aa167cc0de031c11caeca02ec4e725c2ad63f6a3b0e0e1ef4",
+      "size": 1000556
+    },
+    "facility-pdfs/h9-18-hinatahoikuenseiwa.pdf": {
+      "sha256": "0882c0a9d0de72a75a31bef31c315d64c3374e529a0462fc40e6f2193c6258d2",
+      "size": 989868
+    },
+    "facility-pdfs/h9-19-momonoki.pdf": {
+      "sha256": "4db51b6f61020f6d20b90978e688769bec1ad6c4a0f27593025e027ba802468c",
+      "size": 984420
+    },
+    "facility-pdfs/h9-2-sukusuku.pdf": {
+      "sha256": "47161fb3b5bd0d21886762030985008878400431d9ab4dc8313b4bc14cc9a0e1",
+      "size": 998688
+    },
+    "facility-pdfs/h9-21-ureshiiuehonmati.pdf": {
+      "sha256": "50a173bece429f51a8055e43336c4a1cc5552feee4a627facb0b9735ec62c2e8",
+      "size": 987394
+    },
+    "facility-pdfs/h9-22-ureshiidougasiba.pdf": {
+      "sha256": "774be6a3f5ecb561cf9609a8916a8378f15ee075b4e3cb7587b7da91a0388c7a",
+      "size": 999784
+    },
+    "facility-pdfs/h9-23-kinosiitano.pdf": {
+      "sha256": "8b39ad24313453df1760eed86216f1034a2d47fdc07c48348712471775e6229f",
+      "size": 982843
+    },
+    "facility-pdfs/h9-3-hinodesanadayama.pdf": {
+      "sha256": "0a617f671d0f4e1e3a6a93ee912a387a79bedc9f7a5db0b421982e7c03b27c8f",
+      "size": 995814
+    },
+    "facility-pdfs/h9-4-renbitanimachi.pdf": {
+      "sha256": "ca4b60682dc75d62699307375f18a7935df8b03b1618a60a2254128fd240c26a",
+      "size": 999647
+    },
+    "facility-pdfs/h9-5-kidscourttennouji.pdf": {
+      "sha256": "37ee7c2564078fca398fb91cea02882ec14619a2dcfc36098ce165c4bcfa9656",
+      "size": 1003537
+    },
+    "facility-pdfs/h9-8-tennoujiekimaeozora.pdf": {
+      "sha256": "73800e206fbc1584484d0d6ca006657d5640ca4a09bd02f175c61501478c9b74",
+      "size": 999040
+    },
+    "facility-pdfs/h9-9-uehonmachigenki.pdf": {
+      "sha256": "2c7909d24a80f0cb5f8de8fdc1e535199efc2f2d741b95992cd4fb9bdac2a6e2",
+      "size": 997555
+    },
+    "facility-pdfs/k9-1-uesiokinder.pdf": {
+      "sha256": "dee9c5073125ccff65918ba397672398ba86e17accb9b1e849fd355e329e1123",
+      "size": 1297802
+    },
+    "facility-pdfs/k9-2-tennoji.pdf": {
+      "sha256": "e3ef15cbeadd615064ff8698ee33e8e206846ae53973824c5a0e7f63f2c41996",
+      "size": 1301173
+    },
+    "facility-pdfs/k9-3-kodemaritennoji.pdf": {
+      "sha256": "3e85618309d0afe3472cfef1c657d76649ca79a9fb383319f9d65aa84dce71a6",
+      "size": 1289835
+    },
+    "facility-pdfs/k9-4-tennojiyoutien.pdf": {
+      "sha256": "a8969fa9ee38334967417c875024982a741c9966d01271a4b42a1e4d02825496",
+      "size": 1303143
+    },
+    "facility-pdfs/t9-1-kanon.pdf": {
+      "sha256": "a9058c4aa655e7b38576be843e6c44640eee7dc2274e9081a0f4fa21e4163f4d",
+      "size": 964241
+    },
+    "facility-pdfs/t9-2-totkids.pdf": {
+      "sha256": "f6ef08cc95b197891ee23a085e853f52c49bf4f4d0d3735f47fb59683d31d0b3",
+      "size": 966092
+    },
+    "facility-pdfs/t9-3-akatuki.pdf": {
+      "sha256": "5375460c5c3b03bc5797f52b3928eb815202d360aed62a8d7ff1d52f19295adf",
+      "size": 949820
+    },
+    "facility-pdfs/t9-4-renbiishigatuji.pdf": {
+      "sha256": "33b052a3a44f470a08ff71bea7404be5fe6b8f7de8157b72708bb243a559b86b",
+      "size": 961367
+    },
+    "facility-pdfs/t9-5-kidspalacetennouji.pdf": {
+      "sha256": "bec0adcf75be0a3d5c9ed91c0b0ae326c679224fa699da9e59e4acab8cca2b1f",
+      "size": 974717
+    },
+    "facility-pdfs/t9-6-step.pdf": {
+      "sha256": "2b17cb0c7708c28f8f86667baebe1412e4d68ab838920637bddf4730a8753d6c",
+      "size": 966945
+    },
+    "facility-pdfs/t9-7-sanadayamaminoru.pdf": {
+      "sha256": "c256ce853a904ce2f33425c48a74591f2114de21b8767253d156be2d8b70985a",
+      "size": 953077
+    },
+    "facility-pdfs/t9-8-uehonmati.pdf": {
+      "sha256": "49673fd07f847018dc346e1a2970d66032969178fb3d15754c94d06d611f9ef5",
+      "size": 974266
+    },
+    "homepage-sources/1.html": {
+      "sha256": "d241076461ee39272cbde3583a3b83710f674da0f5f1a532a4e2300c347429c1",
+      "size": 44396
+    },
+    "homepage-sources/1/-8-.ajihara-.pdf": {
+      "sha256": "149fb79a20b6603707fb56b459c02bf2de8357aec2abadfcd9a1473b8c01040b",
+      "size": 646680
+    },
+    "homepage-sources/1/-8-.genki-.pdf": {
+      "sha256": "c81b9e1a780aa8d6de701fd9c36ca7490723280eeb383598f6c7ed8ee8db7161",
+      "size": 758012
+    },
+    "homepage-sources/1/-8-.ure-ue-.pdf": {
+      "sha256": "a8d83b73dded96ea4cfece741f71e0bd0388a04bb046fad99e23fb39377209c1",
+      "size": 776274
+    },
+    "homepage-sources/1/-8-2.oozora-.pdf": {
+      "sha256": "d144c7b9c96aecb625e7f69876c26a9944692209cd9e2e874568b8c6ab81e9c9",
+      "size": 983446
+    },
+    "homepage-sources/1/-8.tennnouji-kodomo.pdf": {
+      "sha256": "acb6a619cd7993512d36f534925ce85511dc99d97cb832823d41446139803ad4",
+      "size": 814139
+    },
+    "homepage-sources/1/-8.yuri-bunen.pdf": {
+      "sha256": "0ad5e323e121bc5ac66a65e30d791616a8ba54e5ed33d6f0ba4848821957afac",
+      "size": 1061057
+    },
+    "homepage-sources/1/8-.tennouji-youtien.pdf": {
+      "sha256": "c91c5814f8f73de9cd87cd6aa931a8f2af2f1a63994350f538a82f2b5bc70f33",
+      "size": 493531
+    },
+    "homepage-sources/1/8-9.-hinata-.pdf": {
+      "sha256": "549349a52ba961989506c78dda29a514610a5a6547980c1f8e07e6c679e36b4a",
+      "size": 845614
+    },
+    "homepage-sources/1/8-9.-popins-uehonmachi.pdf": {
+      "sha256": "de2af2fac0d297bdfaa10d5a71dbb9080f0c2130aadb376ab68dfca0827ba967",
+      "size": 525308
+    },
+    "homepage-sources/1/8-9.hoppe-lland-.pdf": {
+      "sha256": "7f1c677c9f688c21e44b171ded28b1b20ee448a2d01fdb1c81a6ac6f23bf87b0",
+      "size": 371279
+    },
+    "homepage-sources/1/8-9.kinosita.pdf": {
+      "sha256": "58d717c8ef995c022ece2d5c0702d15d51b1b9a058e715c64d3107c9d4c05c8a",
+      "size": 753835
+    },
+    "homepage-sources/1/8-9.kodemari-.pdf": {
+      "sha256": "cc2327c2d2f057b6f785aae376bafb1e9fc45f7b414f5787f5526ef999ae14a9",
+      "size": 1071715
+    },
+    "homepage-sources/1/8-9.kujira-ho.pdf": {
+      "sha256": "c1221460be7b7a78cb50ebf6c5d7a657629a282a7389335f9175f4a120632c0c",
+      "size": 1020149
+    },
+    "homepage-sources/1/8-9.momonoki.pdf": {
+      "sha256": "1412c05681cb724c2c4706894191b2d2ac9bacef21c43a2e12d3f1e899b8475a",
+      "size": 842212
+    },
+    "homepage-sources/1/8-9.nijiiro-kids.pdf": {
+      "sha256": "6ebffc9b57128bd6d76308e2470aab73680c7bf7131e5b9edbf3aca699c50d91",
+      "size": 817930
+    },
+    "homepage-sources/1/8-9.saishouyama.pdf": {
+      "sha256": "f7acca341e6e82dccdc73925d5fa568193ca1b0bc7cb6d24f809f7e3996f2016",
+      "size": 775340
+    },
+    "homepage-sources/1/8-9.uesio-kinder-.pdf": {
+      "sha256": "17f1e265ce4548bde2820133e3fec26e18d507d2dd838d43df99bfc5ad66e3a2",
+      "size": 916240
+    },
+    "homepage-sources/1/8-9.yuri-bunen.station.pdf": {
+      "sha256": "71873ac575b1ef325d8d9a9fa75ba4c49c7672f04e9821ae09eb80cb052027b0",
+      "size": 1085862
+    },
+    "homepage-sources/1/8.-1aronti-a-.pdf": {
+      "sha256": "c6a502e21788983cf20c7ec5354b7d6defd47596d4da8f67b1790c1703e7c54e",
+      "size": 740480
+    },
+    "homepage-sources/1/8.-9ure-dou.pdf": {
+      "sha256": "5c9537786ac27a9038958764766bf36387bd57964a0bd1e3ed6fd5cf76d5e0f8",
+      "size": 794591
+    },
+    "homepage-sources/1/8.-honnenn-kinder-.pdf": {
+      "sha256": "889253321dce8313c687163372abeb51f89ad973f29e4840589253e33da6520f",
+      "size": 1058564
+    },
+    "homepage-sources/1/8.-yume-tama-.pdf": {
+      "sha256": "99542cff86e0ee83c278a36fb81b2f783fce45f21b72798d1e1fb35719e9b2c7",
+      "size": 973449
+    },
+    "homepage-sources/1/8.hinode-sanadayama.pdf": {
+      "sha256": "9eb74e1c4af2fc574a54114dfe8b8b5f0c92c3ceafb83ee8c4e4888d3b70052f",
+      "size": 839567
+    },
+    "homepage-sources/1/8.kids-court.pdf": {
+      "sha256": "c3fc7046dc2f772086c4c57496d23d17b2ef0560961ba10d42953852dffc957c",
+      "size": 899697
+    },
+    "homepage-sources/1/8.popins-tennouji.pdf": {
+      "sha256": "53dc46f3096c6d746232b65c826652c203b9e6cb34fab45abbc5093152db90fd",
+      "size": 453882
+    },
+    "homepage-sources/1/8.sanadayamakaisei.pdf": {
+      "sha256": "ec628bb7c6021738047363296d73ada275f55c1774f6a461f0b7cd3b6abb3c49",
+      "size": 835202
+    },
+    "homepage-sources/1/8.seiwakaisei-.pdf": {
+      "sha256": "53586aeed78c9d7a90bdeae48295b54a795a3e784ab2ed4cf690ed4dcc8bd18f",
+      "size": 721538
+    },
+    "homepage-sources/1/8.sitennnouji-yuuhigaoka-.pdf": {
+      "sha256": "b8ff3d51c0b66fc261d3def6d2d3b187743751360229db8b6aa34ec08f601584",
+      "size": 825063
+    },
+    "homepage-sources/1/8.sukusuku-.pdf": {
+      "sha256": "2de1b9a8e8040e2c95b03f6061d5b3989df28d23c1b6f430e1964de730cadbea",
+      "size": 955553
+    },
+    "homepage-sources/2.html": {
+      "sha256": "b82b4bbeb2c76d391236a153d2408b4b27a5afc9ab3d183a6ea84691cb7bdc30",
+      "size": 31808
+    },
+    "homepage-sources/2/-8.TOTKIDS-.pdf": {
+      "sha256": "be8c99fcc153087bea5d053f8a491c6e1493b16f5845d9de6eefaafffc070ce0",
+      "size": 666979
+    },
+    "homepage-sources/2/-8.akatsuki-.pdf": {
+      "sha256": "4fa6cc70c0444b4c392822421d3f9a4d97d8bf35c19cba5d248954834b648912",
+      "size": 496151
+    },
+    "homepage-sources/2/-8.kanon-.pdf": {
+      "sha256": "2b6b42c7acfc7547e9966dfb4903240f3bd5ea92a13fd896020e755ef73c4ce0",
+      "size": 722369
+    },
+    "homepage-sources/2/8-.-prime-r.pdf": {
+      "sha256": "546fbd7261f9a4648e1a67dc67ab0e947dbf660b03cab93b94e8a4960b25dd83",
+      "size": 798446
+    },
+    "homepage-sources/2/8-9.kids-palace.pdf": {
+      "sha256": "cff8c24e755df9b2490ba280c1113f66d298fa717fa349a28279bf7ff98b4968",
+      "size": 907746
+    },
+    "homepage-sources/2/8-9.sanadayamaminoru.pdf": {
+      "sha256": "4c54e996d3ca89328422c1b51c87380fdbbbf2b1a75f5e8cb3a8c5cbf9f76368",
+      "size": 716136
+    },
+    "homepage-sources/2/8.-uehonmachi-.pdf": {
+      "sha256": "367ac2981eaeff8c1b97529e53c1a0cbc956c809ab84204174d33a355991d60a",
+      "size": 836599
+    },
+    "homepage-sources/2/8.step-.pdf": {
+      "sha256": "5c4583e457b131266ea596f691614ce32f1aea8f6c1b37210351fefd6988f0b4",
+      "size": 844202
+    },
+    "homepage-sources/2/8.tennnouji-katuyama.pdf": {
+      "sha256": "365b7d8f4306bfed9d9d37ecccdfcc02d6836ce9600ec0fadc7d19e2ec5a084a",
+      "size": 704712
+    },
+    "homepage-sources/3.html": {
+      "sha256": "06b56bd4380c7fce708793ca7fccab28644ca85d11e9ef81f844722da5058382",
+      "size": 36082
+    },
+    "homepage-sources/3/-8yuuhipri-.pdf": {
+      "sha256": "572c7cfe82e85722cce2a4695cd799cafd934fbc9a10ecbb1ec230cf68c5ca3e",
+      "size": 258195
+    },
+    "homepage-sources/3/8-.habataki-.pdf": {
+      "sha256": "abf42ead662067cc21a7bfe6d824491800db5ae6f3670e7d92b45629fa73bb0a",
+      "size": 980199
+    },
+    "homepage-sources/3/8-.hug-me-.pdf": {
+      "sha256": "2fdab8d16c94ae1d493f2966126278acb5ac5cb6b2d5236d51f7d921bf7bfd20",
+      "size": 748633
+    },
+    "homepage-sources/3/8-.nanairo-.pdf": {
+      "sha256": "cb754916ad8698c6fd61077b691fa928aa386e3ac3336389241a95a0268038e7",
+      "size": 1290220
+    },
+    "homepage-sources/3/8-9.chickandhen-.pdf": {
+      "sha256": "bb661da7de1fa4dd3e548066b3695255908b230d7f9b82f35d3aeed25b65ef43",
+      "size": 848886
+    },
+    "homepage-sources/3/8-9.hikari.pdf": {
+      "sha256": "206866fdb15623a383ae8a72b7394e0cf6a880c3ac38608a47b9866f035e8856",
+      "size": 678450
+    },
+    "homepage-sources/3/8-9.mom-.pdf": {
+      "sha256": "20a365836c41fbc9aa643a681f7954682244ab63a625c65410b69887b6191d53",
+      "size": 757389
+    },
+    "homepage-sources/3/8-9.sakura.pdf": {
+      "sha256": "de8b09ed1fb3fbcbc26d9d0f644dd5646fdada4521c6cf411b8ce41c48604077",
+      "size": 882904
+    },
+    "homepage-sources/3/8.-eisai-.pdf": {
+      "sha256": "122c16874adb892e44a3850cf316a2158f25c5d1f8e600c294e5bf50625bfe67",
+      "size": 891949
+    },
+    "homepage-sources/3/8homare-.pdf": {
+      "sha256": "19b068f191e062f2163ec699cd15904c6b657f63f1c3cd27c6d956403a0ea4ab",
+      "size": 233675
+    },
+    "homepage-sources/3/8iduru-.pdf": {
+      "sha256": "5d3a0e8eae9c4d06b922cb393045caf11f2faaacf141b9cc89e53052e166af64",
+      "size": 896850
+    },
+    "homepage-sources/3/8inclusion-.pdf": {
+      "sha256": "068087c8bec278bf3026be1405867e34d969f46c2fd2e3f9175d0f17f6af028c",
+      "size": 874265
+    },
+    "homepage-sources/3/8kirana-.pdf": {
+      "sha256": "1e618c5638ebb9c99ed7bf051132e8e5e617eebda8f0ceae75a3b8cd65365ff5",
+      "size": 822767
+    },
+    "homepage-sources/3/8morinonakama-.pdf": {
+      "sha256": "7af5ff554338737f010b887c320c786eb3b9cdc7dc3a8f69d7aa159c7ab0ea50",
+      "size": 778371
+    },
+    "homepage-sources/3/8nichiikids-.pdf": {
+      "sha256": "e25e23cc8756e24bef6b1de697cf8f2b2c52dfb27ea584edc6be330b7c8b1750",
+      "size": 1161655
+    },
+    "homepage-sources/3/8tsuruhashi-ichigo-.pdf": {
+      "sha256": "070c9c6ef3a156ad8adf86d510c3eb4d049cd0920f028dbb626bf86bb0657bd8",
+      "size": 579576
+    },
+    "kigyo_page.html": {
+      "sha256": "324f6c3e19ae07c7744b751a2c12dbd4399abc3bba9d5e08ec0d5f8fd2ec878e",
+      "size": 38530
+    },
+    "list.pdf": {
+      "sha256": "cb2ac4e4f38868ea2b2cee743329a7f328807235482e84a131388236cdbbc3ce",
+      "size": 520522
+    },
+    "list.xlsx": {
+      "sha256": "51035ada84d65d08840152c84ad8a01df5bcc46d841c32145e68f19714b1ea87",
+      "size": 13812
+    },
+    "vacancy.pdf": {
+      "sha256": "713d38ef2e976b7ad951a3083d1937550f8058b0942a0b61c8690af6e1ac561b",
+      "size": 123579
+    },
+    "vacancy_page.html": {
+      "sha256": "adf8a926ae171d1ed698a21f01667087abfeb819f99a09ffdf6219b7e39d83b6",
+      "size": 45132
+    }
+  }
+}

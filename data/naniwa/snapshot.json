@@ -1,0 +1,125 @@
+{
+  "fetchedOn": "2026-10-22",
+  "files": {
+    "facility-pdfs/10-hirota.pdf": {
+      "sha256": "e1a5d19612897d9201adfbe500c41f696be3795887f0fa7aaefe03367e827b2e",
+      "size": 986827
+    },
+    "facility-pdfs/10-naniwadai1.pdf": {
+      "sha256": "e2632fcb2cd5959cd8b98b7dbed6dcaff046e7d190e4df3227956511b41140a3",
+      "size": 143135
+    },
+    "facility-pdfs/10-naniwadai5.pdf": {
+      "sha256": "077114a0c71729fea59109a606b8de52f3a71fef3beb6b53d1ef0d8c0558c420",
+      "size": 143842
+    },
+    "facility-pdfs/10-odamati.pdf": {
+      "sha256": "e1f8095aa2628af106e89b6641e438d74a6bc9ae6bcdb5dfb124cc7d7306113d",
+      "size": 144402
+    },
+    "facility-pdfs/h10-10-sukusukuebisuhonmati.pdf": {
+      "sha256": "82f82da1006d905ced78ca55d4ac018e3d3df73dc3c10acebead3b0f8e94dd0e",
+      "size": 989522
+    },
+    "facility-pdfs/h10-2-renbiminatomachi.pdf": {
+      "sha256": "79112ccf9741db18c62dbf0fc9be4c9027c2346f753b2ce794bbc45c7815a144",
+      "size": 996201
+    },
+    "facility-pdfs/h10-3-naniwasakura.pdf": {
+      "sha256": "c0f36924956394adb585d2f5a055a56541104e9be3de32cf552a8b88e328b2e6",
+      "size": 1003917
+    },
+    "facility-pdfs/h10-4-sakurasakumiraimotomachi.pdf": {
+      "sha256": "3aa72944503ccfcca965a2c53b016ca2d1f902b6222b7b9641b03fc713eb5f76",
+      "size": 990480
+    },
+    "facility-pdfs/h10-6-sakuragawa.pdf": {
+      "sha256": "a9555a13c9118334f5d67982c9531d611a2e0f3b8514e51d48f12a8dd00c44fe",
+      "size": 995732
+    },
+    "facility-pdfs/h10-8-sofiainari.pdf": {
+      "sha256": "4943d92e7d98712d4cb560c13365aa12af19286493a68d0a08856a45b304dce3",
+      "size": 998381
+    },
+    "facility-pdfs/h10-9-nadeshikokouen.pdf": {
+      "sha256": "e36503ca8e12cfde6789615ce7d9f8f11c494e8152b030f2661dbbbf86d796e1",
+      "size": 1012363
+    },
+    "facility-pdfs/k10-1-aizomebasi.pdf": {
+      "sha256": "f468f5359b53a7ecddbe7fb0a23387689b988955766603a739a0526810282eba",
+      "size": 1297096
+    },
+    "facility-pdfs/k10-2-daikoku.pdf": {
+      "sha256": "ae0cca9fdc0aef898b732eb4e2fd6a4cb6762b980f27beb9b2b8cad0023cb98c",
+      "size": 1296032
+    },
+    "facility-pdfs/t10-2-attakasmilenaniwa.pdf": {
+      "sha256": "8eea6a9d3c814d9d7f673d1860990856a38b35c0310e10476fa6593592b4dfb7",
+      "size": 962173
+    },
+    "facility-pdfs/t10-5-kogumanomorinihonbashi.pdf": {
+      "sha256": "a1fe5dcec7d0792563663e3328ef017089fee60e10403516442f9abb280c9a96",
+      "size": 969019
+    },
+    "facility-pdfs/t10-6-himawarimotomachi.pdf": {
+      "sha256": "5a8dbb7afc6a7431dc1c66fe10097c981bdde5438ba49ab0b0a78238650bf608",
+      "size": 965823
+    },
+    "facility-pdfs/t10-7-nanbakanaria.pdf": {
+      "sha256": "d6e7f63b856e3a9df55df59cf54cb54018472f1378707a5792b3997418726c06",
+      "size": 965529
+    },
+    "facility-pdfs/t10-8-morinonakamanihonbashi.pdf": {
+      "sha256": "fe234c842fa86d26d077ad937599f21087eae5967b8f3b91e96e6647bf49fcc5",
+      "size": 962051
+    },
+    "facility-pdfs/t10-9-nanbasunfriends.pdf": {
+      "sha256": "2d2bc5f116fe64c183360687fbe85a92da6a2e4b1769b860fe178eb3c2c1b60e",
+      "size": 958753
+    },
+    "homepage-sources/1.html": {
+      "sha256": "a09c0c709b3d5d6264331c80721fc71ce9d51202d2e9bb454e19e0535d06f876",
+      "size": 62881
+    },
+    "homepage-sources/2.html": {
+      "sha256": "1f3bff6622037bcf8b90d724bd5907a26af405ad5e4516d04f29377da1024891",
+      "size": 48019
+    },
+    "homepage-sources/3.html": {
+      "sha256": "1e9e726784f885af1cfcf644f3f95e9f8afc7381356f2445c1f1cbe928697e7b",
+      "size": 56245
+    },
+    "homepage-sources/4.html": {
+      "sha256": "fb2d6af2974779b168a4eb65b84aa73001829b6ddbfee228c1b0884f3d5ae88d",
+      "size": 38478
+    },
+    "homepage-sources/5.html": {
+      "sha256": "f5c91e1a55a24ecf74de59adb3311a9178e36666197f9ae8b81e1c333b9433a3",
+      "size": 64865
+    },
+    "kigyo_info_page.html": {
+      "sha256": "60099fe9873b64e8915963d4274164a3aef2c1655b1378f0615bbd77745878cb",
+      "size": 58374
+    },
+    "kigyo_page.html": {
+      "sha256": "9c5e645c25babf90b6eb155088307ae223ae9a0594e1ea6f09ac85cff7e797d7",
+      "size": 37199
+    },
+    "list.pdf": {
+      "sha256": "6e81c60705bec15f319c3b0ee00719d0d6ad006dc3024fd3f41d4080b1cddca1",
+      "size": 400839
+    },
+    "list.xlsx": {
+      "sha256": "9599566ba953457402b1583adb4cc9c9abcfb7fb74f52a1097c58167bb4727bd",
+      "size": 12097
+    },
+    "vacancy.pdf": {
+      "sha256": "3c11e2474d114e7cce926b4bbac0db333424c6d08be9962f04900d390e7f3d32",
+      "size": 447410
+    },
+    "vacancy_page.html": {
+      "sha256": "79f1a45f985a3a4fdfe7a65139a1194dbe79ac767bc142f91752de9fa1d7b475",
+      "size": 36250
+    }
+  }
+}

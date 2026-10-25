@@ -1,0 +1,149 @@
+{
+  "fetchedOn": "2026-10-23",
+  "files": {
+    "facility-pdfs/11-himejima.pdf": {
+      "sha256": "4a42ddc7b2018c89d76efc8da7483302c5c275041291464f03d620f36f03c482",
+      "size": 143863
+    },
+    "facility-pdfs/11-himesato.pdf": {
+      "sha256": "1ca22731e96ffef2a3750de91ec3a4fb0deb75f31416e17af5882210f215546a",
+      "size": 979706
+    },
+    "facility-pdfs/11-kasiwazato.pdf": {
+      "sha256": "58941068352811776b706262ee8f77fecc02cae652ad01c2f10f6a72acb2fd61",
+      "size": 142939
+    },
+    "facility-pdfs/11-tsukuda.pdf": {
+      "sha256": "89eab7e1c05eec6312ab22574e78dc8e1a198c80346755c1c18b034df531255d",
+      "size": 988241
+    },
+    "facility-pdfs/h11-1-aozora.pdf": {
+      "sha256": "5f553ffbd5f8194825915277ba7d357cc1cfcc8c8092348616454d689b0b1ef7",
+      "size": 992491
+    },
+    "facility-pdfs/h11-10-torejyahimesato.pdf": {
+      "sha256": "5ade5963f670e4164a6474d3cae0704d88b2e2e7c66a4ccdf2d8f91a19ca1a99",
+      "size": 998747
+    },
+    "facility-pdfs/h11-11-sofiautajima.pdf": {
+      "sha256": "4e78e500e19fb2e03ac5611149156edc1aea7324c0a40de8dde88a5ff7a87de7",
+      "size": 998559
+    },
+    "facility-pdfs/h11-12-nozato.pdf": {
+      "sha256": "6561cca93615e907614477f8bee8d8cf8210ba6015c5df9264639e671edb40df",
+      "size": 997652
+    },
+    "facility-pdfs/h11-13-kidscourtoowada.pdf": {
+      "sha256": "98cb552316bbc85ec8cc3797ce595571383404ac61d02b7a561f0a40b5c74db3",
+      "size": 1001149
+    },
+    "facility-pdfs/h11-14-buraitoutajima.pdf": {
+      "sha256": "c116baf5d87be9291fcffa09fe977b8d342be03e611946d25e9a2285f6afa2ae",
+      "size": 991488
+    },
+    "facility-pdfs/h11-16-kashiwazatosakuraen.pdf": {
+      "sha256": "fd5e9d7c9d40110f815b51cf316e14af91748627c1ff70cbdda7bc263f24bd8c",
+      "size": 1019732
+    },
+    "facility-pdfs/h11-17-shiawaseippaihimejima.pdf": {
+      "sha256": "8b1f64bb6de1a4d62e8be93213fe77dba3a9619c937473e16cda48106dec61b5",
+      "size": 989429
+    },
+    "facility-pdfs/h11-2-midori.pdf": {
+      "sha256": "52a45f03ad43bf0043ccb2d0f036a14cfcadd2abff38bc9cb2a833650c6c8dc1",
+      "size": 992669
+    },
+    "facility-pdfs/h11-3-mihana.pdf": {
+      "sha256": "40c87a31b9f82b935d8ce4469f1568dd8b6113891534e97253202f317f88c3ba",
+      "size": 1003306
+    },
+    "facility-pdfs/h11-4-yodokko.pdf": {
+      "sha256": "d5e97dd1b7a667f43443d7473c27f009f605ba7b2c82e24b8d88c835bbe93039",
+      "size": 992469
+    },
+    "facility-pdfs/h11-5-reimondomitejima.pdf": {
+      "sha256": "c57f95457d072882c5852c127d666621d469791a1ceb8cf6d4a7e0b967ea5aa8",
+      "size": 1002347
+    },
+    "facility-pdfs/h11-7-misakitukuda.pdf": {
+      "sha256": "3ef0a5637ab336d44aa7373e664762a9744925738055b17c66af55c9a2dc805f",
+      "size": 998471
+    },
+    "facility-pdfs/h11-8-kamino.pdf": {
+      "sha256": "e41ddc8c180dd6c622ef72001dd5b5cea375514efc0aff87d30944e4cbb45542",
+      "size": 1001761
+    },
+    "facility-pdfs/h11-9-reimondonishiyodo.pdf": {
+      "sha256": "34a863b245479859ccaca0d175c4f49f7bdb0eb393228888ad70e804b01ca04c",
+      "size": 1000026
+    },
+    "facility-pdfs/k11-1-hikarinosono.pdf": {
+      "sha256": "95a01d8bda34012281804655016331066a4b0244d94586b460ca5a2ad10a6e6e",
+      "size": 1297327
+    },
+    "facility-pdfs/k11-2-miteshima.pdf": {
+      "sha256": "cba5e092ec905f5be8434bc55f55f0a84243c660504f54e67928e8e334c50105",
+      "size": 1295296
+    },
+    "facility-pdfs/k11-3-takara.pdf": {
+      "sha256": "b1deb97ffb3145e2611329a4fd705ec7b73bd89cf7266e97c12b53e9746b0cbc",
+      "size": 1307114
+    },
+    "facility-pdfs/k11-4-takaranozato.pdf": {
+      "sha256": "f1a6b89e9a76f950fce043d2d7bb403633d03b39ed0c729e6c56ae755b017a58",
+      "size": 1305498
+    },
+    "facility-pdfs/t11-2-kirarakashiwazato.pdf": {
+      "sha256": "37d5cffe1259054b914ca2eae8a352b86ea57558461354e4a0716887ff7a2470",
+      "size": 967607
+    },
+    "facility-pdfs/t11-3-babylandsakura.pdf": {
+      "sha256": "fa541f26897d94d5cb9d69f63ce09f4d618deac0239b7582fa9750fc4c064730",
+      "size": 958618
+    },
+    "facility-pdfs/t11-5-kiraranozato.pdf": {
+      "sha256": "0a66f92f098e0fa30df2f98fea7a9a501d6685d509c5bf05404c74e0eac36b0f",
+      "size": 967465
+    },
+    "facility-pdfs/t11-6-takaranishiyodo.pdf": {
+      "sha256": "af96fb2a24167cdae06b8060a9dd7861f59e1f2972aefdd4fff944bcc3a75eba",
+      "size": 971145
+    },
+    "facility-pdfs/t11-7-nukumoritibune.pdf": {
+      "sha256": "1d06f6c3c5f1f81857f4fa0f0c1ef7044a0bff99e35c7e14972a38cdf441fc3d",
+      "size": 954674
+    },
+    "facility-pdfs/t11-8-kujirahimejima.pdf": {
+      "sha256": "9cd0c1ff02401707b6d18189d9459ef36d818659741f1a9364b25bc36bf96060",
+      "size": 950292
+    },
+    "facility-pdfs/t11-9-himejimasunfriends.pdf": {
+      "sha256": "bd73fd30820cfd5e2a5c024731304efd90a856042eb92e9999ffc19acb83ced2",
+      "size": 957762
+    },
+    "homepage-sources/1.html": {
+      "sha256": "7419d1f8821b89cce92454f5503038b6a54920aefa4bf4dd5545274f337dbd38",
+      "size": 61361
+    },
+    "homepage-sources/1/hoikushoichiranR804.pdf": {
+      "sha256": "bdc5578dbabb5657d22bdfe41657833ef74f4f921af8e2748f9984154e6044e0",
+      "size": 169671
+    },
+    "kigyo_page.html": {
+      "sha256": "9b4115d34dad5f56a030bb390002519d1894cb22d9ca5d1c1564dc9102b08b5e",
+      "size": 40921
+    },
+    "list.pdf": {
+      "sha256": "9e47cfdfa1a5e6968de2c48b9fa34c2a8927ad59b1c5106026bfe4f2a4d11545",
+      "size": 420911
+    },
+    "list.xlsx": {
+      "sha256": "5766d6a326cc8e40931dabb3744964713bcdb7acd8395dd2cdc35e025fe2b1ab",
+      "size": 12830
+    },
+    "vacancy_page.html": {
+      "sha256": "1597ad8f86ebd552748e20e1d1cf6f9a4924262a6431c8ffdd3899198f1a845a",
+      "size": 48496
+    }
+  }
+}

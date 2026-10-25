@@ -1,0 +1,381 @@
+{
+  "fetchedOn": "2026-10-22",
+  "files": {
+    "facility-pdfs/23-hiranonishi.pdf": {
+      "sha256": "75f2258111194f2bff858394ed34a8f71e3dfd10d6d4e3ba82123a66b05ec625",
+      "size": 998181
+    },
+    "facility-pdfs/23-kamidai1.pdf": {
+      "sha256": "96b1fb6fb1af3c81057e0ad79cf3e2dac8b1f4db01fc26a87c8779ee0530cea8",
+      "size": 990788
+    },
+    "facility-pdfs/23-kamidai2.pdf": {
+      "sha256": "9204bf182eeb8611280a5841900791f2c256c0f82b75a816af4fb913f1ad45d4",
+      "size": 143492
+    },
+    "facility-pdfs/23-kire.pdf": {
+      "sha256": "7a7f4d6db3a86837d3c7533de8af8a03dee45ab00c9cac59a11094ff8493e995",
+      "size": 144039
+    },
+    "facility-pdfs/23-nagayoshidai3.pdf": {
+      "sha256": "7533ba3545c3dc9655a1b10d0cad1517c647d70c84e5fc6b72dd0af2e5d702bb",
+      "size": 991562
+    },
+    "facility-pdfs/23-nagayosidai1.pdf": {
+      "sha256": "ec2dec2cf2fa3e5e8c68c6984bf56226271a9605c33ee783ee540504c28e6efb",
+      "size": 143217
+    },
+    "facility-pdfs/23-uriwari.pdf": {
+      "sha256": "ede6e5faa2d3e65156c9b2cdd4dae657756bc8280974656b950d0fd2e44a4419",
+      "size": 143368
+    },
+    "facility-pdfs/h23-1-ityoubaby.pdf": {
+      "sha256": "7a7352e19a27950576da3a5e85997f12fedc86d617e92d33f44558878fedb31f",
+      "size": 1002486
+    },
+    "facility-pdfs/h23-10-tensouuriwari.pdf": {
+      "sha256": "501740d0bbe9c9719fb7542afd0ef5e170ea905f0710b29cfa32373c617ccd14",
+      "size": 999463
+    },
+    "facility-pdfs/h23-11-nagayoshirokutan.pdf": {
+      "sha256": "8af2094d8b7fba0817384a6cbbc623212a5d598750c30dece5ad6a3e926bfb2f",
+      "size": 998384
+    },
+    "facility-pdfs/h23-12-hiranoaiwa.pdf": {
+      "sha256": "886bc527f2e464b0d7bbd78ff980f14dc504d252e6b7aca4d95a283f9dfd4fc9",
+      "size": 995499
+    },
+    "facility-pdfs/h23-13-hiranoaiwadai3.pdf": {
+      "sha256": "2456a7e8199169e6ee4ccbbababd13a908a1088011e894984bce87dfa612a6bf",
+      "size": 998204
+    },
+    "facility-pdfs/h23-14-hiranoaiawadai2.pdf": {
+      "sha256": "8abee20f2ed0c16f52210d2e967fe4bb4c0b598f86d4e792a3bd41bdf0af302f",
+      "size": 996712
+    },
+    "facility-pdfs/h23-15-rokutanminami.pdf": {
+      "sha256": "737755fb05b9a9596a85ae71cfd06698a8686debc6844551226ed389e57f6b73",
+      "size": 999567
+    },
+    "facility-pdfs/h23-17-tensounagayoshi.pdf": {
+      "sha256": "c78e419a0a701f957c6862d4d60fb250dc37eb1ad7707a995a52baa44d31f4d0",
+      "size": 999773
+    },
+    "facility-pdfs/h23-18-aruma.pdf": {
+      "sha256": "d2c1846bb2fd93917eb1075988b6de09060d3fdd3c1d8dd4146a8af9207cfbd3",
+      "size": 993439
+    },
+    "facility-pdfs/h23-19-hiranodream.pdf": {
+      "sha256": "16a802408d159d6aa95c7d9802802cf045f71f264679e535c70f850685b317ef",
+      "size": 998230
+    },
+    "facility-pdfs/h23-2-ityou.pdf": {
+      "sha256": "6d8af3f13df06a1955e6f7c8d6b0f6a22497420ab0f1bb629557659689ad74cf",
+      "size": 1007325
+    },
+    "facility-pdfs/h23-20-karino.pdf": {
+      "sha256": "5c3be9bd7354754016b23181cef4e1b632643ec5d976b6da4e9de2177c0c6aa2",
+      "size": 994475
+    },
+    "facility-pdfs/h23-21-dai3megumu.pdf": {
+      "sha256": "a7c492ecfcb865cc97e049a2bf3b16cb4fac47369989b2599540a88303bb0b2b",
+      "size": 985216
+    },
+    "facility-pdfs/h23-22-higashikire.pdf": {
+      "sha256": "67693cc0aca7acd0c1ad5dcbc7db2ba1c1eba81275ef2196cc806bdee30f03b0",
+      "size": 993602
+    },
+    "facility-pdfs/h23-23-kamihigashi.pdf": {
+      "sha256": "f32ebe641a15980fec7488d9919e5a2b8ff7978145e71b8f4a6168e3f7dba9f7",
+      "size": 993577
+    },
+    "facility-pdfs/h23-24-kidscourthiranohigashi.pdf": {
+      "sha256": "77f839ec15e29d78cb07a78bb3e8e23bc56b8a39ea11d5d67ccdb6c97895fc54",
+      "size": 998541
+    },
+    "facility-pdfs/h23-25-nishikire.pdf": {
+      "sha256": "c5015a9853c4e73bd90ad895b3cb029c569b66e77fc13ebbf4909be48f5bbd11",
+      "size": 994607
+    },
+    "facility-pdfs/h23-3-kaminagasawa.pdf": {
+      "sha256": "816a3a4e48c6816caf2d4b8b8dada5f613e64b61afd1c7642901b250ca272823",
+      "size": 1001568
+    },
+    "facility-pdfs/h23-4-sakuranbo.pdf": {
+      "sha256": "eff302d78f76496268722432115de97ee1945b20051b40ac2eaf799ca46d4172",
+      "size": 1001495
+    },
+    "facility-pdfs/h23-6-koichi.pdf": {
+      "sha256": "c785d5fd962e0df8529fc951d6eb60ef162c25cdc73214e322e1235ccb90a686",
+      "size": 996911
+    },
+    "facility-pdfs/h23-7-dai3megumu.pdf": {
+      "sha256": "5d269a546b8f722401d94e49b08dcf8cd8cebe14a5a82cb5227cbfdbfb016c3f",
+      "size": 985542
+    },
+    "facility-pdfs/h23-8-tukushi.pdf": {
+      "sha256": "757498911489a155a48ed5e4f70eca64d29ee7771f7342c4239b82039d120459",
+      "size": 994273
+    },
+    "facility-pdfs/h23-9-tensouuriwarihigashi.pdf": {
+      "sha256": "e0930fdcfb03ca79ba409b7881ae45bdc1581df01c29a15389cf3db29b421213",
+      "size": 1007110
+    },
+    "facility-pdfs/k23-1-tokiwakai.pdf": {
+      "sha256": "8da0d617ec3f004210b3aca1ae2affac6c1f1bdc896f3682b9d5fe1f282f4dd7",
+      "size": 1295940
+    },
+    "facility-pdfs/k23-2-higashihirano.pdf": {
+      "sha256": "14181545bc00d9b68eade123dd0b4400a5f20021aa0a2c568439261eedfc5b8e",
+      "size": 1290024
+    },
+    "facility-pdfs/k23-3-nisihirano.pdf": {
+      "sha256": "6fce655e67c9cf597aea3fa7d66b9dc69f27de8023ba596b06c0bd962bf94991",
+      "size": 1290759
+    },
+    "facility-pdfs/k23-4-kougenji.pdf": {
+      "sha256": "c2e740a4968e92511754a491f1af0f9cc80dcf7d66a21969a4163b40606493bb",
+      "size": 1292366
+    },
+    "facility-pdfs/k23-5-kire.pdf": {
+      "sha256": "2807bab9d4b6e37f5c78f2e04df7777920206b6981549d171a8ab9a27bbd9425",
+      "size": 1295573
+    },
+    "facility-pdfs/k23-6-sugina.pdf": {
+      "sha256": "27ed78be626ceff5b7ca06f3fc8aeb8a593b83668a9a1909e17e1ba9efcb6e27",
+      "size": 1302287
+    },
+    "facility-pdfs/k23-7-kirehigashi.pdf": {
+      "sha256": "8f9dc620ddfbf64db93ae87a2dab0b4e5c18c084085a901e900a6d1ff491a47a",
+      "size": 1294352
+    },
+    "facility-pdfs/k23-8-suetugu.pdf": {
+      "sha256": "3defcf28e10bd0244b135ae22ea25c621cfd2d3a39df995e1452afaab44b2fa8",
+      "size": 1295451
+    },
+    "facility-pdfs/t23-1-smilehirano.pdf": {
+      "sha256": "840ada7648660902c88622666adde7f69491d8e9d0c2d3973b465137f4b6fff3",
+      "size": 971677
+    },
+    "facility-pdfs/t23-3-cloverhimawari.pdf": {
+      "sha256": "f548866062d5b28ac1d55c8ec606e4cbbedaa0ff15fbbdbe042946e9b52b6365",
+      "size": 969782
+    },
+    "facility-pdfs/t23-4-hiranohidamari.pdf": {
+      "sha256": "48024b78dee4053e381a32a89ce355223faffff2e5a09cc95330312ff3976ce8",
+      "size": 942925
+    },
+    "homepage-sources/1.html": {
+      "sha256": "ebc5f2a6d88eeb2892ef9105d8e096b09017d4791606cd70ba4edd6a96891fdf",
+      "size": 44537
+    },
+    "homepage-sources/1/306.pdf": {
+      "sha256": "f246b167d71b6294099c00e3160fc98a7f33adff273c816741aae28d526c739b",
+      "size": 68675
+    },
+    "homepage-sources/1/8-10.pdf": {
+      "sha256": "5ca205edd1cb16b082e82780319101727d41f631a265e933f876473abfed0c5d",
+      "size": 165035
+    },
+    "homepage-sources/1/8-100.pdf": {
+      "sha256": "c6b6ee284b0a9106b11f97f99ac165cc7761afdf626c29340993fc491ac633d3",
+      "size": 136964
+    },
+    "homepage-sources/1/8-11.pdf": {
+      "sha256": "409dfafb559453e891e5569ea49b8feb4799ad1b994ad907a14da17d5f7c8fbb",
+      "size": 147048
+    },
+    "homepage-sources/1/8-12.pdf": {
+      "sha256": "d6a4b029358d40e077c8897a09644e9d1e497f44b856b182a5c890b88c66075d",
+      "size": 164735
+    },
+    "homepage-sources/1/8-201.pdf": {
+      "sha256": "abfc568ba10f5a5c98dc8c9718913f39337c29bc7e8e77b7a9bd02456017cbdf",
+      "size": 208295
+    },
+    "homepage-sources/1/8-2022.pdf": {
+      "sha256": "8184eb4d17202c0ee12a05ecfcc315f618b38d8ec4f35e23863633a9d251179a",
+      "size": 179375
+    },
+    "homepage-sources/1/8-203.pdf": {
+      "sha256": "99b8810830fc41da27ea3e32491f31c542a56c2feccea90fc37319280fcd0758",
+      "size": 197397
+    },
+    "homepage-sources/1/8-204.pdf": {
+      "sha256": "49feec142808f86c338f87b77c4147b13a6aac81bdfbeb68aeec373f650c6057",
+      "size": 177112
+    },
+    "homepage-sources/1/8-311.pdf": {
+      "sha256": "872a60a07da6b984f2682db7a2476e2e8d42c97c0ff1517a7de40d7a62a9aaff",
+      "size": 165125
+    },
+    "homepage-sources/1/8-32.pdf": {
+      "sha256": "467c4e35dcfe084e97cfd38bf6d06a21c470f7c61e8ef2ba90cd0a67ed7d95c6",
+      "size": 300858
+    },
+    "homepage-sources/1/8-33.pdf": {
+      "sha256": "b085838438948c8e19f803f17c1e3f8e4df8e430e857f225136e6e3c9d6cf1c3",
+      "size": 171661
+    },
+    "homepage-sources/1/8-34.pdf": {
+      "sha256": "b555364315312c7075a59ea8627bfdd28107a7b499b2f1f5701ecacd10d3ffec",
+      "size": 171141
+    },
+    "homepage-sources/1/8-35.pdf": {
+      "sha256": "1c4cb91bbfcae400ebfd9d6f5f766fddc283bc144e119516710feb0830d68c42",
+      "size": 213642
+    },
+    "homepage-sources/1/8-366.pdf": {
+      "sha256": "09fabb46d17ef5736975cc961d6b189f68b828b302ea7687670c8790c9b9f19e",
+      "size": 176316
+    },
+    "homepage-sources/1/8-377.pdf": {
+      "sha256": "8dae11fbaca27cc540a8c2a9d0f265f9bf7cf9c106d1d6ac1c49fe9d610f449e",
+      "size": 177284
+    },
+    "homepage-sources/1/8-38.pdf": {
+      "sha256": "e83e1134f3fb1007ae3a9ef073d3ee873f1401fefa1f1473c0c044fe6d517149",
+      "size": 175717
+    },
+    "homepage-sources/1/8-4022.pdf": {
+      "sha256": "3ffcf4d2ef1ca370a6dbb136c21cd8941a81376bc69f5b8b715d95a1b133984a",
+      "size": 223453
+    },
+    "homepage-sources/1/8-4033.pdf": {
+      "sha256": "c8969e77cabcfac2095b3622540abf0a033d43ad4a4017d6aa9567be58346405",
+      "size": 138607
+    },
+    "homepage-sources/1/8-4044.pdf": {
+      "sha256": "4f10b5fd893176ae6c54575162cd7ce55682e95156aecf28fbcc932ecdb422ab",
+      "size": 146180
+    },
+    "homepage-sources/1/8-5000.pdf": {
+      "sha256": "de71ad49c9378ea1916c592d5d287e101daa6b14430ea5f9fe48068ccc5e96a4",
+      "size": 142234
+    },
+    "homepage-sources/1/8-511.pdf": {
+      "sha256": "80d217ee515f6c74bca2c6e1f812e68655e14e5f13c37fe4b271e1b798ab0d9c",
+      "size": 157495
+    },
+    "homepage-sources/1/8-52.pdf": {
+      "sha256": "bb67f2e67548a0bd938dcc74b1017adea77f7e6c08b4a450cbb54034bbfcf9fe",
+      "size": 165221
+    },
+    "homepage-sources/1/8-53.pdf": {
+      "sha256": "436978ab385ae9c6339b8d82578d93953986cf8e600ce6530df96969b0dc8c3b",
+      "size": 160900
+    },
+    "homepage-sources/1/8-54.pdf": {
+      "sha256": "4838e2d779f08277a8513cc1ae38e4d0d1cce8c68648f78bf912bdd0602cb4f2",
+      "size": 161303
+    },
+    "homepage-sources/1/8-55.pdf": {
+      "sha256": "8c6fd4ad65d10c56630da794d78ff2ca66d6dcd19516a3fe1d933be212965375",
+      "size": 161211
+    },
+    "homepage-sources/1/8-56.pdf": {
+      "sha256": "6f7aae1f88661deddf96b073881426d97d61cbfe7a6ea3987636826dd3aa5e8a",
+      "size": 228608
+    },
+    "homepage-sources/1/8-57.pdf": {
+      "sha256": "e049a29f0ecd9fac9652e41b806475b89d86d0ad69b299811ea34c1e26fef5c3",
+      "size": 151599
+    },
+    "homepage-sources/1/8-58.pdf": {
+      "sha256": "bd57173eda1a3134b3305056c6fbc7de3fefca22b576bf765c6d1aa7a3fdb54b",
+      "size": 168498
+    },
+    "homepage-sources/1/8-59.pdf": {
+      "sha256": "7adcf725974cb6918d85b1004b0d9e35652b0c567e96a3403896e39569099417",
+      "size": 170858
+    },
+    "homepage-sources/1/8-60.pdf": {
+      "sha256": "273c0bae2b0fa4fe85ad350565ee1316fade61659308e95bb4b6fcebb44da203",
+      "size": 170935
+    },
+    "homepage-sources/1/8-61.pdf": {
+      "sha256": "36821e00f48f1a532fcfea6a9c70dbb25d7d90baa5b24721a347d05d5b6beebe",
+      "size": 153030
+    },
+    "homepage-sources/1/8-6222.pdf": {
+      "sha256": "5fdd8187d18fb380d1341a04ae19bab895b4ed7eb8ddaef9a427f69766d1e053",
+      "size": 169004
+    },
+    "homepage-sources/1/8-63.pdf": {
+      "sha256": "ed7542327a398561830a789f103eeca0f8bec7c86ce34e7b6bfc6b8ac0e221fb",
+      "size": 152363
+    },
+    "homepage-sources/1/8-644.pdf": {
+      "sha256": "3fa3f1547b839297c92f3d82aebe464f13f29b2e08496b10a5f2bc42074c3af3",
+      "size": 162195
+    },
+    "homepage-sources/1/8-655.pdf": {
+      "sha256": "3142f6984b3a95ee19caa210916e57e67f5ae23a51f78e8ac3c5c99f82960bbd",
+      "size": 136812
+    },
+    "homepage-sources/1/8-666.pdf": {
+      "sha256": "2cb583f211bf59fb6a6c6e11c6ee9675a162bae1ef6c6542004e5c1b1202bd38",
+      "size": 136838
+    },
+    "homepage-sources/1/8-677.pdf": {
+      "sha256": "99f2e46de6791eaaa64e5a07027d2783d7a8ee287412ad9e2cb137521fe9d176",
+      "size": 158090
+    },
+    "homepage-sources/1/8-688.pdf": {
+      "sha256": "6b9fc7e865f54ee7e2bf61e2bd5bfa3c000b87ec15139693d82f7b8ce95e625b",
+      "size": 188915
+    },
+    "homepage-sources/1/8-69.pdf": {
+      "sha256": "58aa70a52ef22838372459a15e7d54b14b520982f212b530fbcfe5ef58eb4fd8",
+      "size": 4034413
+    },
+    "homepage-sources/1/8-7000.pdf": {
+      "sha256": "34d021cc601a4b536444fa8785127c04d09071e438047d8e506ef8f2c7b8156f",
+      "size": 176569
+    },
+    "homepage-sources/1/8-71.pdf": {
+      "sha256": "2faf13b84d3f26ac1a87441aa4ba2cb82ffe4cb657b35a72f3fbed0db634e4f4",
+      "size": 151424
+    },
+    "homepage-sources/1/8-72.pdf": {
+      "sha256": "633cacc25b3edc9fd88beb16137cc2e87ed95139e5cbebfb6c82e2cdef2ff3a3",
+      "size": 168149
+    },
+    "homepage-sources/1/8-73.pdf": {
+      "sha256": "bdf7d7d2060b0243ad139dde8970a20a63e8c8854ef8993b7fba3f9892f566d2",
+      "size": 167296
+    },
+    "homepage-sources/1/8-74.pdf": {
+      "sha256": "a1ff0fbffbebea313a71c5ad61056348b99cdc055fd8d96632f2f89153ac7095",
+      "size": 177889
+    },
+    "homepage-sources/1/8-75.pdf": {
+      "sha256": "f97759fddba074b7f4385f107c330211f11e43b59d138e3d17151ba59de64cec",
+      "size": 156668
+    },
+    "homepage-sources/1/8-76.pdf": {
+      "sha256": "586c620f7bd2121560ee0a6121d1abe08bccc783ef1170887c386a4ce445481d",
+      "size": 161514
+    },
+    "homepage-sources/1/sumairu.pdf": {
+      "sha256": "c07840f8da6c5fcff6743554a8064d6a4ed1fe6a01d2b67f2e6a7872d9adbd5c",
+      "size": 153795
+    },
+    "kigyo_page.html": {
+      "sha256": "dab203858f8e31217fc3f43211930904b0eb5c7ca2ea792a3bbbb56a32863028",
+      "size": 28327
+    },
+    "list.pdf": {
+      "sha256": "accc2d0bf9385412244f07bead1ef371c55773637485cf70f255c57423119b0d",
+      "size": 462147
+    },
+    "list.xlsx": {
+      "sha256": "f00eaa1c1e933855f2f828c7bf3c000398c1b929e854a80eea8898f9125368ed",
+      "size": 13771
+    },
+    "vacancy_page.html": {
+      "sha256": "555ed2dc6acfded19d776860cacfe44a76d0ea5185129b05faa4feac3f19e3cc",
+      "size": 43145
+    }
+  }
+}

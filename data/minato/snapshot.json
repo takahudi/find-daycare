@@ -1,0 +1,113 @@
+{
+  "fetchedOn": "2026-10-23",
+  "files": {
+    "facility-pdfs/07-isoji.pdf": {
+      "sha256": "5e34a65c5e97f9aaf6f85cdbf1f87610bc9e9cef6e1357d5b822f9205fd99423",
+      "size": 143752
+    },
+    "facility-pdfs/7-tanaka.pdf": {
+      "sha256": "1e1f2e032623bd64c5f8fa285233eb3b44aca3c3f094df2421eedb21ad4ad32c",
+      "size": 972907
+    },
+    "facility-pdfs/h7-1-ajigawa.pdf": {
+      "sha256": "36d2f0a89e45bbe758134478598d8cc87615393c86eef3a87d1ad6225cbfba45",
+      "size": 1001736
+    },
+    "facility-pdfs/h7-10-dai2zenjien.pdf": {
+      "sha256": "81cf42e94c14a4aa425ec5f841cb077c86947e09faea2f1b421c2f3646928964",
+      "size": 1000864
+    },
+    "facility-pdfs/h7-11-harappa.pdf": {
+      "sha256": "3cfec1cc503d3d8d4c727ac46ca5c7b6a22446f988321cc769cbf5b13a2e2154",
+      "size": 998986
+    },
+    "facility-pdfs/h7-12-ureshiibententyou.pdf": {
+      "sha256": "17213a1b09f286940657bc17c15483e22c952221058d69b9893462c463e5bd47",
+      "size": 995301
+    },
+    "facility-pdfs/h7-12-yahatayayuyu.pdf": {
+      "sha256": "c780fb6fe97b06dbe302c6619b9b33d84817433386748098b93a7de2b595d3b7",
+      "size": 991492
+    },
+    "facility-pdfs/h7-2-asoka.pdf": {
+      "sha256": "e9c8a755861da9a3f1a3a117d124c00e4338d553030cd8cc46bfe03f12ced5c6",
+      "size": 1007269
+    },
+    "facility-pdfs/h7-3-ikejima.pdf": {
+      "sha256": "e67be7a25ae88540ee317e894b2df05b9dcd9bc400e886c3c99683837047a629",
+      "size": 989183
+    },
+    "facility-pdfs/h7-4-zenjien.pdf": {
+      "sha256": "73d0423d8975575395c93cb237cf3cfbd7a418cf20a05ab5ea578ddfa01a4fa2",
+      "size": 995078
+    },
+    "facility-pdfs/h7-5-chikkou.pdf": {
+      "sha256": "d2b83ae2785a792567ace2bc7c01fc48a6e692a2148deb32e9455a0a1c65ed41",
+      "size": 995396
+    },
+    "facility-pdfs/h7-7-nichirin.pdf": {
+      "sha256": "d2edc8c9b8ddc70e94d1b6b4f0897e433ff29e86eaf42c139fee262353527c2d",
+      "size": 993780
+    },
+    "facility-pdfs/h7-8-minatonyuji.pdf": {
+      "sha256": "d2bb976b5c8dafab33cca807882ca4cdd97953ec923577de4347580e4d1976f5",
+      "size": 991290
+    },
+    "facility-pdfs/h7-9-minato.pdf": {
+      "sha256": "9ad966418d3e9f8ed48bf7043875bbe1c7c1f9021a3c2fcc40e64e540b3a5693",
+      "size": 1004026
+    },
+    "facility-pdfs/k7-1-namiyoke.pdf": {
+      "sha256": "f00709d3ac68657eb3654a53d73ada6a82f1dec6b9a44640a67aff3acb7e78fe",
+      "size": 1295154
+    },
+    "facility-pdfs/t7-1-kiraramotomachi.pdf": {
+      "sha256": "060b1446d44b311da03546d88317dff1ce57cce74317a89a70a55d2fd9905d61",
+      "size": 968184
+    },
+    "facility-pdfs/t7-2-kazenooka.pdf": {
+      "sha256": "2a427f6449f4495eab71ea05d86806f54a8487cf790e4ff460cf1ba3c7b4e4c7",
+      "size": 951838
+    },
+    "facility-pdfs/t7-3-banbi.pdf": {
+      "sha256": "2e959b91f4cfd07efc584a93c5d9a53a3e13b4a92409233444ccda6c9d50b033",
+      "size": 952830
+    },
+    "facility-pdfs/t7-4-kingdomkidsisoji.pdf": {
+      "sha256": "824645c5d170f569b0983f6cea1035e735ff89f46d3d669eab46447fda7a1a1e",
+      "size": 961786
+    },
+    "facility-pdfs/t7-5-harappaaiai.pdf": {
+      "sha256": "c6af10c7861006d767e555856daa1c9dce395ed6cd48121db1c5c37f4f0332a1",
+      "size": 967253
+    },
+    "facility-pdfs/t7-6-himawariminato.pdf": {
+      "sha256": "f66351cbca2035fc3d02a2ea291a68556577d6a963a231dd07b9527843451e4a",
+      "size": 956577
+    },
+    "facility-pdfs/t7-7-yoikoen.pdf": {
+      "sha256": "4a5e17084c075bbdb4f788f1315cd3b7c5d1518fbca26f8a3ec3887be75da686",
+      "size": 965892
+    },
+    "facility-pdfs/t7-8-minnanosatominato.pdf": {
+      "sha256": "4ff90f072682725dae3543f68401875a0efd25a223014908dd596e21960a9c57",
+      "size": 960827
+    },
+    "kigyo_page.html": {
+      "sha256": "13cd1a98c66cb7cedc462e113a885544f1645bb810bf59b70b48f6a697b30bca",
+      "size": 36094
+    },
+    "list.pdf": {
+      "sha256": "780659142d62f016ed9488f3b6fa3b3ed6e0c60d6e2877dd1f3f43c3b93d4a43",
+      "size": 435934
+    },
+    "list.xlsx": {
+      "sha256": "f2f2980cd536cf966074a157a90cdf868968b73674435908550f3beecdff3e6a",
+      "size": 25251
+    },
+    "vacancy_page.html": {
+      "sha256": "b75063f513679860ae864a75f2939a124f24a44ce57435d58729e1129853e3d0",
+      "size": 35793
+    }
+  }
+}

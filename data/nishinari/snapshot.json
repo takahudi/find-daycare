@@ -1,0 +1,89 @@
+{
+  "fetchedOn": "2026-10-22",
+  "files": {
+    "facility-pdfs/24-kitatumori.pdf": {
+      "sha256": "7509da0e838541f0d6502d2f2d8568a22dff84a4a68f2751361ec8a7943c3c7e",
+      "size": 975227
+    },
+    "facility-pdfs/24-matunomiya.pdf": {
+      "sha256": "1acdf3e0c216bf6e45e6c96637f0a04d30d303736a26a3a6285ce9ac9a61d867",
+      "size": 143880
+    },
+    "facility-pdfs/24-minamitumori.pdf": {
+      "sha256": "08841b8915cf027fdeaf720ba8931556899ba26e1a6326433a7892ef01a582c4",
+      "size": 143345
+    },
+    "facility-pdfs/24-sanno.pdf": {
+      "sha256": "cbe703b696f45907ec9b2fc7d6d9bc50d403a7e438af162be4a09e481aff71bd",
+      "size": 989818
+    },
+    "facility-pdfs/24-sennbon.pdf": {
+      "sha256": "da8e70d42fcd6a17c82727431be390302b24bf57bd016801cfcf5aac8c59776a",
+      "size": 143904
+    },
+    "facility-pdfs/24-tenngatyaya.pdf": {
+      "sha256": "bfe540410f887e46b74d8989c117b1313dd36e42025167c17b02922721d702cb",
+      "size": 980998
+    },
+    "facility-pdfs/h24-1-gyoukoukaihikari.pdf": {
+      "sha256": "2d813e3cf0973e93757d755316658f5a017b8e8195e5ea50d202b41406112a90",
+      "size": 997882
+    },
+    "facility-pdfs/h24-10-nagahasidai2.pdf": {
+      "sha256": "b1e4e0301e2be219f13d46697add52f42f590beee4fe8d4cac123ccddf3a3041",
+      "size": 976775
+    },
+    "facility-pdfs/h24-2-seika.pdf": {
+      "sha256": "0856f222733ac112c528ceaa23a93dad8881c490eeba0d2dd8689212c64e7ce5",
+      "size": 998900
+    },
+    "facility-pdfs/h24-3-tamadenishi.pdf": {
+      "sha256": "945f2b0548930f34386add28bcc08231f69e4fc075c06b29555a53e8e4cef0df",
+      "size": 1000814
+    },
+    "facility-pdfs/h24-5-hanazonowakei.pdf": {
+      "sha256": "e8e5f67fef8b5c1dde85498a7fa8b75fec00533c6a84e2b8b1731466575bb275",
+      "size": 995846
+    },
+    "facility-pdfs/h24-6-wakakusa.pdf": {
+      "sha256": "d51da5a1a082f5fcc4a07de366b21e4db05520b05c19dbbe4cb4bd54cc5cbc4f",
+      "size": 1003575
+    },
+    "facility-pdfs/h24-7-donguri.pdf": {
+      "sha256": "882e621be68d4db9f3889a91c818e8c0b075ca38efe97c4f2360327fd0365fe1",
+      "size": 999509
+    },
+    "facility-pdfs/h24-8-tachibana.pdf": {
+      "sha256": "05121ce856dedbcded0319d882e73783c1f8adeaee10f7aee1861a4016a7409d",
+      "size": 996255
+    },
+    "facility-pdfs/h24-9-matsudorihigashi.pdf": {
+      "sha256": "75fbc3307fae5a585d4c8a69dc4a3a3a5e9ff8247e4f4d7c4c95828b6af94589",
+      "size": 999725
+    },
+    "facility-pdfs/k24-1-tamadehigashi.pdf": {
+      "sha256": "11c6fc817019366202ec2131b9bd7a6d1ab8d67a779f0d9f34e5df6f81580058",
+      "size": 1290529
+    },
+    "facility-pdfs/t24-2-richopenishinari.pdf": {
+      "sha256": "26485de01b25d2e3d22b2cec786cd793ff1a975baa2256773de03ec7a106a221",
+      "size": 969604
+    },
+    "kigyo_page.html": {
+      "sha256": "3aac8e640fea37e5f5ae3effa2085314416f5a58e99b7479a0f82bcbf4f09096",
+      "size": 28676
+    },
+    "list.pdf": {
+      "sha256": "6e2a89a20bce67c4721f3e5d671ac0869655a4d0f65d923f03247823eaed7af7",
+      "size": 315697
+    },
+    "list.xlsx": {
+      "sha256": "943308dc80f929a40bbe174a56f2bddaa033af2e1b9f081a6ebf429e61a6d6e3",
+      "size": 11853
+    },
+    "vacancy_page.html": {
+      "sha256": "9acf5414a1eabdc07314060238c6e0d731977a0be6ed4aa10e59625336092af5",
+      "size": 30373
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "fetchedOn": "2026-10-23",
+  "files": {
+    "ninkagai_detail.pdf": {
+      "sha256": "5e68f16893f711cd531fdc06bf298491ab2e04219aebc898fadcb11967e3a4a2",
+      "size": 1045797
+    },
+    "sukusukudata.csv": {
+      "sha256": "20dbb35c4cd17fe354d601076554014d6bbcedae99cd1e9f66bb8746f8417ab1",
+      "size": 245857
+    }
+  }
+}

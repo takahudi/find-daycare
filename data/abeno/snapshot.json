@@ -1,0 +1,221 @@
+{
+  "fetchedOn": "2026-10-22",
+  "files": {
+    "facility-pdfs/19-hannnan.pdf": {
+      "sha256": "779d70605253cc2618568851d0a46c0b519f182f28cb6815e8b0902dda26aa6a",
+      "size": 143829
+    },
+    "facility-pdfs/h19-1-asahi.pdf": {
+      "sha256": "1c9117580c6ba8e576229c661b3eeae107fee37be6da1365ee59689abe2e1d04",
+      "size": 1002905
+    },
+    "facility-pdfs/h19-10-kitabatake.pdf": {
+      "sha256": "4c0d8f4c89dc2260c64a3f406763b376a8d9fb4b03590c32d4190a0af4b1b033",
+      "size": 990784
+    },
+    "facility-pdfs/h19-11-seiai.pdf": {
+      "sha256": "00f37b49f8bd702e5b76d78a6317ea66bcf67d6ac555fd8313d6f8704789f922",
+      "size": 992844
+    },
+    "facility-pdfs/h19-12-aisyouwamachi.pdf": {
+      "sha256": "3d3999153e327111e3e17a606adb8d8d74858837e77921f82f5af34ddc8fbaea",
+      "size": 997944
+    },
+    "facility-pdfs/h19-13-sanmei.pdf": {
+      "sha256": "2cee1e96591e34a782e6ae51264c6c757114381cc560b9ec2159ce3dcd806707",
+      "size": 1002350
+    },
+    "facility-pdfs/h19-14-kuorisuabenobashi.pdf": {
+      "sha256": "6343ec7a2ef62d2903f3a9beb83291775afd9a46335e4c50013c3f824a719934",
+      "size": 987943
+    },
+    "facility-pdfs/h19-16-rinrinhannantyo.pdf": {
+      "sha256": "f89202d1b1e2bec47ba31806e64e9855c33c9a56b677be94e89c140dc2888eb9",
+      "size": 1002083
+    },
+    "facility-pdfs/h19-17-kagayakiaioi.pdf": {
+      "sha256": "b3e45abd41fd11134d59f5442a3eaab5b1cea1d803e60b3894237029fb13858f",
+      "size": 991456
+    },
+    "facility-pdfs/h19-18-soranetubasa.pdf": {
+      "sha256": "e042492d9d92a4bc81e706284a2f0e2212fcf77dcbf74a58dbe25f2f441a5757",
+      "size": 1001121
+    },
+    "facility-pdfs/h19-19-takamatsu.pdf": {
+      "sha256": "151be3186cc73d4d0581eacb0a2e304141ad470a6c62e5babf68695c2232d50b",
+      "size": 992256
+    },
+    "facility-pdfs/h19-3-ikutokuen.pdf": {
+      "sha256": "44b92f74780d4218df37b556a6c308bebc9697f353cfc9e7295f21d4bd76a2bd",
+      "size": 1001060
+    },
+    "facility-pdfs/h19-4-tyouraku.pdf": {
+      "sha256": "5193d0c2bcc2166dff718a42be7a7b1b2f3d8d60565d7a3f15533c83269e8588",
+      "size": 999814
+    },
+    "facility-pdfs/h19-5-narudoyakan.pdf": {
+      "sha256": "d183ff61ae39e41c650da4c8adf9141fa82c2fb495d535bbe25539c2084077ac",
+      "size": 1000027
+    },
+    "facility-pdfs/h19-6-nozominomon.pdf": {
+      "sha256": "3792eb7e76de4ff41d28979116bb574ab145989d45cc08829991fe0beb679b9c",
+      "size": 1000678
+    },
+    "facility-pdfs/h19-7-mananyuji.pdf": {
+      "sha256": "de0290c10309cb5edeb8cebda5faf0c9fda12c053d4bee7d0a0236a5b04a4b38",
+      "size": 996950
+    },
+    "facility-pdfs/h19-8-nishitanabetaiyou.pdf": {
+      "sha256": "f6657aa0d5c0a9c818bc69682daf6a1bb732bde559de4e35c6f5227da1fb71d6",
+      "size": 994950
+    },
+    "facility-pdfs/h19-9-matunomi.pdf": {
+      "sha256": "080ed1533f806dda708dea797b4185a35c5c266a8a012fe3c08914fb1173cec2",
+      "size": 1003777
+    },
+    "facility-pdfs/k19-1-nagaike.pdf": {
+      "sha256": "0e66ef6e6cf11fe977d08dbd2a7cccdd9e1c36ef17d26cb868dead4d16375226",
+      "size": 1290493
+    },
+    "facility-pdfs/k19-10-matsumushi.pdf": {
+      "sha256": "bdb47254c1ec2c2f3d912515c4b5d43c189975f998fb54c9089ce0627c62030f",
+      "size": 1282131
+    },
+    "facility-pdfs/k19-2-kanazuka.pdf": {
+      "sha256": "819cd1fee7394bfe7e1578ca025252afdaa39d600b58c78635dd72fb08754e0f",
+      "size": 1291968
+    },
+    "facility-pdfs/k19-3-grace.pdf": {
+      "sha256": "4f8d658d143aaf6aee658d7620fad4e527ba102da16ec7a2d7fe7fe1c02af7aa",
+      "size": 1295671
+    },
+    "facility-pdfs/k19-4-mutumi.pdf": {
+      "sha256": "dba14e9e9ead311a17b873e3d72cd2f7df3c69daec2993496d32ee94d01df918",
+      "size": 1281282
+    },
+    "facility-pdfs/k19-5-abeno.pdf": {
+      "sha256": "2b7bc99e28ba75650cc35f77ce23d7c715e1c510dd79faf914dff1b6cef1b96c",
+      "size": 1300248
+    },
+    "facility-pdfs/k19-6-huminosato.pdf": {
+      "sha256": "e0ac2265eaa3d408534df851b9c58afe3f6b4268a7974033eb0e8447288dccf6",
+      "size": 1293565
+    },
+    "facility-pdfs/k19-7-seiai.pdf": {
+      "sha256": "180872436fa26f8aeb3e1ea91208c16e925bd43ac57f0d377d1032abec148bfc",
+      "size": 1287703
+    },
+    "facility-pdfs/k19-8-abenogenki.pdf": {
+      "sha256": "278e184ce2e1ece65d630b89c3d2668d7fa7ac5652477b6f97981c2a44bc85ee",
+      "size": 1279891
+    },
+    "facility-pdfs/k19-9-abenoy.pdf": {
+      "sha256": "eb44efbdede64336bee0192a16c652bc3c4428d7271a11033de1e6fcb4b674d8",
+      "size": 1282929
+    },
+    "facility-pdfs/t19-1-nakayoshiroomabeno.pdf": {
+      "sha256": "c6d13a3a0bdf3d93d0504bcbdc9857396a5fb715ebecfc3bb92353d771159990",
+      "size": 954264
+    },
+    "facility-pdfs/t19-10-kidsbearabeno.pdf": {
+      "sha256": "91cf9a827fcd2cc3e75932ebfbf1ff02d8f3d385a0d3001581def27b04550212",
+      "size": 970445
+    },
+    "facility-pdfs/t19-11-kidsharmonyabeno.pdf": {
+      "sha256": "09a4bc49d3953e6223184f9a93d7e530b2922f58deb7e3fb10712a8f2c56bf2b",
+      "size": 964395
+    },
+    "facility-pdfs/t19-12-alohaabeno.pdf": {
+      "sha256": "ebb3281c84359e40c59a7d5443ec110db4a7b5335dca4213a2c1bbb6c02bd71d",
+      "size": 960040
+    },
+    "facility-pdfs/t19-13-smilesukoyaka.pdf": {
+      "sha256": "738db267c408c79229118131a90461d2d164ff091f2ec0687531a4b7bc98a759",
+      "size": 973987
+    },
+    "facility-pdfs/t19-14-smilehohoemi.pdf": {
+      "sha256": "7935bacab7c86023b9dcf2f9d570962d757993fa92a027822c6b033aa71a21c1",
+      "size": 969785
+    },
+    "facility-pdfs/t19-15-americanabeno.pdf": {
+      "sha256": "860ea4de69d6e7799a2353fecd753a86a12c6bcf0582ff3be530c5a375270558",
+      "size": 966095
+    },
+    "facility-pdfs/t19-16-rokumakidsabeno.pdf": {
+      "sha256": "6cfa585a6f24fae653ccea2a66d25df106aca3cc9b9767944d4941a955ad677e",
+      "size": 956200
+    },
+    "facility-pdfs/t19-17-ayumu.pdf": {
+      "sha256": "9cbd2117edb7b3938fa448694d6a4656c65794ca414e49d8383aafaddce992d8",
+      "size": 961852
+    },
+    "facility-pdfs/t19-2-fourleaf.pdf": {
+      "sha256": "d8c1adf44992aa289b2509baa4aa967685be0f8b96257bc7e6c5e86c46a3a026",
+      "size": 949132
+    },
+    "facility-pdfs/t19-3-aozoraabeno.pdf": {
+      "sha256": "a749a52e32539eb4c22a32385bc92a721c73d05d79dcbd1b585c406fb6d44a6a",
+      "size": 957771
+    },
+    "facility-pdfs/t19-4-angelkidsabeno.pdf": {
+      "sha256": "acea53d1ab0a5bed0df2e0d92c2a6dc2bdb95ea7adb1b5233d09dacf947c269d",
+      "size": 958961
+    },
+    "facility-pdfs/t19-5-kidspalace.pdf": {
+      "sha256": "9548504beca11cb00475774b829daabbfc19a39a4db07c2d88998b695a2a1786",
+      "size": 973302
+    },
+    "facility-pdfs/t19-6-hitujinoouchi.pdf": {
+      "sha256": "efc5795a2e3dac7ee0f2d38ed627e154a746a3f05d97508f4dd039e844ff985c",
+      "size": 963702
+    },
+    "facility-pdfs/t19-7-kidspalacebisyouen.pdf": {
+      "sha256": "17c6f9083b54478e61ad34e4869dced4800f42dc51009b0f96cb7b2423cfca38",
+      "size": 969908
+    },
+    "facility-pdfs/t19-8-kidsbearfuminosato.pdf": {
+      "sha256": "bafbb2eb158277fbc41cc321dc3023a8e5adfbd1b2b29367c4b6a18f9ae95236",
+      "size": 970493
+    },
+    "facility-pdfs/t19-9-pingusyouwatyou.pdf": {
+      "sha256": "d3c27635aa28b75cc89ff7ce279ac4109819915f87899bc34ed4e33e6bdf5bb2",
+      "size": 961735
+    },
+    "homepage-sources/1.html": {
+      "sha256": "dda95c42eac4b10b0f9a0a63c4ed61284d9f299f8200cf555bb312ef2c25be27",
+      "size": 69767
+    },
+    "homepage-sources/1/R8kosodatemap.pdf": {
+      "sha256": "ce8e18d1808772c3a551a51b5b337835a2faa0709cb7f176ec6f198537784715",
+      "size": 1214525
+    },
+    "homepage-sources/1/r9itiran.pdf": {
+      "sha256": "e4201654cdfa3f76bb9e96834e8af54b25be021aae5b274b525c70df138ce181",
+      "size": 113303
+    },
+    "homepage-sources/1/r9kaisetujikan.pdf": {
+      "sha256": "7029d97efb4f77830d137de625fd63442a21837dd5f4a54b3d080247387c1c51",
+      "size": 134492
+    },
+    "kigyo_info.pdf": {
+      "sha256": "f4128a38664f400657fe70a6ca2e678f0a4be7731f4189fd56ca48faa5dc2685",
+      "size": 67937
+    },
+    "kigyo_page.html": {
+      "sha256": "73a9a66f664cfc86eae5a45da878f8717b49967364781dfda6cb89a9706c184a",
+      "size": 36503
+    },
+    "list.pdf": {
+      "sha256": "f753d072d4027969103d097922ee8912cfb6baeec80ef70188d5528b51c90bed",
+      "size": 582528
+    },
+    "list.xlsx": {
+      "sha256": "968211827e6528db589d45f64624f15889fbd28a8f60ab5634fa9cabce8b5604",
+      "size": 14180
+    },
+    "vacancy_page.html": {
+      "sha256": "1b9613780d0203304d04a20455ebea0b0036ee63f6563d160df33f687580094d",
+      "size": 56849
+    }
+  }
+}

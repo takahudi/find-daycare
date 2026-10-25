@@ -1,0 +1,113 @@
+{
+  "fetchedOn": "2026-10-23",
+  "files": {
+    "facility-pdfs/04-takamityo.pdf": {
+      "sha256": "90808d758098c25788cc2d7e855cfbf238b88ea35d04edc3c85c441f061303b3",
+      "size": 144103
+    },
+    "facility-pdfs/04-torisima.pdf": {
+      "sha256": "4ab59de890f33aaa6473b929a1cfb2d6c048258ea77c7dfabbeba65e38943706",
+      "size": 142490
+    },
+    "facility-pdfs/4-nishikujo.pdf": {
+      "sha256": "6fab675af97e4f014bbc8e19c91d500ccecdb15f34306cac5221d9b462be8771",
+      "size": 996491
+    },
+    "facility-pdfs/h4-1-shimaya.pdf": {
+      "sha256": "d8d2c10ea53bdb0fc558b0f2d9735ff96c91d4c7a4987026c2b838fa8d786170",
+      "size": 996425
+    },
+    "facility-pdfs/h4-10-muyuendai2.pdf": {
+      "sha256": "25a60cbf672ed3ca14ee1ecf54216a68617bd2bf14281224b07a6f9dd09e4d4b",
+      "size": 996371
+    },
+    "facility-pdfs/h4-11-renge.pdf": {
+      "sha256": "df69e644a7b652325c350b3bcaf944145b0a30a56661612c0e96ecdbc1f243f7",
+      "size": 997912
+    },
+    "facility-pdfs/h4-12-shinga.pdf": {
+      "sha256": "4ea6715d9d2c62de4c864d3c0bb7a222a0bde8eef03631a4511cb25c7480502e",
+      "size": 989104
+    },
+    "facility-pdfs/h4-13-seishinishikujyo.pdf": {
+      "sha256": "bb2341f54f5743b10ff612af1060d414e98086e2da049fdc45866af32011c7a8",
+      "size": 997058
+    },
+    "facility-pdfs/h4-14-shionotani.pdf": {
+      "sha256": "0ff17e5e4a48361f98bad4f3dbdc42c089246877e58783f1abec48c9c5eb9495",
+      "size": 997471
+    },
+    "facility-pdfs/h4-15-shikanjima.pdf": {
+      "sha256": "e005614403c3fc1513a78a51c861ebd580df9f01d35aec4bb61a930b50b99eea",
+      "size": 991334
+    },
+    "facility-pdfs/h4-2-seishigakuen.pdf": {
+      "sha256": "ca6f76eabf7a7f6104cf13858db276d79f916e5562d1b497c2819dd5b33afed0",
+      "size": 996206
+    },
+    "facility-pdfs/h4-3-tenshibaby.pdf": {
+      "sha256": "674415b072962458a37b8ad2963cd5e49bee2f6d736e49c6cfb7c7ff3590f308",
+      "size": 997297
+    },
+    "facility-pdfs/h4-4-tenshi.pdf": {
+      "sha256": "6ddfd0b35802665060464e3018e7d42c327b30d56bef6445b1fab08dbbb09d1b",
+      "size": 996899
+    },
+    "facility-pdfs/h4-5-tenshinijinosono.pdf": {
+      "sha256": "188603c6fcb672b95719dfbb07f2e6ea1d1960bef71654a04e1359c1efd486f4",
+      "size": 994252
+    },
+    "facility-pdfs/h4-6-hideno.pdf": {
+      "sha256": "932bd00c9b7c139c97c30ce3f1294eca992727bab51b758262ce56ff7ec21215",
+      "size": 996007
+    },
+    "facility-pdfs/h4-7-hokkougakuen.pdf": {
+      "sha256": "3644b904b578aa20b768e203a3c628b56d2f8a6c8a1043642c03e2533915885e",
+      "size": 994611
+    },
+    "facility-pdfs/h4-8-muyuen.pdf": {
+      "sha256": "ae086fcd8cb7528da14b78ace0e6061871685cc6119e519a97e24e8abed73260",
+      "size": 995085
+    },
+    "facility-pdfs/t4-1-nukumoribaika.pdf": {
+      "sha256": "60bc011df522a64aac47a9fdeb760133d8adebbf54517fc76e4c0dc0e9139e0a",
+      "size": 957502
+    },
+    "facility-pdfs/t4-2-nukumorikasugadenaka.pdf": {
+      "sha256": "caa581a25d6a20c14beaca18c47fb1988fd7a34530678352189c962dd71f2cf9",
+      "size": 957810
+    },
+    "facility-pdfs/t4-3-kingdomkidskasugade.pdf": {
+      "sha256": "2b4c836df185920f7c92dc77d36601f4600e62b133388faf847071f0848c1009",
+      "size": 956648
+    },
+    "facility-pdfs/t4-4-shionotanimebae.pdf": {
+      "sha256": "2e314830f28f4f45d77b2ad828ab3dedf9dd2a6d81e3ec08ae0ef00ec585189f",
+      "size": 958064
+    },
+    "facility-pdfs/t4-5-nishikujyoohana.pdf": {
+      "sha256": "8cddd4cdb217ce7aa2249cb09ac7f9ea75a4d4cdfaab8d2c33ac8e1ebdf08197",
+      "size": 965066
+    },
+    "facility-pdfs/t4-6-hinatabokko.pdf": {
+      "sha256": "a937340f167f25c86570ec69185e4ad84b1abde18ae84af7bda9472002cf692b",
+      "size": 945256
+    },
+    "kigyo_page.html": {
+      "sha256": "d82b595886275ab99ebdffe7ef62a912df210699ce5bae27aaac18f747750699",
+      "size": 25603
+    },
+    "list.pdf": {
+      "sha256": "bc2a1a937db244366b0337182d216654068e8d4fa6aacaf9d3b6552896ca40cf",
+      "size": 385667
+    },
+    "list.xlsx": {
+      "sha256": "ead29e3677e1227bea4f0e46cf9c5c6670a489f7f519c412b8f7cacdfd7415b2",
+      "size": 12198
+    },
+    "vacancy_page.html": {
+      "sha256": "d02f9f0a32fc5f84282a9d8593ed254ad87ec3934e476e7d25b781ace7527d14",
+      "size": 44757
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "fetchedOn": "2026-10-23",
+  "files": {
+    "facility-pdfs/16-ikue.pdf": {
+      "sha256": "bad3ebe06352a2473266c7748a1f8996b9262e9c40eb598844d026f5121a396f",
+      "size": 142922
+    },
+    "facility-pdfs/16-morisyoji.pdf": {
+      "sha256": "872296074675aa91e1cb683b7ff4e0a9696bf6942aeac72005d90a7ad22f64b0",
+      "size": 973133
+    },
+    "facility-pdfs/16-oomiyadai1.pdf": {
+      "sha256": "06679a83435e27d021cdc0a36c777a5e016175d07a36a1474506a0bbd4553055",
+      "size": 143196
+    },
+    "facility-pdfs/16-ryogoku.pdf": {
+      "sha256": "ed51519523d9d8b25273d0b3688206b5480573f28a60283d1e16790fa247d00f",
+      "size": 990828
+    },
+    "facility-pdfs/16-shimizu.pdf": {
+      "sha256": "4b19e2650d3dc2c348e8495b344ccb9622c2b2c12ab63b39bd253b402339b9bc",
+      "size": 979756
+    },
+    "facility-pdfs/h16-1-arinko.pdf": {
+      "sha256": "b0804bdf1da64a38d2a1a2457e035ecec55d3871dd3ebcdab9f0a90cc58120b3",
+      "size": 1000106
+    },
+    "facility-pdfs/h16-10-torejyatakadono.pdf": {
+      "sha256": "b9f006bb900031caadda75d7c18e6469f5f3e75aadbaac8b535e31a62ad84e1b",
+      "size": 997049
+    },
+    "facility-pdfs/h16-2-ywcaomiya.pdf": {
+      "sha256": "d018c9b0dcdbc2c1fc5666d182cd8294cadf316e622b91fb513381bd3d3c5823",
+      "size": 998543
+    },
+    "facility-pdfs/h16-3-konkouji.pdf": {
+      "sha256": "06bc331f359ba95f7cadb52e96074d2bdaf69731e984f21aeeb29e76a566ac44",
+      "size": 994080
+    },
+    "facility-pdfs/h16-4-taishibashi.pdf": {
+      "sha256": "de4c034d5a4a08912f2a3a136203b856442a8d35d9c5352d7927dc8a080e5592",
+      "size": 1003864
+    },
+    "facility-pdfs/h16-5-heiwanoko.pdf": {
+      "sha256": "5269384ecf3eaa816423eb470efcff675dd57d6c4429de18a827df5ea09c18a4",
+      "size": 996646
+    },
+    "facility-pdfs/h16-6-tubomi.pdf": {
+      "sha256": "9d9856569f7471f4c5e3f46c14c2ec656eae3843d73824c5329bd3c4ac4b8a21",
+      "size": 996587
+    },
+    "facility-pdfs/h16-7-arinkodai2.pdf": {
+      "sha256": "2a4bfac95f512cc27a8f18d70b97567e8395be2b030f9a467086529fbaf05bba",
+      "size": 1003278
+    },
+    "facility-pdfs/h16-8-omiyamabune.pdf": {
+      "sha256": "d5fa5583a5028e0dcc8100be056d670b5e387c36aae87e6563a573eeb575c452",
+      "size": 994556
+    },
+    "facility-pdfs/h16-9-aiaitakadono.pdf": {
+      "sha256": "8af8563beafd58cb6a94f80866b18543ce6acfd942c6e128983fa3d9e011bc34",
+      "size": 995786
+    },
+    "facility-pdfs/k16-1-akenohosi.pdf": {
+      "sha256": "7c6036c1b690b10090fdca5097792121ab620aa14f795f807ad5390d28eb4a0b",
+      "size": 1291298
+    },
+    "facility-pdfs/k16-2-nisitakadonowakaba.pdf": {
+      "sha256": "cb41e943b1675cb65c8aa265d960547c92241158471791041fea6cda31bed410",
+      "size": 1299752
+    },
+    "facility-pdfs/t16-1-ywcakohituji.pdf": {
+      "sha256": "711af0ba10beeff1897d73f831a0229e568f7e8c85f71ca336c286fcb5c2b697",
+      "size": 975568
+    },
+    "facility-pdfs/t16-2-nukumoriikue.pdf": {
+      "sha256": "bf13d35fadbb5b2506b0a00b4a1e462154cf8c6280de734ba79671b7317947c1",
+      "size": 956960
+    },
+    "facility-pdfs/t16-4-aiaitaishibashiimaichi.pdf": {
+      "sha256": "f3dd9c449ba7d4b541651b1404461b284b2e65e753a91644f9ae30b3f47ac154",
+      "size": 963775
+    },
+    "facility-pdfs/t16-5-kaiseiputimorisyouji.pdf": {
+      "sha256": "c90dd28bd727979fddae35cb3de993c00463e10a7a243d9f80b572f4df42154d",
+      "size": 968981
+    },
+    "facility-pdfs/t16-6-pingushimizu.pdf": {
+      "sha256": "0684deb805746784e8d666c7d8b1df92486968ebb517bdc809301f776de416fa",
+      "size": 963082
+    },
+    "facility-pdfs/t16-7-tatti.pdf": {
+      "sha256": "1efc44fb8ed427828460604deb02ef3f158d378c8bce9a0dea1962660016f1c0",
+      "size": 962199
+    },
+    "facility-pdfs/t16-8-herosasahi.pdf": {
+      "sha256": "e2d4a7c2508a89fea82b8b23e657cd3125114765deab512c510b6779dec50e1c",
+      "size": 967437
+    },
+    "facility-pdfs/t16-9-shinmorisunfriends.pdf": {
+      "sha256": "6c87265cca185fdd7a863509ff63508a0013c77085f5c9524e401d8863613fee",
+      "size": 958067
+    },
+    "kigyo.pdf": {
+      "sha256": "91981865599e11d9f0ffd1e76e9f75a0abb0b7c584011b42fb7e5f251b7f0dc5",
+      "size": 64394
+    },
+    "kigyo_page.html": {
+      "sha256": "1e33b255f6e44f937325b06d9ff07faf7035cc25c9a34a5206e11cf552a5619e",
+      "size": 31192
+    },
+    "list.pdf": {
+      "sha256": "69333b805b3c747ed104b4da7dee61a2f14490c92c6f67339cddb09975d5cd18",
+      "size": 452223
+    },
+    "list.xlsx": {
+      "sha256": "856bfeb5910f6addcd8e9088fe95589f634c5f48eb048cabe856f8b68c207bff",
+      "size": 12715
+    },
+    "vacancy.pdf": {
+      "sha256": "274ee054b251249d4af066c05e17f0724ab490fadc685509c4222b6f77be926d",
+      "size": 87421
+    },
+    "vacancy_page.html": {
+      "sha256": "b41cc43e0d745be83b81327cf37fa0826e52b8910b6fb6d9ec2ff95291dd649b",
+      "size": 35401
+    }
+  }
+}

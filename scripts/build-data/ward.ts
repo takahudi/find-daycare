@@ -12,6 +12,7 @@ export function finishWard(
   kigyoAsOf: string | null,
   now: Date,
   warn: Warn,
+  snapshot: string,
 ): Ward {
   const { wardDetails, websites } = input;
   const ids = wardFacilities.map((f) => f.id);
@@ -35,6 +36,7 @@ export function finishWard(
   const asOfMonth = Number(wardRows[0][16]);
   return {
     id: ward.id,
+    snapshot,
     name: ward.name,
     vacancyAsOf: `令和${reiwa(asOfMonth)}年${asOfMonth}月1日現在`,
     vacancyFor: `${Number(wardRows[0][20])}月1日入所用`,

@@ -1,0 +1,165 @@
+{
+  "fetchedOn": "2026-10-22",
+  "files": {
+    "facility-pdfs/22-takaai.pdf": {
+      "sha256": "67411714a495f69bab98ec9386463c482b8b501598884c5387da617901bcaf2f",
+      "size": 143614
+    },
+    "facility-pdfs/22-yatadai3.pdf": {
+      "sha256": "80d62c2a0f2d02baeb4c21af0996b1c1d2bdea227125155de36cb63e7296566f",
+      "size": 991070
+    },
+    "facility-pdfs/22-yatakyouikunomori.pdf": {
+      "sha256": "423cd01d2a3e07d0d667777ed3c56c7044489771dfe3937d77cff6232c176614",
+      "size": 143214
+    },
+    "facility-pdfs/h22-1-ikuwashirasagi.pdf": {
+      "sha256": "207fec39cc8fdc1c81532c21878d2af3f1520242d9efdbb8d3771c58d1310d80",
+      "size": 995224
+    },
+    "facility-pdfs/h22-10-mebae.pdf": {
+      "sha256": "497d3280a7914911237fd4da09ddba15af8a7478f7055ac341d9d116fd589c70",
+      "size": 989575
+    },
+    "facility-pdfs/h22-12-yatakita.pdf": {
+      "sha256": "ab4cb315472afab7fc70cd71d1949c4088d67f5183c06a9ddf65d21876d6dd48",
+      "size": 1000305
+    },
+    "facility-pdfs/h22-13-jyounangakuen.pdf": {
+      "sha256": "485e43093dfabacc4a385c35d4dc52c25b14b7dc713dcbeb21717cd3083426fe",
+      "size": 1002238
+    },
+    "facility-pdfs/h22-14-higashitanabekotei.pdf": {
+      "sha256": "25e9e49e35ab6c1b28787bbf8aa5c4cde21f9f29819324bf40a1652ba3478280",
+      "size": 1002989
+    },
+    "facility-pdfs/h22-2-ikuwashirasagiimabayashi.pdf": {
+      "sha256": "453f2958ba42db060ee4458d3d6fdefbbd4497006a62eebe202630a0d229af27",
+      "size": 995161
+    },
+    "facility-pdfs/h22-3-imagawagakuen.pdf": {
+      "sha256": "ef87e8fa9fb03b9d1660d93c514675d4cbd502787e511ebb36d0f48528bb9880",
+      "size": 1002771
+    },
+    "facility-pdfs/h22-4-kitatanabe.pdf": {
+      "sha256": "47af6e3711359763200cb3abb47d766f0a99345c07cda15a0f34b5d239b72584",
+      "size": 992083
+    },
+    "facility-pdfs/h22-5-shinsei.pdf": {
+      "sha256": "f8451a77774fb45d7d3ae4c08a444d9f284ee848c2092106f8bae12b9d09d18e",
+      "size": 989383
+    },
+    "facility-pdfs/h22-6-dai2mebae.pdf": {
+      "sha256": "bd4de78f7aed81e4417ee98224acbd94aec3d3a37e76827d441addf9015a32ab",
+      "size": 990233
+    },
+    "facility-pdfs/h22-7-taiyou.pdf": {
+      "sha256": "aefa620766c3fcfb123da4650f082bea52e3f7ee53edf2009b111966df31dca9",
+      "size": 994272
+    },
+    "facility-pdfs/h22-8-tensouhigashisumiyoshi.pdf": {
+      "sha256": "e6a6f314c9c8dfd6a4e04943889cae6e8f8210dbf97ccefe15647ddd85c5a669",
+      "size": 997352
+    },
+    "facility-pdfs/h22-9-megumu.pdf": {
+      "sha256": "c63c8926fa87daca95d40b451124b1e48ab0a18c1bac8e486dcd6db9600051ad",
+      "size": 991726
+    },
+    "facility-pdfs/k22-1-imagawa.pdf": {
+      "sha256": "1ba3f14ebc2dca0a144fa24651c2b8b52d5b173b5f5f82cef57f2f7fa1e6c281",
+      "size": 1296912
+    },
+    "facility-pdfs/k22-2-katuyamaaiwadai4.pdf": {
+      "sha256": "0a405810a202cf3266dd5709e2cb690b56322c29ed9ad7ba8b2dafcfdf578474",
+      "size": 1299341
+    },
+    "facility-pdfs/k22-3-ikuwaseityou.pdf": {
+      "sha256": "f39abdd6db11ebb16e04626878231a842a2efc79186ee65d1e8c173e1495f124",
+      "size": 1286482
+    },
+    "facility-pdfs/k22-4-ikuwagakuen.pdf": {
+      "sha256": "e7425ea551283727206177b9a708c2e57fb19dbca3ba973a170d640552b3d8a3",
+      "size": 1296963
+    },
+    "facility-pdfs/k22-5-satuki.pdf": {
+      "sha256": "2ab6cd5636e343c54843c3e459fc469aed2412c23adde718ac2a9e1b3937529a",
+      "size": 1289720
+    },
+    "facility-pdfs/k22-6-poole.pdf": {
+      "sha256": "2f8af5664aef38d8e036f6422406609135e48c019d96a26c8b0a91c6087da774",
+      "size": 1304068
+    },
+    "facility-pdfs/k22-7-yuzato.pdf": {
+      "sha256": "f4027430a17b78e2c17e3183790bc9932f3757122e20d253af80bd147be3924c",
+      "size": 1295322
+    },
+    "facility-pdfs/k22-8-futabayouchien.pdf": {
+      "sha256": "2751363eab7fb3fa2f68b22b729933fb645fa950d8c06d8b241d00896ae9682f",
+      "size": 1300536
+    },
+    "facility-pdfs/k22-9-nakano.pdf": {
+      "sha256": "08d446ca751c2b1c5b22fe7dc495a0b01a5cbcc09b17e21c5cbc4bc02e81402c",
+      "size": 1288904
+    },
+    "facility-pdfs/t22-1-hiyokoroom.pdf": {
+      "sha256": "856f7343fbfa0ca776ede9da73aba5da1bba97bcbefdf2d67db3dfb11ff2dac7",
+      "size": 954906
+    },
+    "facility-pdfs/t22-10-applehigashisumiyoshi.pdf": {
+      "sha256": "03adc33b9b34e3f93e88434876bf0bdd52402a596bcd772523744831c3364e07",
+      "size": 960894
+    },
+    "facility-pdfs/t22-11-applenakano.pdf": {
+      "sha256": "0c37d8d1a23d7441dafd7a23fe98b7bbfdfb80dc9fdef22456c0a95d02077a3b",
+      "size": 958321
+    },
+    "facility-pdfs/t22-2-smilekumata.pdf": {
+      "sha256": "d1c055373a49d080fb4ea632786395aee69bd38151fe535fa5f8654c53e263ef",
+      "size": 965224
+    },
+    "facility-pdfs/t22-4-higashitanabe.pdf": {
+      "sha256": "2dab418cf49168c34aad700d1d6e65c67e22fdba8a5ebf2af1cbe1ae8b2f2edc",
+      "size": 955924
+    },
+    "facility-pdfs/t22-6-komagawataiyou.pdf": {
+      "sha256": "a8dcf49879a6ee03352b4602f2624b77ad5e0bb3ee647b447edf0b09e1362a08",
+      "size": 958807
+    },
+    "facility-pdfs/t22-7-nichiikidshigashisumiyoshi.pdf": {
+      "sha256": "1623d96944454d3f3d083e1d5de830cb201e878ea3d4141716d15fa40b18e6b9",
+      "size": 960978
+    },
+    "facility-pdfs/t22-8-ikuwasyokibo.pdf": {
+      "sha256": "c077ccf32ee2c19058815a2e76fa9d320b3ac11fa939048d5eb3ca313cc5b250",
+      "size": 956403
+    },
+    "facility-pdfs/t22-9-ibiskidskitatanabe.pdf": {
+      "sha256": "c4b62bdccb4d32ebf20fa8d78213e1c46c7cf2130dcc1b2d5a8c16abc7ea0fc2",
+      "size": 964680
+    },
+    "homepage-sources/1.html": {
+      "sha256": "29721befc7d2913e21f00b8ff977f8f3168bb428a1818f598c83101b01f2fb34",
+      "size": 35655
+    },
+    "homepage-sources/2.html": {
+      "sha256": "3468ca333980983db4bcb5c69fd077def08229d42c29ff9f427901cf3ece8f74",
+      "size": 37913
+    },
+    "kigyo_page.html": {
+      "sha256": "a62c3957a5b60291c2fa24edb47cecdd5ab5d756568a8a9f6a8e1b8c1e942947",
+      "size": 37083
+    },
+    "list.pdf": {
+      "sha256": "10be4d21bf540ad0561da90456ce8780b24e9dd09cb7b58fa99fd254ac6f7c7e",
+      "size": 415276
+    },
+    "list.xlsx": {
+      "sha256": "45433caa4f76ae1d9884e65a15b0c3a56e9b9186479b5d52b2c4ebaf74c2a74a",
+      "size": 13167
+    },
+    "vacancy_page.html": {
+      "sha256": "5a23e4627eb70b47d860706c45bfe0715a2fc6a074ffb33b78267db74c91594a",
+      "size": 49275
+    }
+  }
+}

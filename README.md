@@ -179,8 +179,14 @@ pnpm format     # oxfmt で整形
 ## データの更新
 
 ```bash
-pnpm data:update   # 一次情報を再取得 → PDFから抽出 → src/data/facilities.json を再生成
+pnpm data:fetch    # 一次情報とマニフェストを取得
+# マニフェスト差分と一次情報を確認
+pnpm data:build    # PDFから抽出し、src/data/facilities.json を再生成
+# 生成結果を確認してPRを作成し、レビュー後に保管
+pnpm data:archive
 ```
+
+`data:update` は取得とビルドを続けて実行する便宜上のコマンドです。更新作業は取得 → 差分確認 → ビルド → PR → レビュー後に `data:archive` の順で進めます。取得直後に確認する場合は、上記のように `data:fetch` と `data:build` を分けて実行してください。
 
 施設種別は `facilityType`、認可区分は `licensing` として別々に保持します。表示ラベルはアプリ側で定義します。
 
@@ -198,6 +204,27 @@ pnpm data:update   # 一次情報を再取得 → PDFから抽出 → src/data/f
 - `scripts/extract-ward-homepages.ts <区のid>` … 区の施設紹介資料PDFの「ホームページ」「URL」「ホームページアドレス」欄・区のページの「〇〇のホームページ」リンクや表の施設名リンク・施設の写真のリンクを一覧表示（`websites.json` 更新時の確認用）
 - `scripts/check-urls.ts <区のid>` … `websites.json` のURLが開けるか確認（Cloudflare等で自動アクセスが拒否されるサイトはブラウザで確認）
 - `scripts/dump-pdf-text.ts` … PDFのテキストを座標付きで表示するデバッグ用
+
+### 一次情報を保管・復元する
+
+非公開のR2バケットを用意し、そのバケットだけを対象とする **Object Read & Write** 権限のR2 APIトークンを発行してください。`.env.example` を `.env` にコピーし、`R2_ACCOUNT_ID`、`R2_ACCESS_KEY_ID`、`R2_SECRET_ACCESS_KEY`、`R2_BUCKET` を設定します。`.env` はGitに含めません。各コマンドはファイルが存在するときだけNode.jsの `process.loadEnvFile('.env')` で読み込み、環境変数も使用できます。
+
+```bash
+pnpm data:archive                   # 全24区と全市共通を保管
+pnpm data:archive chuo city         # 指定した単位だけ保管
+pnpm data:restore                   # コミット済みマニフェストの取得日で全単位をsources/へ復元
+pnpm data:restore chuo@2026-10-21 --dest .audit/restored
+pnpm data:manifest chuo --date 2026-10-21
+```
+
+一次情報は `sources/<区id>/` と `sources/city/` に置きます。`data/<id>/snapshot.json` は取得日・相対POSIXパス・SHA-256・バイト数を記録します。`data:manifest [<id> ...] [--date YYYY-MM-DD]` は既存ファイルからマニフェストを作成します。日付を省略すると、ファイルの更新日時をJSTに変換し、単位内ですべて同日であることを確認します。通常は取得コマンドがJSTの当日付で自動生成するため、手動生成は初回取り込みに使います。
+
+`data:archive [<id> ...]` はローカル一式がマニフェストと完全に一致することを確認し、`snapshots/<id>/<取得日>/<相対パス>` と同階層の `snapshot.json` を保管します。同じSHA-256の既存オブジェクトは省略し、異なる内容は上書きせず失敗します。途中失敗した場合は同じコマンドを再実行してください。同じ取得日に内容が変わった場合も上書きできないため、新しい取得日のスナップショットとして取り込みます。
+
+`data:restore [<id>[@YYYY-MM-DD] ...] [--dest <dir>]` は省略時に全単位・コミット済みの取得日・`sources/` を選びます。ハッシュとサイズを確認した一式だけをディレクトリごと置換し、不要になった旧ファイルは残しません。別日付を `sources/` に復元したときは、`data/<id>/snapshot.json` もその日付へ更新して通知します。別の `--dest` への復元では、コミット済みマニフェストを変更しません。
+
+ビルドはマニフェストの欠落と一次情報の不一致を拒否します。`facilities.json` の各区の `snapshot` と全市共通の `citySnapshot` に、使用した取得日を記録します。保管は [ADR 0001](docs/adr/0001-raw-sources-in-r2-per-ward-snapshots.md) に従いレビュー後に実行し、取得時にはアップロードしません。
+
 
 ## 構成
 
