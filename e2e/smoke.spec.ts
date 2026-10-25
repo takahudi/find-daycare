@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
@@ -17,16 +18,25 @@ test('施設のカードが表示される', async ({ page }) => {
   expect(await cards.count()).toBeGreaterThan(0);
 });
 
-test('クラス年齢を選ぶと件数の表示が変わる', async ({ page }) => {
+test('クラス年齢を選ぶと、その年齢を受け入れる施設と空きのある施設の件数に絞られる', async ({ page }) => {
+  const { facilities } = JSON.parse(readFileSync('src/data/facilities.json', 'utf8')) as {
+    facilities: { vacancies: (number | null)[] }[];
+  };
+  const hasOpening = (f: { vacancies: (number | null)[] }, ages: number[]) => ages.some((a) => (f.vacancies[a] ?? 0) > 0);
+  const acceptingZero = facilities.filter((f) => f.vacancies[0] !== null);
   const summary = page.getByText(/件中.*に空きあり/);
-  const before = await summary.textContent();
   const chip = page.getByRole('button', { name: '0歳', exact: true });
+
+  await expect(summary).toHaveText(
+    `${facilities.length}件中 ${facilities.filter((f) => hasOpening(f, [0, 1, 2, 3, 4, 5])).length}件に空きあり`,
+  );
 
   await chip.click();
 
   await expect(chip).toHaveAttribute('aria-pressed', 'true');
-  await expect(summary).toContainText('0歳クラス');
-  await expect(summary).not.toHaveText(before ?? '');
+  await expect(summary).toHaveText(
+    `${acceptingZero.length}件中 ${acceptingZero.filter((f) => hasOpening(f, [0])).length}件に空きあり（0歳クラス）`,
+  );
 });
 
 test('地図と施設のピンが表示される', async ({ page }) => {
