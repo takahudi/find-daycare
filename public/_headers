@@ -1,0 +1,6 @@
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://cyberjapandata.gsi.go.jp; connect-src 'self' https://msearch.gsi.go.jp; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: geolocation=(self), camera=(), microphone=(), accelerometer=(), gyroscope=(), magnetometer=(), payment=(), usb=(), display-capture=(), fullscreen=(), autoplay=(), encrypted-media=(), picture-in-picture=(), screen-wake-lock=(), xr-spatial-tracking=()
+  Cross-Origin-Opener-Policy: same-origin
