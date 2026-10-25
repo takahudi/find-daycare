@@ -104,8 +104,9 @@ describe('geocode', () => {
   });
 
   it('区までしか特定できない結果は使わない', async () => {
-    stubAddressSearch({ 大阪市北区: [{ title: '大阪府大阪市北区', lat: 34.705, lng: 135.51 }] });
-    await expect(geocode('大阪市北区', ['北区'])).rejects.toThrow(Error);
+    const queries = stubAddressSearch({ 大阪市北区: [{ title: '大阪府大阪市北区', lat: 34.705, lng: 135.51 }] });
+    await expect(geocode('大阪市北区', ['北区'])).rejects.toThrow('該当する住所が見つかりませんでした');
+    expect(queries).toEqual(['大阪市北区']);
   });
 
   it('町名と丁目が完全に一致する結果を、町名が前方一致するだけの結果や丁目が違う結果より優先する', async () => {
