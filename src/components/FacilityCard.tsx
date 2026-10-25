@@ -2,6 +2,7 @@ import type { Ref } from 'react';
 import type { Facility } from '../schema';
 import { formatDistance, walkMinutes } from '../lib/geo';
 import { AGE_LABELS, vacancyCount } from '../lib/vacancy';
+import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../lib/facility-labels';
 
 interface Props {
   facility: Facility;
@@ -17,6 +18,9 @@ interface Props {
 export function FacilityCard({ facility: f, rank, distance, highlightAges, selected, onSelect, onShowOnMap, ref }: Props) {
   const total = vacancyCount(f, []);
   const shared = f.sharedVacancy;
+  const typeLabel = FACILITY_TYPE_LABELS[f.facilityType].label;
+  const licensingLabel = LICENSING_LABELS[f.licensing];
+  const showDetailType = f.detailType && ![typeLabel, licensingLabel.label, licensingLabel.detailLabel].includes(f.detailType);
 
   return (
     <article
@@ -28,17 +32,21 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
       <header className="card__head">
         <div className="card__badges">
           <span className="badge badge--ward">{f.wardName}</span>
-          <span className={`badge badge--${f.category}`}>{f.categoryLabel}</span>
+          <span className={`badge badge--${f.facilityType}`}>{typeLabel}</span>
+          {f.licensing === 'unlicensed' && <span className="badge badge--unlicensed">{licensingLabel.label}</span>}
           {f.ownership && <span className="badge badge--plain">{f.ownership}</span>}
-          {f.detailType && f.detailType !== f.categoryLabel && <span className="badge badge--plain">{f.detailType}</span>}
+          {showDetailType && <span className="badge badge--plain">{f.detailType}</span>}
         </div>
         <h2 className="card__title">
           {rank !== null && <span className="card__rank">{rank}</span>}
           {f.name}
         </h2>
         {f.kana && <p className="card__kana">{f.kana}</p>}
-        {!f.licensed && (
-          <p className="card__caution">認可外保育施設です。申込みは区役所ではなく施設との直接契約です（空き人数は地域枠）。</p>
+        {(f.licensing === 'unlicensed' || f.facilityType === 'kigyo') && (
+          <p className="card__caution">
+            {f.licensing === 'unlicensed' && '認可外保育施設です。申込みは区役所ではなく施設との直接契約です'}
+            {f.facilityType === 'kigyo' && '（空き人数は地域枠）'}。
+          </p>
         )}
         {distance !== null && (
           <p className="card__distance">

@@ -345,6 +345,11 @@ button.link {
   background: var(--kigyo);
 }
 
+.badge--unlicensed {
+  background: #fbf1df;
+  color: #8a5a12;
+}
+
 .card__caution {
   margin: 4px 0 0;
   padding: 4px 8px;
@@ -536,7 +541,6 @@ button.link {
   background: var(--full);
 }
 
-/* 企業主導型（認可外）は角丸の四角で区別する */
 .pin--unlicensed {
   border-radius: 7px;
   border-color: var(--kigyo);

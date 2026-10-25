@@ -10,7 +10,11 @@ const PDF_FALLBACK: Record<string, string> = {
   谷町中央こども園: 'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/h5-18-tanimachichuo.pdf',
   なにわのみやPreSchool: 'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/h5-23-naniwanomiya.pdf',
 };
-const CATEGORY: Record<string, Facility['category']> = { 保育所: 'nursery', 認定こども園: 'kodomoen', 地域型: 'community' };
+const FACILITY_TYPE: Record<string, Facility['facilityType']> = {
+  保育所: 'nursery',
+  認定こども園: 'kodomoen',
+  地域型: 'community',
+};
 
 export function buildLicensed(ward: WardConfig, wardRows: string[][], input: WardInputs, warn: Warn): Facility[] {
   const { list, pdfDetails, manualDetails, wardDetails, websites, listedPdfs } = input;
@@ -66,7 +70,7 @@ export function buildLicensed(ward: WardConfig, wardRows: string[][], input: War
       kana
     ).replace(/[\s　]+/g, '');
     const site = websites[key];
-    if (!CATEGORY[category]) throw new Error(`unknown category: ${category}`);
+    if (!FACILITY_TYPE[category]) throw new Error(`unknown category: ${category}`);
     // CSVの施設番号が別の施設と重なっていることがある（鶴見区のポピンズナーサリースクール鶴見緑地と茨田東こども園）。後の行は基本情報PDFの名前を足して区別する
     const baseId = `${ward.id}-${sortKey}`;
     const id = wardFacilities.some((x) => x.id === baseId) ? `${baseId}-${(pdfFile ?? key).replace(/\.pdf$/, '')}` : baseId;
@@ -79,8 +83,8 @@ export function buildLicensed(ward: WardConfig, wardRows: string[][], input: War
       // CSVの施設名の誤記（旭区「AIAI NIMI 太子橋今市」）は ward-details.json の name で直す
       name: extra?.name ?? name,
       kana: reading,
-      category: CATEGORY[category],
-      categoryLabel: category === '地域型' ? '地域型保育事業' : category,
+      facilityType: FACILITY_TYPE[category],
+      licensing: 'licensed',
       detailType: listed?.detailType ?? null,
       ownership: listed?.ownership ?? null,
       operator: listed?.operator ?? null,
@@ -93,7 +97,6 @@ export function buildLicensed(ward: WardConfig, wardRows: string[][], input: War
       lng: Number(lng),
       vacancies,
       sharedVacancy,
-      licensed: true,
       // 昼間と夜間で共有するPDFの定員は昼間の分なので、夜間保育所の行には出さない
       capacity: /夜間/.test(name) && detail?.nightHours ? null : (detail?.capacity ?? null),
       // 昼間と夜間で1つのPDFを共有する施設は、夜間保育所の行に夜間の開所時間（月〜土）を使う

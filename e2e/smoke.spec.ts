@@ -128,3 +128,28 @@ test('/wrangler.json は生成ファイルを公開せず SPA HTML を返す', a
   expect(response.headers()['content-type']).toContain('text/html');
   expect(await response.text()).toBe(await (await request.get('/')).text());
 });
+
+test('施設種別の選択肢を保ち、企業主導型と認可外を別のバッジで表示する', async ({ page }) => {
+  const chips = page.locator('.filters__group').filter({ hasText: '種別' }).getByRole('button');
+  await expect(chips).toHaveText(['保育所', '認定こども園', '地域型保育（0〜2歳）', '企業主導型']);
+  const cards = page.getByRole('region', { name: '施設一覧' }).getByRole('article');
+  await expect(cards).toHaveCount(data.facilities.length);
+  for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
+    await page.getByRole('button', { name: label, exact: true }).click();
+  }
+  const kigyoCount = data.facilities.filter((facility) => facility.facilityType === 'kigyo').length;
+  await expect(cards).toHaveCount(kigyoCount);
+  await expect(cards.first().locator('.card__badges .badge')).toHaveText([/.+区/, '企業主導型', '認可外']);
+  await expect(cards.first().locator('.card__caution')).toHaveText(
+    '認可外保育施設です。申込みは区役所ではなく施設との直接契約です（空き人数は地域枠）。',
+  );
+  await expect(page.locator('.leaflet-marker-icon .pin--unlicensed')).toHaveCount(kigyoCount);
+  await expect(page.locator('.legend')).toContainText('認可外');
+  await page.getByRole('button', { name: '企業主導型', exact: true }).click();
+  await page.getByRole('button', { name: '保育所', exact: true }).click();
+  await expect(cards).toHaveCount(data.facilities.filter((facility) => facility.facilityType === 'nursery').length);
+  await expect(cards.first().locator('.badge--nursery')).toHaveText('保育所');
+  await expect(cards.first().locator('.badge--unlicensed')).toHaveCount(0);
+  await expect(cards.first().locator('.card__caution')).toHaveCount(0);
+  await expect(page.locator('.leaflet-marker-icon .pin--unlicensed')).toHaveCount(0);
+});
