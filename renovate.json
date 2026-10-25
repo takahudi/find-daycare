@@ -13,10 +13,9 @@
   },
   "packageRules": [
     {
-      "description": "Node.js のメジャー更新（.node-version）と同じ PR で手動で上げる",
-      "matchPackageNames": ["@types/node"],
+      "matchDepNames": ["node", "@types/node"],
       "matchUpdateTypes": ["major"],
-      "enabled": false
+      "groupName": "Node.js"
     },
     {
       "matchUpdateTypes": ["minor", "patch"],
