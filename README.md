@@ -31,7 +31,7 @@
 
 ## 起動方法
 
-Node.js 24 と pnpm 12 を使います。Node.js のバージョンは `.node-version`、pnpm のバージョンは `package.json` の `packageManager` で固定しています。pnpm が入っていなければ `npm install -g pnpm` で入れてください。どの版を入れても、このリポジトリでは `packageManager` の版に自動で切り替わります。
+Node.js 24 と pnpm 12 を使います。Node.js のバージョンは `.node-version`、pnpm のバージョンは `package.json` の `packageManager` で固定しています。pnpm が入っていなければ、`packageManager` と同じ版を `npm install -g pnpm@12.15.0` で入れてください。pnpm 9.7 以降なら、`packageManager` の版が変わったときに自動で切り替わります。
 
 ```bash
 pnpm install
