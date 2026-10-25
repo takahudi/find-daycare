@@ -11,9 +11,13 @@ import { cell } from './text.ts';
 export const SRC = path.resolve('sources');
 export const DATA = path.resolve('data');
 
-const readJson = async <K extends keyof WardDataFiles>(wardId: string, name: K): Promise<WardDataFiles[K]> => {
+const readJson = async <K extends keyof WardDataFiles>(wardId: string, name: K) => {
   const file = path.join(DATA, wardId, name);
-  return existsSync(file) ? parseJson(await readFile(file, 'utf8'), name) : {};
+  try {
+    return parseJson(existsSync(file) ? await readFile(file, 'utf8') : '{}', name);
+  } catch (error) {
+    throw new Error(`${file}: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
+  }
 };
 
 export async function saveGeocodeCache(wardId: string, cache: WardDataFiles['geocode-cache.json']) {

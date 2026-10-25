@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import rawData from './data/facilities.json';
-import type { Category, Dataset, Facility, Home } from './types';
+import * as v from 'valibot';
+import { DatasetSchema, HomeSchema } from './schema';
+import type { Category, Facility, Home } from './types';
 import { FacilityCard } from './components/FacilityCard';
 import { MapView } from './components/MapView';
 import { distanceMeters, geocode } from './lib/geo';
 import { AGE_LABELS, AGES, acceptsAny, vacancyCount } from './lib/vacancy';
 
-// oxlint-disable-next-line typescript/no-unsafe-type-assertion -- build-data.ts が生成する JSON。実行時の検証はデータのスキーマ検証で入れる
-const data = rawData as Dataset;
+const data = v.parse(DatasetSchema, rawData);
 const WARD_NAMES = data.wards.map((w) => w.name);
 // 区が増えると区名を並べきれないので、5区以上は区の数で表す（区名は見出しのツールチップに出す）
 const TITLE =
@@ -30,7 +31,8 @@ const kigyoAsOfText = (() => {
   return exceptions ? `${main[0]}（${exceptions}）` : main[0];
 })();
 
-type SortKey = 'distance' | 'vacancy' | 'name';
+const SortKeySchema = v.picklist(['distance', 'vacancy', 'name']);
+type SortKey = v.InferOutput<typeof SortKeySchema>;
 
 const CATEGORIES: { key: Category; label: string }[] = [
   { key: 'nursery', label: '保育所' },
@@ -44,8 +46,8 @@ const HOME_KEY = 'find-daycare:home';
 function loadHome(): Home | null {
   try {
     const raw = localStorage.getItem(HOME_KEY);
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- 自分で保存した値だが、利用者が書き換えられるので本来は検証が要る
-    return raw ? (JSON.parse(raw) as Home) : null;
+    const result = raw ? v.safeParse(HomeSchema, JSON.parse(raw)) : null;
+    return result?.success ? result.output : null;
   } catch {
     return null;
   }
@@ -135,7 +137,7 @@ export default function App() {
     );
   }
 
-  const toggle = <T,>(list: T[], v: T) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
+  const toggle = <T,>(list: T[], value: T) => (list.includes(value) ? list.filter((x) => x !== value) : [...list, value]);
 
   return (
     <div className={`app app--${mobileView}`}>
@@ -244,8 +246,13 @@ export default function App() {
           </label>
           <label className="sort">
             並び順
-            {/* oxlint-disable-next-line typescript/no-unsafe-type-assertion -- 選択肢は SortKey の値だけで作っている */}
-            <select value={sort} onChange={(e) => setSort(e.target.value as SortKey)}>
+            <select
+              value={sort}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (v.is(SortKeySchema, value)) setSort(value);
+              }}
+            >
               <option value="distance" disabled={!home}>
                 自宅から近い順{home ? '' : '（住所を入力）'}
               </option>

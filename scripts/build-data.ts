@@ -16,6 +16,8 @@
 // Usage: node scripts/build-data.ts
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
+import * as v from 'valibot';
+import { DatasetSchema } from '../src/schema.ts';
 import type { Dataset, Facility, Ward } from '../src/types.ts';
 import { CITY_SOURCES, WARDS } from './wards.ts';
 import { parseCsv } from './build-data/csv.ts';
@@ -61,6 +63,9 @@ const data: Dataset = {
   ],
   facilities,
 };
+
+const result = v.safeParse(DatasetSchema, data);
+if (!result.success) throw new Error(`公開データの検証に失敗しました\n${v.summarize(result.issues)}`);
 
 await mkdir(path.dirname(OUT), { recursive: true });
 await writeFile(OUT, JSON.stringify(data, null, 2) + '\n');

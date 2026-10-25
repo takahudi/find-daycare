@@ -1,64 +1,21 @@
-import type { Facility } from '../src/types.ts';
+import type * as v from 'valibot';
+import type {
+  PdfDetailSchema,
+  ManualDetailSchema,
+  WardDetailSchema,
+  WebsiteSchema,
+  KigyoDetailSchema,
+  GeocodePositionSchema,
+  WardDataSchemas,
+} from './data-schema.ts';
 
-export interface PdfDetail {
-  kana: string | null;
-  capacity: Facility['capacity'];
-  weekday: string | null;
-  saturday: string | null;
-  nightHours?: string;
-  services: string[];
-  url: string | null;
-  approvedOn: string | null;
-  note?: string;
-}
-
-export type ManualDetail = Omit<PdfDetail, 'kana'>;
-export interface WardDetail {
-  name?: string;
-  kana?: string;
-  weekday?: string;
-  saturday?: string;
-  capacity?: Facility['capacity'];
-  services?: string[];
-  note?: string;
-}
-
-export interface Website {
-  url: string | null;
-  label: string;
-}
-
-export interface KigyoDetail {
-  wardTag: string;
-  phone: string | null;
-  hours: { weekday?: string; saturday?: string; holiday?: string };
-  capacity: number | null;
-  monthlyUpTo: string | null;
-  freeOfCharge: boolean | null;
-  name: string;
-  type: string;
-  postalCode?: string;
-  address: string;
-  startedOn?: string;
-  operator?: string;
-  page: number;
-}
-
-export interface GeocodePosition {
-  lat: number;
-  lng: number;
-  label: string;
-}
+export type PdfDetail = v.InferOutput<typeof PdfDetailSchema>;
+export type ManualDetail = v.InferOutput<typeof ManualDetailSchema>;
+export type WardDetail = v.InferOutput<typeof WardDetailSchema>;
+export type Website = v.InferOutput<typeof WebsiteSchema>;
+export type KigyoDetail = v.InferOutput<typeof KigyoDetailSchema>;
+export type GeocodePosition = v.InferOutput<typeof GeocodePositionSchema>;
 
 /** 手で書くファイル。_ で始まるキーは出典や補正理由のメモで、読み込み時に除く */
 export const ANNOTATED_FILES = ['manual-details.json', 'ward-details.json', 'websites.json'] as const;
-
-/** 区データの形。ANNOTATED_FILES は _ キーを除いた後の形 */
-export interface WardDataFiles {
-  'pdf-details.json': Record<string, PdfDetail>;
-  'manual-details.json': Record<string, ManualDetail>;
-  'ward-details.json': Record<string, WardDetail>;
-  'websites.json': Record<string, Website>;
-  'kigyo-details.json': Record<string, KigyoDetail>;
-  'geocode-cache.json': Record<string, GeocodePosition>;
-}
+export type WardDataFiles = { [K in keyof typeof WardDataSchemas]: v.InferOutput<(typeof WardDataSchemas)[K]> };

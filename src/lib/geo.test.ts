@@ -140,3 +140,18 @@ describe('geocode', () => {
     await expect(geocode('大阪市北区', ['北区'])).rejects.toThrow('住所検索に失敗しました（HTTP 503）');
   });
 });
+
+describe('住所検索の応答検証', () => {
+  it.each([
+    {},
+    [null],
+    [{ geometry: { coordinates: [135.5] }, properties: { title: '大阪市北区中之島' } }],
+    [{ geometry: { coordinates: ['135.5', 34.69] }, properties: { title: '大阪市北区中之島' } }],
+  ])('不正な応答形式は利用者向けのエラーで失敗する (%j)', async (response) => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => Response.json(response)),
+    );
+    await expect(geocode('大阪市北区中之島', ['北区'])).rejects.toThrow('住所検索の応答形式が不正です');
+  });
+});
