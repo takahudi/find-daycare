@@ -2,10 +2,9 @@
 // 対象区の企業主導型保育事業の開所時間・定員・設置者などを抽出する。
 // 出力: data/<区>/kigyo-details.json （電話番号 → 抽出結果）
 // Usage: node scripts/extract-kigyo-details.ts
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
-import * as v from 'valibot';
-import { WardDataSchemas } from './data-schema.ts';
+import { validateJson, writeJson } from './json.ts';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.ts';
 import { pageTextItems } from './pdf-text.ts';
@@ -104,22 +103,26 @@ for (let p = 1; p <= doc.numPages; p++) {
   if (!tokens.some((t) => outByTag.has(t.s))) continue;
   for (const block of parsePage(tokens)) {
     if (!block.name) throw new Error(`page ${p}: ${block.phone} の施設名が読めない`);
-    if (block.type !== '企業主導型保育事業' || !outByTag.has(block.wardTag)) continue;
+    const out = outByTag.get(block.wardTag);
+    if (block.type !== '企業主導型保育事業' || !out) continue;
     // build-data.ts は所在地でも対応付けるので、所在地のない施設は書き出さない
     if (!block.address) throw new Error(`page ${p}: ${block.phone} の所在地が読めない`);
     const detail: KigyoDetail = { ...block, name: block.name, type: block.type, address: block.address, page: p };
     // キーは電話番号（ない施設は施設名。build-data.ts は電話番号のほか所在地でも対応付ける）
-    outByTag.get(block.wardTag)![block.phone ?? `(電話番号なし)${block.name}`] = detail;
+    out[block.phone ?? `(電話番号なし)${block.name}`] = detail;
   }
 }
 
+const outputs: { ward: (typeof WARDS)[number]; out: Record<string, KigyoDetail> }[] = [];
 for (const ward of WARDS) {
-  const out = outByTag.get(ward.ninkagaiTag)!;
+  const out = outByTag.get(ward.ninkagaiTag) ?? {};
+  outputs.push({ ward, out });
+}
+
+for (const { out } of outputs) validateJson('kigyo-details.json', out);
+for (const { ward, out } of outputs) {
   await mkdir(path.resolve('data', ward.id), { recursive: true });
-  const outputPath = path.resolve('data', ward.id, 'kigyo-details.json');
-  const result = v.safeParse(WardDataSchemas['kigyo-details.json'], out);
-  if (!result.success) throw new Error(`${outputPath}: ${v.summarize(result.issues)}`);
-  await writeFile(outputPath, JSON.stringify(out, null, 2) + '\n');
+  await writeJson('kigyo-details.json', path.resolve('data', ward.id, 'kigyo-details.json'), out);
   console.log(`== ${ward.name}`);
   for (const d of Object.values(out)) {
     console.log(

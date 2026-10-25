@@ -1,5 +1,5 @@
 import * as v from 'valibot';
-import { CapacitySchema, CountSchema, HomeSchema, HttpUrlSchema, TextSchema } from '../src/schema.ts';
+import { CapacitySchema, CountSchema, HomeSchema, inOsakaCity, HttpUrlSchema, TextSchema } from '../src/schema.ts';
 
 export const PdfDetailSchema = v.strictObject({
   kana: v.nullable(TextSchema),
@@ -42,7 +42,10 @@ export const KigyoDetailSchema = v.strictObject({
     v.minValue(1, 'PDFのページは1以上が必要です'),
   ),
 });
-export const GeocodePositionSchema = v.strictObject(HomeSchema.entries);
+export const GeocodePositionSchema = v.pipe(
+  v.strictObject(HomeSchema.entries),
+  v.check((position) => inOsakaCity(position), '座標が大阪市内の範囲外です'),
+);
 
 export const WardDataSchemas = {
   'pdf-details.json': v.record(TextSchema, PdfDetailSchema),
@@ -54,10 +57,7 @@ export const WardDataSchemas = {
 };
 
 export type PdfDetail = v.InferOutput<typeof PdfDetailSchema>;
-export type ManualDetail = v.InferOutput<typeof ManualDetailSchema>;
-export type WardDetail = v.InferOutput<typeof WardDetailSchema>;
 export type Website = v.InferOutput<typeof WebsiteSchema>;
 export type KigyoDetail = v.InferOutput<typeof KigyoDetailSchema>;
-export type GeocodePosition = v.InferOutput<typeof GeocodePositionSchema>;
 
 export type WardDataFiles = { [K in keyof typeof WardDataSchemas]: v.InferOutput<(typeof WardDataSchemas)[K]> };

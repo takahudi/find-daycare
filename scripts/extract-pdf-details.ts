@@ -2,10 +2,9 @@
 // 認可定員・開園時間・施設URL・認可年月日・特別保育・ふりがなを抽出する。
 // 出力: data/<区>/pdf-details.json （ファイル名 → 抽出結果）
 // Usage: node scripts/extract-pdf-details.ts
-import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
-import * as v from 'valibot';
-import { WardDataSchemas } from './data-schema.ts';
+import { validateJson, writeJson } from './json.ts';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.ts';
 import { pageTextItems } from './pdf-text.ts';
@@ -185,6 +184,7 @@ function approvedOn(allItems: PositionedText[]) {
   return era ? `${ERA_START[era[1]] + (era[2] === '元' ? 1 : Number(era[2]))}年${era[3]}月${era[4]}日` : null;
 }
 
+const outputs: { ward: (typeof WARDS)[number]; out: Record<string, PdfDetail> }[] = [];
 for (const ward of WARDS) {
   const pdfDir = path.resolve('sources', ward.id, 'facility-pdfs');
   const files = (await readdir(pdfDir)).filter((f) => f.endsWith('.pdf')).sort();
@@ -207,11 +207,13 @@ for (const ward of WARDS) {
       approvedOn: approvedOn(pages[0]),
     };
   }
+  outputs.push({ ward, out });
+}
+
+for (const { out } of outputs) validateJson('pdf-details.json', out);
+for (const { ward, out } of outputs) {
   await mkdir(path.resolve('data', ward.id), { recursive: true });
-  const outputPath = path.resolve('data', ward.id, 'pdf-details.json');
-  const result = v.safeParse(WardDataSchemas['pdf-details.json'], out);
-  if (!result.success) throw new Error(`${outputPath}: ${v.summarize(result.issues)}`);
-  await writeFile(outputPath, JSON.stringify(out, null, 2) + '\n');
+  await writeJson('pdf-details.json', path.resolve('data', ward.id, 'pdf-details.json'), out);
   console.log(`== ${ward.name}`);
   for (const [f, d] of Object.entries(out)) {
     console.log(

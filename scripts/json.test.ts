@@ -1,5 +1,7 @@
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { parseJson } from './json.ts';
+import { parseJson, writeJson } from './json.ts';
 
 describe('補完入力のJSON境界', () => {
   it('注記キーを除いてからwebsitesを検証する', () => {
@@ -9,20 +11,17 @@ describe('補完入力のJSON境界', () => {
   });
 
   it('注記キーを除いても不正な施設データを拒否する', () => {
-    expect(() => parseJson('{"_note": "補正理由", "施設": {"url": 1, "label": "公式"}}', 'websites.json')).toThrow();
+    expect(() => parseJson('{"_note": "補正理由", "施設": {"url": 1, "label": "公式"}}', 'websites.json')).toThrow('施設.url');
   });
 
   it('注記対象外のファイルでは_キーも検証する', () => {
-    expect(() => parseJson('{"_broken": "注記として許可されない"}', 'geocode-cache.json')).toThrow();
+    expect(() => parseJson('{"_broken": "注記として許可されない"}', 'geocode-cache.json')).toThrow('_broken');
   });
 
-  it('GSI応答の座標と名称を検証する', () => {
-    expect(
-      parseJson('[{"geometry":{"coordinates":[135.5,34.69]},"properties":{"title":"大阪市北区中之島"}}]', 'geocode-response'),
-    ).toHaveLength(1);
+  it('大阪市外の座標をキャッシュ入力として拒否する', () => {
     expect(() =>
-      parseJson('[{"geometry":{"coordinates":["135.5",34.69]},"properties":{"title":"大阪市北区中之島"}}]', 'geocode-response'),
-    ).toThrow();
+      parseJson('{"市外":{"lat":35.684,"lng":139.684,"label":"東京都渋谷区本町一丁目"}}', 'geocode-cache.json'),
+    ).toThrow('座標が大阪市内の範囲外です');
   });
 });
 
@@ -88,5 +87,25 @@ describe('入力JSONの厳密なキー検証', () => {
     [0, '1以上'],
   ])('PDFのページ%sはページ専用のメッセージで拒否する', (page, message) => {
     expect(() => parseJson(JSON.stringify({ A園: { ...kigyo, page } }), 'kigyo-details.json')).toThrow(`PDFのページは${message}`);
+  });
+});
+
+describe('JSONの書き込み境界', () => {
+  it('有効な値を既存のインデントと末尾改行で保存し、不正な値では既存ファイルを保つ', async () => {
+    const directory = await mkdtemp(path.resolve('.json-test-'));
+    const file = path.join(directory, 'websites.json');
+    const data = { 施設: { label: '公式', url: 'https://example.com' } };
+    try {
+      await writeJson('websites.json', file, data);
+      const expected = JSON.stringify(data, null, 2) + '\n';
+      expect(await readFile(file, 'utf8')).toBe(expected);
+      await expect(writeJson('websites.json', file, { 施設: { url: 1, label: '公式' } })).rejects.toThrow('施設.url');
+      expect(await readFile(file, 'utf8')).toBe(expected);
+      await writeFile(file, 'preserved');
+      await expect(writeJson('websites.json', file, { _broken: '不正' })).rejects.toThrow('_broken');
+      expect(await readFile(file, 'utf8')).toBe('preserved');
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
   });
 });

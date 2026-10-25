@@ -1,8 +1,8 @@
-import { readFile, readdir, mkdir, writeFile } from 'node:fs/promises';
+import { readFile, readdir, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import XLSX from 'xlsx';
-import { parseJson } from '../json.ts';
+import { parseJson, writeJson } from '../json.ts';
 import type { WardDataFiles } from '../data-schema.ts';
 import type { CellValue } from './types.ts';
 import type { WardConfig } from '../wards.ts';
@@ -22,7 +22,7 @@ const readJson = async <K extends keyof WardDataFiles>(wardId: string, name: K) 
 
 export async function saveGeocodeCache(wardId: string, cache: WardDataFiles['geocode-cache.json']) {
   await mkdir(path.join(DATA, wardId), { recursive: true });
-  await writeFile(path.join(DATA, wardId, 'geocode-cache.json'), JSON.stringify(cache, null, 2) + '\n');
+  await writeJson('geocode-cache.json', path.join(DATA, wardId, 'geocode-cache.json'), cache);
 }
 
 export async function loadWardInputs(ward: WardConfig) {

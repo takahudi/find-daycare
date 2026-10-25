@@ -142,13 +142,13 @@ describe('geocode', () => {
 });
 
 describe('住所検索の応答検証', () => {
-  it.each([{}, null, 'invalid'])('配列でない応答は再試行を促さないエラーで失敗する (%j)', async (response) => {
+  it.each([{}, null, 'invalid'])('配列でない応答は現在地ボタンを案内する (%j)', async (response) => {
     vi.stubGlobal(
       'fetch',
       vi.fn(async () => Response.json(response)),
     );
     await expect(geocode('大阪市北区中之島', ['北区'])).rejects.toThrow(
-      '住所検索の応答形式が不正です。住所検索サービスの対応が必要です。',
+      '住所検索を現在利用できません。「現在地」ボタンをお使いください。',
     );
   });
 
