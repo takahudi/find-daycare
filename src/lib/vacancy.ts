@@ -1,4 +1,4 @@
-import type { Facility } from '../types';
+import type { Facility } from '../schema';
 
 export const AGES = [0, 1, 2, 3, 4, 5] as const;
 export const AGE_LABELS = AGES.map((a) => `${a}歳`);

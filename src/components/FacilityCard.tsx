@@ -1,5 +1,5 @@
 import type { Ref } from 'react';
-import type { Facility } from '../types';
+import type { Facility } from '../schema';
 import { formatDistance, walkMinutes } from '../lib/geo';
 import { AGE_LABELS, vacancyCount } from '../lib/vacancy';
 

@@ -182,6 +182,10 @@ pnpm format     # oxfmt で整形
 pnpm data:update   # 一次情報を再取得 → PDFから抽出 → src/data/facilities.json を再生成
 ```
 
+`src/schema.ts` の Valibot スキーマから公開データの型を導出し、生成時とアプリへの読み込み時に検証します。空き人数は0〜5歳の6件で、共有枠と各年齢の人数の整合、施設IDの一意性、区との対応、座標・URLなども確認します。定員内訳は未掲載なら空配列、掲載されていれば最大6件で合計が総定員と一致する形です。`scripts/data-schema.ts` は `data/<区>/*.json` と生成用の住所検索応答を検証します。
+
+`pnpm test` はコミット済みの `src/data/facilities.json` を検証します。`pnpm check` と CI の `check` ジョブもこのテストを実行します。
+
 対象の区と各区の取得元ページは `scripts/wards.ts` にまとまっています。区を追加するときはここに1件足し、`pnpm data:update` のあと `data/<区>/` に補完ファイル（下記）を用意します。
 
 - `scripts/fetch-sources.ts [区のid]` … 市・区のページから CSV / xlsx / PDF / HTML を `sources/` に取得（区のidを渡すとその区だけ）

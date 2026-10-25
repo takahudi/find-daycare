@@ -4,10 +4,11 @@
 // Usage: node scripts/extract-kigyo-details.ts
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { validateJson } from './json.ts';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.ts';
 import { pageTextItems } from './pdf-text.ts';
-import type { KigyoDetail } from './data-types.ts';
+import type { KigyoDetail } from './data-schema.ts';
 
 type BlockField = 'name' | 'type' | 'address';
 type KigyoBlock = Omit<KigyoDetail, BlockField | 'page'> & Partial<Pick<KigyoDetail, BlockField>>;
@@ -95,24 +96,26 @@ function parsePage(items: Token[]) {
 }
 
 const doc = await getDocument({ data: new Uint8Array(await readFile(PDF)), verbosity: 0 }).promise;
-const outByTag = new Map<string, Record<string, KigyoDetail>>(WARDS.map((w) => [w.ninkagaiTag, {}]));
+const outputs: { ward: (typeof WARDS)[number]; out: Record<string, KigyoDetail> }[] = WARDS.map((ward) => ({ ward, out: {} }));
+const outByTag = new Map(outputs.map(({ ward, out }) => [ward.ninkagaiTag, out]));
 for (let p = 1; p <= doc.numPages; p++) {
   const items = await pageTextItems(await doc.getPage(p));
   const tokens = items.map((i): Token => ({ s: i.str.trim(), y: i.transform[5] })).filter((i) => i.s);
   if (!tokens.some((t) => outByTag.has(t.s))) continue;
   for (const block of parsePage(tokens)) {
     if (!block.name) throw new Error(`page ${p}: ${block.phone} の施設名が読めない`);
-    if (block.type !== '企業主導型保育事業' || !outByTag.has(block.wardTag)) continue;
+    const out = outByTag.get(block.wardTag);
+    if (block.type !== '企業主導型保育事業' || !out) continue;
     // build-data.ts は所在地でも対応付けるので、所在地のない施設は書き出さない
     if (!block.address) throw new Error(`page ${p}: ${block.phone} の所在地が読めない`);
     const detail: KigyoDetail = { ...block, name: block.name, type: block.type, address: block.address, page: p };
     // キーは電話番号（ない施設は施設名。build-data.ts は電話番号のほか所在地でも対応付ける）
-    outByTag.get(block.wardTag)![block.phone ?? `(電話番号なし)${block.name}`] = detail;
+    out[block.phone ?? `(電話番号なし)${block.name}`] = detail;
   }
 }
 
-for (const ward of WARDS) {
-  const out = outByTag.get(ward.ninkagaiTag)!;
+for (const { out } of outputs) validateJson('kigyo-details.json', out);
+for (const { ward, out } of outputs) {
   await mkdir(path.resolve('data', ward.id), { recursive: true });
   await writeFile(path.resolve('data', ward.id, 'kigyo-details.json'), JSON.stringify(out, null, 2) + '\n');
   console.log(`== ${ward.name}`);

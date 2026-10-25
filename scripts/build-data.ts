@@ -14,9 +14,10 @@
 //   data/<区>/geocode-cache.json       企業主導型で座標が公開されていない施設の住所検索結果（国土地理院）
 //
 // Usage: node scripts/build-data.ts
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
-import type { Dataset, Facility, Ward } from '../src/types.ts';
+import { writeJson } from './json.ts';
+import type { Dataset, Facility, Ward } from '../src/schema.ts';
 import { CITY_SOURCES, WARDS } from './wards.ts';
 import { parseCsv } from './build-data/csv.ts';
 import { SRC, loadWardInputs, saveGeocodeCache } from './build-data/inputs.ts';
@@ -63,7 +64,7 @@ const data: Dataset = {
 };
 
 await mkdir(path.dirname(OUT), { recursive: true });
-await writeFile(OUT, JSON.stringify(data, null, 2) + '\n');
+await writeJson('facilities.json', OUT, data);
 console.log(
   `wrote ${facilities.length} facilities -> ${path.relative(process.cwd(), OUT)}  (${wards
     .map((w) => `${w.name} ${facilities.filter((f) => f.ward === w.id).length}`)

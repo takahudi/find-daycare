@@ -1,4 +1,11 @@
-import type { Home } from '../types';
+import * as v from 'valibot';
+import { GsiHitSchema, inOsakaCity, type Home } from '../schema.ts';
+
+export function gsiCandidates(hits: unknown[]): Home[] {
+  return hits
+    .filter((hit) => v.is(GsiHitSchema, hit))
+    .map((hit) => ({ lat: hit.geometry.coordinates[1], lng: hit.geometry.coordinates[0], label: hit.properties.title }));
+}
 
 /** 2点間の直線距離（メートル） */
 export function distanceMeters(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
@@ -17,17 +24,10 @@ export function formatDistance(m: number): string {
 /** 不動産表示規約の目安（徒歩 80m/分）。直線距離ベースなので実際の道のりより短めに出る */
 export const walkMinutes = (m: number) => Math.max(1, Math.ceil(m / 80));
 
-interface GsiFeature {
-  geometry: { coordinates: [number, number] };
-  properties: { title: string };
-}
-
-const inOsakaCity = ({ lat, lng }: { lat: number; lng: number }) => lat > 34.55 && lat < 34.8 && lng > 135.35 && lng < 135.6;
-
 const KANJI_DIGITS = '〇一二三四五六七八九';
 const kanjiNumber = (s: string) =>
   s.includes('十')
-    ? (s.startsWith('十') ? 1 : KANJI_DIGITS.indexOf(s[0])) * 10 + (s.endsWith('十') ? 0 : KANJI_DIGITS.indexOf(s.at(-1)!))
+    ? (s.startsWith('十') ? 1 : KANJI_DIGITS.indexOf(s[0])) * 10 + (s.endsWith('十') ? 0 : KANJI_DIGITS.indexOf(s.slice(-1)))
     : Number(Array.from(s, (c) => KANJI_DIGITS.indexOf(c)).join(''));
 
 /** 住所の区より後ろを「町名」と最初の数字（丁目、丁目のない町は番地）に分ける。例:「中之島一丁目3番」→ 中之島 / 1 */
@@ -58,13 +58,13 @@ export async function geocode(query: string, wardNames: string[], signal?: Abort
     candidates.map(async (c) => {
       const res = await fetch(`https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodeURIComponent(c)}`, { signal });
       if (!res.ok) throw new Error(`住所検索に失敗しました（HTTP ${res.status}）`);
-      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- 外部APIの応答。形は検証していない
-      const features = (await res.json()) as GsiFeature[];
+      const result = v.safeParse(v.array(v.unknown()), await res.json());
+      if (!result.success) throw new Error('住所検索を現在利用できません。「現在地」ボタンをお使いください。');
       // 「大阪府大阪市中央区」のような区レベルの結果や、その区にない町名を投げると
       // 同じ区の別の町への近似結果が返るので、町名で確かめる
-      return features
-        .map((f) => ({ lat: f.geometry.coordinates[1], lng: f.geometry.coordinates[0], label: f.properties.title }))
-        .filter((h) => inOsakaCity(h) && !/[区市]$/.test(h.label) && h.label.includes(input.town));
+      return gsiCandidates(result.output).filter(
+        (h) => inOsakaCity(h) && !/[区市]$/.test(h.label) && h.label.includes(input.town),
+      );
     }),
   );
   // 別の区の候補を引くと「〇〇町西」のような前方一致の町が返るので、町名・数字が完全に一致する結果を優先する

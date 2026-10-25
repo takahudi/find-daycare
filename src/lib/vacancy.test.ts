@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { Facility } from '../types';
+import type { Facility } from '../schema';
 import { acceptsAny, vacancyCount } from './vacancy';
 
 const facility = (vacancies: (number | null)[], sharedVacancy: Facility['sharedVacancy'] = null): Facility => ({

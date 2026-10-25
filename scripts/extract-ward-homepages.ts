@@ -7,7 +7,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { pageTextItems } from './pdf-text.ts';
-import type { Website } from './data-types.ts';
+import type { Website } from './data-schema.ts';
 import { parseJson } from './json.ts';
 
 const wardId = process.argv[2] ?? 'chuo';

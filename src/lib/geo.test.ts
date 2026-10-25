@@ -140,3 +140,50 @@ describe('geocode', () => {
     await expect(geocode('大阪市北区', ['北区'])).rejects.toThrow('住所検索に失敗しました（HTTP 503）');
   });
 });
+
+describe('住所検索の応答検証', () => {
+  it.each([{}, null, 'invalid'])('配列でない応答は現在地ボタンを案内する (%j)', async (response) => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => Response.json(response)),
+    );
+    await expect(geocode('大阪市北区中之島', ['北区'])).rejects.toThrow(
+      '住所検索を現在利用できません。「現在地」ボタンをお使いください。',
+    );
+  });
+
+  it('不正な候補が混在しても複数検索から有効な一致候補を返す', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (url: string) => {
+        const query = new URL(url).searchParams.get('q');
+        return Response.json([
+          null,
+          { geometry: { coordinates: [135.5] }, properties: { title: '大阪市北区中之島' } },
+          { geometry: { coordinates: ['135.5', 34.69] }, properties: { title: '大阪市北区中之島' } },
+          ...(query === '大阪市北区中之島'
+            ? [
+                {
+                  geometry: { coordinates: [135.5, 34.69] },
+                  properties: { title: '大阪市北区中之島' },
+                },
+              ]
+            : []),
+        ]);
+      }),
+    );
+    await expect(geocode('中之島', ['北区', '中央区'])).resolves.toEqual({
+      lat: 34.69,
+      lng: 135.5,
+      label: '大阪市北区中之島',
+    });
+  });
+
+  it('有効な候補が残らなければ該当する住所がないことを伝える', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => Response.json([null, {}])),
+    );
+    await expect(geocode('大阪市北区中之島', ['北区'])).rejects.toThrow('該当する住所が見つかりませんでした');
+  });
+});

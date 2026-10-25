@@ -1,5 +1,5 @@
 import type { CellValue } from './types.ts';
-import type { Facility } from '../../src/types.ts';
+import type { Facility } from '../../src/schema.ts';
 
 // 見出しの施設名の列は「施設名」「保育事業所名」「施設・事業名」（城東区）「名称」（東住吉区）など
 export const HEADER_NAME = /施設名|事業所名|施設・事業名|^名称$/;

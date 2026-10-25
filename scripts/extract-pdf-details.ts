@@ -4,11 +4,12 @@
 // Usage: node scripts/extract-pdf-details.ts
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { validateJson } from './json.ts';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.ts';
 import { pageTextItems } from './pdf-text.ts';
 import type { PositionedText } from './pdf-text.ts';
-import type { PdfDetail } from './data-types.ts';
+import type { PdfDetail } from './data-schema.ts';
 
 const SERVICES = [
   '延長保育',
@@ -183,10 +184,10 @@ function approvedOn(allItems: PositionedText[]) {
   return era ? `${ERA_START[era[1]] + (era[2] === '元' ? 1 : Number(era[2]))}年${era[3]}月${era[4]}日` : null;
 }
 
-for (const ward of WARDS) {
+const outputs: { ward: (typeof WARDS)[number]; out: Record<string, PdfDetail> }[] = WARDS.map((ward) => ({ ward, out: {} }));
+for (const { ward, out } of outputs) {
   const pdfDir = path.resolve('sources', ward.id, 'facility-pdfs');
   const files = (await readdir(pdfDir)).filter((f) => f.endsWith('.pdf')).sort();
-  const out: Record<string, PdfDetail> = {};
   for (const f of files) {
     const pages = await loadPages(path.join(pdfDir, f));
     const all = pages.flat();
@@ -205,6 +206,10 @@ for (const ward of WARDS) {
       approvedOn: approvedOn(pages[0]),
     };
   }
+}
+
+for (const { out } of outputs) validateJson('pdf-details.json', out);
+for (const { ward, out } of outputs) {
   await mkdir(path.resolve('data', ward.id), { recursive: true });
   await writeFile(path.resolve('data', ward.id, 'pdf-details.json'), JSON.stringify(out, null, 2) + '\n');
   console.log(`== ${ward.name}`);
