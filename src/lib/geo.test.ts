@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { distanceMeters, formatDistance, geocode, walkMinutes } from './geo';
 
 describe('distanceMeters', () => {
@@ -49,13 +49,14 @@ interface Candidate {
   lng: number;
 }
 
-function stubAddressSearch(responses: Record<string, Candidate[]>): string[] {
+function stubAddressSearch(responses: Record<string, Candidate[]>, delayMs: Record<string, number> = {}): string[] {
   const queries: string[] = [];
   vi.stubGlobal(
     'fetch',
     vi.fn(async (url: string) => {
       const q = new URL(url).searchParams.get('q') ?? '';
       queries.push(q);
+      await new Promise((resolve) => setTimeout(resolve, delayMs[q] ?? 0));
       return Response.json(
         (responses[q] ?? []).map(({ title, lat, lng }) => ({
           type: 'Feature',
@@ -69,10 +70,6 @@ function stubAddressSearch(responses: Record<string, Candidate[]>): string[] {
 }
 
 describe('geocode', () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
   it('町名だけの入力は、対象の区ごとに区名を付けて問い合わせる', async () => {
     const queries = stubAddressSearch({
       大阪市中央区本町1丁目: [{ title: '大阪府大阪市中央区本町一丁目', lat: 34.683, lng: 135.503 }],
@@ -82,7 +79,7 @@ describe('geocode', () => {
       lng: 135.503,
       label: '大阪府大阪市中央区本町一丁目',
     });
-    expect(queries).toEqual(expect.arrayContaining(['大阪市北区本町1丁目', '大阪市中央区本町1丁目', '大阪市西区本町1丁目']));
+    expect(queries).toEqual(['大阪市北区本町1丁目', '大阪市中央区本町1丁目', '大阪市西区本町1丁目', '本町1丁目']);
   });
 
   it('区名から始まる入力は、その区だけを問い合わせる', async () => {
@@ -122,13 +119,24 @@ describe('geocode', () => {
     });
   });
 
-  it('完全に一致する結果がなければ、対象の区の並びで最初の候補を使う', async () => {
-    stubAddressSearch({
-      大阪市西成区玉出1丁目: [{ title: '大阪府大阪市西成区玉出西一丁目', lat: 34.622, lng: 135.494 }],
-      大阪市住之江区玉出1丁目: [{ title: '大阪府大阪市住之江区玉出西二丁目', lat: 34.615, lng: 135.485 }],
-    });
+  it('完全に一致する結果がなければ、応答の届いた順ではなく対象の区の並びで最初の候補を使う', async () => {
+    stubAddressSearch(
+      {
+        大阪市西成区玉出1丁目: [{ title: '大阪府大阪市西成区玉出西一丁目', lat: 34.622, lng: 135.494 }],
+        大阪市住之江区玉出1丁目: [{ title: '大阪府大阪市住之江区玉出西二丁目', lat: 34.615, lng: 135.485 }],
+      },
+      { 大阪市西成区玉出1丁目: 20 },
+    );
     await expect(geocode('玉出1丁目', ['西成区', '住之江区'])).resolves.toMatchObject({
       label: '大阪府大阪市西成区玉出西一丁目',
     });
+  });
+
+  it('住所検索APIがエラーを返したら、HTTPステータス付きで失敗を伝える', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response('', { status: 503 })),
+    );
+    await expect(geocode('大阪市北区', ['北区'])).rejects.toThrow('住所検索に失敗しました（HTTP 503）');
   });
 });
