@@ -1,4 +1,4 @@
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile, readdir, mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import XLSX from 'xlsx';
@@ -15,6 +15,11 @@ const readJson = async <K extends keyof WardDataFiles>(wardId: string, name: K):
   const file = path.join(DATA, wardId, name);
   return existsSync(file) ? parseJson(await readFile(file, 'utf8'), name) : {};
 };
+
+export async function saveGeocodeCache(wardId: string, cache: WardDataFiles['geocode-cache.json']) {
+  await mkdir(path.join(DATA, wardId), { recursive: true });
+  await writeFile(path.join(DATA, wardId, 'geocode-cache.json'), JSON.stringify(cache, null, 2) + '\n');
+}
 
 export async function loadWardInputs(ward: WardConfig) {
   const wb = XLSX.readFile(path.join(SRC, ward.id, 'list.xlsx'));

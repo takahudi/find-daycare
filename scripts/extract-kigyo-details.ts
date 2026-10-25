@@ -94,6 +94,12 @@ function parsePage(items: Token[]) {
   return tags.map((tag) => parseBlock([tag, ...items.filter((i) => i !== tag && regionOf(i) === tag)]));
 }
 
+function required(block: KigyoBlock, field: BlockField, page: number): string {
+  const value = block[field];
+  if (value === undefined) throw new Error(`${block.wardTag} page ${page}: ${field} がない`);
+  return value;
+}
+
 const doc = await getDocument({ data: new Uint8Array(await readFile(PDF)), verbosity: 0 }).promise;
 const outByTag = new Map<string, Record<string, KigyoDetail>>(WARDS.map((w) => [w.ninkagaiTag, {}]));
 for (let p = 1; p <= doc.numPages; p++) {
@@ -101,21 +107,16 @@ for (let p = 1; p <= doc.numPages; p++) {
   const tokens = items.map((i): Token => ({ s: i.str.trim(), y: i.transform[5] })).filter((i) => i.s);
   if (!tokens.some((t) => outByTag.has(t.s))) continue;
   for (const block of parsePage(tokens)) {
-    const required = (field: BlockField): string => {
-      const value = block[field];
-      if (value === undefined) throw new Error(`${block.wardTag} page ${p}: ${field} がない`);
-      return value;
-    };
-    const name = required('name');
+    if (!block.name) throw new Error(`page ${p}: ${block.phone} の施設名が読めない`);
     if (block.type !== '企業主導型保育事業' || !outByTag.has(block.wardTag)) continue;
     const detail: KigyoDetail = {
       ...block,
-      name,
-      type: required('type'),
-      postalCode: required('postalCode'),
-      address: required('address'),
-      startedOn: required('startedOn'),
-      operator: required('operator'),
+      name: block.name,
+      type: block.type,
+      postalCode: required(block, 'postalCode', p),
+      address: required(block, 'address', p),
+      startedOn: required(block, 'startedOn', p),
+      operator: required(block, 'operator', p),
       page: p,
     };
     // キーは電話番号（ない施設は施設名。build-data.ts は電話番号のほか所在地でも対応付ける）

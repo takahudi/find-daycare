@@ -50,6 +50,7 @@ export interface GeocodePosition {
   label: string;
 }
 
+/** 手書きの出典・補正メモを表す _ キーを除去した後の区データ。 */
 export interface WardDataFiles {
   'pdf-details.json': Record<string, PdfDetail>;
   'manual-details.json': Record<string, ManualDetail>;

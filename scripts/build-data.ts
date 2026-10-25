@@ -19,7 +19,7 @@ import path from 'node:path';
 import type { Dataset, Facility, Ward } from '../src/types.ts';
 import { CITY_SOURCES, WARDS } from './wards.ts';
 import { parseCsv } from './build-data/csv.ts';
-import { SRC, DATA, loadWardInputs } from './build-data/inputs.ts';
+import { SRC, loadWardInputs, saveGeocodeCache } from './build-data/inputs.ts';
 import { buildLicensed } from './build-data/licensed.ts';
 import { reconcileVacancies } from './build-data/reconcile.ts';
 import { buildKigyo } from './build-data/kigyo.ts';
@@ -42,8 +42,7 @@ for (const ward of WARDS) {
   await reconcileVacancies(ward, licensed, warn);
   const { facilities: kigyo, asOf: kigyoAsOf } = await buildKigyo(ward, input, warn);
   if (Object.keys(input.geocodeCache).length) {
-    await mkdir(path.join(DATA, ward.id), { recursive: true });
-    await writeFile(path.join(DATA, ward.id, 'geocode-cache.json'), JSON.stringify(input.geocodeCache, null, 2) + '\n');
+    await saveGeocodeCache(ward.id, input.geocodeCache);
   }
   const wardFacilities = [...licensed, ...kigyo];
   wards.push(finishWard(ward, wardRows, wardFacilities, input, kigyoAsOf, now, warn));

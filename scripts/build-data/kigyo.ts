@@ -31,6 +31,10 @@ function pickOperator(fromPdf: string | undefined, fromWard: string | undefined)
 
 type MatchedKigyo = KigyoDetail & { phone: string };
 
+function withPhone(detail: KigyoDetail, phone: string): MatchedKigyo {
+  return { ...detail, phone };
+}
+
 export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn) {
   const facilities: Facility[] = [];
   const { kigyoDetails, geocodeCache, websites, wardDetails } = input;
@@ -58,7 +62,9 @@ export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn
   if (ward.kigyoFile && existsSync(kigyoXlsx)) {
     ({ headers, rows: kigyoRows } = xlsxTable(kigyoXlsx));
   } else if (ward.kigyoFile) {
-    ({ headers, rows: kigyoRows } = await pdfTableRows(kigyoPdf, ward.kigyoPdfSection));
+    const pdfTable = await pdfTableRows(kigyoPdf, ward.kigyoPdfSection);
+    headers = pdfTable.headers ?? [];
+    kigyoRows = pdfTable.rows;
   } else {
     headers = (tableRows(table).find(isHeaderRow) ?? []).map((c) => c.text);
     kigyoRows = tableRows(table);
@@ -80,7 +86,7 @@ export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn
       return a && b && (a.startsWith(`${b}-`) || b.startsWith(`${a}-`));
     });
     const hit = entries.find(([, d]) => key(d.address) === key(address)) ?? (prefixHits.length === 1 ? prefixHits[0] : undefined);
-    return hit && { ...hit[1], phone: hit[0] };
+    return hit && withPhone(hit[1], hit[0]);
   };
   // 表の先頭に全列を結合した表題の行がある区（住吉区）もあるので、1セルだけの行は除く
   const rows = kigyoRows.filter((cells) => cells.length > 1 && !isHeaderRow(cells));
@@ -94,6 +100,7 @@ export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn
     infoRows = [...(await readFile(infoFile, 'utf8')).matchAll(/<table[\s\S]*?<\/table>/g)].flatMap(([t]) => tableRows(t));
   } else if (ward.kigyoInfoFile) {
     const { headers: infoHeaders, rows: pdfInfoRows } = await pdfTableRows(infoPdf);
+    if (!infoHeaders) throw new Error(`${ward.name}: kigyo_info.pdf に表がない`);
     infoRows = pdfInfoRows;
     infoCols = infoHeaders.flatMap((h, k) => (/所在地|電話/.test(h) ? [k] : []));
   } else if (!ward.kigyoFile && kigyoTables.length > 1) {
@@ -144,7 +151,7 @@ export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn
       });
       if (hits.length !== 1)
         throw new Error(`${ward.name}: 企業主導型を市の一覧と施設名で対応付けられない: ${name}（候補${hits.length}件）`);
-      byName = { ...hits[0][1], phone: hits[0][0] };
+      byName = withPhone(hits[0][1], hits[0][0]);
     } else if (!infoCells.length) {
       const info = infoRows.find((r) => r.length > 1 && infoKey(r[0].text) === infoKey(name));
       if (!info) throw new Error(`${ward.name}: 企業主導型の所在地が区の施設一覧にない: ${name}`);
@@ -188,11 +195,11 @@ export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn
       .replace(new RegExp(`^${ward.name}`), '');
     // 電話番号で対応付け。区の表と市のPDFで電話番号が違う施設は所在地（番地まで）で対応付ける
     const byPhone = kigyoDetails[phone];
-    const d = byName ?? (byPhone && { ...byPhone, phone }) ?? kigyoByAddress(shortAddress);
+    const d = byName ?? (byPhone && withPhone(byPhone, phone)) ?? kigyoByAddress(shortAddress);
     if (!d) warn(`認可外保育施設一覧（詳細）に見つからない: ${name}`);
     else if (byName) warn(`区の表に所在地がないため、市の一覧の「${d.name}」と施設名で対応付け: ${name}`);
     else if (d.phone.startsWith('(電話番号なし)')) warn(`市の一覧に電話番号がないため所在地で対応付け: ${name}`);
-    else if (!kigyoDetails[phone]) warn(`電話番号が市の一覧（${d.phone}）と違うため所在地で対応付け: ${name} ${phone}`);
+    else if (!byPhone) warn(`電話番号が市の一覧（${d.phone}）と違うため所在地で対応付け: ${name} ${phone}`);
     const address = d?.address.normalize('NFKC') ?? `大阪市${ward.name}${shortAddress}`;
     // PDFの表（鶴見区）では、施設名の末尾の語（「ぴじょんがーでん保育園 優」の「優」）が隣の所在地の列に入ってしまうことがある。
     // 市の一覧の名前が、区の表の名前に空白で区切った1語を足しただけなら、市の一覧の名前を使う

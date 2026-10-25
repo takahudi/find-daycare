@@ -13,7 +13,7 @@ import type { TableCell } from './types.ts';
 export async function pdfTableRows(
   file: string,
   section: string | null = null,
-): Promise<{ headers: string[]; rows: TableCell[][] }> {
+): Promise<{ headers: string[] | undefined; rows: TableCell[][] }> {
   const doc = await getDocument({ data: new Uint8Array(await readFile(file)), verbosity: 0 }).promise;
   const rows: TableCell[][] = [];
   let headers: string[] | undefined;
@@ -79,5 +79,5 @@ export async function pdfTableRows(
       );
     }
   }
-  return { headers: headers ?? [], rows };
+  return { headers, rows };
 }
