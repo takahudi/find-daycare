@@ -24,7 +24,19 @@ export const LongitudeSchema = v.pipe(
   v.minValue(-180, '経度は-180以上が必要です'),
   v.maxValue(180, '経度は180以下が必要です'),
 );
-export const CategorySchema = v.picklist(['nursery', 'kodomoen', 'community', 'kigyo'], '施設種別が不正です');
+export const FacilityTypeSchema = v.picklist(['nursery', 'kodomoen', 'community', 'kigyo'], '施設種別が不正です');
+
+export const LicensingSchema = v.picklist(['licensed', 'unlicensed'], '認可区分が不正です');
+
+export type FacilityType = v.InferOutput<typeof FacilityTypeSchema>;
+export type Licensing = v.InferOutput<typeof LicensingSchema>;
+
+export const LICENSING_BY_FACILITY_TYPE: Record<FacilityType, Licensing> = {
+  nursery: 'licensed',
+  kodomoen: 'licensed',
+  community: 'licensed',
+  kigyo: 'unlicensed',
+};
 
 export const CapacitySchema = v.pipe(
   v.strictObject({
@@ -57,8 +69,10 @@ export const FacilitySchema = v.pipe(
     wardName: TextSchema,
     name: TextSchema,
     kana: v.string('ふりがなは文字列が必要です'),
-    category: CategorySchema,
-    categoryLabel: TextSchema,
+    /** 施設種別。保育所・認定こども園・地域型保育事業・企業主導型保育事業所 */
+    facilityType: FacilityTypeSchema,
+    /** 認可区分。認可または認可外 */
+    licensing: LicensingSchema,
     detailType: v.nullable(TextSchema),
     ownership: v.nullable(TextSchema),
     operator: v.nullable(TextSchema),
@@ -71,8 +85,6 @@ export const FacilitySchema = v.pipe(
     vacancies: v.array(v.nullable(CountSchema)),
     /** 複数年齢で共有する空き枠（例: 1・2歳あわせて1人）。vacancies の該当年齢にも同じ数が入っている */
     sharedVacancy: v.nullable(v.object({ ages: v.array(v.number()), count: CountSchema })),
-    /** false は認可外（企業主導型）。区役所の利用調整ではなく施設との直接契約 */
-    licensed: v.boolean('認可区分は真偽値が必要です'),
     capacity: v.nullable(CapacitySchema),
     hours: v.nullable(v.object({ weekday: TextSchema, saturday: v.nullable(TextSchema), holiday: v.nullable(TextSchema) })),
     services: v.array(TextSchema),
@@ -89,7 +101,7 @@ export const FacilitySchema = v.pipe(
     const issue = (message: string) => addIssue({ message: facilityIssue(f, message) });
     if (f.vacancies.length !== 6) issue('空き人数は0〜5歳の6件が必要です');
     if (!inOsakaCity(f)) issue('座標が大阪市内の範囲外です');
-    if ((f.category === 'kigyo') !== !f.licensed) issue('企業主導型と認可外の対応が一致しません');
+    if (f.licensing !== LICENSING_BY_FACILITY_TYPE[f.facilityType]) issue('施設種別に対応する認可区分と一致しません');
     const shared = f.sharedVacancy;
     if (shared) {
       if (
@@ -143,7 +155,6 @@ export const DatasetSchema = v.pipe(
 
 export const HomeSchema = v.object({ lat: LatitudeSchema, lng: LongitudeSchema, label: TextSchema });
 
-export type Category = v.InferOutput<typeof CategorySchema>;
 export type Facility = v.InferOutput<typeof FacilitySchema>;
 export type Source = v.InferOutput<typeof SourceSchema>;
 export type Ward = v.InferOutput<typeof WardSchema>;

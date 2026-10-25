@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
 import { MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
-import type { Facility, Home } from '../schema';
+import type { Facility, Home, Licensing } from '../schema';
 import { formatDistance } from '../lib/geo';
 import { AGE_LABELS } from '../lib/vacancy';
+import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../lib/facility-labels';
 
 interface Props {
   facilities: Facility[];
@@ -14,10 +15,10 @@ interface Props {
   onSelect: (id: string) => void;
 }
 
-const facilityIcon = (count: number, selected: boolean, licensed: boolean) =>
+const facilityIcon = (count: number, selected: boolean, licensing: Licensing) =>
   L.divIcon({
     className: '',
-    html: `<div class="pin ${count > 0 ? 'pin--open' : 'pin--full'}${licensed ? '' : ' pin--unlicensed'}${selected ? ' pin--selected' : ''}">${count > 0 ? count : '×'}</div>`,
+    html: `<div class="pin ${count > 0 ? 'pin--open' : 'pin--full'}${licensing === 'unlicensed' ? ' pin--unlicensed' : ''}${selected ? ' pin--selected' : ''}">${count > 0 ? count : '×'}</div>`,
     iconSize: [30, 30],
     iconAnchor: [15, 15],
     popupAnchor: [0, -14],
@@ -128,7 +129,7 @@ export function MapView({ facilities, vacancyOf, distanceOf, home, selectedId, o
           <Marker
             key={f.id}
             position={[f.lat, f.lng]}
-            icon={facilityIcon(count, f.id === selectedId, f.licensed)}
+            icon={facilityIcon(count, f.id === selectedId, f.licensing)}
             zIndexOffset={f.id === selectedId ? 900 : count > 0 ? 100 : 0}
             eventHandlers={{ click: () => onSelect(f.id) }}
             ref={(m) => {
@@ -139,7 +140,8 @@ export function MapView({ facilities, vacancyOf, distanceOf, home, selectedId, o
             <Popup>
               <strong>{f.name}</strong>
               <div className="popup-meta">
-                {f.wardName} ・ {f.categoryLabel}
+                {f.wardName} ・ {FACILITY_TYPE_LABELS[f.facilityType].label}
+                {f.licensing === 'unlicensed' && ` ・ ${LICENSING_LABELS[f.licensing]}`}
                 {distance !== null && ` ・ 自宅から${formatDistance(distance)}`}
               </div>
               <div className="popup-vacancy">

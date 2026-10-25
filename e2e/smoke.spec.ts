@@ -128,3 +128,54 @@ test('/wrangler.json は生成ファイルを公開せず SPA HTML を返す', a
   expect(response.headers()['content-type']).toContain('text/html');
   expect(await response.text()).toBe(await (await request.get('/')).text());
 });
+
+test('施設種別の選択肢を保ち、企業主導型と認可外を別のバッジで表示する', async ({ page }) => {
+  const chips = page.locator('.filters__group').filter({ hasText: '種別' }).getByRole('button');
+  await expect(chips).toHaveText(['保育所', '認定こども園', '地域型保育（0〜2歳）', '企業主導型']);
+  const cards = page.getByRole('region', { name: '施設一覧' }).getByRole('article');
+  await expect(cards).toHaveCount(data.facilities.length);
+  for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
+    await page.getByRole('button', { name: label, exact: true }).click();
+  }
+  const kigyoCount = data.facilities.filter((facility) => facility.facilityType === 'kigyo').length;
+  await expect(cards).toHaveCount(kigyoCount);
+  await expect(cards.first().locator('.card__badges .badge')).toHaveText([/.+区/, '企業主導型', '認可外']);
+  await expect(cards.first().locator('.card__caution')).toHaveText(
+    '認可外保育施設です。申込みは区役所ではなく施設との直接契約です（空き人数は地域枠）。',
+  );
+  await expect(page.locator('.leaflet-marker-icon .pin--unlicensed')).toHaveCount(kigyoCount);
+  await expect(page.locator('.legend')).toContainText('認可外');
+  await page.getByRole('button', { name: '企業主導型', exact: true }).click();
+  await page.getByRole('button', { name: '保育所', exact: true }).click();
+  await expect(cards).toHaveCount(data.facilities.filter((facility) => facility.facilityType === 'nursery').length);
+  await expect(cards.first().locator('.badge--nursery')).toHaveText('保育所');
+  await expect(cards.first().locator('.badge--unlicensed')).toHaveCount(0);
+  await expect(cards.first().locator('.card__caution')).toHaveCount(0);
+  await expect(page.locator('.leaflet-marker-icon .pin--unlicensed')).toHaveCount(0);
+});
+
+test('モバイルの地図タブで企業主導型のポップアップに認可外と表示する', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
+    await page.getByRole('button', { name: label, exact: true }).click();
+  }
+  await page.getByRole('button', { name: '地図', exact: true }).click();
+  const map = page.getByRole('region', { name: '地図' });
+  await map.scrollIntoViewIfNeeded();
+  const pins = map.locator('.leaflet-marker-icon .pin--unlicensed');
+  const index = await pins.evaluateAll((nodes) =>
+    nodes.findIndex((node) => {
+      const box = node.getBoundingClientRect();
+      return (
+        document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2)?.closest('.leaflet-marker-icon') ===
+        node.parentElement
+      );
+    }),
+  );
+  expect(index, '地図内に操作できる認可外ピンがある').toBeGreaterThanOrEqual(0);
+  await pins.nth(index).click();
+  await expect(page.getByRole('button', { name: '地図', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('region', { name: '施設一覧' })).toBeHidden();
+  await expect(page.locator('.leaflet-popup')).toBeVisible();
+  await expect(page.locator('.popup-meta')).toHaveText(/.+区 ・ 企業主導型 ・ 認可外/);
+});

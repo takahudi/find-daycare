@@ -2,11 +2,12 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import rawData from './data/facilities.json';
 import * as v from 'valibot';
 import { DatasetSchema, HomeSchema } from './schema';
-import type { Category, Facility, Home } from './schema';
+import type { FacilityType, Facility, Home } from './schema';
 import { FacilityCard } from './components/FacilityCard';
 import { MapView } from './components/MapView';
 import { distanceMeters, geocode } from './lib/geo';
 import { AGE_LABELS, AGES, acceptsAny, vacancyCount } from './lib/vacancy';
+import { FACILITY_TYPES, FACILITY_TYPE_LABELS, LICENSING_LABELS } from './lib/facility-labels';
 
 const data = v.parse(DatasetSchema, rawData);
 const WARD_NAMES = data.wards.map((w) => w.name);
@@ -34,13 +35,6 @@ const kigyoAsOfText = (() => {
 const SortKeySchema = v.picklist(['distance', 'vacancy', 'name']);
 type SortKey = v.InferOutput<typeof SortKeySchema>;
 
-const CATEGORIES: { key: Category; label: string }[] = [
-  { key: 'nursery', label: '保育所' },
-  { key: 'kodomoen', label: '認定こども園' },
-  { key: 'community', label: '地域型保育（0〜2歳）' },
-  { key: 'kigyo', label: '企業主導型（認可外）' },
-];
-
 const HOME_KEY = 'find-daycare:home';
 
 function loadHome(): Home | null {
@@ -56,7 +50,7 @@ function loadHome(): Home | null {
 export default function App() {
   const [ages, setAges] = useState<number[]>([]);
   const [wardIds, setWardIds] = useState<string[]>(data.wards.map((w) => w.id));
-  const [categories, setCategories] = useState<Category[]>(CATEGORIES.map((c) => c.key));
+  const [facilityTypes, setFacilityTypes] = useState<FacilityType[]>([...FACILITY_TYPES]);
   const [onlyOpen, setOnlyOpen] = useState(false);
   const [home, setHome] = useState<Home | null>(loadHome);
   const [sort, setSort] = useState<SortKey>(home ? 'distance' : 'vacancy');
@@ -82,7 +76,10 @@ export default function App() {
   const visible = useMemo(() => {
     const list = data.facilities.filter(
       (f) =>
-        wardIds.includes(f.ward) && categories.includes(f.category) && acceptsAny(f, ages) && (!onlyOpen || vacancyOf(f) > 0),
+        wardIds.includes(f.ward) &&
+        facilityTypes.includes(f.facilityType) &&
+        acceptsAny(f, ages) &&
+        (!onlyOpen || vacancyOf(f) > 0),
     );
     // 企業主導型はふりがなの一次情報がないので施設名で並べる
     const byName = (a: Facility, b: Facility) => (a.kana || a.name).localeCompare(b.kana || b.name, 'ja');
@@ -92,7 +89,7 @@ export default function App() {
       name: byName,
     };
     return list.sort(comparators[sort]);
-  }, [wardIds, categories, ages, onlyOpen, sort, distanceOf, vacancyOf]);
+  }, [wardIds, facilityTypes, ages, onlyOpen, sort, distanceOf, vacancyOf]);
 
   const openCount = visible.filter((f) => vacancyOf(f) > 0).length;
 
@@ -227,15 +224,15 @@ export default function App() {
         </div>
         <div className="filters__group">
           <span className="filters__label">種別</span>
-          {CATEGORIES.map((c) => (
+          {FACILITY_TYPES.map((facilityType) => (
             <button
-              key={c.key}
+              key={facilityType}
               type="button"
-              className={`chip chip--${c.key}${categories.includes(c.key) ? ' chip--on' : ''}`}
-              aria-pressed={categories.includes(c.key)}
-              onClick={() => setCategories((cur) => toggle(cur, c.key))}
+              className={`chip chip--${facilityType}${facilityTypes.includes(facilityType) ? ' chip--on' : ''}`}
+              aria-pressed={facilityTypes.includes(facilityType)}
+              onClick={() => setFacilityTypes((cur) => toggle(cur, facilityType))}
             >
-              {c.label}
+              {FACILITY_TYPE_LABELS[facilityType].filterLabel}
             </button>
           ))}
         </div>
@@ -320,7 +317,7 @@ export default function App() {
               <i className="pin pin--full">×</i> 空きなし
             </span>
             <span>
-              <i className="pin pin--open pin--unlicensed">1</i> 企業主導型（認可外）
+              <i className="pin pin--open pin--unlicensed">1</i> {LICENSING_LABELS.unlicensed}
             </span>
             {home && (
               <span>

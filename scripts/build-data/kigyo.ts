@@ -220,9 +220,9 @@ export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn
       wardName: ward.name,
       name,
       kana: '',
-      category: 'kigyo',
-      categoryLabel: '企業主導型（認可外）',
-      detailType: '認可外保育施設',
+      facilityType: 'kigyo',
+      licensing: 'unlicensed',
+      detailType: null,
       ownership: null,
       operator: pickOperator(d?.operator, operatorCell?.text),
       postalCode: d?.postalCode ?? null,
@@ -232,7 +232,6 @@ export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn
       lng: position.lng,
       vacancies,
       sharedVacancy,
-      licensed: false,
       capacity: d?.capacity ? { total: d.capacity, byAge: [] } : null,
       hours: d?.hours.weekday
         ? { weekday: d.hours.weekday, saturday: d.hours.saturday ?? null, holiday: d.hours.holiday ?? null }
