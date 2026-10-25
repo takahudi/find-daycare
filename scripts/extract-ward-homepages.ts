@@ -1,11 +1,14 @@
-// 区役所の施設紹介資料PDF（fetch-sources.mjs が sources/<区>/homepage-sources/<n>/ に保存する）から
+// 区役所の施設紹介資料PDF（fetch-sources.ts が sources/<区>/homepage-sources/<n>/ に保存する）から
 // 「ホームページ：」欄を抽出する。
 // 出力は確認用の一覧（data/<区>/websites.json は目視確認のうえ手で更新する）。
-// Usage: node scripts/extract-ward-homepages.mjs <区のid>   例: node scripts/extract-ward-homepages.mjs tennoji
+// Usage: node scripts/extract-ward-homepages.ts <区のid>   例: node scripts/extract-ward-homepages.ts tennoji
 import { readdir, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
+import { pageTextItems } from './pdf-text.ts';
+import type { Website } from './data-types.ts';
+import { parseJson } from './json.ts';
 
 const wardId = process.argv[2] ?? 'chuo';
 const ROOT = path.resolve('sources', wardId, 'homepage-sources');
@@ -13,14 +16,14 @@ const dirs = (await readdir(ROOT, { withFileTypes: true }))
   .filter((d) => d.isDirectory())
   .map((d) => d.name)
   .sort();
-const links = [];
+const links: { file: string; names: string[]; href: string }[] = [];
 
 for (const dir of dirs) {
   const DIR = path.join(ROOT, dir);
   if (!existsSync(DIR)) continue;
   // 区のページでのPDFのリンク文字（「アルマ保育園(PDF形式, 166.85KB)」）。平野区の様式はPDF内で施設名の位置が決まらないので、こちらを施設名にする
   const pageHtml = existsSync(path.join(ROOT, `${dir}.html`)) ? await readFile(path.join(ROOT, `${dir}.html`), 'utf8') : '';
-  const pdfLabel = (f) =>
+  const pdfLabel = (f: string) =>
     pageHtml
       .match(new RegExp(`<a [^>]*href="[^"]*/${f.replace(/\./g, '\\.')}"[^>]*>([\\s\\S]*?)</a>`))?.[1]
       .replace(/<[^>]+>/g, '')
@@ -29,7 +32,7 @@ for (const dir of dirs) {
   const files = (await readdir(DIR)).filter((f) => f.endsWith('.pdf')).sort();
   for (const f of files) {
     const doc = await getDocument({ data: new Uint8Array(await readFile(path.join(DIR, f))), verbosity: 0 }).promise;
-    const { items } = await (await doc.getPage(1)).getTextContent();
+    const items = await pageTextItems(await doc.getPage(1));
     const strs = items.map((i) => i.str.trim()).filter(Boolean);
     const text = strs.join('');
     // 天王寺区の様式は「〔施設名〕」の次の項目が施設名。中央区の様式は先頭が施設名
@@ -52,7 +55,7 @@ for (const dir of dirs) {
       `? ${at < 0 ? '(欄なし)' : text.slice(at, at + 60)}`;
     console.log(`${dir}/${f}\t${name}\t${hp}`);
     if (/^(?:https?:\/\/|www\.)/.test(hp))
-      links.push({ file: `${dir}/${f}`, names: [name], href: hp.startsWith('www.') ? `https://${hp}` : hp });
+      links.push({ file: `${dir}/${f}`, names: [name!], href: hp.startsWith('www.') ? `https://${hp}` : hp });
   }
 }
 
@@ -61,14 +64,15 @@ for (const dir of dirs) {
 for (const f of (await readdir(ROOT)).filter((name) => name.endsWith('.html')).sort()) {
   const html = await readFile(path.join(ROOT, f), 'utf8');
   const tables = [...html.matchAll(/<table[\s\S]*?<\/table>/g)].map(([t]) => t).join('');
-  const text = (s) =>
+  const text = (s: string) =>
     s
       .replace(/<[^>]+>/g, '')
       .replace(/&nbsp;/g, ' ')
       .replace(/&amp;/g, '&')
       .trim();
   // 表の行ごとのセルの文字（リンクの文字が「ホームページ」だけの区（福島区）は、同じ行の施設名を使う）
-  const rowOf = (anchor) => [...tables.matchAll(/<tr[\s\S]*?<\/tr>/g)].map(([tr]) => tr).find((tr) => tr.includes(anchor));
+  const rowOf = (anchor: string) =>
+    [...tables.matchAll(/<tr[\s\S]*?<\/tr>/g)].map(([tr]) => tr).find((tr) => tr.includes(anchor));
   for (const [all, rawHref, label] of html.matchAll(/<a [^>]*href="(https?:\/\/[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
     // メールのリンク保護（Outlook の safelinks）を経由したURL（住吉区）は、元のURLに戻してから判定する
     const raw = rawHref.replace(/&amp;/g, '&');
@@ -91,19 +95,19 @@ for (const l of links) console.log(`${l.file}\t${l.names.join(' / ')}\t${l.href}
 
 // --json: 生成済みの facilities.json の施設名と完全一致（空白除去）したリンクを websites.json の形で出す（目視確認用の下書き）
 if (process.argv.includes('--json')) {
-  const norm = (s) =>
+  const norm = (s: string) =>
     s
       .normalize('NFKC')
       .replace(/【[^】]*】/g, '')
       .replace(/\s+/g, '')
       .replace(/^(?:幼保連携型|幼稚園型|保育所型)?認定こども園/, '')
       .replace(/^大阪市立/, '');
-  const { facilities } = JSON.parse(await readFile(path.resolve('src/data/facilities.json'), 'utf8'));
+  const { facilities } = parseJson(await readFile(path.resolve('src/data/facilities.json'), 'utf8'), 'facilities.json');
   const label = process.argv[process.argv.indexOf('--json') + 1] ?? '公式サイト';
-  const out = {};
+  const out: Record<string, Website> = {};
   for (const fac of facilities.filter((x) => x.ward === wardId)) {
     const hit = links.find((l) => l.names.some((n) => norm(n) === norm(fac.name)));
-    // キーは build-data.mjs の normName と同じ形（「大阪市立」は残す）
+    // キーは build-data.ts の normName と同じ形（「大阪市立」は残す）
     const key = fac.name
       .normalize('NFKC')
       .replace(/\s+/g, '')

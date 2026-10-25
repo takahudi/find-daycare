@@ -1,22 +1,45 @@
+import type { Source } from '../src/types.ts';
+
+export interface WardConfig {
+  id: string;
+  name: string;
+  /** 大阪市「認可外保育施設一覧（詳細）」PDFでの区の見出し */
+  ninkagaiTag: string;
+  /** 大阪市「保育施設等一覧」の区ページ（xlsx と各施設の基本情報PDF） */
+  listPage: string;
+  /** 区役所「保育施設等の空き状況」ページ */
+  vacancyPage: string;
+  /** 空き情報ページの添付のうち空き人数の表（申込書の様式などと区別する） */
+  vacancyFile: RegExp | null;
+  /** 区役所「企業主導型保育事業所の空き情報」ページ（ページ内の表を使う） */
+  kigyoPage: string;
+  /** 各施設のホームページが載っている区の資料（websites.json の出典） */
+  homepageSources: Source[];
+  /** 企業主導型の空き情報の表に所在地・電話がない区は、この区のページの表（施設名・所在地）で補う */
+  kigyoInfoPage?: string;
+  /** 企業主導型の空き情報の表に所在地がない区で、所在地・電話を載せた添付PDF（企業主導型保育事業所一覧） */
+  kigyoInfoFile?: RegExp;
+  /** 企業主導型の空き情報をページ内の表ではなくPDFで公表している区は、その添付ファイル */
+  kigyoFile?: RegExp;
+  /** 企業主導型の表が添付PDFの一部にある区で、その表の見出し */
+  kigyoPdfSection?: string;
+  /** 空き情報の凡例が「空欄は空きなし」（受入れのないクラスは「×」や空白のセル）の区。空欄を0として読む */
+  blankIsZero?: boolean;
+}
+
 // 対象の区と、その一次情報の取得元。区を追加するときはここに1件足し、
 // `pnpm data:update` のあと data/<id>/ に websites.json などの補完ファイルを用意する。
 const ORIGIN = 'https://www.city.osaka.lg.jp';
 
-export const WARDS = [
+export const WARDS: WardConfig[] = [
   {
     id: 'chuo',
     name: '中央区',
-    /** 大阪市「認可外保育施設一覧（詳細）」PDFでの区の見出し */
     ninkagaiTag: '(05中央区)',
-    /** 大阪市「保育施設等一覧」の区ページ（xlsx と各施設の基本情報PDF） */
     listPage: `${ORIGIN}/kodomo/page/0000012677.html`,
-    /** 区役所「保育施設等の空き状況」ページ */
     vacancyPage: `${ORIGIN}/chuo/page/0000304732.html`,
-    /** 空き情報ページの添付のうち空き人数の表（申込書の様式などと区別する） */
     vacancyFile: /\/\d{8}\.pdf$/,
-    /** 区役所「企業主導型保育事業所の空き情報」ページ（ページ内の表を使う） */
     kigyoPage: `${ORIGIN}/chuo/page/0000427719.html`,
-    /** 各施設のホームページが載っている区の資料（websites.json の出典） */
     homepageSources: [{ label: '中央区内の認可保育施設情報提供資料', url: `${ORIGIN}/chuo/page/0000683899.html` }],
   },
   {
@@ -60,7 +83,6 @@ export const WARDS = [
     vacancyPage: `${ORIGIN}/naniwa/page/0000294126.html`,
     vacancyFile: /\/\d{6}ninka\.pdf$/,
     kigyoPage: `${ORIGIN}/naniwa/page/0000515641.html`,
-    /** 企業主導型の空き情報の表に所在地・電話がない区は、この区のページの表（施設名・所在地）で補う */
     kigyoInfoPage: `${ORIGIN}/naniwa/page/0000596666.html`,
     homepageSources: [
       { label: '認可保育所（民間）', url: `${ORIGIN}/naniwa/page/0000627513.html` },
@@ -92,7 +114,6 @@ export const WARDS = [
     vacancyPage: `${ORIGIN}/ikuno/page/0000311689.html`,
     vacancyFile: /\/hoikusyo[\d.]+\.pdf$/,
     kigyoPage: `${ORIGIN}/ikuno/page/0000518124.html`,
-    /** 企業主導型の空き情報をページ内の表ではなくPDFで公表している区は、その添付ファイル */
     kigyoFile: /\/kigyou[\d.]+\.pdf$/,
     // 区の施設紹介（https://www.city.osaka.lg.jp/ikuno/page/0000512877.html）には公式サイトの記載がない
     homepageSources: [],
@@ -106,7 +127,6 @@ export const WARDS = [
     vacancyPage: `${ORIGIN}/abeno/page/0000297367.html`,
     vacancyFile: null,
     kigyoPage: `${ORIGIN}/abeno/page/0000528611.html`,
-    /** 企業主導型の空き情報の表に所在地がない区で、所在地・電話を載せた添付PDF（企業主導型保育事業所一覧） */
     kigyoInfoFile: /kigyouichiran\.pdf$/,
     homepageSources: [{ label: '阿倍野区の保育施設等紹介', url: `${ORIGIN}/abeno/page/0000541040.html` }],
   },
@@ -258,7 +278,6 @@ export const WARDS = [
     listPage: `${ORIGIN}/kodomo/page/0000012686.html`,
     vacancyPage: `${ORIGIN}/higashiyodogawa/page/0000384972.html`,
     vacancyFile: /\/R[\d.]+\.xls$/,
-    /** 空き情報の凡例が「空欄は空きなし」（受入れのないクラスは「×」や空白のセル）の区。空欄を0として読む */
     blankIsZero: true,
     kigyoPage: `${ORIGIN}/higashiyodogawa/page/0000433822.html`,
     // 区の施設一覧（https://www.city.osaka.lg.jp/higashiyodogawa/page/0000656793.html）には公式サイトの記載がない
@@ -332,7 +351,6 @@ export const WARDS = [
     // 表は施設名と空き人数のみなので、所在地・電話は市の認可外保育施設一覧（詳細）と施設名で対応付ける
     kigyoPage: `${ORIGIN}/suminoe/page/0000496286.html`,
     kigyoFile: /\/bosyuusuu\.pdf$/,
-    /** 企業主導型の表が添付PDFの一部にある区で、その表の見出し */
     kigyoPdfSection: '【企業主導型保育事業所】',
     homepageSources: [{ label: '保育所（園）・認定こども園・地域型保育事業所', url: `${ORIGIN}/suminoe/page/0000504109.html` }],
   },
