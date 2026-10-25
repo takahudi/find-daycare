@@ -23,7 +23,8 @@ import { CITY_SOURCES, WARDS } from './wards.mjs';
 
 const SRC = path.resolve('sources');
 const OUT = path.resolve('src/data/facilities.json');
-const KIGYO_DETAIL_PDF = 'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf';
+const KIGYO_DETAIL_PDF =
+  'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf';
 
 const readJson = async (...p) => {
   const file = path.join(SRC, ...p);
@@ -73,7 +74,10 @@ function parseCsv(text) {
 
 const vacancy = (v) => {
   // 「2名」（大正区の企業主導型）のように単位を付けた値もある
-  const t = String(v ?? '').normalize('NFKC').trim().replace(/^(\d+)\s*[名人]$/, '$1');
+  const t = String(v ?? '')
+    .normalize('NFKC')
+    .trim()
+    .replace(/^(\d+)\s*[名人]$/, '$1');
   // 「※2」のような注記参照は、その施設では受け付けていない（他区の本園で保育など）年齢。注記は ward-details.json に転記する
   // 「無し」（西区）・「×」（城東区）はその年齢のクラスがない（受入れをしていない）
   if (t === '' || /^[-－―ー‐]$/.test(t) || /^※\d*$/.test(t) || t === '無し' || t === '×') return null;
@@ -131,7 +135,13 @@ function xlsxTable(file, blankIsZero = false) {
   const rows = all
     .slice(at + 1)
     .filter((r) => typeof r[nameCol] === 'string' && r[nameCol].trim() && !/^[※●]/.test(r[nameCol].trim()))
-    .map((r) => headers.map((_, k) => ({ span: 1, html: String(r[k] ?? ''), text: r[k] == null ? '' : r[k] === '' && blankIsZero && k !== nameCol ? '空欄' : cell(r[k]) })));
+    .map((r) =>
+      headers.map((_, k) => ({
+        span: 1,
+        html: String(r[k] ?? ''),
+        text: r[k] == null ? '' : r[k] === '' && blankIsZero && k !== nameCol ? '空欄' : cell(r[k]),
+      })),
+    );
   return { headers, nameCol, rows };
 }
 
@@ -159,12 +169,17 @@ async function pdfTableRows(file, section = null) {
     if (!header) continue;
     // 年齢の見出しが施設名の見出しより1行上にある表（旭区の企業主導型）も、同じ見出し行として扱う
     const cols = [
-      ...new Set([header, ...items.filter((i) => Math.abs(i.y - header.y) <= 3), ...ageHeads.filter((i) => Math.abs(i.y - header.y) <= 15)]),
+      ...new Set([
+        header,
+        ...items.filter((i) => Math.abs(i.y - header.y) <= 3),
+        ...ageHeads.filter((i) => Math.abs(i.y - header.y) <= 15),
+      ]),
     ].sort((a, b) => a.x - b.x);
     const used = new Set(cols);
     // 年齢の見出しを「0／歳／児」と縦に1文字ずつ書く区（鶴見区）は、すぐ上下の「0」「児」もつないで「0歳児」にする
     const headerText = (c) => {
-      const parts = c.s === '歳' ? items.filter((i) => Math.abs(i.x - c.x) <= 6 && Math.abs(i.y - c.y) <= 15).sort((a, b) => b.y - a.y) : [c];
+      const parts =
+        c.s === '歳' ? items.filter((i) => Math.abs(i.x - c.x) <= 6 && Math.abs(i.y - c.y) <= 15).sort((a, b) => b.y - a.y) : [c];
       for (const i of parts) used.add(i);
       return parts
         .map((i) => i.s)
@@ -177,14 +192,14 @@ async function pdfTableRows(file, section = null) {
     const columnOf = (i) => bounds.filter((b) => i.x > b).length;
     const top = Math.min(...cols.map((c) => c.y)) - 3;
     const lines = [];
-    for (const i of items.filter((i) => i.y < top && !used.has(i)).sort((a, b) => b.y - a.y || a.x - b.x)) {
+    for (const i of items.filter((item) => item.y < top && !used.has(item)).sort((a, b) => b.y - a.y || a.x - b.x)) {
       const line = lines.find((l) => Math.abs(l.y - i.y) <= 3);
       if (line) line.items.push(i);
       else lines.push({ y: i.y, items: [i] });
     }
     // 所在地・連絡先を2〜3行に分けて書く区（鶴見区・旭区）は、施設名の列が空の行を、上下13pt以内にある施設名の行に含める
     const named = lines.filter((l) => l.items.some((i) => columnOf(i) === 0));
-    for (const l of lines.filter((l) => !named.includes(l))) {
+    for (const l of lines.filter((line) => !named.includes(line))) {
       const near = named.filter((n) => Math.abs(n.y - l.y) <= 13).sort((a, b) => Math.abs(a.y - l.y) - Math.abs(b.y - l.y))[0];
       if (near) near.items.push(...l.items);
     }
@@ -328,7 +343,10 @@ for (const ward of WARDS) {
     const auto = pdfFile ? pdfDetails[pdfFile] : undefined;
     const manual = pdfFile ? manualDetails[pdfFile] : undefined;
     const extra = wardDetails[key];
-    const detail = auto || manual || extra?.weekday || extra?.note ? { ...extra, ...auto, ...manual, note: manual?.note ?? extra?.note ?? auto?.note ?? null } : null;
+    const detail =
+      auto || manual || extra?.weekday || extra?.note
+        ? { ...extra, ...auto, ...manual, note: manual?.note ?? extra?.note ?? auto?.note ?? null }
+        : null;
     if (!detail?.weekday) warn(`施設の詳細情報（開所時間）なし: ${name}`);
     // ふりがな: 手動補正 > 基本情報PDF > 空き情報CSV（CSVは仮称・旧名称のままのものがある）
     const reading = (
@@ -368,11 +386,12 @@ for (const ward of WARDS) {
       // 昼間と夜間で共有するPDFの定員は昼間の分なので、夜間保育所の行には出さない
       capacity: /夜間/.test(name) && detail?.nightHours ? null : (detail?.capacity ?? null),
       // 昼間と夜間で1つのPDFを共有する施設は、夜間保育所の行に夜間の開所時間（月〜土）を使う
-      hours: /夜間/.test(name) && detail?.nightHours
-        ? { weekday: detail.nightHours, saturday: detail.nightHours, holiday: null }
-        : detail?.weekday
-          ? { weekday: detail.weekday, saturday: detail.saturday ?? null, holiday: null }
-          : null,
+      hours:
+        /夜間/.test(name) && detail?.nightHours
+          ? { weekday: detail.nightHours, saturday: detail.nightHours, holiday: null }
+          : detail?.weekday
+            ? { weekday: detail.weekday, saturday: detail.saturday ?? null, holiday: null }
+            : null,
       services: detail?.services ?? [],
       approvedOn: detail?.approvedOn ?? null,
       note:
@@ -380,7 +399,9 @@ for (const ward of WARDS) {
           detail?.note,
           sharedVacancy && `${sharedVacancy.ages.join('・')}歳クラスの空きはあわせて${sharedVacancy.count}人です。`,
           pendingAges.length && `${pendingAges.join('・')}歳クラスの空きは区の空き情報で「調整中」です。`,
-          /夜間/.test(name) && detail?.nightHours && '開所時間は市の施設基本情報PDF（昼間の保育所と共通）の夜間の欄より。PDFに夜間の定員の記載がないため、定員は掲載していません。',
+          /夜間/.test(name) &&
+            detail?.nightHours &&
+            '開所時間は市の施設基本情報PDF（昼間の保育所と共通）の夜間の欄より。PDFに夜間の定員の記載がないため、定員は掲載していません。',
         ]
           .filter(Boolean)
           .join('') || null,
@@ -400,7 +421,7 @@ for (const ward of WARDS) {
     // 空きのある年齢があればその年齢だけを書く（区の表では枠のない年齢は空欄）
     const ages = l.vacancies.some((v) => v > 0) ? l.vacancies.map((v) => v > 0) : l.vacancies.map((v) => v !== null);
     const open = l.vacancies.map((v, age) => (ages[age] ? `${age}歳児${v}人` : null)).filter(Boolean);
-    f.note = `${f.note ? `${f.note}` : ''}期間限定保育の枠もあります（空き: ${open.join('・')}）。`;
+    f.note = `${f.note || ''}期間限定保育の枠もあります（空き: ${open.join('・')}）。`;
   }
 
   // --- 区の公表値との照合（CSV と区役所の空き情報が一致しているか）
@@ -452,7 +473,8 @@ for (const ward of WARDS) {
   // 添付PDFの表だけで公表している区（旭区）は、PDFの表を列の位置で読む
   const vacancyPdf = path.join(SRC, ward.id, 'vacancy.pdf');
   if (!wardRowsToCheck.length && existsSync(vacancyPdf)) {
-    for (const r of await pdfTableRows(vacancyPdf)) wardRowsToCheck.push({ names: [r[0].text], vals: r.slice(-6).map((c) => c.text) });
+    for (const r of await pdfTableRows(vacancyPdf))
+      wardRowsToCheck.push({ names: [r[0].text], vals: r.slice(-6).map((c) => c.text) });
   }
   if (wardRowsToCheck.length) console.log(`[${ward.name}] 区の空き情報 ${wardRowsToCheck.length} 施設とCSVを照合`);
   // 「Four Leaf (フォーリーフ)」のように末尾に読みを添えた名前は、読みを外した形でも探す
@@ -475,7 +497,9 @@ for (const ward of WARDS) {
       keys
         .map((k) => k.match(/^(.{4,}?)([(][^)]*[)])$/))
         .filter(Boolean)
-        .map(([, base, paren]) => wardFacilities.find((x) => stripCity(x.name).startsWith(base) && stripCity(x.name).endsWith(paren)))
+        .map(([, base, paren]) =>
+          wardFacilities.find((x) => stripCity(x.name).startsWith(base) && stripCity(x.name).endsWith(paren)),
+        )
         .find(Boolean) ??
       wardFacilities.find((x) => keys.some((k) => k.length >= 4 && stripCity(x.name).startsWith(k))) ??
       // CSVの名前に法人名が前に付いている施設（都島区「社会福祉法人 大阪婦人ホーム 子ロバ乳児園」）
@@ -490,18 +514,29 @@ for (const ward of WARDS) {
     const ref = noteRefs.find(Boolean);
     let noteShared = null;
     if (ref) {
-      const m = decode(pageHtml).normalize('NFKC').match(new RegExp(`\\(注${ref}\\)\\s*([0-5])歳児クラス及び([0-5])歳児クラスで、(\\d+)名まで`));
+      const m = decode(pageHtml)
+        .normalize('NFKC')
+        .match(new RegExp(`\\(注${ref}\\)\\s*([0-5])歳児クラス及び([0-5])歳児クラスで、(\\d+)名まで`));
       if (!m) throw new Error(`${ward.name}: 区の空き情報の注記（注${ref}）を読めない: ${f.name}`);
       noteShared = { ages: noteRefs.flatMap((r, age) => (r === ref ? [age] : [])), count: Number(m[3]) };
     }
     // 「空欄」（東淀川区の空きなし）は0。ただしCSVで受入れのないクラスは、区のxlsでも空欄になっていることがある（小松保育園の3〜5歳。基本情報PDFの定員も0人）ので受入れなしのまま
     const expected = vals.map((v, age) =>
-      noteShared?.ages.includes(age) ? noteShared.count : v === '空欄' ? (f.vacancies[age] === null ? null : 0) : v === '調整中' ? null : vacancy(v),
+      noteShared?.ages.includes(age)
+        ? noteShared.count
+        : v === '空欄'
+          ? f.vacancies[age] === null
+            ? null
+            : 0
+          : v === '調整中'
+            ? null
+            : vacancy(v),
     );
     // 本園と分園を1行にまとめて公表する区がある（西区）。CSVでは別行なので、分園と合算して比べる
     // （分園にも区の表の行がある区では合算しない）
     const branches = wardFacilities.filter(
-      (x) => x !== f && /分園/.test(x.name) && stripCity(x.name).startsWith(stripCity(f.name)) && !allWardKeys.has(stripCity(x.name)),
+      (x) =>
+        x !== f && /分園/.test(x.name) && stripCity(x.name).startsWith(stripCity(f.name)) && !allWardKeys.has(stripCity(x.name)),
     );
     if (branches.length) {
       const combined = f.vacancies.map((v, age) => {
@@ -551,8 +586,10 @@ for (const ward of WARDS) {
   // 時点は表の見出し（caption）、PDFで公表している区はページ本文の「2026年（令和8年）10月1日現在」から読む
   // 「令和8 年10 月1日現在」（大正区）のように数字と年月日の間に空白が入ることもある
   const AS_OF = /(令和\s*\d+)\s*年[)）]?\s*(\d+)\s*月\s*(\d+)\s*日\s*(?:現在|時点)/;
-  const asOfMatch = decode(table.match(/<caption>([\s\S]*?)<\/caption>/)?.[1] ?? '').match(AS_OF) ?? decode(kigyoHtml).match(AS_OF);
+  const asOfMatch =
+    decode(table.match(/<caption>([\s\S]*?)<\/caption>/)?.[1] ?? '').match(AS_OF) ?? decode(kigyoHtml).match(AS_OF);
   let kigyoAsOf = asOfMatch ? `${asOfMatch[1].replace(/\s+/g, '')}年${asOfMatch[2]}月${asOfMatch[3]}日現在` : null;
+  /** @type {Set<string>} */
   const surveyDates = new Set();
   // 区によっては表に「設置者」列がある（天王寺区）。あれば市のPDFより優先する（PDFは改行で途切れることがある）
   // 見出しは1行目のセル（施設名の列を th にしている区があるので、表全体の th は使わない）
@@ -574,7 +611,13 @@ for (const ward of WARDS) {
   const kigyoByAddress = (address) => {
     // 「靭」「靱」の異体字や、部屋番号を番地に続けて書くか（1-15-9-201）建物名の後に書くかの違いを吸収する
     const key = (s) =>
-      s.normalize('NFKC').replace(/^大阪市/, '').replace(new RegExp(`^${ward.name}`), '').replace(/靭/g, '靱').replace(/[－ー―]/g, '-').match(/^\D+\d+(?:-\d+)*/)?.[0];
+      s
+        .normalize('NFKC')
+        .replace(/^大阪市/, '')
+        .replace(new RegExp(`^${ward.name}`), '')
+        .replace(/靭/g, '靱')
+        .replace(/[－ー―]/g, '-')
+        .match(/^\D+\d+(?:-\d+)*/)?.[0];
     const entries = Object.entries(kigyoDetails);
     const prefixHits = entries.filter(([, d]) => {
       const [a, b] = [key(d.address), key(address)];
@@ -609,10 +652,20 @@ for (const ward of WARDS) {
 
   for (const [idx, rowCells] of rows.entries()) {
     const cells = trailingCols ? rowCells.slice(0, -trailingCols) : rowCells;
-    const surveyedOn = trailingCols ? rowCells.slice(-trailingCols).map((c) => c.text).find((t) => /^令和\d+年\d+月\d+日$/.test(t)) : null;
+    const surveyedOn = trailingCols
+      ? rowCells
+          .slice(-trailingCols)
+          .map((c) => c.text)
+          .find((t) => /^令和\d+年\d+月\d+日$/.test(t))
+      : null;
     if (surveyedOn) surveyDates.add(surveyedOn);
     // 「備考」列（都島区）に記載があれば注記に残す
-    const remarks = trailingCols ? rowCells.slice(-trailingCols).map((c) => c.text).filter((t) => t && t !== surveyedOn) : [];
+    const remarks = trailingCols
+      ? rowCells
+          .slice(-trailingCols)
+          .map((c) => c.text)
+          .filter((t) => t && t !== surveyedOn)
+      : [];
     // 末尾の年齢セル（結合セルを含めて6歳分）と、その前の住所・連絡先セルに分ける
     const ageCells = [];
     let span = 0;
@@ -632,7 +685,8 @@ for (const ward of WARDS) {
         const dk = infoKey(d.name);
         return dk === k || (Math.min(dk.length, k.length) >= 4 && (dk.includes(k) || k.includes(dk)));
       });
-      if (hits.length !== 1) throw new Error(`${ward.name}: 企業主導型を市の一覧と施設名で対応付けられない: ${name}（候補${hits.length}件）`);
+      if (hits.length !== 1)
+        throw new Error(`${ward.name}: 企業主導型を市の一覧と施設名で対応付けられない: ${name}（候補${hits.length}件）`);
       byName = { ...hits[0][1], phone: hits[0][0] };
     } else if (!infoCells.length) {
       const info = infoRows.find((r) => r.length > 1 && infoKey(r[0].text) === infoKey(name));
@@ -670,7 +724,11 @@ for (const ward of WARDS) {
       .replace(/(\d)[‐‑－―ー](?=\d)/g, '$1-');
     const phone = byName?.phone ?? infoText.match(/0\d{1,4}-\d{1,4}-\d{3,4}/)?.[0];
     if (!phone) throw new Error(`${ward.name}: 企業主導型の電話番号が読めない: ${name}`);
-    const shortAddress = infoText.replace(phone, '').replace(/[()（）]/g, '').trim().replace(new RegExp(`^${ward.name}`), '');
+    const shortAddress = infoText
+      .replace(phone, '')
+      .replace(/[()（）]/g, '')
+      .trim()
+      .replace(new RegExp(`^${ward.name}`), '');
     // 電話番号で対応付け。区の表と市のPDFで電話番号が違う施設は所在地（番地まで）で対応付ける
     const d = byName ?? kigyoDetails[phone] ?? kigyoByAddress(shortAddress);
     if (!d) warn(`認可外保育施設一覧（詳細）に見つからない: ${name}`);
@@ -718,7 +776,8 @@ for (const ward of WARDS) {
       approvedOn: null,
       note:
         [
-          sharedVacancy && `${sharedVacancy.ages.join('・')}歳クラスの空きはあわせて${sharedVacancy.count}人です（区の一覧で結合表記）。`,
+          sharedVacancy &&
+            `${sharedVacancy.ages.join('・')}歳クラスの空きはあわせて${sharedVacancy.count}人です（区の一覧で結合表記）。`,
           surveyedOn && `空き人数は${surveyedOn}の区の調査時点の値です。`,
           remarks.length && `区の表の備考：${remarks.join('、')}。`,
           pendingAges.length && `${pendingAges[0]}〜${pendingAges.at(-1)}歳クラスは区の一覧で「調整中」です。`,
@@ -747,7 +806,9 @@ for (const ward of WARDS) {
 
   // 補完ファイルのキーの打ち間違い検出
   // 施設名を直したもの（ward-details.json の name）は、CSVの名前のキーで書いている
-  const renamedKeys = Object.entries(wardDetails).flatMap(([k, d]) => (d.name && wardFacilities.some((f) => f.name === d.name) ? [k] : []));
+  const renamedKeys = Object.entries(wardDetails).flatMap(([k, d]) =>
+    d.name && wardFacilities.some((f) => f.name === d.name) ? [k] : [],
+  );
   const knownKeys = new Set([...wardFacilities.map((f) => normName(f.name)), ...renamedKeys]);
   for (const file of [websites, wardDetails]) {
     for (const k of Object.keys(file)) {
@@ -767,7 +828,9 @@ for (const ward of WARDS) {
       { label: `大阪市「保育施設等一覧（${ward.name}）」（施設種別・運営法人・各施設基本情報PDF）`, url: ward.listPage },
       ...ward.homepageSources.map((s) => ({ label: `${ward.name}役所「${s.label}」（各施設のホームページ）`, url: s.url })),
       { label: `${ward.name}役所「企業主導型保育事業所の空き情報」（企業主導型の空き人数【地域枠】）`, url: ward.kigyoPage },
-      ...(ward.kigyoInfoPage ? [{ label: `${ward.name}役所の施設一覧（企業主導型の所在地・位置）`, url: ward.kigyoInfoPage }] : []),
+      ...(ward.kigyoInfoPage
+        ? [{ label: `${ward.name}役所の施設一覧（企業主導型の所在地・位置）`, url: ward.kigyoInfoPage }]
+        : []),
     ],
   });
   facilities.push(...wardFacilities);
@@ -778,7 +841,10 @@ const data = {
   wards,
   commonSources: [
     { label: '大阪市「保育施設等 空き情報マップ」（位置情報・空き人数データ）', url: CITY_SOURCES.vacancyMap },
-    { label: '大阪市「地域の児童が利用できる認可外保育施設一覧」（企業主導型の開所時間・定員・設置者）', url: CITY_SOURCES.ninkagaiPage },
+    {
+      label: '大阪市「地域の児童が利用できる認可外保育施設一覧」（企業主導型の開所時間・定員・設置者）',
+      url: CITY_SOURCES.ninkagaiPage,
+    },
   ],
   facilities,
 };

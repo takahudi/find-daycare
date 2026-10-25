@@ -6,10 +6,16 @@ import { MapView } from './components/MapView';
 import { distanceMeters, geocode } from './lib/geo';
 import { AGE_LABELS, AGES, acceptsAny, vacancyCount } from './lib/vacancy';
 
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion -- build-data.mjs が生成する JSON。実行時の検証はデータのスキーマ検証で入れる
 const data = rawData as Dataset;
 const WARD_NAMES = data.wards.map((w) => w.name);
 // 区が増えると区名を並べきれないので、5区以上は区の数で表す（区名は見出しのツールチップに出す）
-const TITLE = WARD_NAMES.length >= 24 ? '大阪市' : WARD_NAMES.length >= 5 ? `大阪市 ${WARD_NAMES.length}区` : `大阪市 ${WARD_NAMES.join('・')}`;
+const TITLE =
+  WARD_NAMES.length >= 24
+    ? '大阪市'
+    : WARD_NAMES.length >= 5
+      ? `大阪市 ${WARD_NAMES.length}区`
+      : `大阪市 ${WARD_NAMES.join('・')}`;
 // 区ごとの空き情報の時点が揃っていれば1つにまとめて表示する
 const asOfLabels = [...new Set(data.wards.map((w) => `${w.vacancyAsOf}（${w.vacancyFor}）`))];
 // 企業主導型の時点は区ごとにずれることがあるので、最も多い時点を基本にし、違う区だけ区名付きで添える
@@ -38,6 +44,7 @@ const HOME_KEY = 'find-daycare:home';
 function loadHome(): Home | null {
   try {
     const raw = localStorage.getItem(HOME_KEY);
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- 自分で保存した値だが、利用者が書き換えられるので本来は検証が要る
     return raw ? (JSON.parse(raw) as Home) : null;
   } catch {
     return null;
@@ -73,10 +80,7 @@ export default function App() {
   const visible = useMemo(() => {
     const list = data.facilities.filter(
       (f) =>
-        wardIds.includes(f.ward) &&
-        categories.includes(f.category) &&
-        acceptsAny(f, ages) &&
-        (!onlyOpen || vacancyOf(f) > 0),
+        wardIds.includes(f.ward) && categories.includes(f.category) && acceptsAny(f, ages) && (!onlyOpen || vacancyOf(f) > 0),
     );
     // 企業主導型はふりがなの一次情報がないので施設名で並べる
     const byName = (a: Facility, b: Facility) => (a.kana || a.name).localeCompare(b.kana || b.name, 'ja');
@@ -213,7 +217,7 @@ export default function App() {
               type="button"
               className={`chip${ages.includes(a) ? ' chip--on' : ''}`}
               aria-pressed={ages.includes(a)}
-              onClick={() => setAges((cur) => toggle(cur, a).sort())}
+              onClick={() => setAges((cur) => toggle(cur, a).sort((x, y) => x - y))}
             >
               {AGE_LABELS[a]}
             </button>
@@ -240,6 +244,7 @@ export default function App() {
           </label>
           <label className="sort">
             並び順
+            {/* oxlint-disable-next-line typescript/no-unsafe-type-assertion -- 選択肢は SortKey の値だけで作っている */}
             <select value={sort} onChange={(e) => setSort(e.target.value as SortKey)}>
               <option value="distance" disabled={!home}>
                 自宅から近い順{home ? '' : '（住所を入力）'}

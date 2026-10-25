@@ -22,18 +22,21 @@ interface GsiFeature {
   properties: { title: string };
 }
 
-const inOsakaCity = ({ lat, lng }: { lat: number; lng: number }) =>
-  lat > 34.55 && lat < 34.8 && lng > 135.35 && lng < 135.6;
+const inOsakaCity = ({ lat, lng }: { lat: number; lng: number }) => lat > 34.55 && lat < 34.8 && lng > 135.35 && lng < 135.6;
 
 const KANJI_DIGITS = '〇一二三四五六七八九';
 const kanjiNumber = (s: string) =>
   s.includes('十')
     ? (s.startsWith('十') ? 1 : KANJI_DIGITS.indexOf(s[0])) * 10 + (s.endsWith('十') ? 0 : KANJI_DIGITS.indexOf(s.at(-1)!))
-    : Number([...s].map((c) => KANJI_DIGITS.indexOf(c)).join(''));
+    : Number(Array.from(s, (c) => KANJI_DIGITS.indexOf(c)).join(''));
 
 /** 住所の区より後ろを「町名」と最初の数字（丁目、丁目のない町は番地）に分ける。例:「中之島一丁目3番」→ 中之島 / 1 */
 function splitTown(address: string): { town: string; num: number | null } {
-  const rest = address.normalize('NFKC').replace(/^.*?区/, '').replace(/^.*?市/, '').trim();
+  const rest = address
+    .normalize('NFKC')
+    .replace(/^.*?区/, '')
+    .replace(/^.*?市/, '')
+    .trim();
   const m = rest.match(/^(.+?)(?:([一二三四五六七八九十]+)丁目|(\d+))/);
   if (!m) return { town: rest.replace(/丁目$/, ''), num: null };
   return { town: m[1], num: m[2] ? kanjiNumber(m[2]) : Number(m[3]) };
@@ -48,17 +51,14 @@ function splitTown(address: string): { town: string; num: number | null } {
 export async function geocode(query: string, wardNames: string[], signal?: AbortSignal): Promise<Home> {
   const q = query.trim().normalize('NFKC');
   // 町名だけの入力は区名を付けないと検索に掛からない（「大阪市〇〇町6丁目」は市レベルの結果しか返らない）
-  const candidates = /大阪/.test(q)
-    ? [q]
-    : /^\D+?区/.test(q)
-      ? [`大阪市${q}`]
-      : [...wardNames.map((w) => `大阪市${w}${q}`), q];
+  const candidates = /大阪/.test(q) ? [q] : /^\D+?区/.test(q) ? [`大阪市${q}`] : [...wardNames.map((w) => `大阪市${w}${q}`), q];
   const input = splitTown(q);
   // 区の数だけ順に問い合わせると遅いので並列に投げ、結果は候補の順（対象の区の並び）で選ぶ
   const results = await Promise.all(
     candidates.map(async (c) => {
       const res = await fetch(`https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodeURIComponent(c)}`, { signal });
       if (!res.ok) throw new Error(`住所検索に失敗しました（HTTP ${res.status}）`);
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- 外部APIの応答。形は検証していない
       const features = (await res.json()) as GsiFeature[];
       // 「大阪府大阪市中央区」のような区レベルの結果や、その区にない町名を投げると
       // 同じ区の別の町への近似結果が返るので、町名で確かめる

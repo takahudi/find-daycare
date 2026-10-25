@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "group:allNonMajor", "helpers:pinGitHubActionDigestsToSemver"],
+  "timezone": "Asia/Tokyo",
+  "minimumReleaseAge": "3 days",
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "minimumReleaseAge": "3 days"
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["* 0-3 * * 1"]
+  },
+  "packageRules": [
+    {
+      "matchDepNames": ["node", "@types/node"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "Node.js"
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "schedule": ["* 0-3 * * 1"]
+    }
+  ]
+}

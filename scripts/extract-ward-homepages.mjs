@@ -9,7 +9,10 @@ import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 
 const wardId = process.argv[2] ?? 'chuo';
 const ROOT = path.resolve('sources', wardId, 'homepage-sources');
-const dirs = (await readdir(ROOT, { withFileTypes: true })).filter((d) => d.isDirectory()).map((d) => d.name).sort();
+const dirs = (await readdir(ROOT, { withFileTypes: true }))
+  .filter((d) => d.isDirectory())
+  .map((d) => d.name)
+  .sort();
 const links = [];
 
 for (const dir of dirs) {
@@ -40,19 +43,30 @@ for (const dir of dirs) {
       text.slice(at).match(/ホームページ[：:]\s*((?:https?:\/\/|www\.)[\x21-\x7e]+)/)?.[1] ??
       // 平野区の様式は「URL」欄。URLが「h」「ttp」「s」「://aiwafu」のように細かく分かれたり、全角文字が混じったり、
       // 欄の上の行に出たりするので、全文を半角にしてつないだ中から探す（直後の「URL」の文字は除く）
-      (urlAt >= 0 ? (strs[urlAt] === 'URL' ? text : strs.slice(urlAt + 1).join('')).normalize('NFKC').match(/https?:\/\/[\x21-\x7e]+/)?.[0].replace(/URL$/, '') : null) ??
+      (urlAt >= 0
+        ? (strs[urlAt] === 'URL' ? text : strs.slice(urlAt + 1).join(''))
+            .normalize('NFKC')
+            .match(/https?:\/\/[\x21-\x7e]+/)?.[0]
+            .replace(/URL$/, '')
+        : null) ??
       `? ${at < 0 ? '(欄なし)' : text.slice(at, at + 60)}`;
     console.log(`${dir}/${f}\t${name}\t${hp}`);
-    if (/^(?:https?:\/\/|www\.)/.test(hp)) links.push({ file: `${dir}/${f}`, names: [name], href: hp.startsWith('www.') ? `https://${hp}` : hp });
+    if (/^(?:https?:\/\/|www\.)/.test(hp))
+      links.push({ file: `${dir}/${f}`, names: [name], href: hp.startsWith('www.') ? `https://${hp}` : hp });
   }
 }
 
 // 区のページ本文のリンク。「〇〇のホームページ」という文言のリンク（浪速区）か、
 // 表の施設名そのものがリンクになっているもの（西区。本園・分園を1つのリンクにまとめていることがある）
-for (const f of (await readdir(ROOT)).filter((f) => f.endsWith('.html')).sort()) {
+for (const f of (await readdir(ROOT)).filter((name) => name.endsWith('.html')).sort()) {
   const html = await readFile(path.join(ROOT, f), 'utf8');
   const tables = [...html.matchAll(/<table[\s\S]*?<\/table>/g)].map(([t]) => t).join('');
-  const text = (s) => s.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').trim();
+  const text = (s) =>
+    s
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .trim();
   // 表の行ごとのセルの文字（リンクの文字が「ホームページ」だけの区（福島区）は、同じ行の施設名を使う）
   const rowOf = (anchor) => [...tables.matchAll(/<tr[\s\S]*?<\/tr>/g)].map(([tr]) => tr).find((tr) => tr.includes(anchor));
   for (const [all, rawHref, label] of html.matchAll(/<a [^>]*href="(https?:\/\/[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
@@ -65,7 +79,8 @@ for (const f of (await readdir(ROOT)).filter((f) => f.endsWith('.html')).sort())
       .map((s) => text(s).replace(/の?ホームページ$/, ''))
       .filter(Boolean);
     const row = tables.includes(all) ? rowOf(all) : null;
-    if (!names.length && row) names = [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, c]) => text(c)).filter(Boolean);
+    if (!names.length && row)
+      names = [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, c]) => text(c)).filter(Boolean);
     // 施設の写真がリンクになっている区（鶴見区）は、写真の代替テキストが施設名
     const alt = label.match(/<img [^>]*alt="([^"]+)"/)?.[1];
     if (!names.length && alt) names = [text(alt)];
@@ -89,7 +104,11 @@ if (process.argv.includes('--json')) {
   for (const fac of facilities.filter((x) => x.ward === wardId)) {
     const hit = links.find((l) => l.names.some((n) => norm(n) === norm(fac.name)));
     // キーは build-data.mjs の normName と同じ形（「大阪市立」は残す）
-    const key = fac.name.normalize('NFKC').replace(/\s+/g, '').replace(/^(?:幼保連携型|幼稚園型|保育所型)?認定こども園/, '').replace(/[（(]夜間[)）]/, '');
+    const key = fac.name
+      .normalize('NFKC')
+      .replace(/\s+/g, '')
+      .replace(/^(?:幼保連携型|幼稚園型|保育所型)?認定こども園/, '')
+      .replace(/[（(]夜間[)）]/, '');
     if (hit) out[key] = { url: hit.href, label };
     else console.error(`  リンクなし: ${fac.name}`);
   }

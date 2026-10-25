@@ -22,7 +22,14 @@ const isWardTag = (t) => /^\(\d{2}\S+区\)$/.test(t);
 function parseBlock(items) {
   const tokens = items.map((i) => i.s);
   // 電話番号の欄が空欄の施設（西淀川区の西大阪保育園）もあるので、番号の形のときだけ電話番号とする
-  const block = { wardTag: tokens[0], phone: /^0\d+-\d+-\d+$/.test(tokens[1]) ? tokens[1] : null, hours: {}, capacity: null, monthlyUpTo: null, freeOfCharge: null };
+  const block = {
+    wardTag: tokens[0],
+    phone: /^0\d+-\d+-\d+$/.test(tokens[1]) ? tokens[1] : null,
+    hours: {},
+    capacity: null,
+    monthlyUpTo: null,
+    freeOfCharge: null,
+  };
   for (let j = 0; j < tokens.length; j++) {
     const t = tokens[j];
     const label = Object.entries(HOURS_LABELS).find(([, re]) => re.test(t))?.[0];
@@ -54,7 +61,8 @@ function parseBlock(items) {
       const parts = [];
       // 段内の出現順によっては設置者名の後に施設名（直後が「施 設 種 別」）が続くので、そこでも止める
       // ページ番号のフッター（「163 ページ」）が続くこともある（西成区のエミリア保育園）
-      const stop = (k) => tokens[k] === '開' || (tokens[k + 1] === '施' && tokens[k + 2] === '設') || /^\d+ ページ$/.test(tokens[k]);
+      const stop = (k) =>
+        tokens[k] === '開' || (tokens[k + 1] === '施' && tokens[k + 2] === '設') || /^\d+ ページ$/.test(tokens[k]);
       for (let k = j + 1; k < tokens.length && !stop(k); k++) {
         parts.push(tokens[k]);
       }
@@ -95,7 +103,18 @@ for (const ward of WARDS) {
   console.log(`== ${ward.name}`);
   for (const d of Object.values(out)) {
     console.log(
-      [d.phone, d.name, d.operator, d.address, `平日=${d.hours.weekday ?? '-'}`, `土=${d.hours.saturday ?? '-'}`, `日祝=${d.hours.holiday ?? '-'}`, `定員=${d.capacity ?? '-'}`, `月極〜${d.monthlyUpTo}`, `p${d.page}`].join(' | '),
+      [
+        d.phone,
+        d.name,
+        d.operator,
+        d.address,
+        `平日=${d.hours.weekday ?? '-'}`,
+        `土=${d.hours.saturday ?? '-'}`,
+        `日祝=${d.hours.holiday ?? '-'}`,
+        `定員=${d.capacity ?? '-'}`,
+        `月極〜${d.monthlyUpTo}`,
+        `p${d.page}`,
+      ].join(' | '),
     );
   }
 }

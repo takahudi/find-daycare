@@ -1,5 +1,5 @@
 // 一次情報（大阪市・各区役所の公開ファイル）を sources/ に取得し直す。
-// 空き情報は毎月更新されるので、更新時は `npm run data:update` を実行する。
+// 空き情報は毎月更新されるので、更新時は `pnpm data:update` を実行する。
 // Usage: node scripts/fetch-sources.mjs [区のid ...]
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
