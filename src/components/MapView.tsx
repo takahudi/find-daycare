@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
 import { MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
-import type { Facility, Home } from '../types';
+import type { Facility, Home } from '../schema';
 import { formatDistance } from '../lib/geo';
 import { AGE_LABELS } from '../lib/vacancy';
 

@@ -18,7 +18,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import * as v from 'valibot';
 import { DatasetSchema } from '../src/schema.ts';
-import type { Dataset, Facility, Ward } from '../src/types.ts';
+import type { Dataset, Facility, Ward } from '../src/schema.ts';
 import { CITY_SOURCES, WARDS } from './wards.ts';
 import { parseCsv } from './build-data/csv.ts';
 import { SRC, loadWardInputs, saveGeocodeCache } from './build-data/inputs.ts';

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import rawData from './data/facilities.json';
 import * as v from 'valibot';
 import { DatasetSchema, HomeSchema } from './schema';
-import type { Category, Facility, Home } from './types';
+import type { Category, Facility, Home } from './schema';
 import { FacilityCard } from './components/FacilityCard';
 import { MapView } from './components/MapView';
 import { distanceMeters, geocode } from './lib/geo';

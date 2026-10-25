@@ -1,4 +1,4 @@
-import type { Source } from '../src/types.ts';
+import type { Source } from '../src/schema.ts';
 
 export interface WardConfig {
   id: string;

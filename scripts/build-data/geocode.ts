@@ -1,5 +1,5 @@
 import { parseJson } from '../json.ts';
-import type { WardDataFiles } from '../data-types.ts';
+import type { WardDataFiles } from '../data-schema.ts';
 
 /** 国土地理院の住所検索で座標を求める（結果は data/<区>/geocode-cache.json に保存して再利用） */
 export async function geocode(address: string, cache: WardDataFiles['geocode-cache.json']) {

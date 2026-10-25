@@ -4,11 +4,13 @@
 // Usage: node scripts/extract-pdf-details.ts
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import * as v from 'valibot';
+import { WardDataSchemas } from './data-schema.ts';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.ts';
 import { pageTextItems } from './pdf-text.ts';
 import type { PositionedText } from './pdf-text.ts';
-import type { PdfDetail } from './data-types.ts';
+import type { PdfDetail } from './data-schema.ts';
 
 const SERVICES = [
   '延長保育',
@@ -206,7 +208,10 @@ for (const ward of WARDS) {
     };
   }
   await mkdir(path.resolve('data', ward.id), { recursive: true });
-  await writeFile(path.resolve('data', ward.id, 'pdf-details.json'), JSON.stringify(out, null, 2) + '\n');
+  const outputPath = path.resolve('data', ward.id, 'pdf-details.json');
+  const result = v.safeParse(WardDataSchemas['pdf-details.json'], out);
+  if (!result.success) throw new Error(`${outputPath}: ${v.summarize(result.issues)}`);
+  await writeFile(outputPath, JSON.stringify(out, null, 2) + '\n');
   console.log(`== ${ward.name}`);
   for (const [f, d] of Object.entries(out)) {
     console.log(

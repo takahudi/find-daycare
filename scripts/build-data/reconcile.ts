@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import type { Facility } from '../../src/types.ts';
+import type { Facility } from '../../src/schema.ts';
 import type { WardConfig } from '../wards.ts';
 import type { Warn } from './types.ts';
 import { SRC } from './inputs.ts';

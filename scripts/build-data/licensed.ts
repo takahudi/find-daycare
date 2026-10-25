@@ -1,4 +1,4 @@
-import type { Facility } from '../../src/types.ts';
+import type { Facility } from '../../src/schema.ts';
 import type { WardConfig } from '../wards.ts';
 import type { Warn } from './types.ts';
 import type { WardInputs } from './inputs.ts';

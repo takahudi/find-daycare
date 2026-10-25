@@ -27,7 +27,7 @@ export const LongitudeSchema = v.pipe(
 export const CategorySchema = v.picklist(['nursery', 'kodomoen', 'community', 'kigyo'], '施設種別が不正です');
 
 export const CapacitySchema = v.pipe(
-  v.object({
+  v.strictObject({
     total: CountSchema,
     // 対象年齢だけの内訳や内訳なしの資料もあるため、6件固定にはしない。
     byAge: v.pipe(v.array(CountSchema), v.maxLength(6, '定員内訳は0〜5歳の最大6件です')),
@@ -38,9 +38,22 @@ export const CapacitySchema = v.pipe(
   ),
 );
 
+export const inOsakaCity = ({ lat, lng }: { lat: number; lng: number }) =>
+  lat > 34.55 && lat < 34.8 && lng > 135.35 && lng < 135.6;
+
+const facilityIssue = (f: { wardName: string; ward: string; id: string }, message: string) =>
+  `${f.wardName} (${f.ward}) 施設 ${f.id}: ${message}`;
+
+export const GsiHitSchema = v.object({
+  properties: v.object({ title: TextSchema }),
+  geometry: v.object({ coordinates: v.tuple([LongitudeSchema, LatitudeSchema]) }),
+});
+export const GsiResponseSchema = v.array(GsiHitSchema);
+
 export const FacilitySchema = v.pipe(
   v.object({
     id: TextSchema,
+    /** 区の id（scripts/wards.ts） */
     ward: TextSchema,
     wardName: TextSchema,
     name: TextSchema,
@@ -55,8 +68,11 @@ export const FacilitySchema = v.pipe(
     phone: TextSchema,
     lat: LatitudeSchema,
     lng: LongitudeSchema,
+    /** 0〜5歳クラスの空き人数。null はその年齢の受入れなし、0 は空きなし */
     vacancies: v.array(v.nullable(CountSchema)),
+    /** 複数年齢で共有する空き枠（例: 1・2歳あわせて1人）。vacancies の該当年齢にも同じ数が入っている */
     sharedVacancy: v.nullable(v.object({ ages: v.array(v.number()), count: CountSchema })),
+    /** false は認可外（企業主導型）。区役所の利用調整ではなく施設との直接契約 */
     licensed: v.boolean('認可区分は真偽値が必要です'),
     capacity: v.nullable(CapacitySchema),
     hours: v.nullable(v.object({ weekday: TextSchema, saturday: v.nullable(TextSchema), holiday: v.nullable(TextSchema) })),
@@ -71,9 +87,9 @@ export const FacilitySchema = v.pipe(
   v.rawCheck(({ dataset, addIssue }) => {
     if (!dataset.typed) return;
     const f = dataset.value;
-    const issue = (message: string) => addIssue({ message: `${f.wardName} (${f.ward}) 施設 ${f.id}: ${message}` });
+    const issue = (message: string) => addIssue({ message: facilityIssue(f, message) });
     if (f.vacancies.length !== 6) issue('空き人数は0〜5歳の6件が必要です');
-    if (!(f.lat > 34.55 && f.lat < 34.8 && f.lng > 135.35 && f.lng < 135.6)) issue('座標が大阪市内の範囲外です');
+    if (!inOsakaCity(f)) issue('座標が大阪市内の範囲外です');
     if ((f.category === 'kigyo') !== !f.licensed) issue('企業主導型と認可外の対応が一致しません');
     const shared = f.sharedVacancy;
     if (shared) {
@@ -117,7 +133,7 @@ export const DatasetSchema = v.pipe(
     }
     const ids = new Set<string>();
     for (const f of data.facilities) {
-      const issue = (message: string) => addIssue({ message: `${f.wardName} (${f.ward}) 施設 ${f.id}: ${message}` });
+      const issue = (message: string) => addIssue({ message: facilityIssue(f, message) });
       if (ids.has(f.id)) issue('施設IDが重複しています');
       ids.add(f.id);
       if (!wards.has(f.ward)) issue('区がwardsに存在しません');

@@ -1,15 +1,7 @@
 import * as v from 'valibot';
-import {
-  CapacitySchema,
-  CountSchema,
-  HomeSchema,
-  HttpUrlSchema,
-  LatitudeSchema,
-  LongitudeSchema,
-  TextSchema,
-} from '../src/schema.ts';
+import { CapacitySchema, CountSchema, HomeSchema, HttpUrlSchema, TextSchema } from '../src/schema.ts';
 
-export const PdfDetailSchema = v.object({
+export const PdfDetailSchema = v.strictObject({
   kana: v.nullable(TextSchema),
   capacity: v.nullable(CapacitySchema),
   weekday: v.nullable(TextSchema),
@@ -21,7 +13,7 @@ export const PdfDetailSchema = v.object({
   note: v.optional(TextSchema),
 });
 export const ManualDetailSchema = v.omit(PdfDetailSchema, ['kana']);
-export const WardDetailSchema = v.object({
+export const WardDetailSchema = v.strictObject({
   name: v.optional(TextSchema),
   kana: v.optional(TextSchema),
   weekday: v.optional(TextSchema),
@@ -30,11 +22,11 @@ export const WardDetailSchema = v.object({
   services: v.optional(v.array(TextSchema)),
   note: v.optional(TextSchema),
 });
-export const WebsiteSchema = v.object({ url: v.nullable(HttpUrlSchema), label: TextSchema });
-export const KigyoDetailSchema = v.object({
+export const WebsiteSchema = v.strictObject({ url: v.nullable(HttpUrlSchema), label: TextSchema });
+export const KigyoDetailSchema = v.strictObject({
   wardTag: TextSchema,
   phone: v.nullable(TextSchema),
-  hours: v.object({ weekday: v.optional(TextSchema), saturday: v.optional(TextSchema), holiday: v.optional(TextSchema) }),
+  hours: v.strictObject({ weekday: v.optional(TextSchema), saturday: v.optional(TextSchema), holiday: v.optional(TextSchema) }),
   capacity: v.nullable(CountSchema),
   monthlyUpTo: v.nullable(TextSchema),
   freeOfCharge: v.nullable(v.boolean()),
@@ -44,14 +36,13 @@ export const KigyoDetailSchema = v.object({
   address: TextSchema,
   startedOn: v.optional(TextSchema),
   operator: v.optional(TextSchema),
-  page: v.pipe(CountSchema, v.minValue(1, 'PDFのページは1以上が必要です')),
+  page: v.pipe(
+    v.number('PDFのページは数値が必要です'),
+    v.integer('PDFのページは整数が必要です'),
+    v.minValue(1, 'PDFのページは1以上が必要です'),
+  ),
 });
-export const GeocodePositionSchema = HomeSchema;
-export const GeocodeHitSchema = v.object({
-  properties: v.object({ title: TextSchema }),
-  geometry: v.object({ coordinates: v.tuple([LongitudeSchema, LatitudeSchema]) }),
-});
-export const GeocodeResponseSchema = v.array(GeocodeHitSchema);
+export const GeocodePositionSchema = v.strictObject(HomeSchema.entries);
 
 export const WardDataSchemas = {
   'pdf-details.json': v.record(TextSchema, PdfDetailSchema),
@@ -61,3 +52,12 @@ export const WardDataSchemas = {
   'kigyo-details.json': v.record(TextSchema, KigyoDetailSchema),
   'geocode-cache.json': v.record(TextSchema, GeocodePositionSchema),
 };
+
+export type PdfDetail = v.InferOutput<typeof PdfDetailSchema>;
+export type ManualDetail = v.InferOutput<typeof ManualDetailSchema>;
+export type WardDetail = v.InferOutput<typeof WardDetailSchema>;
+export type Website = v.InferOutput<typeof WebsiteSchema>;
+export type KigyoDetail = v.InferOutput<typeof KigyoDetailSchema>;
+export type GeocodePosition = v.InferOutput<typeof GeocodePositionSchema>;
+
+export type WardDataFiles = { [K in keyof typeof WardDataSchemas]: v.InferOutput<(typeof WardDataSchemas)[K]> };

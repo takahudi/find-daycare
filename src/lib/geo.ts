@@ -1,6 +1,5 @@
 import * as v from 'valibot';
-import { LatitudeSchema, LongitudeSchema, TextSchema } from '../schema';
-import type { Home } from '../types';
+import { GsiHitSchema, inOsakaCity, type Home } from '../schema';
 
 /** 2点間の直線距離（メートル） */
 export function distanceMeters(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
@@ -19,19 +18,10 @@ export function formatDistance(m: number): string {
 /** 不動産表示規約の目安（徒歩 80m/分）。直線距離ベースなので実際の道のりより短めに出る */
 export const walkMinutes = (m: number) => Math.max(1, Math.ceil(m / 80));
 
-const GsiResponseSchema = v.array(
-  v.object({
-    geometry: v.object({ coordinates: v.tuple([LongitudeSchema, LatitudeSchema]) }),
-    properties: v.object({ title: TextSchema }),
-  }),
-);
-
-const inOsakaCity = ({ lat, lng }: { lat: number; lng: number }) => lat > 34.55 && lat < 34.8 && lng > 135.35 && lng < 135.6;
-
 const KANJI_DIGITS = '〇一二三四五六七八九';
 const kanjiNumber = (s: string) =>
   s.includes('十')
-    ? (s.startsWith('十') ? 1 : KANJI_DIGITS.indexOf(s[0])) * 10 + (s.endsWith('十') ? 0 : KANJI_DIGITS.indexOf(s.at(-1)!))
+    ? (s.startsWith('十') ? 1 : KANJI_DIGITS.indexOf(s[0])) * 10 + (s.endsWith('十') ? 0 : KANJI_DIGITS.indexOf(s.slice(-1)))
     : Number(Array.from(s, (c) => KANJI_DIGITS.indexOf(c)).join(''));
 
 /** 住所の区より後ろを「町名」と最初の数字（丁目、丁目のない町は番地）に分ける。例:「中之島一丁目3番」→ 中之島 / 1 */
@@ -62,9 +52,9 @@ export async function geocode(query: string, wardNames: string[], signal?: Abort
     candidates.map(async (c) => {
       const res = await fetch(`https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodeURIComponent(c)}`, { signal });
       if (!res.ok) throw new Error(`住所検索に失敗しました（HTTP ${res.status}）`);
-      const result = v.safeParse(GsiResponseSchema, await res.json());
-      if (!result.success) throw new Error('住所検索の応答形式が不正です。時間をおいて再度お試しください。');
-      const features = result.output;
+      const result = v.safeParse(v.array(v.unknown()), await res.json());
+      if (!result.success) throw new Error('住所検索の応答形式が不正です。住所検索サービスの対応が必要です。');
+      const features = result.output.filter((hit) => v.is(GsiHitSchema, hit));
       // 「大阪府大阪市中央区」のような区レベルの結果や、その区にない町名を投げると
       // 同じ区の別の町への近似結果が返るので、町名で確かめる
       return features

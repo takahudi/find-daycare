@@ -4,10 +4,12 @@
 // Usage: node scripts/extract-kigyo-details.ts
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import * as v from 'valibot';
+import { WardDataSchemas } from './data-schema.ts';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.ts';
 import { pageTextItems } from './pdf-text.ts';
-import type { KigyoDetail } from './data-types.ts';
+import type { KigyoDetail } from './data-schema.ts';
 
 type BlockField = 'name' | 'type' | 'address';
 type KigyoBlock = Omit<KigyoDetail, BlockField | 'page'> & Partial<Pick<KigyoDetail, BlockField>>;
@@ -114,7 +116,10 @@ for (let p = 1; p <= doc.numPages; p++) {
 for (const ward of WARDS) {
   const out = outByTag.get(ward.ninkagaiTag)!;
   await mkdir(path.resolve('data', ward.id), { recursive: true });
-  await writeFile(path.resolve('data', ward.id, 'kigyo-details.json'), JSON.stringify(out, null, 2) + '\n');
+  const outputPath = path.resolve('data', ward.id, 'kigyo-details.json');
+  const result = v.safeParse(WardDataSchemas['kigyo-details.json'], out);
+  if (!result.success) throw new Error(`${outputPath}: ${v.summarize(result.issues)}`);
+  await writeFile(outputPath, JSON.stringify(out, null, 2) + '\n');
   console.log(`== ${ward.name}`);
   for (const d of Object.values(out)) {
     console.log(
