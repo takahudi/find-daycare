@@ -1,6 +1,6 @@
 // 区役所の施設紹介資料PDF（fetch-sources.mjs が sources/<区>/homepage-sources/<n>/ に保存する）から
 // 「ホームページ：」欄を抽出する。
-// 出力は確認用の一覧（sources/<区>/websites.json は目視確認のうえ手で更新する）。
+// 出力は確認用の一覧（data/<区>/websites.json は目視確認のうえ手で更新する）。
 // Usage: node scripts/extract-ward-homepages.mjs <区のid>   例: node scripts/extract-ward-homepages.mjs tennoji
 import { readdir, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';

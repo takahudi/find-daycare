@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const wardId = process.argv[2] ?? 'chuo';
-const sites = JSON.parse(await readFile(path.resolve('sources', wardId, 'websites.json'), 'utf8'));
+const sites = JSON.parse(await readFile(path.resolve('data', wardId, 'websites.json'), 'utf8'));
 const entries = Object.entries(sites).filter(([k, v]) => !k.startsWith('_') && v.url);
 
 await Promise.all(

@@ -1,8 +1,8 @@
 // 大阪市「地域の児童が利用できる認可外保育施設一覧（詳細）」PDFから、
 // 対象区の企業主導型保育事業の開所時間・定員・設置者などを抽出する。
-// 出力: sources/<区>/kigyo-details.json （電話番号 → 抽出結果）
+// 出力: data/<区>/kigyo-details.json （電話番号 → 抽出結果）
 // Usage: node scripts/extract-kigyo-details.mjs
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.mjs';
@@ -99,7 +99,8 @@ for (let p = 1; p <= doc.numPages; p++) {
 
 for (const ward of WARDS) {
   const out = outByTag.get(ward.ninkagaiTag);
-  await writeFile(path.resolve('sources', ward.id, 'kigyo-details.json'), JSON.stringify(out, null, 2) + '\n');
+  await mkdir(path.resolve('data', ward.id), { recursive: true });
+  await writeFile(path.resolve('data', ward.id, 'kigyo-details.json'), JSON.stringify(out, null, 2) + '\n');
   console.log(`== ${ward.name}`);
   for (const d of Object.values(out)) {
     console.log(

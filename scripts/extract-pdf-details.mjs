@@ -1,8 +1,8 @@
 // 大阪市「保育施設等一覧」（区別）の各施設基本情報PDFから、
 // 認可定員・開園時間・施設URL・認可年月日・特別保育・ふりがなを抽出する。
-// 出力: sources/<区>/pdf-details.json （ファイル名 → 抽出結果）
+// 出力: data/<区>/pdf-details.json （ファイル名 → 抽出結果）
 // Usage: node scripts/extract-pdf-details.mjs
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.mjs';
@@ -197,7 +197,8 @@ for (const ward of WARDS) {
       approvedOn: approvedOn(pages[0]),
     };
   }
-  await writeFile(path.resolve('sources', ward.id, 'pdf-details.json'), JSON.stringify(out, null, 2) + '\n');
+  await mkdir(path.resolve('data', ward.id), { recursive: true });
+  await writeFile(path.resolve('data', ward.id, 'pdf-details.json'), JSON.stringify(out, null, 2) + '\n');
   console.log(`== ${ward.name}`);
   for (const [f, d] of Object.entries(out)) {
     console.log(

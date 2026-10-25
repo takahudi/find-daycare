@@ -3,5 +3,5 @@
   "printWidth": 130,
   "singleQuote": true,
   "sortPackageJson": false,
-  "ignorePatterns": ["src/data/**", "sources/**", "*.md"]
+  "ignorePatterns": ["src/data/**", "sources/**", "data/**", "*.md"]
 }
