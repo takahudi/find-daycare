@@ -141,7 +141,7 @@ export function MapView({ facilities, vacancyOf, distanceOf, home, selectedId, o
               <strong>{f.name}</strong>
               <div className="popup-meta">
                 {f.wardName} ・ {FACILITY_TYPE_LABELS[f.facilityType].label}
-                {f.licensing === 'unlicensed' && ` ・ ${LICENSING_LABELS[f.licensing].label}`}
+                {f.licensing === 'unlicensed' && ` ・ ${LICENSING_LABELS[f.licensing]}`}
                 {distance !== null && ` ・ 自宅から${formatDistance(distance)}`}
               </div>
               <div className="popup-vacancy">

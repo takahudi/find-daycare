@@ -50,7 +50,7 @@ function loadHome(): Home | null {
 export default function App() {
   const [ages, setAges] = useState<number[]>([]);
   const [wardIds, setWardIds] = useState<string[]>(data.wards.map((w) => w.id));
-  const [facilityTypes, setFacilityTypes] = useState<FacilityType[]>(FACILITY_TYPES);
+  const [facilityTypes, setFacilityTypes] = useState<FacilityType[]>([...FACILITY_TYPES]);
   const [onlyOpen, setOnlyOpen] = useState(false);
   const [home, setHome] = useState<Home | null>(loadHome);
   const [sort, setSort] = useState<SortKey>(home ? 'distance' : 'vacancy');
@@ -317,7 +317,7 @@ export default function App() {
               <i className="pin pin--full">×</i> 空きなし
             </span>
             <span>
-              <i className="pin pin--open pin--unlicensed">1</i> {LICENSING_LABELS.unlicensed.label}
+              <i className="pin pin--open pin--unlicensed">1</i> {LICENSING_LABELS.unlicensed}
             </span>
             {home && (
               <span>

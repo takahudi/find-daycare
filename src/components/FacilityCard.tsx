@@ -19,7 +19,6 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
   const total = vacancyCount(f, []);
   const shared = f.sharedVacancy;
   const typeLabel = FACILITY_TYPE_LABELS[f.facilityType].label;
-  const licensingLabel = LICENSING_LABELS[f.licensing];
   const showDetailType = f.detailType && f.detailType !== typeLabel;
 
   return (
@@ -33,7 +32,7 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
         <div className="card__badges">
           <span className="badge badge--ward">{f.wardName}</span>
           <span className={`badge badge--${f.facilityType}`}>{typeLabel}</span>
-          {f.licensing === 'unlicensed' && <span className="badge badge--unlicensed">{licensingLabel.label}</span>}
+          {f.licensing === 'unlicensed' && <span className="badge badge--unlicensed">{LICENSING_LABELS[f.licensing]}</span>}
           {f.ownership && <span className="badge badge--plain">{f.ownership}</span>}
           {showDetailType && <span className="badge badge--plain">{f.detailType}</span>}
         </div>

@@ -1,4 +1,3 @@
-import * as v from 'valibot';
 import { FacilityTypeSchema, type FacilityType, type Licensing } from '../schema';
 
 export const FACILITY_TYPE_LABELS: Record<FacilityType, { label: string; filterLabel: string }> = {
@@ -8,9 +7,9 @@ export const FACILITY_TYPE_LABELS: Record<FacilityType, { label: string; filterL
   kigyo: { label: '企業主導型', filterLabel: '企業主導型' },
 };
 
-export const FACILITY_TYPES = v.parse(v.array(FacilityTypeSchema), Object.keys(FACILITY_TYPE_LABELS));
+export const FACILITY_TYPES = FacilityTypeSchema.options;
 
-export const LICENSING_LABELS: Record<Licensing, { label: string }> = {
-  licensed: { label: '認可' },
-  unlicensed: { label: '認可外' },
+export const LICENSING_LABELS: Record<Licensing, string> = {
+  licensed: '認可',
+  unlicensed: '認可外',
 };

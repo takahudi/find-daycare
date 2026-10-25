@@ -1,7 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import * as v from 'valibot';
 import rawData from './data/facilities.json';
-import { DatasetSchema, FacilitySchema, HomeSchema, type Dataset } from './schema';
+import {
+  DatasetSchema,
+  FacilitySchema,
+  FacilityTypeSchema,
+  HomeSchema,
+  LICENSING_BY_FACILITY_TYPE,
+  type Dataset,
+} from './schema';
 
 const dataset = () => v.parse(DatasetSchema, structuredClone(rawData));
 
@@ -99,12 +106,11 @@ describe('公開データ', () => {
       ).toBe(true);
   });
 
-  it.each([
-    ['nursery', 'unlicensed'],
-    ['kodomoen', 'unlicensed'],
-    ['community', 'unlicensed'],
-    ['kigyo', 'licensed'],
-  ] as const)('施設種別%sと認可区分%sの不整合を施設ID付きで拒否する', (facilityType, licensing) => {
+  it.each(
+    FacilityTypeSchema.options.map(
+      (type) => [type, LICENSING_BY_FACILITY_TYPE[type] === 'licensed' ? 'unlicensed' : 'licensed'] as const,
+    ),
+  )('施設種別%sと認可区分%sの不整合を施設ID付きで拒否する', (facilityType, licensing) => {
     const data = dataset();
     const f = data.facilities[0];
     f.facilityType = facilityType;

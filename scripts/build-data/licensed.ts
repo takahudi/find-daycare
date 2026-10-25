@@ -1,4 +1,4 @@
-import { LICENSING_BY_FACILITY_TYPE, type Facility } from '../../src/schema.ts';
+import type { Facility } from '../../src/schema.ts';
 import type { WardConfig } from '../wards.ts';
 import type { Warn } from './types.ts';
 import type { WardInputs } from './inputs.ts';
@@ -84,7 +84,8 @@ export function buildLicensed(ward: WardConfig, wardRows: string[][], input: War
       name: extra?.name ?? name,
       kana: reading,
       facilityType: FACILITY_TYPE[category],
-      licensing: LICENSING_BY_FACILITY_TYPE[FACILITY_TYPE[category]],
+      // 市の認可施設の一覧から作るので認可。施設種別との対応はスキーマで確かめる
+      licensing: 'licensed',
       detailType: listed?.detailType ?? null,
       ownership: listed?.ownership ?? null,
       operator: listed?.operator ?? null,
