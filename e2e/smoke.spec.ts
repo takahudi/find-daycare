@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
+import data from '../src/data/facilities.json' with { type: 'json' };
 
 test.beforeEach(async ({ page }) => {
   // 地図タイルと住所検索は外部サービスなので、テストの結果をそれらの応答に左右させない
@@ -19,9 +19,7 @@ test('施設のカードが表示される', async ({ page }) => {
 });
 
 test('クラス年齢を選ぶと、その年齢を受け入れる施設と空きのある施設の件数に絞られる', async ({ page }) => {
-  const { facilities } = JSON.parse(readFileSync('src/data/facilities.json', 'utf8')) as {
-    facilities: { vacancies: (number | null)[] }[];
-  };
+  const { facilities } = data;
   const hasOpening = (f: { vacancies: (number | null)[] }, ages: number[]) => ages.some((a) => (f.vacancies[a] ?? 0) > 0);
   const acceptingZero = facilities.filter((f) => f.vacancies[0] !== null);
   const summary = page.getByText(/件中.*に空きあり/);

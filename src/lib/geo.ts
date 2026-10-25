@@ -58,6 +58,7 @@ export async function geocode(query: string, wardNames: string[], signal?: Abort
     candidates.map(async (c) => {
       const res = await fetch(`https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodeURIComponent(c)}`, { signal });
       if (!res.ok) throw new Error(`住所検索に失敗しました（HTTP ${res.status}）`);
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- 外部APIの応答。形は検証していない
       const features = (await res.json()) as GsiFeature[];
       // 「大阪府大阪市中央区」のような区レベルの結果や、その区にない町名を投げると
       // 同じ区の別の町への近似結果が返るので、町名で確かめる

@@ -6,6 +6,7 @@ import { MapView } from './components/MapView';
 import { distanceMeters, geocode } from './lib/geo';
 import { AGE_LABELS, AGES, acceptsAny, vacancyCount } from './lib/vacancy';
 
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion -- build-data.mjs が生成する JSON。実行時の検証はデータのスキーマ検証で入れる
 const data = rawData as Dataset;
 const WARD_NAMES = data.wards.map((w) => w.name);
 // 区が増えると区名を並べきれないので、5区以上は区の数で表す（区名は見出しのツールチップに出す）
@@ -43,6 +44,7 @@ const HOME_KEY = 'find-daycare:home';
 function loadHome(): Home | null {
   try {
     const raw = localStorage.getItem(HOME_KEY);
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- 自分で保存した値だが、利用者が書き換えられるので本来は検証が要る
     return raw ? (JSON.parse(raw) as Home) : null;
   } catch {
     return null;
@@ -242,6 +244,7 @@ export default function App() {
           </label>
           <label className="sort">
             並び順
+            {/* oxlint-disable-next-line typescript/no-unsafe-type-assertion -- 選択肢は SortKey の値だけで作っている */}
             <select value={sort} onChange={(e) => setSort(e.target.value as SortKey)}>
               <option value="distance" disabled={!home}>
                 自宅から近い順{home ? '' : '（住所を入力）'}
