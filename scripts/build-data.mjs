@@ -1,17 +1,17 @@
 // 一次情報（大阪市・各区役所の公開データ）から、アプリが読む src/data/facilities.json を生成する。
 // 対象の区と取得元は scripts/wards.mjs を参照。
 //
-// 入力（sources/ 配下）
-//   sukusukudata.csv            大阪市「保育施設等 空き情報マップ」のデータ（全市。緯度経度・年齢別空き人数）
-//   <区>/list.xlsx              大阪市「保育施設等一覧（区別）」（施設種別・設置運営・郵便番号・運営法人）
-//   <区>/vacancy.xlsx|xls|pdf   区役所の空き情報（xlsx・xls の区は CSV と自動照合する）
-//   <区>/pdf-details.json       各施設「基本情報」PDFからの抽出結果（extract-pdf-details.mjs）
-//   <区>/manual-details.json    自動抽出できない様式のPDFを目視転記したもの
-//   <区>/ward-details.json      区の資料からの補完・ふりがな補正
-//   <区>/websites.json          各施設の公式ホームページURL
-//   <区>/kigyo_page.html        区役所「企業主導型保育事業所の空き情報」ページ
-//   <区>/kigyo-details.json     認可外保育施設一覧（詳細）PDFからの抽出結果（extract-kigyo-details.mjs）
-//   <区>/geocode-cache.json     企業主導型で座標が公開されていない施設の住所検索結果（国土地理院）
+// 入力（一次情報は sources/、手で整えた JSON と抽出結果は data/）
+//   sources/sukusukudata.csv           大阪市「保育施設等 空き情報マップ」のデータ（全市。緯度経度・年齢別空き人数）
+//   sources/<区>/list.xlsx             大阪市「保育施設等一覧（区別）」（施設種別・設置運営・郵便番号・運営法人）
+//   sources/<区>/vacancy.xlsx|xls|pdf  区役所の空き情報（xlsx・xls の区は CSV と自動照合する）
+//   sources/<区>/kigyo_page.html       区役所「企業主導型保育事業所の空き情報」ページ
+//   data/<区>/pdf-details.json         各施設「基本情報」PDFからの抽出結果（extract-pdf-details.mjs）
+//   data/<区>/manual-details.json      自動抽出できない様式のPDFを目視転記したもの
+//   data/<区>/ward-details.json        区の資料からの補完・ふりがな補正
+//   data/<区>/websites.json            各施設の公式ホームページURL
+//   data/<区>/kigyo-details.json       認可外保育施設一覧（詳細）PDFからの抽出結果（extract-kigyo-details.mjs）
+//   data/<区>/geocode-cache.json       企業主導型で座標が公開されていない施設の住所検索結果（国土地理院）
 //
 // Usage: node scripts/build-data.mjs
 import { readFile, readdir, writeFile, mkdir } from 'node:fs/promises';
@@ -22,12 +22,13 @@ import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { CITY_SOURCES, WARDS } from './wards.mjs';
 
 const SRC = path.resolve('sources');
+const DATA = path.resolve('data');
 const OUT = path.resolve('src/data/facilities.json');
 const KIGYO_DETAIL_PDF =
   'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf';
 
 const readJson = async (...p) => {
-  const file = path.join(SRC, ...p);
+  const file = path.join(DATA, ...p);
   return existsSync(file) ? JSON.parse(await readFile(file, 'utf8')) : {};
 };
 const normName = (s) =>
@@ -234,7 +235,7 @@ function pickOperator(fromPdf, fromWard) {
   return i === p.length && w.length > p.length ? fromWard : fromPdf;
 }
 
-/** 国土地理院の住所検索で座標を求める（結果は sources/<区>/geocode-cache.json に保存して再利用） */
+/** 国土地理院の住所検索で座標を求める（結果は data/<区>/geocode-cache.json に保存して再利用） */
 async function geocode(address, cache) {
   // 建物名・階数は検索の妨げになるので番地までにする
   const query = address.normalize('NFKC').match(/^.*?\d+(?:-\d+)*/)?.[0] ?? address;
@@ -797,7 +798,8 @@ for (const ward of WARDS) {
   // 表に時点の記載がなく施設ごとの調査日だけがある区（阿倍野区）は、調査日を時点として出す
   if (!kigyoAsOf && surveyDates.size) kigyoAsOf = `${[...surveyDates].sort().join('・')}調査`;
   if (Object.keys(geocodeCache).length) {
-    await writeFile(path.join(SRC, ward.id, 'geocode-cache.json'), JSON.stringify(geocodeCache, null, 2) + '\n');
+    await mkdir(path.join(DATA, ward.id), { recursive: true });
+    await writeFile(path.join(DATA, ward.id, 'geocode-cache.json'), JSON.stringify(geocodeCache, null, 2) + '\n');
   }
 
   const ids = wardFacilities.map((f) => f.id);

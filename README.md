@@ -81,7 +81,7 @@ pnpm format     # oxfmt で整形
 
 ## データの出典（一次情報）
 
-すべて大阪市・各区役所の公開情報から作成しています（`sources/` に取得したファイルを保存）。
+すべて大阪市・各区役所の公開情報から作成しています（取得したファイルは `sources/` に保存し、Git には入れていません）。
 
 ### 共通（大阪市）
 
@@ -182,13 +182,13 @@ pnpm format     # oxfmt で整形
 pnpm data:update   # 一次情報を再取得 → PDFから抽出 → src/data/facilities.json を再生成
 ```
 
-対象の区と各区の取得元ページは `scripts/wards.mjs` にまとまっています。区を追加するときはここに1件足し、`pnpm data:update` のあと `sources/<区>/` に補完ファイル（下記）を用意します。
+対象の区と各区の取得元ページは `scripts/wards.mjs` にまとまっています。区を追加するときはここに1件足し、`pnpm data:update` のあと `data/<区>/` に補完ファイル（下記）を用意します。
 
 - `scripts/fetch-sources.mjs [区のid]` … 市・区のページから CSV / xlsx / PDF / HTML を `sources/` に取得（区のidを渡すとその区だけ）
-- `scripts/extract-pdf-details.mjs` … 各施設の基本情報PDFから定員・開園時間などを位置ベースで抽出 → `sources/<区>/pdf-details.json`（幼保連携型認定こども園の「1号」「2号・3号」に分かれた認可定員は合算し、内訳を注記）
-- `scripts/extract-kigyo-details.mjs` … 認可外保育施設一覧（詳細）PDFから企業主導型の開所時間・定員などを抽出 → `sources/<区>/kigyo-details.json`（1ページ上下2施設の段組みを、区見出しの縦位置で施設ごとに分けて読む）
-- `scripts/build-data.mjs` … 上記と補完ファイルを突き合わせて `src/data/facilities.json` を生成（区の空き情報xlsxとCSVの自動照合、企業主導型の住所検索 → `sources/<区>/geocode-cache.json` を含む）
-- 補完ファイル（`sources/<区>/`）：`manual-details.json`（自動抽出できない様式のPDFの目視転記）、`ward-details.json`（区資料からの補完・ふりがな補正・注記）、`websites.json`（公式サイトURL）
+- `scripts/extract-pdf-details.mjs` … 各施設の基本情報PDFから定員・開園時間などを位置ベースで抽出 → `data/<区>/pdf-details.json`（幼保連携型認定こども園の「1号」「2号・3号」に分かれた認可定員は合算し、内訳を注記）
+- `scripts/extract-kigyo-details.mjs` … 認可外保育施設一覧（詳細）PDFから企業主導型の開所時間・定員などを抽出 → `data/<区>/kigyo-details.json`（1ページ上下2施設の段組みを、区見出しの縦位置で施設ごとに分けて読む）
+- `scripts/build-data.mjs` … 上記と補完ファイルを突き合わせて `src/data/facilities.json` を生成（区の空き情報xlsxとCSVの自動照合、企業主導型の住所検索 → `data/<区>/geocode-cache.json` を含む）
+- 補完ファイル（`data/<区>/`）：`manual-details.json`（自動抽出できない様式のPDFの目視転記）、`ward-details.json`（区資料からの補完・ふりがな補正・注記）、`websites.json`（公式サイトURL）
 - `scripts/extract-ward-homepages.mjs <区のid>` … 区の施設紹介資料PDFの「ホームページ」「URL」「ホームページアドレス」欄・区のページの「〇〇のホームページ」リンクや表の施設名リンク・施設の写真のリンクを一覧表示（`websites.json` 更新時の確認用）
 - `scripts/check-urls.mjs <区のid>` … `websites.json` のURLが開けるか確認（Cloudflare等で自動アクセスが拒否されるサイトはブラウザで確認）
 - `scripts/dump-pdf-text.mjs` … PDFのテキストを座標付きで表示するデバッグ用
