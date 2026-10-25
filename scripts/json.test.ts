@@ -1,5 +1,6 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { tmpdir } from 'node:os';
 import { describe, expect, it } from 'vitest';
 import { parseJson, writeJson } from './json.ts';
 
@@ -92,17 +93,19 @@ describe('入力JSONの厳密なキー検証', () => {
 
 describe('JSONの書き込み境界', () => {
   it('有効な値を既存のインデントと末尾改行で保存し、不正な値では既存ファイルを保つ', async () => {
-    const directory = await mkdtemp(path.resolve('.json-test-'));
-    const file = path.join(directory, 'websites.json');
-    const data = { 施設: { label: '公式', url: 'https://example.com' } };
+    const directory = await mkdtemp(path.join(tmpdir(), 'find-daycare-json-test-'));
+    const file = path.join(directory, 'geocode-cache.json');
+    const data = { 施設: { lat: 34.69, lng: 135.5, label: '大阪市北区中之島' } };
     try {
-      await writeJson('websites.json', file, data);
+      await writeJson('geocode-cache.json', file, data);
       const expected = JSON.stringify(data, null, 2) + '\n';
       expect(await readFile(file, 'utf8')).toBe(expected);
-      await expect(writeJson('websites.json', file, { 施設: { url: 1, label: '公式' } })).rejects.toThrow('施設.url');
+      await expect(writeJson('geocode-cache.json', file, { 施設: { ...data.施設, lat: 91 } })).rejects.toThrow('施設.lat');
       expect(await readFile(file, 'utf8')).toBe(expected);
       await writeFile(file, 'preserved');
-      await expect(writeJson('websites.json', file, { _broken: '不正' })).rejects.toThrow('_broken');
+      await expect(writeJson('geocode-cache.json', file, { _broken: { ...data.施設, label: '' } })).rejects.toThrow(
+        '_broken.label',
+      );
       expect(await readFile(file, 'utf8')).toBe('preserved');
     } finally {
       await rm(directory, { recursive: true, force: true });

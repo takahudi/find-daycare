@@ -49,14 +49,6 @@ export const GsiHitSchema = v.object({
   geometry: v.object({ coordinates: v.tuple([LongitudeSchema, LatitudeSchema]) }),
 });
 
-export function gsiCandidates(json: unknown): Home[] {
-  if (!v.is(v.array(v.unknown()), json)) return [];
-  return json
-    .filter((hit) => v.is(GsiHitSchema, hit))
-    .map((hit) => ({ lat: hit.geometry.coordinates[1], lng: hit.geometry.coordinates[0], label: hit.properties.title }))
-    .filter((home) => inOsakaCity(home) && !/[区市]$/.test(home.label));
-}
-
 export const FacilitySchema = v.pipe(
   v.object({
     id: TextSchema,

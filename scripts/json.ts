@@ -21,11 +21,18 @@ export function validateJson<K extends keyof typeof JsonSchemas>(
   data: unknown,
 ): v.InferOutput<(typeof JsonSchemas)[K]> {
   const result = v.safeParse(JsonSchemas[document], data);
-  if (!result.success) throw new Error(v.summarize(result.issues));
+  if (!result.success) {
+    const prefix = document === 'facilities.json' ? '公開データの検証に失敗しました\n' : '';
+    throw new Error(prefix + v.summarize(result.issues));
+  }
   return result.output;
 }
 
-export async function writeJson(document: keyof typeof JsonSchemas, path: string, data: unknown): Promise<void> {
+export async function writeJson<K extends keyof typeof JsonSchemas>(
+  document: K,
+  path: string,
+  data: v.InferInput<(typeof JsonSchemas)[K]>,
+): Promise<void> {
   validateJson(document, data);
   await writeFile(path, JSON.stringify(data, null, 2) + '\n');
 }

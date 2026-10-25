@@ -2,9 +2,9 @@
 // 対象区の企業主導型保育事業の開所時間・定員・設置者などを抽出する。
 // 出力: data/<区>/kigyo-details.json （電話番号 → 抽出結果）
 // Usage: node scripts/extract-kigyo-details.ts
-import { mkdir, readFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { validateJson, writeJson } from './json.ts';
+import { validateJson } from './json.ts';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { WARDS } from './wards.ts';
 import { pageTextItems } from './pdf-text.ts';
@@ -96,7 +96,8 @@ function parsePage(items: Token[]) {
 }
 
 const doc = await getDocument({ data: new Uint8Array(await readFile(PDF)), verbosity: 0 }).promise;
-const outByTag = new Map<string, Record<string, KigyoDetail>>(WARDS.map((w) => [w.ninkagaiTag, {}]));
+const outputs: { ward: (typeof WARDS)[number]; out: Record<string, KigyoDetail> }[] = WARDS.map((ward) => ({ ward, out: {} }));
+const outByTag = new Map(outputs.map(({ ward, out }) => [ward.ninkagaiTag, out]));
 for (let p = 1; p <= doc.numPages; p++) {
   const items = await pageTextItems(await doc.getPage(p));
   const tokens = items.map((i): Token => ({ s: i.str.trim(), y: i.transform[5] })).filter((i) => i.s);
@@ -113,16 +114,10 @@ for (let p = 1; p <= doc.numPages; p++) {
   }
 }
 
-const outputs: { ward: (typeof WARDS)[number]; out: Record<string, KigyoDetail> }[] = [];
-for (const ward of WARDS) {
-  const out = outByTag.get(ward.ninkagaiTag) ?? {};
-  outputs.push({ ward, out });
-}
-
 for (const { out } of outputs) validateJson('kigyo-details.json', out);
 for (const { ward, out } of outputs) {
   await mkdir(path.resolve('data', ward.id), { recursive: true });
-  await writeJson('kigyo-details.json', path.resolve('data', ward.id, 'kigyo-details.json'), out);
+  await writeFile(path.resolve('data', ward.id, 'kigyo-details.json'), JSON.stringify(out, null, 2) + '\n');
   console.log(`== ${ward.name}`);
   for (const d of Object.values(out)) {
     console.log(

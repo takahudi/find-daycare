@@ -1,5 +1,11 @@
 import * as v from 'valibot';
-import { gsiCandidates, type Home } from '../schema';
+import { GsiHitSchema, inOsakaCity, type Home } from '../schema.ts';
+
+export function gsiCandidates(hits: unknown[]): Home[] {
+  return hits
+    .filter((hit) => v.is(GsiHitSchema, hit))
+    .map((hit) => ({ lat: hit.geometry.coordinates[1], lng: hit.geometry.coordinates[0], label: hit.properties.title }));
+}
 
 /** 2点間の直線距離（メートル） */
 export function distanceMeters(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
@@ -56,7 +62,9 @@ export async function geocode(query: string, wardNames: string[], signal?: Abort
       if (!result.success) throw new Error('住所検索を現在利用できません。「現在地」ボタンをお使いください。');
       // 「大阪府大阪市中央区」のような区レベルの結果や、その区にない町名を投げると
       // 同じ区の別の町への近似結果が返るので、町名で確かめる
-      return gsiCandidates(result.output).filter((h) => h.label.includes(input.town));
+      return gsiCandidates(result.output).filter(
+        (h) => inOsakaCity(h) && !/[区市]$/.test(h.label) && h.label.includes(input.town),
+      );
     }),
   );
   // 別の区の候補を引くと「〇〇町西」のような前方一致の町が返るので、町名・数字が完全に一致する結果を優先する
