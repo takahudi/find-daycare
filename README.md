@@ -39,7 +39,26 @@ pnpm dev
 # → http://localhost:5173 を開く
 ```
 
+Cloudflare Vite プラグインを使い、Workers の実行環境（workerd）で動かします。`pnpm build && pnpm preview` で、セキュリティヘッダーを含む本番ビルドをローカルで確認できます。
+
 地図タイルと住所検索はインターネット経由（国土地理院）で取得するため、オンライン環境で使ってください。
+
+## デプロイ
+
+Cloudflare Workers Static Assets の workers.dev に公開します。リポジトリへの書き込み権限を持つ人が同じリポジトリ内のブランチから作った PR では、チェックと E2E が通ると PR ごとのプレビュー URL を作ります。フォークや Bot が作成した PR ではプレビューを作りません。
+
+プレビュー URL は `https://pr-<PR番号>-find-daycare.<workers.dev サブドメイン>.workers.dev` です。各実行の GitHub Actions Summary から開けます。GitHub の preview 環境では、最新のプレビューだけがアクティブなデプロイとして表示されます。
+
+`main` にマージすると、CI でビルドし、E2E を通過した同じ artifact を本番にデプロイします。GitHub リポジトリの secrets に `CLOUDFLARE_API_TOKEN` と `CLOUDFLARE_ACCOUNT_ID` を設定してください。
+
+意図的なロールバックには `wrangler rollback` またはダッシュボードを使い、過去の workflow run は再実行しません。
+
+初回の Worker 作成には `wrangler deploy` が必要です。プレビューを使う前に、`main` の本番デプロイを一度成功させるか、認証情報を設定した環境で次を実行してください。Worker が存在するまでは `wrangler versions upload` は使えません。
+
+```bash
+pnpm build
+pnpm exec wrangler deploy --config wrangler.jsonc --assets dist
+```
 
 ## 開発時のチェック
 
