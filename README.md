@@ -31,7 +31,7 @@
 
 ## 起動方法
 
-Node.js 24 と pnpm 12 を使います。Node.js のバージョンは `.node-version`、pnpm のバージョンは `package.json` の `packageManager` で固定しています。pnpm が入っていなければ、`corepack enable pnpm` で使えるようにしてください。
+Node.js 24 と pnpm 12 を使います。Node.js のバージョンは `.node-version`、pnpm のバージョンは `package.json` の `packageManager` で固定しています。pnpm が入っていなければ `npm install -g pnpm` で入れてください。どの版を入れても、このリポジトリでは `packageManager` の版に自動で切り替わります。
 
 ```bash
 pnpm install
@@ -46,7 +46,7 @@ pnpm dev
 ```bash
 pnpm check      # 整形の確認・lint・型チェック・単体テスト・ビルド（CI と同じ内容）
 pnpm test       # 単体テスト（Vitest）
-pnpm test:e2e   # 本番ビルドに対するスモークテスト（Playwright。初回は pnpm exec playwright install chromium）
+pnpm test:e2e   # 本番ビルドに対するスモークテスト（Playwright。初回は pnpm exec playwright install --only-shell chromium）
 pnpm format     # oxfmt で整形
 ```
 
