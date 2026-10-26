@@ -3,9 +3,9 @@
 // Usage: node scripts/fetch-sources.ts [区のid ...]
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { parseArgs } from 'node:util';
+import { parseFetchArgs } from './snapshot-cli.ts';
 import { createR2StorageIfConfigured } from './snapshot-storage.ts';
-import { fetchSnapshots, selectIds } from './snapshots.ts';
+import { fetchSnapshots } from './snapshots.ts';
 import { CITY_SOURCES, WARDS } from './wards.ts';
 
 const SRC = path.resolve('sources');
@@ -29,16 +29,12 @@ async function listFiles(pageUrl: string, ext: string) {
   return [...new Set([...html.matchAll(re)].map((m) => `${origin}/${dept}/${m[1]}`))];
 }
 
-const { positionals: only, values } = parseArgs({
-  allowPositionals: true,
-  options: { 'force-city': { type: 'boolean', default: false }, 'discard-unarchived': { type: 'string', multiple: true } },
-});
+const { positionals: only, values } = parseFetchArgs(process.argv.slice(2));
 const snapshotOptions = {
   storage: createR2StorageIfConfigured(),
   forceCity: values['force-city'],
   discardUnarchived: values['discard-unarchived'],
 };
-selectIds(only);
 const downloads = new Map<string, (dir: string) => Promise<void>>();
 downloads.set('city', async (dir) => {
   const download = (url: string, file: string) => downloadFile(url, file, path.join(SRC, 'city', path.relative(dir, file)));

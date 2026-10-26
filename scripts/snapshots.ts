@@ -28,6 +28,13 @@ export function selectIds(ids: string[]) {
   return selected;
 }
 
+export function validateDiscardIds(selected: string[], discarded: string[]) {
+  if (!discarded.length) return;
+  for (const id of selectIds(discarded)) {
+    if (!selected.includes(id)) throw new Error(`--discard-unarchived ${id}: 選択した取得・復元対象に含まれていません`);
+  }
+}
+
 export async function listLocalFiles(dir: string): Promise<string[]> {
   const files: string[] = [];
   async function visit(relative: string) {
@@ -134,7 +141,11 @@ interface DirectoryCommit {
   cleanup(): Promise<void>;
 }
 
-export async function replaceDirectory(target: string, populate: (temporary: string) => Promise<DirectoryCommit | void>) {
+export async function replaceDirectory(
+  target: string,
+  populate: (temporary: string) => Promise<DirectoryCommit | void>,
+  verified?: Snapshot,
+) {
   await mkdir(path.dirname(target), { recursive: true });
   const temporary = await mkdtemp(path.join(path.dirname(target), `.${path.basename(target)}-new-`));
   const previous = `${temporary}-old`;
@@ -191,6 +202,16 @@ export async function replaceDirectory(target: string, populate: (temporary: str
     );
   }
   if (movedOld) {
+    if (verified) {
+      try {
+        await verifyLocalFiles(previous, verified);
+      } catch (error) {
+        throw new Error(
+          `置換は完了しました。新データ: ${target}\n旧ツリーが事前検証後に変更されたか再検証できないため、旧データを保持しました: ${previous}`,
+          { cause: error },
+        );
+      }
+    }
     try {
       await rm(previous, { recursive: true });
     } catch (error) {
@@ -206,18 +227,22 @@ export async function assertReplaceable(
   target: string,
   storage: SnapshotStorage | undefined,
   data = path.resolve('data'),
+  discardUnarchived = false,
 ) {
-  if (!(await optionalStat(target))) return;
+  const old = await optionalStat(target);
+  if (!old) return undefined;
+  if (!old.isDirectory() || old.isSymbolicLink()) throw new Error(`${target}: 通常のディレクトリではありません`);
+  if (discardUnarchived) return undefined;
   function refuse(reason: string, cause?: unknown): never {
     throw new Error(
       `${id}: 置換を拒否しました。${reason}\nツリーと作業ツリーのマニフェストが一致するブランチで pnpm data:archive ${id} を実行するか、削除を許可する対象ごとに --discard-unarchived ${id} を指定して再実行してください`,
       { cause },
     );
   }
-  if (!(await optionalStat(path.join(data, id, 'snapshot.json')))) refuse('作業ツリーのマニフェストがありません');
-  const manifest = await readManifest(id, data).catch((error: unknown) =>
+  const manifest = await readManifestIfExists(id, data).catch((error: unknown) =>
     refuse('作業ツリーのマニフェストを読み込めません', error),
   );
+  if (!manifest) refuse('作業ツリーのマニフェストがありません');
   const actual = await hashTree(target).catch((error: unknown) => refuse('ツリーを検証できません', error));
   if (!isDeepStrictEqual(actual, manifest.files)) {
     const paths = [...new Set([...Object.keys(actual), ...Object.keys(manifest.files)])].filter(
@@ -227,11 +252,14 @@ export async function assertReplaceable(
       `ツリーが作業ツリーのマニフェストと異なります: ${paths.slice(0, 5).join(', ')}${paths.length > 5 ? ` ほか${paths.length - 5}件` : ''}`,
     );
   }
-  if (!storage) refuse('R2の認証情報がありません');
-  const archived = await storage
-    .head(`snapshots/${id}/${manifest.fetchedOn}/snapshot.json`)
-    .catch((error: unknown) => refuse('R2の保管状況を確認できません', error));
+  if (!storage) refuse('R2の認証情報がありません。保管と保管状況の確認の両方に認証情報が必要です。.envを設定してください');
+  const archived = await storage.head(`snapshots/${id}/${manifest.fetchedOn}/snapshot.json`).catch((error: unknown) => {
+    throw new Error(`${id}: R2の保管状況を確認できないため置換を拒否しました。接続を確認して再試行してください`, {
+      cause: error,
+    });
+  });
   if (archived?.sha256 !== sha256(manifestBytes(manifest))) refuse('同じSHA-256のマニフェストがR2に保管されていません');
+  return manifest;
 }
 
 export async function stageManifest(id: string, manifest: Snapshot, dataDir: string): Promise<DirectoryCommit> {
@@ -293,9 +321,9 @@ export async function fetchSnapshots(
   }: FetchOptions = {},
 ) {
   const selected = selectIds(ids);
-  if (discardUnarchived.length) selectIds(discardUnarchived);
+  validateDiscardIds(selected, discardUnarchived);
   v.parse(SnapshotDateSchema, fetchedOn);
-  const pending: string[] = [];
+  const pending = new Map<string, Snapshot | undefined>();
   for (const id of selected) {
     if (id === 'city' && !forceCity) {
       try {
@@ -309,15 +337,18 @@ export async function fetchSnapshots(
         // 別ブランチのmanifestや欠落した実ファイルだけでは取得済みと判断できない。
       }
     }
-    if (!discardUnarchived.includes(id)) await assertReplaceable(id, path.join(sources, id), storage, data);
-    pending.push(id);
+    pending.set(id, await assertReplaceable(id, path.join(sources, id), storage, data, discardUnarchived.includes(id)));
   }
-  for (const id of pending) {
-    await replaceDirectory(path.join(sources, id), async (temporary) => {
-      await download(id, temporary);
-      await validateDownload(id, temporary);
-      return stageManifest(id, await createManifest(temporary, fetchedOn), data);
-    });
+  for (const [id, verified] of pending) {
+    await replaceDirectory(
+      path.join(sources, id),
+      async (temporary) => {
+        await download(id, temporary);
+        await validateDownload(id, temporary);
+        return stageManifest(id, await createManifest(temporary, fetchedOn), data);
+      },
+      verified,
+    );
   }
 }
 

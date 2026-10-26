@@ -4,6 +4,7 @@ import path from 'node:path';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import packageJson from '../package.json' with { type: 'json' };
 import { writeJson } from './json.ts';
+import { parseFetchArgs } from './snapshot-cli.ts';
 import { createManifest, fetchSnapshot, fetchSnapshots, manifestBytes, sha256, stageManifest } from './snapshots.ts';
 import type { SnapshotStorage } from './snapshot-storage.ts';
 
@@ -39,6 +40,23 @@ afterEach(async () => {
   await rm(root, { recursive: true, force: true });
 });
 const options = () => ({ sources, data, fetchedOn: '2026-10-23', log: vi.fn<(line: string) => void>() });
+
+it.each([['--discard-unarchived', 'chuo'], ['--discard-unarchived=chuo']])(
+  '削除許可だけのCLI指定は全区取得にしない（%j）',
+  (...args) => {
+    expect(() => parseFetchArgs(args)).toThrow(/位置引数[\s\S]*全区取得/);
+  },
+);
+
+it.each([
+  ['chuo', '--discard-unarchived', 'chuo'],
+  ['--discard-unarchived', 'chuo', 'chuo'],
+  ['chuo', '--discard-unarchived=chuo'],
+])('CLIは位置引数と削除許可の値を区別する（%j）', (...args) => {
+  const parsed = parseFetchArgs(args);
+  expect(parsed.positionals).toEqual(['chuo']);
+  expect(parsed.values['discard-unarchived']).toEqual(['chuo']);
+});
 
 it.each([false, true])('cityは同じJSTの日を省略し、forceCityだけ再取得する（force=%s）', async (forceCity) => {
   const dir = path.join(sources, 'city');

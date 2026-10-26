@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { realpath } from 'node:fs';
 import path from 'node:path';
-import { isDeepStrictEqual } from 'node:util';
+import { isDeepStrictEqual, promisify } from 'node:util';
 import * as v from 'valibot';
 import { SnapshotDateSchema } from '../src/schema.ts';
 import { parseJson } from './json.ts';
@@ -13,8 +14,23 @@ import {
   selectIds,
   sha256,
   stageManifest,
+  validateDiscardIds,
 } from './snapshots.ts';
 import type { SnapshotStorage } from './snapshot-storage.ts';
+import type { Snapshot } from './data-schema.ts';
+
+const nativeRealpath = promisify(realpath.native);
+
+async function realDirectoryPath(directory: string): Promise<string> {
+  const resolved = path.resolve(directory);
+  try {
+    return await nativeRealpath(resolved);
+  } catch (error) {
+    const parent = path.dirname(resolved);
+    if (!(error instanceof Error && 'code' in error && error.code === 'ENOENT') || parent === resolved) throw error;
+    return path.join(await realDirectoryPath(parent), path.basename(resolved));
+  }
+}
 
 export async function concurrently<T>(items: T[], action: (item: T) => Promise<void>, concurrency = 8) {
   let next = 0;
@@ -125,14 +141,20 @@ export async function restoreSnapshots(
   }: SnapshotOptions & { dest?: string; discardUnarchived?: string[] } = {},
 ) {
   const selections = restoreSelections(specs);
-  if (discardUnarchived.length) selectIds(discardUnarchived);
-  const intoSources = path.resolve(dest) === path.resolve(sources);
+  validateDiscardIds(
+    selections.map(({ id }) => id),
+    discardUnarchived,
+  );
+  if (!storage)
+    throw new Error('R2の認証情報がありません。保管と保管状況の確認の両方に認証情報が必要です。.envを設定してください');
+  const canonical = (directory: string) => (process.platform === 'win32' ? directory.toLowerCase() : directory);
+  const intoSources = canonical(await realDirectoryPath(dest)) === canonical(await realDirectoryPath(sources));
+  const verified = new Map<string, Snapshot | undefined>();
   if (intoSources) {
     for (const { id } of selections) {
-      if (!discardUnarchived.includes(id)) await assertReplaceable(id, path.join(sources, id), storage, data);
+      verified.set(id, await assertReplaceable(id, path.join(sources, id), storage, data, discardUnarchived.includes(id)));
     }
   }
-  if (!storage) throw new Error('R2の認証情報がありません。READMEを確認してください');
   const totals = { ids: selections.length, files: 0, bytes: 0 };
   for (const { id, date } of selections) {
     const local = await readManifestIfExists(id, data);
@@ -145,19 +167,23 @@ export async function restoreSnapshots(
       throw new Error(`${prefix}: R2マニフェストが作業ツリーのマニフェストと一致しません`);
     const updateManifest = intoSources && fetchedOn !== local?.fetchedOn;
     let bytes = 0;
-    await replaceDirectory(path.join(dest, id), async (temporary) => {
-      await concurrently(Object.entries(manifest.files), async ([name, expected]) => {
-        const file = path.resolve(temporary, name);
-        if (!file.startsWith(`${path.resolve(temporary)}${path.sep}`)) throw new Error(`${name}: 復元先の外を指しています`);
-        const content = await storage.get(`${prefix}/${name}`);
-        if (content.length !== expected.size || sha256(content) !== expected.sha256)
-          throw new Error(`${prefix}/${name}: sha256またはsizeが一致しません`);
-        await mkdir(path.dirname(file), { recursive: true });
-        await writeFile(file, content);
-        bytes += content.length;
-      });
-      return updateManifest ? stageManifest(id, manifest, data) : undefined;
-    });
+    await replaceDirectory(
+      path.join(dest, id),
+      async (temporary) => {
+        await concurrently(Object.entries(manifest.files), async ([name, expected]) => {
+          const file = path.resolve(temporary, name);
+          if (!file.startsWith(`${path.resolve(temporary)}${path.sep}`)) throw new Error(`${name}: 復元先の外を指しています`);
+          const content = await storage.get(`${prefix}/${name}`);
+          if (content.length !== expected.size || sha256(content) !== expected.sha256)
+            throw new Error(`${prefix}/${name}: sha256またはsizeが一致しません`);
+          await mkdir(path.dirname(file), { recursive: true });
+          await writeFile(file, content);
+          bytes += content.length;
+        });
+        return updateManifest ? stageManifest(id, manifest, data) : undefined;
+      },
+      verified.get(id),
+    );
     totals.files += Object.keys(manifest.files).length;
     totals.bytes += bytes;
     log(

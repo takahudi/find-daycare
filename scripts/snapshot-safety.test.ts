@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, realpath, rm, symlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { writeJson } from './json.ts';
@@ -98,8 +98,8 @@ for (const command of ['fetch', 'restore'] as const) {
       command === 'fetch'
         ? fetchSnapshot('chuo', download, { ...options(), storage: configured })
         : restoreSnapshots(configured, ['chuo'], options());
-    await expect(result).rejects.toThrow(mode === 'credentials' ? /chuo.*認証情報/ : /chuo.*保管されていません/);
-    await expect(result).rejects.toThrow('--discard-unarchived chuo');
+    await expect(result).rejects.toThrow(mode === 'credentials' ? /認証情報[\s\S]*\.env/ : /chuo.*保管されていません/);
+    if (mode !== 'credentials' || command === 'fetch') await expect(result).rejects.toThrow('--discard-unarchived chuo');
     expect(await readFile(path.join(sources, 'chuo', 'old'), 'utf8')).toBe('keep');
     expect(download).not.toHaveBeenCalled();
     expect(getMock).not.toHaveBeenCalled();
@@ -125,7 +125,7 @@ for (const command of ['fetch', 'restore'] as const) {
 }
 
 it('fetchの削除許可は指定したidだけに適用する', async () => {
-  await expect(fetchSnapshot('chuo', download, { ...options(), discardUnarchived: ['city'] })).rejects.toThrow('認証情報');
+  await expect(fetchSnapshot('chuo', download, { ...options(), discardUnarchived: ['city'] })).rejects.toThrow(/city.*選択/);
   expect(download).not.toHaveBeenCalled();
 });
 
@@ -141,14 +141,15 @@ it('別destへのrestoreは未保管の旧ツリーを置換できる', async ()
 
 it.each(['missing', 'discard'])('fetchは認証情報がなくても%sなら取得できる', async (mode) => {
   if (mode === 'missing') await rm(path.join(sources, 'chuo'), { recursive: true });
+  headMock.mockClear();
   await fetchSnapshot('chuo', download, { ...options(), discardUnarchived: mode === 'discard' ? ['chuo'] : [] });
   expect(await readFile(path.join(sources, 'chuo', 'list.xlsx'), 'utf8')).toBe('new');
-  expect(headMock).toHaveBeenCalledTimes(2);
+  expect(headMock).not.toHaveBeenCalled();
 });
 
 it('restoreの削除許可は指定したidだけに適用する', async () => {
   await writeFile(path.join(sources, 'chuo', 'old'), 'unarchived');
-  await expect(restoreSnapshots(storage, ['chuo'], { ...options(), discardUnarchived: ['city'] })).rejects.toThrow('chuo');
+  await expect(restoreSnapshots(storage, ['chuo'], { ...options(), discardUnarchived: ['city'] })).rejects.toThrow(/city.*選択/);
   expect(getMock).not.toHaveBeenCalled();
   expect(await readFile(path.join(sources, 'chuo', 'old'), 'utf8')).toBe('unarchived');
 });
@@ -159,4 +160,145 @@ it('restoreは後続idの拒否もGET前に検出する', async () => {
   await expect(restoreSnapshots(storage, ['chuo', 'city'], options())).rejects.toThrow('city');
   expect(getMock).not.toHaveBeenCalled();
   expect(await readFile(path.join(sources, 'chuo', 'old'), 'utf8')).toBe('keep');
+});
+
+it.skipIf(process.platform !== 'win32')('sourcesの大文字小文字違いのdestも取得前に拒否する', async () => {
+  await writeFile(path.join(sources, 'chuo', 'old'), 'unarchived');
+  await expect(restoreSnapshots(storage, ['chuo'], { ...options(), dest: path.join(root, 'Sources') })).rejects.toThrow(
+    '置換を拒否',
+  );
+  expect(getMock).not.toHaveBeenCalled();
+  expect(await readFile(path.join(sources, 'chuo', 'old'), 'utf8')).toBe('unarchived');
+});
+
+for (const mode of ['dest junction', 'sources junction'] as const) {
+  it(mode + 'の実パスもsourcesとして保護しmanifestを更新する', async (context) => {
+    const original = sources;
+    const alias = path.join(root, 'alias');
+    try {
+      await symlink(sources, alias, process.platform === 'win32' ? 'junction' : 'dir');
+    } catch (error) {
+      if (error instanceof Error && 'code' in error && ['EPERM', 'EACCES', 'ENOSYS', 'ENOTSUP'].includes(String(error.code))) {
+        context.skip('OSがディレクトリリンクの作成を許可しません');
+        return;
+      }
+      throw error;
+    }
+    const dest = mode === 'dest junction' ? alias : await realpath(original);
+    if (mode === 'sources junction') sources = alias;
+    await writeFile(path.join(original, 'chuo', 'old'), 'unarchived');
+    await expect(restoreSnapshots(storage, ['chuo'], { ...options(), dest })).rejects.toThrow('置換を拒否');
+    expect(getMock).not.toHaveBeenCalled();
+    expect(await readFile(path.join(original, 'chuo', 'old'), 'utf8')).toBe('unarchived');
+    await writeFile(path.join(original, 'chuo', 'old'), 'keep');
+    const snapshotPath = path.join(data, 'chuo', 'snapshot.json');
+    const newer = await createManifest(path.join(original, 'chuo'), '2026-10-23');
+    await writeJson('snapshot.json', snapshotPath, newer);
+    await archiveSnapshots(storage, ['chuo'], options());
+    await writeJson('snapshot.json', snapshotPath, await createManifest(path.join(original, 'chuo'), date));
+    await restoreSnapshots(storage, ['chuo@2026-10-23'], { ...options(), dest });
+    expect(JSON.parse(await readFile(snapshotPath, 'utf8'))).toEqual(newer);
+  });
+}
+
+for (const command of ['fetch', 'restore'] as const) {
+  it(command + 'は検証後に変わった旧ツリーを退避先に保持し、その場所と新ツリーを案内する', async () => {
+    const old = path.join(sources, 'chuo', 'old');
+    const change = async () => writeFile(old, 'changed during download');
+    const result =
+      command === 'fetch'
+        ? fetchSnapshot(
+            'chuo',
+            async (dir) => {
+              await change();
+              await download(dir);
+            },
+            { ...options(), storage },
+          )
+        : restoreSnapshots(
+            {
+              ...storage,
+              get: async (key) => {
+                await change();
+                return storage.get(key);
+              },
+            },
+            ['chuo'],
+            options(),
+          );
+    await expect(result).rejects.toThrow('旧データを保持');
+    const kept = (await readdir(sources)).find((name) => name.endsWith('-old'));
+    if (!kept) throw new Error('旧ツリーの退避先がありません');
+    const previous = path.join(sources, kept);
+    await expect(result).rejects.toThrow(previous);
+    await expect(result).rejects.toThrow(`新データ: ${path.join(sources, 'chuo')}`);
+    expect(await readFile(path.join(previous, 'old'), 'utf8')).toBe('changed during download');
+    expect(await readFile(path.join(sources, 'chuo', command === 'fetch' ? 'list.xlsx' : 'old'), 'utf8')).toBe(
+      command === 'fetch' ? 'new' : 'keep',
+    );
+  });
+
+  it.each([false, true])(command + 'はディレクトリ以外を取得前に拒否する（discard=%s）', async (discard) => {
+    await rm(path.join(sources, 'chuo'), { recursive: true });
+    await writeFile(path.join(sources, 'chuo'), 'keep file');
+    const discardUnarchived = discard ? ['chuo'] : [];
+    const result =
+      command === 'fetch'
+        ? fetchSnapshot('chuo', download, { ...options(), storage, discardUnarchived })
+        : restoreSnapshots(storage, ['chuo'], { ...options(), discardUnarchived });
+    await expect(result).rejects.toThrow('通常のディレクトリ');
+    expect(download).not.toHaveBeenCalled();
+    expect(getMock).not.toHaveBeenCalled();
+    expect(await readFile(path.join(sources, 'chuo'), 'utf8')).toBe('keep file');
+  });
+
+  for (const discard of [false, true]) {
+    it(command + `はリンクの旧ツリーを取得前に拒否する（discard=${discard}）`, async (context) => {
+      await rm(path.join(sources, 'chuo'), { recursive: true });
+      const kept = path.join(root, 'kept');
+      await mkdir(kept);
+      await writeFile(path.join(kept, 'old'), 'keep linked data');
+      try {
+        await symlink(kept, path.join(sources, 'chuo'), process.platform === 'win32' ? 'junction' : 'dir');
+      } catch (error) {
+        if (error instanceof Error && 'code' in error && ['EPERM', 'EACCES', 'ENOSYS', 'ENOTSUP'].includes(String(error.code))) {
+          context.skip('OSがディレクトリリンクの作成を許可しません');
+          return;
+        }
+        throw error;
+      }
+      const discardUnarchived = discard ? ['chuo'] : [];
+      const result =
+        command === 'fetch'
+          ? fetchSnapshot('chuo', download, { ...options(), storage, discardUnarchived })
+          : restoreSnapshots(storage, ['chuo'], { ...options(), discardUnarchived });
+      await expect(result).rejects.toThrow('通常のディレクトリ');
+      expect(download).not.toHaveBeenCalled();
+      expect(getMock).not.toHaveBeenCalled();
+      expect(await readFile(path.join(kept, 'old'), 'utf8')).toBe('keep linked data');
+    });
+  }
+
+  it(command + 'はHEAD障害で再試行を案内し、削除許可を勧めない', async () => {
+    headMock.mockRejectedValue(new Error('temporary HEAD failure'));
+    const result =
+      command === 'fetch'
+        ? fetchSnapshot('chuo', download, { ...options(), storage })
+        : restoreSnapshots(storage, ['chuo'], options());
+    await expect(result).rejects.toThrow('再試行');
+    await result.catch((error: unknown) => {
+      expect(error).toBeInstanceOf(Error);
+      if (error instanceof Error) expect(error.message).not.toContain('--discard-unarchived');
+    });
+    expect(download).not.toHaveBeenCalled();
+    expect(getMock).not.toHaveBeenCalled();
+  });
+}
+
+it('restoreはmanifestより先に認証情報を確認する', async () => {
+  await rm(path.join(data, 'chuo', 'snapshot.json'));
+  headMock.mockClear();
+  await expect(restoreSnapshots(undefined, ['chuo'], options())).rejects.toThrow(/認証情報[\s\S]*\.env/);
+  expect(headMock).not.toHaveBeenCalled();
+  expect(getMock).not.toHaveBeenCalled();
 });
