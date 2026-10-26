@@ -314,7 +314,9 @@ button.link {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-bottom: 4px;
+  margin: 0 0 4px;
+  padding: 0;
+  list-style: none;
 }
 
 .badge {

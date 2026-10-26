@@ -193,8 +193,10 @@ export default function App() {
 
       <section className="filters" aria-label="絞り込み">
         {data.wards.length > 1 && (
-          <div className="filters__group">
-            <span className="filters__label">区</span>
+          <div className="filters__group" role="group" aria-labelledby="filter-ward">
+            <span id="filter-ward" className="filters__label">
+              区
+            </span>
             {data.wards.map((w) => (
               <button
                 key={w.id}
@@ -208,8 +210,10 @@ export default function App() {
             ))}
           </div>
         )}
-        <div className="filters__group">
-          <span className="filters__label">クラス年齢</span>
+        <div className="filters__group" role="group" aria-labelledby="filter-age">
+          <span id="filter-age" className="filters__label">
+            クラス年齢
+          </span>
           {AGES.map((a) => (
             <button
               key={a}
@@ -222,8 +226,10 @@ export default function App() {
             </button>
           ))}
         </div>
-        <div className="filters__group">
-          <span className="filters__label">種別</span>
+        <div className="filters__group" role="group" aria-labelledby="filter-type">
+          <span id="filter-type" className="filters__label">
+            種別
+          </span>
           {FACILITY_TYPES.map((facilityType) => (
             <button
               key={facilityType}
@@ -309,19 +315,31 @@ export default function App() {
             selectedId={selectedId}
             onSelect={(id) => select(id, 'map')}
           />
-          <div className="legend" aria-hidden>
+          <div className="legend" role="group" aria-label="地図の凡例">
             <span>
-              <i className="pin pin--open">2</i> 空きあり（人数）
+              <i className="pin pin--open" aria-hidden="true">
+                2
+              </i>{' '}
+              空きあり（人数）
             </span>
             <span>
-              <i className="pin pin--full">×</i> 空きなし
+              <i className="pin pin--full" aria-hidden="true">
+                ×
+              </i>{' '}
+              空きなし
             </span>
             <span>
-              <i className="pin pin--open pin--unlicensed">1</i> {LICENSING_LABELS.unlicensed}
+              <i className="pin pin--open pin--unlicensed" aria-hidden="true">
+                1
+              </i>{' '}
+              {LICENSING_LABELS.unlicensed}
             </span>
             {home && (
               <span>
-                <i className="pin pin--home">家</i> 自宅
+                <i className="pin pin--home" aria-hidden="true">
+                  家
+                </i>{' '}
+                自宅
               </span>
             )}
           </div>

@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { openVisibleUnlicensedPopup, expectUnlicensedPinShape, expectLicensedPinShape } from './leaflet.ts';
 import data from '../src/data/facilities.json' with { type: 'json' };
 
 function parseCsp(header: string) {
@@ -75,8 +76,8 @@ test('クラス年齢を選ぶと、その年齢を受け入れる施設と空�
 
 test('地図と施設のピンが表示される', async ({ page }) => {
   const map = page.getByRole('region', { name: '地図' });
-  await expect(map.locator('.leaflet-container')).toBeVisible();
-  await expect(map.locator('.leaflet-marker-icon').first()).toBeVisible();
+  await expect(map).toBeVisible();
+  await expect(map.getByRole('button', { name: /（認可(?:外)?）/ }).first()).toBeVisible();
 });
 
 test('住所を検索すると、その住所からの距離で施設を表示する', async ({ page }) => {
@@ -130,28 +131,66 @@ test('/wrangler.json は生成ファイルを公開せず SPA HTML を返す', a
 });
 
 test('施設種別の選択肢を保ち、企業主導型と認可外を別のバッジで表示する', async ({ page }) => {
-  const chips = page.locator('.filters__group').filter({ hasText: '種別' }).getByRole('button');
+  const chips = page.getByRole('group', { name: '種別', exact: true }).getByRole('button');
   await expect(chips).toHaveText(['保育所', '認定こども園', '地域型保育（0〜2歳）', '企業主導型']);
   const cards = page.getByRole('region', { name: '施設一覧' }).getByRole('article');
   await expect(cards).toHaveCount(data.facilities.length);
+  for (const [type, label, color] of [
+    ['nursery', '保育所', 'rgb(58, 123, 213)'],
+    ['kodomoen', '認定こども園', 'rgb(194, 85, 143)'],
+    ['community', '地域型保育事業', 'rgb(138, 107, 209)'],
+    ['kigyo', '企業主導型', 'rgb(183, 121, 31)'],
+  ]) {
+    const facility = representativeFacility(label, (f) => f.facilityType === type);
+    await expect(
+      facilityCard(page, facility)
+        .getByRole('list', { name: '分類' })
+        .getByRole('listitem')
+        .filter({ hasText: new RegExp(`^${label}$`) }),
+    ).toHaveCSS('background-color', color);
+  }
   for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
     await page.getByRole('button', { name: label, exact: true }).click();
   }
   const kigyoCount = data.facilities.filter((facility) => facility.facilityType === 'kigyo').length;
   await expect(cards).toHaveCount(kigyoCount);
-  await expect(cards.first().locator('.card__badges .badge')).toHaveText([/.+区/, '企業主導型', '認可外']);
-  await expect(cards.first().locator('.card__caution')).toHaveText(
-    '認可外保育施設です。申込みは区役所ではなく施設との直接契約です（空き人数は地域枠）。',
+  await expect(cards.first().getByRole('list', { name: '分類' }).getByRole('listitem')).toHaveText([
+    /.+区/,
+    '企業主導型',
+    '認可外',
+  ]);
+  await expect(
+    cards
+      .first()
+      .getByText('認可外保育施設です。申込みは区役所ではなく施設との直接契約です（空き人数は地域枠）。', { exact: true }),
+  ).toBeVisible();
+  await expectUnlicensedPinShape(page.getByRole('region', { name: '地図', exact: true }));
+  await expect(page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: /（認可外）/ })).toHaveCount(
+    kigyoCount,
   );
-  await expect(page.locator('.leaflet-marker-icon .pin--unlicensed')).toHaveCount(kigyoCount);
-  await expect(page.locator('.legend')).toContainText('認可外');
+  await expect(page.getByRole('group', { name: '地図の凡例' })).toContainText('認可外');
   await page.getByRole('button', { name: '企業主導型', exact: true }).click();
   await page.getByRole('button', { name: '保育所', exact: true }).click();
   await expect(cards).toHaveCount(data.facilities.filter((facility) => facility.facilityType === 'nursery').length);
-  await expect(cards.first().locator('.badge--nursery')).toHaveText('保育所');
-  await expect(cards.first().locator('.badge--unlicensed')).toHaveCount(0);
-  await expect(cards.first().locator('.card__caution')).toHaveCount(0);
-  await expect(page.locator('.leaflet-marker-icon .pin--unlicensed')).toHaveCount(0);
+  await expect(
+    cards
+      .first()
+      .getByRole('list', { name: '分類' })
+      .getByRole('listitem')
+      .filter({ hasText: /^保育所$/ }),
+  ).toHaveCount(1);
+  await expect(
+    cards
+      .first()
+      .getByRole('list', { name: '分類' })
+      .getByRole('listitem')
+      .filter({ hasText: /^認可外$/ }),
+  ).toHaveCount(0);
+  await expect(cards.first().getByText(/^認可外保育施設です。/)).toHaveCount(0);
+  await expectLicensedPinShape(page.getByRole('region', { name: '地図', exact: true }));
+  await expect(page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: /（認可外）/ })).toHaveCount(
+    0,
+  );
 });
 
 test('モバイルの地図タブで企業主導型のポップアップに認可外と表示する', async ({ page }) => {
@@ -162,20 +201,44 @@ test('モバイルの地図タブで企業主導型のポップアップに認�
   await page.getByRole('button', { name: '地図', exact: true }).click();
   const map = page.getByRole('region', { name: '地図' });
   await map.scrollIntoViewIfNeeded();
-  const pins = map.locator('.leaflet-marker-icon .pin--unlicensed');
-  const index = await pins.evaluateAll((nodes) =>
-    nodes.findIndex((node) => {
-      const box = node.getBoundingClientRect();
-      return (
-        document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2)?.closest('.leaflet-marker-icon') ===
-        node.parentElement
-      );
-    }),
-  );
-  expect(index, '地図内に操作できる認可外ピンがある').toBeGreaterThanOrEqual(0);
-  await pins.nth(index).click();
+  await openVisibleUnlicensedPopup(map);
   await expect(page.getByRole('button', { name: '地図', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByRole('region', { name: '施設一覧' })).toBeHidden();
-  await expect(page.locator('.leaflet-popup')).toBeVisible();
-  await expect(page.locator('.popup-meta')).toHaveText(/.+区 ・ 企業主導型 ・ 認可外/);
+  await expect(map.getByRole('group', { name: '施設の詳細' })).toBeVisible();
+  await expect(map.getByRole('group', { name: '施設の詳細' }).getByText(/.+区 ・ 企業主導型 ・ 認可外/)).toBeVisible();
+});
+
+type TestFacility = (typeof data.facilities)[number];
+
+const facilityNameCounts = new Map<string, number>();
+for (const facility of data.facilities) {
+  facilityNameCounts.set(facility.name, (facilityNameCounts.get(facility.name) ?? 0) + 1);
+}
+
+function representativeFacility(state: string, predicate: (facility: TestFacility) => boolean) {
+  const facility = data.facilities.find((f) => facilityNameCounts.get(f.name) === 1 && predicate(f));
+  expect(facility, `全市のデータに「${state}」で、施設名が全市で一意の代表施設がありません`).toBeDefined();
+  return facility!;
+}
+
+function facilityCard(page: Page, facility: TestFacility) {
+  const name = facility.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return page.getByRole('article', { name: new RegExp(`^(?:\\d+\\s*)?${name}$`) });
+}
+
+test('地図ピンの名前で空き人数と空きなしを区別できる', async ({ page }) => {
+  const open = representativeFacility(
+    '認可施設の空きありピン',
+    (f) => f.licensing === 'licensed' && f.vacancies.some((v) => (v ?? 0) > 0),
+  );
+  const full = representativeFacility(
+    '認可施設の空きなしピン',
+    (f) => f.licensing === 'licensed' && f.vacancies.every((v) => (v ?? 0) === 0),
+  );
+  const count =
+    open.vacancies.reduce<number>((sum, value, age) => sum + (open.sharedVacancy?.ages.includes(age) ? 0 : (value ?? 0)), 0) +
+    (open.sharedVacancy?.count ?? 0);
+  const map = page.getByRole('region', { name: '地図', exact: true });
+  await expect(map.getByRole('button', { name: `${open.name}（認可）空き${count}人`, exact: true })).toHaveCount(1);
+  await expect(map.getByRole('button', { name: `${full.name}（認可）空きなし`, exact: true })).toHaveCount(1);
 });
