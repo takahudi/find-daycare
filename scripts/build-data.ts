@@ -24,11 +24,11 @@ import { SRC, loadWardInputs, saveGeocodeCache } from './build-data/inputs.ts';
 import { buildLicensed } from './build-data/licensed.ts';
 import { reconcileVacancies } from './build-data/reconcile.ts';
 import { buildKigyo } from './build-data/kigyo.ts';
-import { loadVerifiedSnapshots, SNAPSHOT_IDS } from './snapshots.ts';
+import { readManifest, SNAPSHOT_IDS } from './snapshots.ts';
 import { finishWard } from './build-data/ward.ts';
 
 const OUT = path.resolve('src/data/facilities.json');
-const snapshots = await loadVerifiedSnapshots(SNAPSHOT_IDS);
+const snapshots = Object.fromEntries(await Promise.all(SNAPSHOT_IDS.map(async (id) => [id, await readManifest(id)] as const)));
 const csv = parseCsv((await readFile(path.join(SRC, 'city', 'sukusukudata.csv'), 'utf8')).replace(/^﻿/, ''));
 const [, ...csvRows] = csv;
 const now = new Date();

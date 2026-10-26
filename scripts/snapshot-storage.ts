@@ -15,6 +15,24 @@ export class StorageError extends Error {
   }
 }
 
+function isNetworkFailure(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  if (
+    'code' in error &&
+    /^(UND_ERR_(SOCKET|CONNECT_TIMEOUT|HEADERS_TIMEOUT|BODY_TIMEOUT)|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|EHOSTUNREACH|EPIPE)$/.test(
+      String(error.code),
+    )
+  )
+    return true;
+  if (error instanceof DOMException && error.name === 'TimeoutError') return true;
+  if (
+    error instanceof TypeError &&
+    /^(fetch failed|Failed to fetch|NetworkError when attempting to fetch resource\.)$/.test(error.message)
+  )
+    return true;
+  return error.cause !== error && isNetworkFailure(error.cause);
+}
+
 export async function withRetry<T>(
   operation: () => Promise<T>,
   wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)),
@@ -23,11 +41,7 @@ export async function withRetry<T>(
     try {
       return await operation();
     } catch (error) {
-      const retryable =
-        (error instanceof TypeError &&
-          /^(fetch failed|Failed to fetch|NetworkError when attempting to fetch resource\.)$/.test(error.message)) ||
-        (error instanceof DOMException && error.name === 'TimeoutError') ||
-        (error instanceof StorageError && error.status >= 500 && error.status <= 599);
+      const retryable = isNetworkFailure(error) || (error instanceof StorageError && error.status >= 500 && error.status <= 599);
       if (!retryable || attempt >= 3) throw error;
       await wait(250 * 2 ** attempt);
     }

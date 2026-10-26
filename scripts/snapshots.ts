@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { cp, lstat, mkdir, mkdtemp, readdir, readFile, rename, rm, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { isDeepStrictEqual } from 'node:util';
 import { setTimeout as delay } from 'node:timers/promises';
 import { SnapshotDateSchema } from '../src/schema.ts';
 import * as v from 'valibot';
@@ -72,6 +73,10 @@ export async function readManifest(id: string, dataDir = path.resolve('data')) {
   }
 }
 
+export async function readManifestIfExists(id: string, data = path.resolve('data')) {
+  return (await optionalStat(path.join(data, id, 'snapshot.json'))) ? readManifest(id, data) : undefined;
+}
+
 export async function verifyLocalFiles(dir: string, manifest: Snapshot) {
   let actual: Snapshot['files'];
   try {
@@ -129,17 +134,15 @@ interface DirectoryCommit {
   cleanup(): Promise<void>;
 }
 
-export async function replaceDirectory(
-  target: string,
-  populate: (temporary: string) => Promise<DirectoryCommit | void>,
-  { preservePrevious, log = console.warn }: { preservePrevious?: string; log?: (line: string) => void } = {},
-) {
+export async function replaceDirectory(target: string, populate: (temporary: string) => Promise<DirectoryCommit | void>) {
   await mkdir(path.dirname(target), { recursive: true });
   const temporary = await mkdtemp(path.join(path.dirname(target), `.${path.basename(target)}-new-`));
   const previous = `${temporary}-old`;
   let staged: DirectoryCommit | void = undefined;
   let movedOld = false;
   let movedNew = false;
+  let failure: unknown;
+  const errors: unknown[] = [];
   try {
     staged = await populate(temporary);
     const old = await optionalStat(target);
@@ -148,11 +151,13 @@ export async function replaceDirectory(
       await renameWithRetry(target, previous);
       movedOld = true;
     }
+    await renameWithRetry(temporary, target);
+    movedNew = true;
+    await staged?.commit();
+  } catch (error) {
+    failure = error;
+    errors.push(error);
     try {
-      await renameWithRetry(temporary, target);
-      movedNew = true;
-      await staged?.commit();
-    } catch (error) {
       if (movedNew) {
         await renameWithRetry(target, temporary);
         movedNew = false;
@@ -160,42 +165,73 @@ export async function replaceDirectory(
       if (movedOld) {
         try {
           await renameWithRetry(previous, target);
+          movedOld = false;
         } catch {
           await cp(previous, target, { recursive: true, errorOnExist: true, force: false });
+          await rm(previous, { recursive: true });
+          movedOld = false;
         }
-        movedOld = false;
       }
-      throw error;
+    } catch (rollbackError) {
+      errors.push(rollbackError);
     }
-  } catch (error) {
-    const kept = movedNew ? target : temporary;
+  }
+  try {
+    await staged?.cleanup();
+  } catch (cleanupError) {
+    errors.push(cleanupError);
+  }
+  if (errors.length) {
+    const cause =
+      errors.length === 1 ? errors[0] : new AggregateError(errors, '置換または後処理に失敗しました', { cause: failure });
+    const details = errors.map((error) => (error instanceof Error ? error.message : String(error))).join('\n');
     throw new Error(
-      `${error instanceof Error ? error.message : String(error)}\n一時ディレクトリを保持しました: ${kept}${movedOld ? `\n旧データを保持しました: ${previous}` : ''}`,
-      { cause: error },
+      `${details}\n取得内容を保持しました: ${movedNew ? target : temporary}${movedOld ? `\n旧データを保持しました: ${previous}` : ''}`,
+      { cause },
     );
-  } finally {
-    try {
-      await staged?.cleanup();
-    } catch (error) {
-      log(`一時マニフェストの削除に失敗しました: ${String(error)}`);
-    }
   }
   if (movedOld) {
-    if (preservePrevious) {
-      try {
-        await mkdir(path.dirname(preservePrevious), { recursive: true });
-        const kept = (await optionalStat(preservePrevious)) ? `${preservePrevious}-${randomUUID()}` : preservePrevious;
-        await renameWithRetry(previous, kept);
-        log(`未保管の旧データを保持しました: ${kept}。保管するか、不要なら削除してください`);
-      } catch (error) {
-        log(
-          `未保管の旧データを保持しました: ${previous}。保管するか、不要なら削除してください。退避先への移動失敗: ${String(error)}`,
-        );
-      }
-    } else {
-      await rm(previous, { recursive: true, force: true });
+    try {
+      await rm(previous, { recursive: true });
+    } catch (error) {
+      throw new Error(`置換は完了しました。新データ: ${target}\n旧データの削除に失敗しました: ${previous}`, {
+        cause: error,
+      });
     }
   }
+}
+
+export async function assertReplaceable(
+  id: string,
+  target: string,
+  storage: SnapshotStorage | undefined,
+  data = path.resolve('data'),
+) {
+  if (!(await optionalStat(target))) return;
+  function refuse(reason: string, cause?: unknown): never {
+    throw new Error(
+      `${id}: 置換を拒否しました。${reason}\nツリーと作業ツリーのマニフェストが一致するブランチで pnpm data:archive ${id} を実行するか、削除を許可する対象ごとに --discard-unarchived ${id} を指定して再実行してください`,
+      { cause },
+    );
+  }
+  if (!(await optionalStat(path.join(data, id, 'snapshot.json')))) refuse('作業ツリーのマニフェストがありません');
+  const manifest = await readManifest(id, data).catch((error: unknown) =>
+    refuse('作業ツリーのマニフェストを読み込めません', error),
+  );
+  const actual = await hashTree(target).catch((error: unknown) => refuse('ツリーを検証できません', error));
+  if (!isDeepStrictEqual(actual, manifest.files)) {
+    const paths = [...new Set([...Object.keys(actual), ...Object.keys(manifest.files)])].filter(
+      (name) => !isDeepStrictEqual(actual[name], manifest.files[name]),
+    );
+    refuse(
+      `ツリーが作業ツリーのマニフェストと異なります: ${paths.slice(0, 5).join(', ')}${paths.length > 5 ? ` ほか${paths.length - 5}件` : ''}`,
+    );
+  }
+  if (!storage) refuse('R2の認証情報がありません');
+  const archived = await storage
+    .head(`snapshots/${id}/${manifest.fetchedOn}/snapshot.json`)
+    .catch((error: unknown) => refuse('R2の保管状況を確認できません', error));
+  if (archived?.sha256 !== sha256(manifestBytes(manifest))) refuse('同じSHA-256のマニフェストがR2に保管されていません');
 }
 
 export async function stageManifest(id: string, manifest: Snapshot, dataDir: string): Promise<DirectoryCommit> {
@@ -233,46 +269,58 @@ export async function validateDownload(id: string, dir: string) {
   if (missing.length) throw new Error(`${id}: ビルドに必要な取得ファイルがありません: ${missing.join(', ')}`);
 }
 
-export async function fetchSnapshot(
-  id: string,
-  download: (dir: string) => Promise<void>,
+interface FetchOptions {
+  sources?: string;
+  data?: string;
+  fetchedOn?: string;
+  storage?: SnapshotStorage;
+  forceCity?: boolean;
+  discardUnarchived?: string[];
+  log?: (line: string) => void;
+}
+
+export async function fetchSnapshots(
+  ids: string[],
+  download: (id: string, dir: string) => Promise<void>,
   {
     sources = path.resolve('sources'),
     data = path.resolve('data'),
     fetchedOn = jstDate(),
     storage,
     forceCity = false,
+    discardUnarchived = [],
     log = console.warn,
-  }: {
-    sources?: string;
-    data?: string;
-    fetchedOn?: string;
-    storage?: SnapshotStorage;
-    forceCity?: boolean;
-    log?: (line: string) => void;
-  } = {},
+  }: FetchOptions = {},
 ) {
-  selectIds([id]);
+  const selected = selectIds(ids);
+  if (discardUnarchived.length) selectIds(discardUnarchived);
   v.parse(SnapshotDateSchema, fetchedOn);
-  const local = (await optionalStat(path.join(data, id, 'snapshot.json'))) ? await readManifest(id, data) : undefined;
-  if (id === 'city' && local?.fetchedOn === fetchedOn && !forceCity) {
-    log(`city@${fetchedOn}: 本日取得済みのため省略しました。再取得には --force-city を指定してください`);
-    return;
+  const pending: string[] = [];
+  for (const id of selected) {
+    if (id === 'city' && !forceCity) {
+      try {
+        const local = await readManifest(id, data);
+        if (local.fetchedOn === fetchedOn) {
+          await verifyLocalFiles(path.join(sources, id), local);
+          log(`city@${fetchedOn}: 本日取得済みのため省略しました。再取得には --force-city を指定してください`);
+          continue;
+        }
+      } catch {
+        // 別ブランチのmanifestや欠落した実ファイルだけでは取得済みと判断できない。
+      }
+    }
+    if (!discardUnarchived.includes(id)) await assertReplaceable(id, path.join(sources, id), storage, data);
+    pending.push(id);
   }
-  const archived =
-    local && storage
-      ? (await storage.head(`snapshots/${id}/${local.fetchedOn}/snapshot.json`))?.sha256 === sha256(manifestBytes(local))
-      : false;
-  await replaceDirectory(
-    path.join(sources, id),
-    async (temporary) => {
-      await download(temporary);
+  for (const id of pending) {
+    await replaceDirectory(path.join(sources, id), async (temporary) => {
+      await download(id, temporary);
       await validateDownload(id, temporary);
       return stageManifest(id, await createManifest(temporary, fetchedOn), data);
-    },
-    {
-      preservePrevious: local && !archived ? path.join(sources, '.unarchived', `${id}@${local.fetchedOn}`) : undefined,
-      log,
-    },
-  );
+    });
+  }
+}
+
+export async function fetchSnapshot(id: string, download: (dir: string) => Promise<void>, options: FetchOptions = {}) {
+  await fetchSnapshots([id], (_id, dir) => download(dir), options);
 }

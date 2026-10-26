@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import { setTimeout as delay } from 'node:timers/promises';
 import path from 'node:path';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
@@ -6,7 +6,7 @@ import { fetchSnapshot, replaceDirectory, stageManifest, createManifest } from '
 
 vi.mock('node:fs/promises', async (importOriginal) => {
   const actual = await importOriginal<typeof import('node:fs/promises')>();
-  return { ...actual, rename: vi.fn(actual.rename) };
+  return { ...actual, rename: vi.fn(actual.rename), cp: vi.fn(actual.cp) };
 });
 vi.mock('node:timers/promises', () => ({ setTimeout: vi.fn(async () => {}) }));
 
@@ -17,6 +17,7 @@ let target: string;
 beforeEach(async () => {
   vi.mocked(rename).mockReset().mockImplementation(actual.rename);
   vi.mocked(delay).mockClear();
+  vi.mocked(cp).mockReset().mockImplementation(actual.cp);
   await mkdir(path.resolve('.audit'), { recursive: true });
   root = await mkdtemp(path.resolve('.audit/snapshot-swap-'));
   target = path.join(root, 'sources', 'chuo');
@@ -103,7 +104,7 @@ it('manifestのrename失敗時は旧manifestと取得内容を保持し、仮man
       await writeFile(path.join(dir, file), 'new');
     }
   };
-  const result = fetchSnapshot('chuo', download, { sources: path.dirname(target), data });
+  const result = fetchSnapshot('chuo', download, { sources: path.dirname(target), data, discardUnarchived: ['chuo'] });
   await expect(result).rejects.toThrow('manifest failed');
   await expect(result).rejects.toThrow(kept);
   expect(await readFile(path.join(target, 'old'), 'utf8')).toBe('old');
@@ -124,32 +125,47 @@ it('旧一式のrenameでロールバックできなくてもコピーでsources
       await writeFile(path.join(temporary, 'new'), 'download');
     }),
   ).rejects.toThrow('busy');
+  expect(await readdir(path.dirname(target))).toEqual([path.basename(kept), 'chuo']);
   expect(await readFile(path.join(target, 'old'), 'utf8')).toBe('old');
   expect(await readFile(path.join(kept, 'new'), 'utf8')).toBe('download');
 });
 
 it('仮manifestのcleanupが失敗しても元のエラーと取得先を知らせる', async () => {
   let kept = '';
-  const log = vi.fn<(line: string) => void>();
-  const result = replaceDirectory(
-    target,
-    async (temporary) => {
-      kept = temporary;
-      await writeFile(path.join(temporary, 'new'), 'download');
-      return {
-        commit: async () => {
-          throw new Error('commit failed');
-        },
-        cleanup: async () => {
-          throw new Error('cleanup failed');
-        },
-      };
-    },
-    { log },
-  );
+  const result = replaceDirectory(target, async (temporary) => {
+    kept = temporary;
+    await writeFile(path.join(temporary, 'new'), 'download');
+    return {
+      commit: async () => {
+        throw new Error('commit failed');
+      },
+      cleanup: async () => {
+        throw new Error('cleanup failed');
+      },
+    };
+  });
   await expect(result).rejects.toThrow('commit failed');
   await expect(result).rejects.toThrow(kept);
   expect(await readFile(path.join(target, 'old'), 'utf8')).toBe('old');
   expect(await readFile(path.join(kept, 'new'), 'utf8')).toBe('download');
-  expect(log).toHaveBeenCalledWith(expect.stringContaining('cleanup failed'));
+  await expect(result).rejects.toThrow('cleanup failed');
+});
+
+it('ロールバックのコピーも失敗した場合に元のエラーと新旧のパスを保持する', async () => {
+  let kept = '';
+  vi.mocked(rename).mockImplementation(async (from, to) => {
+    if (to === target) throw new Error('original swap error');
+    await actual.rename(from, to);
+  });
+  vi.mocked(cp).mockRejectedValue(new Error('rollback copy error'));
+  const result = replaceDirectory(target, async (dir) => {
+    kept = dir;
+    await writeFile(path.join(dir, 'new'), 'new');
+  });
+  await expect(result).rejects.toThrow('original swap error');
+  await expect(result).rejects.toThrow('rollback copy error');
+  await expect(result).rejects.toThrow(kept + '-old');
+  await expect(result).rejects.toHaveProperty('cause', expect.any(AggregateError));
+  expect(await readFile(path.join(kept, 'new'), 'utf8')).toBe('new');
+  expect(await readFile(path.join(kept + '-old', 'old'), 'utf8')).toBe('old');
 });

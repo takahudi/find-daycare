@@ -112,7 +112,7 @@ describe('スナップショットの保管', () => {
 });
 
 describe('スナップショットの復元', () => {
-  it('バイト単位で同一に復元し、古いファイルを残さず、別destではコミット済みマニフェストを変更しない', async () => {
+  it('バイト単位で同一に復元し、古いファイルを残さず、別destでは作業ツリーのマニフェストを変更しない', async () => {
     await archiveSnapshots(store, ['chuo'], opts());
     await mkdir(path.join(dest, 'chuo'), { recursive: true });
     await writeFile(path.join(dest, 'chuo', 'stale'), 'old');
@@ -161,8 +161,9 @@ describe('スナップショットの復元', () => {
   });
   it.each([true, false])('過去日付の指定はsourcesへの復元時だけマニフェストも更新する（sources=%s）', async (useSources) => {
     await archiveSnapshots(store, ['chuo'], opts());
-    const committed = await createManifest(path.join(sources, 'chuo'), '2026-10-23');
-    await writeJson('snapshot.json', path.join(data, 'chuo', 'snapshot.json'), committed);
+    const local = await createManifest(path.join(sources, 'chuo'), '2026-10-23');
+    await writeJson('snapshot.json', path.join(data, 'chuo', 'snapshot.json'), local);
+    await archiveSnapshots(store, ['chuo'], opts());
     const lines: string[] = [];
     await restoreSnapshots(store, [`chuo@${date}`], {
       ...opts(),
@@ -185,7 +186,7 @@ describe('取得時の置換とマニフェスト', () => {
           await writeFile(path.join(dir, file), 'new');
         }
       },
-      { sources, data, fetchedOn: date, log: quiet },
+      { sources, data, fetchedOn: date, log: quiet, discardUnarchived: ['chuo'] },
     );
     expect(await readdir(path.join(sources, 'chuo'))).not.toContain('a.txt');
     expect(Object.keys(await loadVerifiedSnapshots(['chuo'], sources, data))).toEqual(['chuo']);
@@ -199,7 +200,7 @@ describe('取得時の置換とマニフェスト', () => {
           await writeFile(path.join(dir, 'partial'), 'new');
           throw new Error('download failed');
         },
-        { sources, data },
+        { sources, data, discardUnarchived: ['chuo'] },
       ),
     ).rejects.toThrow('download failed');
     expect(await readFile(path.join(sources, 'chuo', 'a.txt'), 'utf8')).toBe('一次情報\n');

@@ -4,7 +4,7 @@ import path from 'node:path';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import packageJson from '../package.json' with { type: 'json' };
 import { writeJson } from './json.ts';
-import { createManifest, fetchSnapshot, loadVerifiedSnapshots, manifestBytes, sha256, stageManifest } from './snapshots.ts';
+import { createManifest, fetchSnapshot, fetchSnapshots, manifestBytes, sha256, stageManifest } from './snapshots.ts';
 import type { SnapshotStorage } from './snapshot-storage.ts';
 
 let root: string;
@@ -39,48 +39,6 @@ afterEach(async () => {
   await rm(root, { recursive: true, force: true });
 });
 const options = () => ({ sources, data, fetchedOn: '2026-10-23', log: vi.fn<(line: string) => void>() });
-
-it.each(['no credentials', 'absent', 'different', 'same'])('保管確認に応じて旧一式を保持する（%s）', async (mode) => {
-  const before = await readFile(path.join(data, 'chuo', 'snapshot.json'));
-  const head = vi.fn(async () => (mode === 'absent' ? null : { sha256: mode === 'same' ? sha256(before) : 'different' }));
-  const storage: SnapshotStorage = {
-    head,
-    put: async () => {
-      throw new Error('unused');
-    },
-    get: async () => {
-      throw new Error('unused');
-    },
-  };
-  const opts = options();
-  await fetchSnapshot('chuo', download, { ...opts, storage: mode === 'no credentials' ? undefined : storage });
-  expect(await readdir(path.join(sources, 'chuo'))).not.toContain('old');
-  await loadVerifiedSnapshots(['chuo'], sources, data);
-  if (mode === 'same') {
-    expect(await readdir(sources)).toEqual(['chuo']);
-    expect(opts.log).not.toHaveBeenCalled();
-  } else {
-    const kept = path.join(sources, '.unarchived', 'chuo@2026-10-22');
-    expect(await readFile(path.join(kept, 'old'), 'utf8')).toBe('keep');
-    expect(opts.log).toHaveBeenCalledWith(expect.stringContaining(kept));
-    expect(opts.log).toHaveBeenCalledWith(expect.stringContaining('保管するか'));
-  }
-  expect(head).toHaveBeenCalledTimes(mode === 'no credentials' ? 0 : 1);
-  if (mode !== 'no credentials') expect(head).toHaveBeenCalledWith('snapshots/chuo/2026-10-22/snapshot.json');
-});
-
-it('同じ退避名があっても以前の未保管データを上書きしない', async () => {
-  const previous = path.join(sources, '.unarchived', 'chuo@2026-10-22');
-  await mkdir(previous, { recursive: true });
-  await writeFile(path.join(previous, 'earlier'), 'earlier');
-  await fetchSnapshot('chuo', download, options());
-  expect(await readFile(path.join(previous, 'earlier'), 'utf8')).toBe('earlier');
-  const backups = await readdir(path.dirname(previous));
-  expect(backups).toHaveLength(2);
-  const fresh = backups.find((name) => name !== 'chuo@2026-10-22');
-  expect(fresh).toBeDefined();
-  expect(await readFile(path.join(path.dirname(previous), fresh ?? '', 'old'), 'utf8')).toBe('keep');
-});
 
 it.each([false, true])('cityは同じJSTの日を省略し、forceCityだけ再取得する（force=%s）', async (forceCity) => {
   const dir = path.join(sources, 'city');
@@ -120,13 +78,13 @@ it.each(cases)('各区の必要ファイルが欠けた取得は旧一式を置�
           files.filter((file) => file !== missing),
         );
       },
-      options(),
+      { ...options(), discardUnarchived: [id] },
     );
     await expect(result).rejects.toThrow('ビルドに必要');
     await expect(result).rejects.toThrow(kept);
     expect(await readFile(path.join(old, 'sentinel'), 'utf8')).toBe('keep');
   }
-  await fetchSnapshot(id, async (dir) => download(dir, files), options());
+  await fetchSnapshot(id, async (dir) => download(dir, files), { ...options(), discardUnarchived: [id] });
   expect(await readdir(old)).not.toContain('sentinel');
 });
 
@@ -169,4 +127,43 @@ it('中断で残る一時manifestをGitが追跡対象にしない', async () =>
   expect(ignored.trim()).toBe('data/chuo/.snapshot-interrupted.json');
   await staged.cleanup();
   expect(await readdir(path.join(data, 'chuo'))).toEqual(['snapshot.json']);
+});
+
+it.each(['missing', 'changed', 'yesterday'])('cityは本日の検証済みツリー以外を再取得する（%s）', async (mode) => {
+  const dir = path.join(sources, 'city');
+  await download(dir, cityFiles);
+  await mkdir(path.join(data, 'city'), { recursive: true });
+  await writeJson(
+    'snapshot.json',
+    path.join(data, 'city', 'snapshot.json'),
+    await createManifest(dir, mode === 'yesterday' ? '2026-10-21' : date),
+  );
+  if (mode === 'missing') await rm(dir, { recursive: true });
+  if (mode === 'changed') await writeFile(path.join(dir, cityFiles[0]), 'unarchived');
+  const get = vi.fn(async (temporary: string) => download(temporary, cityFiles));
+  await fetchSnapshot('city', get, { ...options(), fetchedOn: date, discardUnarchived: ['city'] });
+  expect(get).toHaveBeenCalledOnce();
+  expect(await readFile(path.join(dir, cityFiles[0]), 'utf8')).toBe('download');
+});
+
+it.each(['city', 'chuo'])('後続の%sが拒否される場合は全対象を取得しない', async (blocked) => {
+  const good = blocked === 'city' ? 'nishi' : 'city';
+  await mkdir(path.join(sources, blocked), { recursive: true });
+  await writeFile(path.join(sources, blocked, 'sentinel'), 'keep');
+  const get = vi.fn(async () => {});
+  await expect(fetchSnapshots([good, blocked], get, options())).rejects.toThrow(blocked);
+  expect(get).not.toHaveBeenCalled();
+  expect(await readFile(path.join(sources, blocked, 'sentinel'), 'utf8')).toBe('keep');
+});
+
+it('cityの当日manifestと異なるツリーを削除許可なしでは取得前に拒否する', async () => {
+  const dir = path.join(sources, 'city');
+  await download(dir, cityFiles);
+  await mkdir(path.join(data, 'city'), { recursive: true });
+  await writeJson('snapshot.json', path.join(data, 'city', 'snapshot.json'), await createManifest(dir, date));
+  await writeFile(path.join(dir, cityFiles[0]), 'unarchived');
+  const get = vi.fn(async () => {});
+  await expect(fetchSnapshot('city', get, { ...options(), fetchedOn: date })).rejects.toThrow('異なります');
+  expect(get).not.toHaveBeenCalled();
+  expect(await readFile(path.join(dir, cityFiles[0]), 'utf8')).toBe('unarchived');
 });

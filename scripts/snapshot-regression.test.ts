@@ -77,7 +77,9 @@ it.each(['chuo', `chuo@${date}`])('同日付の異なるR2 manifestを置換前�
   const different = { ...manifest, files: { other: { sha256: sha256(Buffer.from('other')), size: 5 } } };
   objects.set(`${prefix}/snapshot.json`, { bytes: Buffer.from(JSON.stringify(different)), sha256: '' });
   objects.set(`${prefix}/other`, { bytes: Buffer.from('other'), sha256: '' });
-  await expect(restoreSnapshots(storage, [selection], options())).rejects.toThrow('コミット済み');
+  await expect(restoreSnapshots(storage, [selection], { ...options(), dest: path.join(root, 'dest') })).rejects.toThrow(
+    '作業ツリーの',
+  );
   expect(await readdir(path.join(sources, 'chuo'))).toEqual(['old']);
   expect(await readFile(path.join(data, 'chuo', 'snapshot.json'), 'utf8')).toBe(JSON.stringify(manifest, null, 2) + '\n');
   expect(get).toHaveBeenCalledTimes(1);
@@ -93,9 +95,9 @@ it('リンクなし取得は旧一式とmanifestを保ち、取得先を知ら�
         downloaded = dir;
         await writeFile(path.join(dir, 'vacancy_page.html'), '<html></html>');
       },
-      options(),
+      { ...options(), discardUnarchived: ['chuo'] },
     ),
-  ).rejects.toThrow('一時ディレクトリ');
+  ).rejects.toThrow('取得内容を保持しました');
   expect(await readFile(path.join(sources, 'chuo', 'old'), 'utf8')).toBe('keep');
   expect(await readFile(path.join(data, 'chuo', 'snapshot.json'))).toEqual(before);
   expect(await readFile(path.join(downloaded, 'vacancy_page.html'), 'utf8')).toBe('<html></html>');

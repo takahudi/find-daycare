@@ -113,3 +113,22 @@ it('括弧・空白・日本語を含むwire pathと署名のcanonical pathが�
   expect(request.headers.get('x-amz-content-sha256')).toBe(hash);
   expect(await signer.authHeader()).toBe(request.headers.get('authorization'));
 });
+
+it.each(['UND_ERR_SOCKET', 'ECONNRESET', 'ETIMEDOUT', 'EAI_AGAIN'])(
+  'GETのボディ読み取り中の%sから再試行して復旧する',
+  async (code) => {
+    const failure = new TypeError('terminated', { cause: Object.assign(new Error('socket closed'), { code }) });
+    const broken = new Response(
+      new ReadableStream({
+        start(controller) {
+          controller.enqueue(new Uint8Array([1]));
+          controller.error(failure);
+        },
+      }),
+    );
+    const fetch = vi.fn().mockResolvedValueOnce(broken).mockResolvedValueOnce(new Response('complete'));
+    vi.stubGlobal('fetch', fetch);
+    expect(Buffer.from(await createR2Storage().get('key')).toString()).toBe('complete');
+    expect(fetch).toHaveBeenCalledTimes(2);
+  },
+);

@@ -5,9 +5,10 @@ import * as v from 'valibot';
 import { SnapshotDateSchema } from '../src/schema.ts';
 import { parseJson } from './json.ts';
 import {
+  assertReplaceable,
   loadVerifiedSnapshots,
   manifestBytes,
-  readManifest,
+  readManifestIfExists,
   replaceDirectory,
   selectIds,
   sha256,
@@ -113,26 +114,36 @@ export function restoreSelections(specs: string[]) {
 }
 
 export async function restoreSnapshots(
-  storage: SnapshotStorage,
+  storage: SnapshotStorage | undefined,
   specs: string[],
   {
     sources = path.resolve('sources'),
     data = path.resolve('data'),
     dest = sources,
+    discardUnarchived = [],
     log = console.log,
-  }: SnapshotOptions & { dest?: string } = {},
+  }: SnapshotOptions & { dest?: string; discardUnarchived?: string[] } = {},
 ) {
   const selections = restoreSelections(specs);
+  if (discardUnarchived.length) selectIds(discardUnarchived);
+  const intoSources = path.resolve(dest) === path.resolve(sources);
+  if (intoSources) {
+    for (const { id } of selections) {
+      if (!discardUnarchived.includes(id)) await assertReplaceable(id, path.join(sources, id), storage, data);
+    }
+  }
+  if (!storage) throw new Error('R2の認証情報がありません。READMEを確認してください');
   const totals = { ids: selections.length, files: 0, bytes: 0 };
   for (const { id, date } of selections) {
-    const committed = await readManifest(id, data);
-    const fetchedOn = date ?? committed.fetchedOn;
+    const local = await readManifestIfExists(id, data);
+    const fetchedOn = date ?? local?.fetchedOn;
+    if (!fetchedOn) throw new Error(id + ': 作業ツリーのマニフェストがありません。復元する取得日を指定してください');
     const prefix = `snapshots/${id}/${fetchedOn}`;
     const manifest = parseJson(Buffer.from(await storage.get(`${prefix}/snapshot.json`)).toString('utf8'), 'snapshot.json');
     if (manifest.fetchedOn !== fetchedOn) throw new Error(`${prefix}: マニフェストの取得日が一致しません`);
-    if (fetchedOn === committed.fetchedOn && !isDeepStrictEqual(manifest.files, committed.files))
-      throw new Error(`${prefix}: R2マニフェストがコミット済みマニフェストと一致しません`);
-    const updateManifest = path.resolve(dest) === path.resolve(sources) && fetchedOn !== committed.fetchedOn;
+    if (fetchedOn === local?.fetchedOn && !isDeepStrictEqual(manifest.files, local.files))
+      throw new Error(`${prefix}: R2マニフェストが作業ツリーのマニフェストと一致しません`);
+    const updateManifest = intoSources && fetchedOn !== local?.fetchedOn;
     let bytes = 0;
     await replaceDirectory(path.join(dest, id), async (temporary) => {
       await concurrently(Object.entries(manifest.files), async ([name, expected]) => {
