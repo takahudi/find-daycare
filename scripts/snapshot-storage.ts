@@ -24,7 +24,8 @@ export async function withRetry<T>(
       return await operation();
     } catch (error) {
       const retryable =
-        error instanceof TypeError ||
+        (error instanceof TypeError &&
+          /^(fetch failed|Failed to fetch|NetworkError when attempting to fetch resource\.)$/.test(error.message)) ||
         (error instanceof DOMException && error.name === 'TimeoutError') ||
         (error instanceof StorageError && error.status >= 500 && error.status <= 599);
       if (!retryable || attempt >= 3) throw error;
@@ -33,9 +34,19 @@ export async function withRetry<T>(
   }
 }
 
-export function createR2Storage(): SnapshotStorage {
+const names = ['R2_ACCOUNT_ID', 'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY', 'R2_BUCKET'] as const;
+
+function loadEnvironment() {
   if (existsSync('.env')) process.loadEnvFile('.env');
-  const names = ['R2_ACCOUNT_ID', 'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY', 'R2_BUCKET'] as const;
+}
+
+export function createR2StorageIfConfigured() {
+  loadEnvironment();
+  return names.every((name) => process.env[name]?.trim()) ? createR2Storage() : undefined;
+}
+
+export function createR2Storage(): SnapshotStorage {
+  loadEnvironment();
   const missing = names.filter((name) => !process.env[name]?.trim());
   if (missing.length)
     throw new Error(`R2環境変数がありません: ${missing.join(', ')}。READMEの「一次情報を保管・復元する」を確認してください`);
@@ -51,12 +62,17 @@ export function createR2Storage(): SnapshotStorage {
     retries: 0,
   });
   const url = (key: string) =>
-    `https://${account}.r2.cloudflarestorage.com/${bucket}/${key.split('/').map(encodeURIComponent).join('/')}`;
+    `https://${account}.r2.cloudflarestorage.com/${bucket}/${key
+      .split('/')
+      .map((segment) =>
+        encodeURIComponent(segment).replace(/[!'()*]/g, (char) => '%' + char.charCodeAt(0).toString(16).toUpperCase()),
+      )
+      .join('/')}`;
   async function request(key: string, method: string, bytes?: Uint8Array, hash?: string) {
     return client.fetch(url(key), {
       method,
       ...(bytes ? { body: Buffer.from(bytes) } : {}),
-      ...(hash ? { headers: { 'x-amz-meta-sha256': hash, 'If-None-Match': '*' } } : {}),
+      ...(hash ? { headers: { 'x-amz-meta-sha256': hash, 'x-amz-content-sha256': hash, 'If-None-Match': '*' } } : {}),
       signal: AbortSignal.timeout(120_000),
     });
   }

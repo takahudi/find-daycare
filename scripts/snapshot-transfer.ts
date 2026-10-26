@@ -1,9 +1,18 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { isDeepStrictEqual } from 'node:util';
 import * as v from 'valibot';
 import { SnapshotDateSchema } from '../src/schema.ts';
 import { parseJson } from './json.ts';
-import { loadVerifiedSnapshots, readManifest, replaceDirectory, selectIds, sha256, stageManifest } from './snapshots.ts';
+import {
+  loadVerifiedSnapshots,
+  manifestBytes,
+  readManifest,
+  replaceDirectory,
+  selectIds,
+  sha256,
+  stageManifest,
+} from './snapshots.ts';
 import type { SnapshotStorage } from './snapshot-storage.ts';
 
 export async function concurrently<T>(items: T[], action: (item: T) => Promise<void>, concurrency = 8) {
@@ -38,7 +47,7 @@ export async function archiveSnapshots(
   { sources = path.resolve('sources'), data = path.resolve('data'), log = console.log }: SnapshotOptions = {},
 ) {
   const manifests = await loadVerifiedSnapshots(ids, sources, data);
-  const totals = { ids: manifests.size, files: 0, bytes: 0, skipped: 0 };
+  const totals = { ids: Object.keys(manifests).length, files: 0, bytes: 0, skipped: 0 };
   async function putImmutable(key: string, bytes: Uint8Array, hash: string) {
     const existing = await storage.head(key);
     if (existing) {
@@ -54,19 +63,32 @@ export async function archiveSnapshots(
     }
     return false;
   }
-  for (const [id, manifest] of manifests) {
+  for (const [id, manifest] of Object.entries(manifests)) {
     const prefix = `snapshots/${id}/${manifest.fetchedOn}`;
+    const manifestContent = manifestBytes(manifest);
+    const hash = sha256(manifestContent);
+    const key = `${prefix}/snapshot.json`;
+    const archived = await storage.head(key);
+    if (archived) {
+      if (archived.sha256 !== hash) throw new Error(`${key}: 既存マニフェストのsha256が異なります`);
+      const files = Object.values(manifest.files);
+      totals.files += files.length;
+      totals.bytes += files.reduce((sum, file) => sum + file.size, 0);
+      totals.skipped += files.length + 1;
+      log(`${id}@${manifest.fetchedOn}: archived, skipped whole id via manifest HEAD`);
+      continue;
+    }
     const progress = { files: 0, bytes: 0, skipped: 0 };
     await concurrently(Object.entries(manifest.files), async ([name, expected]) => {
       const bytes = await readFile(path.join(sources, id, name));
-      if (bytes.length !== expected.size || sha256(bytes) !== expected.sha256)
-        throw new Error(`${id}/${name}: 検証後にローカルファイルが変わりました`);
       if (await putImmutable(`${prefix}/${name}`, bytes, expected.sha256)) progress.skipped++;
       progress.files++;
       progress.bytes += bytes.length;
     });
-    const bytes = Buffer.from(JSON.stringify(manifest, null, 2) + '\n');
-    if (await putImmutable(`${prefix}/snapshot.json`, bytes, sha256(bytes))) progress.skipped++;
+    if ((await storage.put(key, manifestContent, hash)) === 'exists') {
+      if ((await storage.head(key))?.sha256 !== hash) throw new Error(`${key}: 同時作成されたマニフェストのsha256が異なります`);
+      progress.skipped++;
+    }
     totals.files += progress.files;
     totals.bytes += progress.bytes;
     totals.skipped += progress.skipped;
@@ -108,32 +130,23 @@ export async function restoreSnapshots(
     const prefix = `snapshots/${id}/${fetchedOn}`;
     const manifest = parseJson(Buffer.from(await storage.get(`${prefix}/snapshot.json`)).toString('utf8'), 'snapshot.json');
     if (manifest.fetchedOn !== fetchedOn) throw new Error(`${prefix}: マニフェストの取得日が一致しません`);
-    let staged: Awaited<ReturnType<typeof stageManifest>> | undefined;
+    if (fetchedOn === committed.fetchedOn && !isDeepStrictEqual(manifest.files, committed.files))
+      throw new Error(`${prefix}: R2マニフェストがコミット済みマニフェストと一致しません`);
     const updateManifest = path.resolve(dest) === path.resolve(sources) && fetchedOn !== committed.fetchedOn;
     let bytes = 0;
-    try {
-      await replaceDirectory(
-        path.join(dest, id),
-        async (temporary) => {
-          await concurrently(Object.entries(manifest.files), async ([name, expected]) => {
-            const file = path.resolve(temporary, name);
-            if (!file.startsWith(`${path.resolve(temporary)}${path.sep}`)) throw new Error(`${name}: 復元先の外を指しています`);
-            const content = await storage.get(`${prefix}/${name}`);
-            if (content.length !== expected.size || sha256(content) !== expected.sha256)
-              throw new Error(`${prefix}/${name}: sha256またはsizeが一致しません`);
-            await mkdir(path.dirname(file), { recursive: true });
-            await writeFile(file, content);
-            bytes += content.length;
-          });
-          if (updateManifest) staged = await stageManifest(id, manifest, data);
-        },
-        async () => {
-          await staged?.commit();
-        },
-      );
-    } finally {
-      await staged?.cleanup();
-    }
+    await replaceDirectory(path.join(dest, id), async (temporary) => {
+      await concurrently(Object.entries(manifest.files), async ([name, expected]) => {
+        const file = path.resolve(temporary, name);
+        if (!file.startsWith(`${path.resolve(temporary)}${path.sep}`)) throw new Error(`${name}: 復元先の外を指しています`);
+        const content = await storage.get(`${prefix}/${name}`);
+        if (content.length !== expected.size || sha256(content) !== expected.sha256)
+          throw new Error(`${prefix}/${name}: sha256またはsizeが一致しません`);
+        await mkdir(path.dirname(file), { recursive: true });
+        await writeFile(file, content);
+        bytes += content.length;
+      });
+      return updateManifest ? stageManifest(id, manifest, data) : undefined;
+    });
     totals.files += Object.keys(manifest.files).length;
     totals.bytes += bytes;
     log(

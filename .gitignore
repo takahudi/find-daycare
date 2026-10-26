@@ -48,3 +48,6 @@ desktop.ini
 *.njsproj
 *.sln
 *.sw?
+
+# Staged snapshot manifests
+/data/*/.snapshot-*.json

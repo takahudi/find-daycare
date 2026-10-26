@@ -20,11 +20,12 @@
     "preview": "vite preview",
     "prepare": "node scripts/install-git-hooks.ts",
     "data:fetch": "node scripts/fetch-sources.ts",
-    "data:build": "node scripts/extract-pdf-details.ts && node scripts/extract-kigyo-details.ts && node scripts/build-data.ts",
+    "data:build": "pnpm data:verify && node scripts/extract-pdf-details.ts && node scripts/extract-kigyo-details.ts && node scripts/build-data.ts",
     "data:update": "pnpm data:fetch && pnpm data:build",
     "data:manifest": "node scripts/data-manifest.ts",
     "data:archive": "node scripts/data-archive.ts",
-    "data:restore": "node scripts/data-restore.ts"
+    "data:restore": "node scripts/data-restore.ts",
+    "data:verify": "node scripts/data-verify.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

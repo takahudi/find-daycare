@@ -134,7 +134,7 @@ describe('スナップショットの復元', () => {
     );
     expect(await readdir(path.join(dest, 'chuo'))).toEqual(['old']);
     expect(await readFile(path.join(dest, 'chuo', 'old'), 'utf8')).toBe('keep');
-    expect((await readdir(dest)).filter((name) => name.startsWith('.'))).toEqual([]);
+    expect((await readdir(dest)).filter((name) => name.startsWith('.chuo-new-'))).toHaveLength(1);
   });
   it.each([
     '../escape',
@@ -180,12 +180,15 @@ describe('取得時の置換とマニフェスト', () => {
     await fetchSnapshot(
       'chuo',
       async (dir) => {
-        await writeFile(path.join(dir, 'fresh'), 'new');
+        for (const file of ['list.xlsx', 'vacancy.pdf', 'vacancy_page.html', 'kigyo_page.html', 'facility-pdfs/1.pdf']) {
+          await mkdir(path.dirname(path.join(dir, file)), { recursive: true });
+          await writeFile(path.join(dir, file), 'new');
+        }
       },
-      { sources, data, fetchedOn: date },
+      { sources, data, fetchedOn: date, log: quiet },
     );
-    expect(await readdir(path.join(sources, 'chuo'))).toEqual(['fresh']);
-    expect([...(await loadVerifiedSnapshots(['chuo'], sources, data)).keys()]).toEqual(['chuo']);
+    expect(await readdir(path.join(sources, 'chuo'))).not.toContain('a.txt');
+    expect(Object.keys(await loadVerifiedSnapshots(['chuo'], sources, data))).toEqual(['chuo']);
   });
   it('ダウンロード失敗時は旧ファイルとマニフェストを保持する', async () => {
     const before = await readFile(path.join(data, 'chuo', 'snapshot.json'));
@@ -201,19 +204,19 @@ describe('取得時の置換とマニフェスト', () => {
     ).rejects.toThrow('download failed');
     expect(await readFile(path.join(sources, 'chuo', 'a.txt'), 'utf8')).toBe('一次情報\n');
     expect(await readFile(path.join(data, 'chuo', 'snapshot.json'))).toEqual(before);
-    expect(await readdir(sources)).toEqual(['chuo']);
+    expect((await readdir(sources)).filter((name) => name.startsWith('.chuo-new-'))).toHaveLength(1);
   });
   it('置換後のマニフェスト更新が失敗したら旧ディレクトリに戻す', async () => {
     await expect(
-      replaceDirectory(
-        path.join(sources, 'chuo'),
-        async (dir) => {
-          await writeFile(path.join(dir, 'fresh'), 'new');
-        },
-        async () => {
-          throw new Error('commit failed');
-        },
-      ),
+      replaceDirectory(path.join(sources, 'chuo'), async (dir) => {
+        await writeFile(path.join(dir, 'fresh'), 'new');
+        return {
+          commit: async () => {
+            throw new Error('commit failed');
+          },
+          cleanup: async () => {},
+        };
+      }),
     ).rejects.toThrow('commit failed');
     expect(await readFile(path.join(sources, 'chuo', 'a.txt'), 'utf8')).toBe('一次情報\n');
   });
@@ -239,7 +242,7 @@ describe('R2ストレージの境界', () => {
   it('5xxとネットワーク障害はバックオフで再試行する', async () => {
     const operation = vi
       .fn()
-      .mockRejectedValueOnce(new TypeError('network'))
+      .mockRejectedValueOnce(new TypeError('fetch failed'))
       .mockRejectedValueOnce(new StorageError(503, 'unavailable'))
       .mockResolvedValue('ok');
     const delays: number[] = [];

@@ -29,11 +29,6 @@ import { finishWard } from './build-data/ward.ts';
 
 const OUT = path.resolve('src/data/facilities.json');
 const snapshots = await loadVerifiedSnapshots(SNAPSHOT_IDS);
-function snapshotDate(id: string) {
-  const manifest = snapshots.get(id);
-  if (!manifest) throw new Error(id + ': 検証済みマニフェストがありません');
-  return manifest.fetchedOn;
-}
 const csv = parseCsv((await readFile(path.join(SRC, 'city', 'sukusukudata.csv'), 'utf8')).replace(/^﻿/, ''));
 const [, ...csvRows] = csv;
 const now = new Date();
@@ -53,13 +48,13 @@ for (const ward of WARDS) {
     await saveGeocodeCache(ward.id, input.geocodeCache);
   }
   const wardFacilities = [...licensed, ...kigyo];
-  wards.push(finishWard(ward, wardRows, wardFacilities, input, kigyoAsOf, now, warn, snapshotDate(ward.id)));
+  wards.push(finishWard(ward, wardRows, wardFacilities, input, kigyoAsOf, now, warn, snapshots[ward.id].fetchedOn));
   facilities.push(...wardFacilities);
 }
 
 const data: Dataset = {
   generatedAt: now.toISOString(),
-  citySnapshot: snapshotDate('city'),
+  citySnapshot: snapshots.city.fetchedOn,
   wards,
   commonSources: [
     { label: '大阪市「保育施設等 空き情報マップ」（位置情報・空き人数データ）', url: CITY_SOURCES.vacancyMap },

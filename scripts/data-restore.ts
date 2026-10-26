@@ -1,7 +1,6 @@
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { createR2Storage } from './snapshot-storage.ts';
-import { restoreSelections, restoreSnapshots } from './snapshot-transfer.ts';
+import { restoreSnapshots } from './snapshot-transfer.ts';
 const { values, positionals } = parseArgs({ allowPositionals: true, options: { dest: { type: 'string' } } });
-restoreSelections(positionals);
 await restoreSnapshots(createR2Storage(), positionals, values.dest ? { dest: path.resolve(values.dest) } : {});
