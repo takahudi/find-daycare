@@ -179,8 +179,14 @@ pnpm format     # oxfmt で整形
 ## データの更新
 
 ```bash
-pnpm data:update   # 一次情報を再取得 → PDFから抽出 → src/data/facilities.json を再生成
+pnpm data:fetch    # 一次情報とマニフェストを取得
+# マニフェスト差分と一次情報を確認
+pnpm data:build    # 一次情報を検証し、PDFから抽出してsrc/data/facilities.jsonを再生成
+# 生成結果を確認してPRを作成し、レビュー後に保管
+pnpm data:archive
 ```
+
+`data:update` は取得とビルドを続けて実行する便宜上のコマンドです。更新作業は取得 → 差分確認 → ビルド → PR → レビュー後に `data:archive` の順で進めます。取得直後に確認する場合は、上記のように `data:fetch` と `data:build` を分けて実行してください。
 
 施設種別は `facilityType`、認可区分は `licensing` として別々に保持します。表示ラベルはアプリ側で定義します。
 
@@ -198,6 +204,37 @@ pnpm data:update   # 一次情報を再取得 → PDFから抽出 → src/data/f
 - `scripts/extract-ward-homepages.ts <区のid>` … 区の施設紹介資料PDFの「ホームページ」「URL」「ホームページアドレス」欄・区のページの「〇〇のホームページ」リンクや表の施設名リンク・施設の写真のリンクを一覧表示（`websites.json` 更新時の確認用）
 - `scripts/check-urls.ts <区のid>` … `websites.json` のURLが開けるか確認（Cloudflare等で自動アクセスが拒否されるサイトはブラウザで確認）
 - `scripts/dump-pdf-text.ts` … PDFのテキストを座標付きで表示するデバッグ用
+
+### 一次情報を保管・復元する
+
+非公開のR2バケットを用意し、そのバケットだけを対象とする **Object Read & Write** 権限のR2 APIトークンを発行してください。`.env.example` を `.env` にコピーし、`R2_ACCOUNT_ID`、`R2_ACCESS_KEY_ID`、`R2_SECRET_ACCESS_KEY`、`R2_BUCKET` を設定します。`.env` はGitに含めません。各コマンドはファイルが存在するときだけNode.jsの `process.loadEnvFile('.env')` で読み込み、環境変数も使用できます。
+
+```bash
+pnpm data:archive                   # 全24区と全市共通を保管
+pnpm data:archive chuo city         # 指定した単位だけ保管
+pnpm data:restore                   # 作業ツリーのマニフェストの取得日で全単位をsources/へ復元
+pnpm data:restore chuo@2026-10-21 --dest .audit/restored
+pnpm data:manifest chuo --date 2026-10-21
+```
+
+`data:fetch` は区を指定した場合も全市共通の `city` を対象にします。`sources/city/` が存在し、作業ツリーのマニフェストの取得日がJSTの当日で、全ファイルのハッシュとサイズが一致するときだけ `city` の再取得を省略します。`pnpm data:fetch chuo --force-city` で再取得できます。
+
+既存の `sources/<id>/` を `data:fetch` または `data:restore` で置換するときは、作業ツリーの `data/<id>/snapshot.json` が存在し、ディスク上の全ファイルがそのマニフェストと完全に一致し、R2認証情報が揃い、R2の `snapshots/<id>/<取得日>/snapshot.json` が同じSHA-256で保管されていることを確認します。`sources/` はブランチ・worktree間で共有されることがあるため、マニフェストの保管状況だけでは置換を許可しません。置換先がなければこの確認は不要です。fetchは `city` を含む対象すべてをダウンロード前に検査します。
+
+条件を満たさない場合は、対象idと理由を表示して取得前に停止します。ツリーと作業ツリーのマニフェストが一致するブランチで `pnpm data:archive <id>` を実行してください。保管と保管状況の確認の両方に `.env` のR2認証情報が必要です。R2の確認中に通信障害が起きた場合は再試行してください。旧ツリーを削除してよい場合は、`pnpm data:fetch chuo --discard-unarchived chuo` または `pnpm data:restore chuo --discard-unarchived chuo` のように対象idを明示して再実行できます。この指定は選択したidごとに必要です。複数なら `--discard-unarchived chuo --discard-unarchived city` と繰り返します。fetchでは位置引数の区idも必須です。リンクや通常ファイルの置換は削除許可があっても拒否します。別ディレクトリへの `--dest` 復元は保管状況の確認をせず置換します（通常ファイルやリンクは取得前に拒否します）。`sources/` と実パスが同じ `--dest` は、Windowsの大文字小文字違いやjunction経由でも通常の `sources/` 復元として扱います。
+
+取得した一式は `wards.ts` に応じた必須ファイルを確認してから置換します。旧一式は置換とマニフェスト更新が成功したあとで削除します。
+
+Windowsで使用中のファイルによるrename失敗は、合計約9秒を上限に再試行します。取得・検証・置換・マニフェスト更新に失敗した場合は旧一式を保持または復元し、ダウンロード用の一時ディレクトリを削除せず、そのパスをエラーに表示します。
+
+一次情報は `sources/<区id>/` と `sources/city/` に置きます。`data/<id>/snapshot.json` は取得日・相対POSIXパス・SHA-256・バイト数を記録します。`data:manifest [<id> ...] [--date YYYY-MM-DD]` は既存ファイルからマニフェストを作成します。日付を省略すると、ファイルの更新日時をJSTに変換し、単位内ですべて同日であることを確認します。通常は取得コマンドがJSTの当日付で自動生成するため、手動生成は初回取り込みに使います。
+
+`data:archive [<id> ...]` はローカル一式がマニフェストと完全に一致することを確認し、`snapshots/<id>/<取得日>/<相対パス>` と同階層の `snapshot.json` を保管します。まずR2の `snapshot.json` をHEADで確認します。同じSHA-256ならその単位全体を省略し、異なる場合はアップロード前に失敗します。マニフェストがない場合はファイルを保管し、最後にマニフェストを保管します。途中まで保管済みのファイルは同じSHA-256なら省略し、異なる内容は上書きせず失敗します。途中失敗した場合は同じコマンドを再実行してください。同じ取得日に内容が変わった場合も上書きできないため、新しい取得日のスナップショットとして取り込みます。
+
+`data:restore [<id>[@YYYY-MM-DD] ...] [--dest <dir>]` は省略時に全単位・作業ツリーのマニフェストの取得日・`sources/` を選びます。作業ツリーのマニフェストの取得日を復元する場合は、R2のマニフェストの全ファイル情報が作業ツリーのマニフェストと一致することも確認します。ハッシュとサイズを確認した一式だけをディレクトリごと置換し、不要になった旧ファイルは残しません。ただし、削除許可なしで `sources/` を置換するときは退避した旧ツリーを削除前に再検証します。取得中に旧ツリーが変わった場合や再検証できない場合は、旧ツリーを元の場所に戻し、取得した一式の保存先を表示して失敗します。別日付を `sources/` に復元したときは、`data/<id>/snapshot.json` もその日付へ更新して通知します。別の `--dest` への復元では、作業ツリーのマニフェストを変更しません。
+
+`data:verify [<id> ...]` は一次情報を作業ツリーのマニフェストと照合します。`data:build` はすべての単位の検証を抽出処理より先に実行します。マニフェストや一次情報の欠落・不一致がある場合は、`data/` に書き込む前に停止し、`data:restore` を案内します。`facilities.json` の各区の `snapshot` と全市共通の `citySnapshot` に、使用した取得日を記録します。保管は [ADR 0001](docs/adr/0001-raw-sources-in-r2-per-ward-snapshots.md) に従いレビュー後に実行し、取得時にはアップロードしません。
+
 
 ## 構成
 

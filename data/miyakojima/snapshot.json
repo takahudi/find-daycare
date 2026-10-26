@@ -1,0 +1,161 @@
+{
+  "fetchedOn": "2026-10-22",
+  "files": {
+    "facility-pdfs/02-miyuki.pdf": {
+      "sha256": "7ab37e579650bac6341372a3af2736409b09b0d6034c85eee9189e20550c444b",
+      "size": 143932
+    },
+    "facility-pdfs/h2-1-daitou.pdf": {
+      "sha256": "c017156ab7a9fdb3035ecd8a313de96f18f137b658b6ee723f73300ebf3dfbb6",
+      "size": 995750
+    },
+    "facility-pdfs/h2-10-zengenjisakura.pdf": {
+      "sha256": "32227111d56234e529024e6b563d7c15dd90b803d5fd02ce1ef7b30b46cf34c1",
+      "size": 990588
+    },
+    "facility-pdfs/h2-11-asukuutindai.pdf": {
+      "sha256": "b19f7824131bc76244b1532f25b9f778b5b4d19c325b663efc1b4d51a8377585",
+      "size": 998563
+    },
+    "facility-pdfs/h2-12-torejyatomobuchi.pdf": {
+      "sha256": "44dbb0a78ef59d53e4efb2da50c41878868131db740cab7bea3ef26753ea576b",
+      "size": 999015
+    },
+    "facility-pdfs/h2-13-ureshiimiyakojima.pdf": {
+      "sha256": "8e6bd6afb285c0989641fa33769dd49dde99b6e2b7b864a93be852a22799111c",
+      "size": 999310
+    },
+    "facility-pdfs/h2-14-nichiikidsmiyakojimaminamidoori.pdf": {
+      "sha256": "b446ac320a62509f72bedc0cead461d9d38ad1ad07e39f9d6d66a482d3689bf1",
+      "size": 991004
+    },
+    "facility-pdfs/h2-15-torejyakyoubashi.pdf": {
+      "sha256": "a901b162fe9ed833e81e5b746f7685641ceb7298ac502f98869c40bc7600fd0e",
+      "size": 993643
+    },
+    "facility-pdfs/h2-16-ureshiimiyakojimahondori.pdf": {
+      "sha256": "b687717e3ea629586698e4961f9f8237ef0fc310ad338c4090e9ff2c889c8676",
+      "size": 982544
+    },
+    "facility-pdfs/h2-17-torejyadaitou.pdf": {
+      "sha256": "e311a339f853c5da93f2e56ad77f45821d6eec06fcd806a00d0b50c99797f4f6",
+      "size": 983587
+    },
+    "facility-pdfs/h2-2-miyakojimadai2nyuji.pdf": {
+      "sha256": "a60d4a0ec44be8e3c5ec740c0410bc1ef71546e67f56fa60984a8b01d59f0d0a",
+      "size": 1003049
+    },
+    "facility-pdfs/h2-3-miyakojimanyujihoiku.pdf": {
+      "sha256": "0ed9d899756a557cf9695fdec387a59cc2b018473b806d14f06ce04186f4e2ee",
+      "size": 1001509
+    },
+    "facility-pdfs/h2-6-miyakojimatomobuchinyuji.pdf": {
+      "sha256": "8a69185c3e8e531c336998f656d7c2711099872e1b549aba860aad304be2ef39",
+      "size": 999875
+    },
+    "facility-pdfs/h2-8-kemakotei.pdf": {
+      "sha256": "37af03a552b28d1052c605fabcd22c7dbda4be757c8869031c964b49bf4f36a6",
+      "size": 1006189
+    },
+    "facility-pdfs/k2-1-higashinoda.pdf": {
+      "sha256": "4a0e47ce409971b36964d7b3a98f399ea9f9439e0474465a0075f362bca01c57",
+      "size": 1292053
+    },
+    "facility-pdfs/k2-10-takakura.pdf": {
+      "sha256": "64ea42aff3a3696429294fa0172949a4e84fada7a20a044b4c3ce76ebd87931f",
+      "size": 1273100
+    },
+    "facility-pdfs/k2-11-ikusei.pdf": {
+      "sha256": "2d64a3abf8709697478c0a96e37bb67dc32c253f80249c08c651eca2e020cd60",
+      "size": 1272892
+    },
+    "facility-pdfs/k2-2-tomobutijidou.pdf": {
+      "sha256": "4e7d3bfff49aed11f940aa1f9834b2c784a85fce4e1aa09b6dd6d2fdc10b1ee8",
+      "size": 1298529
+    },
+    "facility-pdfs/k2-3-miyakojimajidou.pdf": {
+      "sha256": "c9c6c7e42b1f36f0b2ab1d22f8afb07bd6cfd0414dc9b0e292aa97b721d24e7b",
+      "size": 1303935
+    },
+    "facility-pdfs/k2-4-yodogawa.pdf": {
+      "sha256": "59727c0f461bf9973803e1420b6a59620e98e35841cf8082645c68f358787843",
+      "size": 1295818
+    },
+    "facility-pdfs/k2-5-utindaimatunohana.pdf": {
+      "sha256": "dbcce97c8fcd89c4bcc07a3e1c70ef53a13cdf8effa6a08f9d10667584aaba65",
+      "size": 1297345
+    },
+    "facility-pdfs/k2-6-sakuranomiyajidou.pdf": {
+      "sha256": "ada7e6a2c8bd5821651b85bfce0d6b4f15ee9b1dae017b35ab8e243184e1b139",
+      "size": 1305402
+    },
+    "facility-pdfs/k2-7-nanohana.pdf": {
+      "sha256": "0e903bac01bced53cf270990c6e5ebd1d61ea97a318fb4036fb604f994269332",
+      "size": 1298824
+    },
+    "facility-pdfs/k2-8-koroba.pdf": {
+      "sha256": "99febdb5ae55ecb8aed955457084413b85de93e9d75c224c5cacda97a70785e7",
+      "size": 1292635
+    },
+    "facility-pdfs/k2-9-higamiya.pdf": {
+      "sha256": "53cad1186846c78575b592d89dd1c5fb50900f621db99bd9b4043abae1e093c0",
+      "size": 1302492
+    },
+    "facility-pdfs/t2-1-kirakiramiyakojima.pdf": {
+      "sha256": "138a98a20170763f5e88cb98e2e06eb4a8781c8cd3a3dacad65f3618a0ed32ee",
+      "size": 961319
+    },
+    "facility-pdfs/t2-10-kujiramiyakojimakita.pdf": {
+      "sha256": "6d8368e230658ecdb4b8cb0752ce3fd76331c48e0582433162f06a4410f4a6ed",
+      "size": 955768
+    },
+    "facility-pdfs/t2-11-chidorityousyanai.pdf": {
+      "sha256": "5d8f04d9c9dbe3ab31b4d8ebc1f4287b0f0afa847114ecdfa292e6915649ac54",
+      "size": 955270
+    },
+    "facility-pdfs/t2-2-kirakiramiyakojimahondori.pdf": {
+      "sha256": "c32e2c6770a06ea94f3770ef3c8273bda89f84bdb3b10b0af10416ae0971978e",
+      "size": 963698
+    },
+    "facility-pdfs/t2-3-angelkidsmiyakojima.pdf": {
+      "sha256": "224cd9cc60b03f914386ea08fd8f6ce53d67c199bcfa6ef39e08cbe67c0de9fc",
+      "size": 963803
+    },
+    "facility-pdfs/t2-4-sakunomiyababy.pdf": {
+      "sha256": "79a29bde364302c7decbbc1f31ea0c8fe757b90d9651354365e460b2d25f42e7",
+      "size": 960596
+    },
+    "facility-pdfs/t2-5-korobanyuji.pdf": {
+      "sha256": "d30d6ca92b513304cc71df70061af414e97c24ad71abe096661555bd6ab9f7bd",
+      "size": 956667
+    },
+    "facility-pdfs/t2-7-higashinodachidori.pdf": {
+      "sha256": "c66a62a03e458884c617e23db1da99d0981d6b8e1869e2ddd45d91f0192d8bd0",
+      "size": 954703
+    },
+    "facility-pdfs/t2-8-kujiramiyakojimahigashinoda.pdf": {
+      "sha256": "49223524863c592b834aa0e18bef76953d4cb35b512c819662b90959e50b529e",
+      "size": 955018
+    },
+    "facility-pdfs/t2-9-sakuranomiyasunfriends.pdf": {
+      "sha256": "1ded2fa2c02d556dd898374b90d0e7402e0e610be1f24f8a439c5a746a54dbb0",
+      "size": 959508
+    },
+    "kigyo_page.html": {
+      "sha256": "10efe5095ed26726f8f47bd2fd1db4cae1ee745fe467fb118656b5c3c2ea89e8",
+      "size": 44001
+    },
+    "list.pdf": {
+      "sha256": "d7bf170c188316598e43b726634d0c9c743e5a4980473258d48dbb002222094a",
+      "size": 438216
+    },
+    "list.xlsx": {
+      "sha256": "581976a05700fe3658e3d5dc0b34b95a6f327db0e29db4e9355168d8c3d309ce",
+      "size": 13116
+    },
+    "vacancy_page.html": {
+      "sha256": "48a6b84f794bbfee75dd6b4e3d18a61439421e40378835fb70618be8a2250624",
+      "size": 58679
+    }
+  }
+}

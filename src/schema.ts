@@ -117,9 +117,19 @@ export const FacilitySchema = v.pipe(
 );
 
 export const SourceSchema = v.object({ label: TextSchema, url: HttpUrlSchema });
+export const SnapshotDateSchema = v.pipe(
+  v.string(),
+  v.isoDate('取得日はYYYY-MM-DD形式が必要です'),
+  v.check((date) => {
+    const timestamp = Date.parse(date);
+    return Number.isFinite(timestamp) && new Date(timestamp).toISOString().slice(0, 10) === date;
+  }, '実在する取得日が必要です'),
+);
+
 export const WardSchema = v.object({
   id: TextSchema,
   name: TextSchema,
+  snapshot: SnapshotDateSchema,
   vacancyAsOf: TextSchema,
   vacancyFor: TextSchema,
   kigyoVacancyAsOf: v.nullable(TextSchema),
@@ -129,6 +139,7 @@ export const WardSchema = v.object({
 export const DatasetSchema = v.pipe(
   v.object({
     generatedAt: v.pipe(TextSchema, v.isoTimestamp('生成日時はISO形式が必要です')),
+    citySnapshot: SnapshotDateSchema,
     wards: v.pipe(v.array(WardSchema), v.minLength(1, '区が必要です')),
     commonSources: v.pipe(v.array(SourceSchema), v.minLength(1, '共通の出典が必要です')),
     facilities: v.array(FacilitySchema),

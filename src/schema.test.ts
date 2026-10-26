@@ -20,6 +20,17 @@ function expectFacilityIssue(data: Dataset, id: string, message: string) {
 }
 
 describe('公開データ', () => {
+  it.each(['', '2026/10/22', '2026-1-22', '2026-13-22', '2026-02-30', '2026-02-29'])(
+    'スナップショットの取得日をISO日付として検証する (%s)',
+    (date) => {
+      const data = dataset();
+      data.citySnapshot = date;
+      expect(v.safeParse(DatasetSchema, data).success).toBe(false);
+      const wardData = dataset();
+      wardData.wards[0].snapshot = date;
+      expect(v.safeParse(DatasetSchema, wardData).success).toBe(false);
+    },
+  );
   it('コミット済みのfacilities.jsonがスキーマと不変条件を満たす', () => {
     const result = v.safeParse(DatasetSchema, rawData);
     expect(result.success, result.issues ? v.summarize(result.issues) : undefined).toBe(true);

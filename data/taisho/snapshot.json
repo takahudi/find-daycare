@@ -1,0 +1,209 @@
+{
+  "fetchedOn": "2026-10-23",
+  "files": {
+    "facility-pdfs/08-oonami.pdf": {
+      "sha256": "150e1ae528ab804034f310a21a37f75afc120649965bc64cd6ca102fca4ab095",
+      "size": 143809
+    },
+    "facility-pdfs/08-taisyou.pdf": {
+      "sha256": "d5290f79b672767b81e52fb00c416c5b3b14f6a68153895e74e86c10aea7aef0",
+      "size": 143487
+    },
+    "facility-pdfs/8-chishima.pdf": {
+      "sha256": "de212d0c7581c9cee27cfe88e56c6c5daccb635c317132434ff062e3c5d94703",
+      "size": 986328
+    },
+    "facility-pdfs/8-kitaokajima.pdf": {
+      "sha256": "68cb83d3ab5a1611405cc834ae6e1d7c5dfd2908ad46b6a45d4363f108f77804",
+      "size": 990223
+    },
+    "facility-pdfs/h8-2-familyjunior.pdf": {
+      "sha256": "c82b4e9304d0d0e3eb8de4bb8e36dba5fae76acad98221d18f9c32dda967303f",
+      "size": 985510
+    },
+    "facility-pdfs/h8-3-megumi.pdf": {
+      "sha256": "0726905fbcbb514f33cab20337de91dab29583000e9297b87028a3b5b10d929c",
+      "size": 1004803
+    },
+    "facility-pdfs/h8-4-tsurumachisweetbabygarden.pdf": {
+      "sha256": "e302ef861f1b0b685b918b15eb5af468251a67f6a1fc507c328fe2f0696970ad",
+      "size": 985051
+    },
+    "facility-pdfs/h8-5-mominokitaishoukita.pdf": {
+      "sha256": "53174b9b4f16da5af21fca6a2cdb930524aeb78e5ec51423a10c66c2de7e50b3",
+      "size": 987409
+    },
+    "facility-pdfs/k8-2-syouwa.pdf": {
+      "sha256": "a715491a23b812ec84dae28228a41e474791e9ca45eb199cb55fe83f6fc6fb95",
+      "size": 1307553
+    },
+    "facility-pdfs/k8-3-familychishima.pdf": {
+      "sha256": "f089b9274eeb288512fc859641c6b9c067e9e719d28a654569bbea8453e0c83a",
+      "size": 1287824
+    },
+    "facility-pdfs/k8-4-family.pdf": {
+      "sha256": "406efc4e622625aecbfc1d376e355faf3501cb202839ba38220aad13bc7aef96",
+      "size": 1287209
+    },
+    "facility-pdfs/k8-5-tsurumachiuminokaze.pdf": {
+      "sha256": "4d549f016c14b5d0feda10f04684c38db2f3145b72e3bef029f7751a29479ad6",
+      "size": 1280219
+    },
+    "facility-pdfs/k8-6-taisyoyumenoki.pdf": {
+      "sha256": "119528655a903fca883a4fd41c9dea0dfd9ffec2307be6bc47e8e461c8489e26",
+      "size": 1305404
+    },
+    "facility-pdfs/k8-7-tsurumachi.pdf": {
+      "sha256": "e6d1dece2d67a3d009c0ed65315b5d4a756a31b78298a7e8fa08df12bfac28b3",
+      "size": 1283338
+    },
+    "facility-pdfs/t8-1-nukumorichishima.pdf": {
+      "sha256": "d1dd2914fbb0a0123e74b37de55db25c314ba06815e98451d7d48a1f6d50d751",
+      "size": 956097
+    },
+    "facility-pdfs/t8-2-kingdomkidstaisyou.pdf": {
+      "sha256": "9c33b877010001155ba46c7978f24193ca478864e1f73c963b64273db115d102",
+      "size": 954424
+    },
+    "facility-pdfs/t8-3-yotuba.pdf": {
+      "sha256": "e1da24be512760b1c4544574eb75742df0c946693af3deb179dac84916275bdf",
+      "size": 952920
+    },
+    "homepage-sources/1.html": {
+      "sha256": "6f8ea52efe44c40b5c5f4d512c8f1ab8f9b9b3c8f878135868fbab0e6356cf09",
+      "size": 48963
+    },
+    "homepage-sources/1/P1-R8-Onami.pdf": {
+      "sha256": "df2548803e067ff1d8b85f2aa4c62d0c8d12a688806cb138dfac962e700a5cf9",
+      "size": 246726
+    },
+    "homepage-sources/1/P10-R8-Kingudamu.pdf": {
+      "sha256": "35f613c3ff188ee03f26c25c558fbb0f5d60afc65217f820b532bc49ccc273c3",
+      "size": 274530
+    },
+    "homepage-sources/1/P11-R8-Yotuba.pdf": {
+      "sha256": "e13b23e37466a6a92cb0f0b342c05bc6414cb07d8fbb31120d9749b241ebe7ff",
+      "size": 392335
+    },
+    "homepage-sources/1/P12-R8-Showa.pdf": {
+      "sha256": "1e676450c4971b3d4d07fc0e70c0cc916689e8c719156417d98825ff167075f7",
+      "size": 354251
+    },
+    "homepage-sources/1/P13-R8-F.pdf": {
+      "sha256": "ee826c9c1aa08417f9b7903fe2a9ffb6b1380a219c7ae19eb2a46fcb61b69f1d",
+      "size": 678946
+    },
+    "homepage-sources/1/P14-R8-FC.pdf": {
+      "sha256": "4da0d9e234e2a4ad1a29af6871eab4d8f3a7642afd2b4db4de87e95de2c3f995",
+      "size": 840273
+    },
+    "homepage-sources/1/P15-R8-Turumatiuminokaze.pdf": {
+      "sha256": "8c1c9c8c9fc3babd1fbd87c31b79d54ab50a3e36e81cf65cff91c605b1931377",
+      "size": 4203295
+    },
+    "homepage-sources/1/P16-R8-Gakuen.pdf": {
+      "sha256": "926b55a746f06d963d57f07bd381b11a255126573b3b886aaeafd3574ca25482",
+      "size": 465664
+    },
+    "homepage-sources/1/P17-R8-Yumenoki.pdf": {
+      "sha256": "ff266ab86e59863d3faee537aa4377c5976d72fcdfa031c1f256f68f61d27d35",
+      "size": 953044
+    },
+    "homepage-sources/1/P18-R8-Sangenyanisi.pdf": {
+      "sha256": "afbae140ac82f3ac682ace75d6fd9a72feb5fc1318eb3190384cdefc6fd1948b",
+      "size": 405233
+    },
+    "homepage-sources/1/P19-R8-KitaokazimaY.pdf": {
+      "sha256": "21942a1e61cb019615ae4aff9a7ed8463eb9582f29ca8fc28ce6d479084fc051",
+      "size": 248984
+    },
+    "homepage-sources/1/P2-R8-Taisho.pdf": {
+      "sha256": "93d94306d789ddab748799a2984b3299c2de1c9b12e5c0258fa9cf0a27640ab4",
+      "size": 257189
+    },
+    "homepage-sources/1/P20-R8-Minamiokazima.pdf": {
+      "sha256": "faf29161f9ca436cae7047d980777e3cf06b15eb82e7e20343e37b0ae9c4076b",
+      "size": 499081
+    },
+    "homepage-sources/1/P21-R8-Syoko.pdf": {
+      "sha256": "591bc86e6073bac858c5f99e7a4b5308da413ca7308eeb5a797964453fe45793",
+      "size": 4141660
+    },
+    "homepage-sources/1/P22-R8-F(Tubame).pdf": {
+      "sha256": "c293417c1c76c7aff46b2ff925a454f5f15df948e5dd3ef0c7fe45ae6b91d46a",
+      "size": 698985
+    },
+    "homepage-sources/1/P23-R8-Tudoinohiroba.pdf": {
+      "sha256": "5a9b0fa1f80b3c68d22dbe0cb2c8cee53d12fbe082621806f81d5fe2821ba8d3",
+      "size": 240365
+    },
+    "homepage-sources/1/P24-R8-Kodomokozodatepulaza.pdf": {
+      "sha256": "a53014f7b9e980b214a20f5fbcacefda4539a40931953c920e3e6a23ff78f124",
+      "size": 418013
+    },
+    "homepage-sources/1/P25-R8-Syakyo.Huzyosansikai.pdf": {
+      "sha256": "a5f9405b7172a8f7891102c87c58136ffa4695ef7ae7cc4057c7db7278b76149",
+      "size": 4138763
+    },
+    "homepage-sources/1/P26-R8-Toshokan.pdf": {
+      "sha256": "9404d5de4b43f680914441819cf547e8f28ebd044f3721fbf0ec9ccd7624d129",
+      "size": 765587
+    },
+    "homepage-sources/1/P27-R8-Knekoudukuri.pdf": {
+      "sha256": "9b6074f271998a1734c28c85ab11486245c57088b074ee6b89774367fcacc399",
+      "size": 321887
+    },
+    "homepage-sources/1/P28.29.30-R8-Siensitu.pdf": {
+      "sha256": "9de026df970bc2177351f70fd448b6318f2e82c314d0e29222aa28e9efa1826d",
+      "size": 1038618
+    },
+    "homepage-sources/1/P3-R8-KitaokazimaH.pdf": {
+      "sha256": "798d099e46c25511df93cd900e37d17c851a933b78f2445afe04385b39f7b117",
+      "size": 321631
+    },
+    "homepage-sources/1/P31-R8-KosodateSa-kuru.pdf": {
+      "sha256": "bd6f6e42ed707f901b6a417c42a815e6a86349084129dfbb6e780c0f8c4a27ca",
+      "size": 643527
+    },
+    "homepage-sources/1/P4-R8-Tisima.pdf": {
+      "sha256": "99a8de6fa23e00d111cd73eacce1ce0a6a55b3d350f30df1481d29c6f76fc787",
+      "size": 216879
+    },
+    "homepage-sources/1/P5-R8-Mominoki.pdf": {
+      "sha256": "d8ba24343c603eadb680018678b280ac8e2d021470ca18ad761cf317d7d63160",
+      "size": 181693
+    },
+    "homepage-sources/1/P6-R8-FJ.pdf": {
+      "sha256": "a2a9bb0743cd5d1bcb62d1ec90feb8575036ea8eb719c11e3a86ef6b0af25582",
+      "size": 505529
+    },
+    "homepage-sources/1/P7-R8-Megumi.pdf": {
+      "sha256": "7938e139e826ed8fc4bb3de0484aaf5dafe1990f19fd529094f585b3275df617",
+      "size": 337410
+    },
+    "homepage-sources/1/P8-R8-SBG.pdf": {
+      "sha256": "2b01ef3f7e6ceaf916b83ddf81328b4eee9b08ba5be96b1fc0619091e047a7d4",
+      "size": 542119
+    },
+    "homepage-sources/1/P9-R8-Nukumori.pdf": {
+      "sha256": "65d2c32828cc2f56969c9491ea506b306a6aef17eb3d54a17515019137730d34",
+      "size": 308745
+    },
+    "kigyo_page.html": {
+      "sha256": "f32decd63327b65cb27b209a992409f1cfd5a396bf898af7b343848c4c727a94",
+      "size": 31067
+    },
+    "list.pdf": {
+      "sha256": "3260543cc652410d70eab1277950f5d53d8c3821ff73cf6f9aa91ec1078cf55f",
+      "size": 347192
+    },
+    "list.xlsx": {
+      "sha256": "e1baec0dc95d6e589a05e10952eca96156028237c157585c48db2a4c406d98a3",
+      "size": 11744
+    },
+    "vacancy_page.html": {
+      "sha256": "92221573b48066b5c79cf15408479f8d48394d44c238b9fe93ec0327c6d55adc",
+      "size": 29562
+    }
+  }
+}

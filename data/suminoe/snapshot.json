@@ -1,0 +1,157 @@
+{
+  "fetchedOn": "2026-10-23",
+  "files": {
+    "facility-pdfs/20-hamaguchi.pdf": {
+      "sha256": "5b3ad010e7554b03c1530972d8e7168749e6f860df4008b6aa2ccdd27585ec24",
+      "size": 988005
+    },
+    "facility-pdfs/20-kitakagaya.pdf": {
+      "sha256": "f74be9c20570f464a6a12407601ea85564b3d6789c895c00225200f023116a80",
+      "size": 142823
+    },
+    "facility-pdfs/20-misaki.pdf": {
+      "sha256": "f7c7bed34f354efb63619401a28549d6b5637f9a8b02d33c90e9bc8a08c66599",
+      "size": 143473
+    },
+    "facility-pdfs/20-shinkitajima.pdf": {
+      "sha256": "4d5fef0e97f518a0ccb147c8b7a9640546bb65e47d6e501a42b69853f826bb4d",
+      "size": 983301
+    },
+    "facility-pdfs/h20-1-kinomi.pdf": {
+      "sha256": "f38a11c9cff70af7858c9e4a6e7345aa9b2be6790825c546af35dbd2ed204ca7",
+      "size": 987739
+    },
+    "facility-pdfs/h20-10-suminoehiyoko.pdf": {
+      "sha256": "2555b945e422bde3cc26226ac1736954e0c996cdfe5e3466d27c6e8c0bb2b038",
+      "size": 990156
+    },
+    "facility-pdfs/h20-11-anryu.pdf": {
+      "sha256": "cb5e8f1b5f4a109e4dc582691394b451b8a6fabaceffc34619ee2fa6818fd5f3",
+      "size": 1003289
+    },
+    "facility-pdfs/h20-13-sukusukusuminoe.pdf": {
+      "sha256": "cd4d1bc146fe729d6a18a5a68dfb3617ae93959921db0b10f5d7732d4dc5633a",
+      "size": 989025
+    },
+    "facility-pdfs/h20-2-kinomimusubi.pdf": {
+      "sha256": "187ae275f19fbdba3b06927a1016500f384be3f409f7e1deb1655362e6657aed",
+      "size": 992350
+    },
+    "facility-pdfs/h20-3-kohamagakuen.pdf": {
+      "sha256": "6d17bcd1e5b3418b243f7db8f0e44a9fd7ebffb1b5f06d6d0e05f79f843042f6",
+      "size": 995981
+    },
+    "facility-pdfs/h20-4-suminoe.pdf": {
+      "sha256": "08a792c0d19f673a9c86243df0046942096442b55e4e1a5a400babe5d5573407",
+      "size": 1000429
+    },
+    "facility-pdfs/h20-5-dai2suminoe.pdf": {
+      "sha256": "75c6bfe5b0e7e14eb5036e9f8aaba8cb80ccdb6694494eb2fe7dc812b1fa6082",
+      "size": 1008727
+    },
+    "facility-pdfs/h20-6-yamato.pdf": {
+      "sha256": "af257f4a05babcc8f673a842047e9840e13a059e00ad19e0f5d99fc98ff2d7fa",
+      "size": 992240
+    },
+    "facility-pdfs/h20-7-doronko.pdf": {
+      "sha256": "fa61c4c8946a33d796af8f30462a94e7a0020811294dde5564359de32bd7ab13",
+      "size": 1000193
+    },
+    "facility-pdfs/h20-8-ebisu.pdf": {
+      "sha256": "67e64529f06d397d04d44b2fb7b4f605ee39cb17abc663534f529c1cf473fd2c",
+      "size": 1002112
+    },
+    "facility-pdfs/h20-9-cosmo.pdf": {
+      "sha256": "150ea3248acddcad7f131ade338818147f104409c39e5f1407a9c086f52f0cad",
+      "size": 997030
+    },
+    "facility-pdfs/k20-1-misaki.pdf": {
+      "sha256": "5a078a3826f1fb3976675d01bcd2eb5fd90d6371ed5deb309612e3ef6f569bc9",
+      "size": 1289367
+    },
+    "facility-pdfs/k20-2-takasaki.pdf": {
+      "sha256": "8f719cdc0ed086ea9e0a03d3cf1b3fad11e7f7980d7b3e72bd1d6eec0584439d",
+      "size": 1291671
+    },
+    "facility-pdfs/k20-3-suminoe.pdf": {
+      "sha256": "48658ce4e8c5911e3ed96a41411b4d84c648cbcb34bcc78562f469234c51db16",
+      "size": 1288498
+    },
+    "facility-pdfs/k20-4-porttown.pdf": {
+      "sha256": "7bb0d6f46d1f124f85de4024977089cb494b7760b7050e5459640737a27e6780",
+      "size": 1298447
+    },
+    "facility-pdfs/k20-5-aiwa.pdf": {
+      "sha256": "21bddd100fdc686e9c973b98a14586e5bf14dd113204fdff84b9c45b4a5843cc",
+      "size": 1313449
+    },
+    "facility-pdfs/k20-6-grace.pdf": {
+      "sha256": "f95d6f0daea4aecd69d5f02b240ff912e9ec0d1bbaeecbac7c5ca51f510e01bb",
+      "size": 1298511
+    },
+    "facility-pdfs/k20-7-aizenennankou.pdf": {
+      "sha256": "6fec9768bce943e3c333e61d77f136c70ab7768386c4b341d77839847da34bed",
+      "size": 1295909
+    },
+    "facility-pdfs/k20-8-nakakagaya.pdf": {
+      "sha256": "a5f695ad2a9b6f705bf013ac928c6cd1a4d23599ecfdf71bb67b7aebca534e3d",
+      "size": 1292116
+    },
+    "facility-pdfs/k20-9-nankou.pdf": {
+      "sha256": "86fdcd408ca7ba85bb49501a3b7455e64871d5c2cc5225e9f01277830079d091",
+      "size": 1274337
+    },
+    "facility-pdfs/t20-1-mommyseyesuminoe.pdf": {
+      "sha256": "2a2e0e047b75e1b990c3c0df52b351bfa3e470c1f67773ae6ab633d4db900d4d",
+      "size": 951407
+    },
+    "facility-pdfs/t20-2-seiainannkoukita.pdf": {
+      "sha256": "8a60cf7abc75ec3de60d963563bb88f0379405fb2b5ec5a4388fd746876610f9",
+      "size": 973883
+    },
+    "facility-pdfs/t20-4-putiebisu.pdf": {
+      "sha256": "f3acf1312250612cf863450f684b84181ffc8e9a52a7d02891ab28b81e98c5fa",
+      "size": 956514
+    },
+    "facility-pdfs/t20-5-takasaki.pdf": {
+      "sha256": "5c529035de38ed646d55e070d84a9e71c221b61d60c6b01960b7fcaf43403c4e",
+      "size": 951349
+    },
+    "facility-pdfs/t20-6-doronkobaby.pdf": {
+      "sha256": "d0b2a9a846f76b37aa4a852f04cb39357039a92c337bd87aeb4888a60c56b43a",
+      "size": 960956
+    },
+    "homepage-sources/1.html": {
+      "sha256": "e4acd6a6b9bf0fce69d1c1c8f87d48538f55ac327ca8f00d22792ba318d6f212",
+      "size": 48646
+    },
+    "homepage-sources/1/kitakgaya.pdf": {
+      "sha256": "71f473b6dc9ec5085e9c598d4729dd8946562c9101952aa313dffee344a16593",
+      "size": 111548
+    },
+    "homepage-sources/1/misaki.pdf": {
+      "sha256": "207ab609b07d02836aadf23ef3123c40b77831333a612ab45b38a60bd3f5931b",
+      "size": 104047
+    },
+    "kigyo.pdf": {
+      "sha256": "e9db288444903a9a1133d85022909e1e917b98fe660370e9e1214336c12fa703",
+      "size": 99462
+    },
+    "kigyo_page.html": {
+      "sha256": "cc8b9088181eaa59e27be4cf63f5dafd593a13cb411bf14a3402d22150ecb781",
+      "size": 40381
+    },
+    "list.pdf": {
+      "sha256": "8e2e965a899d290c1602c9ff0d5a2fb080979037602f7c00ae46ba305b28ceec",
+      "size": 453091
+    },
+    "list.xlsx": {
+      "sha256": "8212aaa7b9a3f7ea965d8edf4b71fdadebb989fbc34b61454c1e3ea4d74698d0",
+      "size": 12948
+    },
+    "vacancy_page.html": {
+      "sha256": "cc8b9088181eaa59e27be4cf63f5dafd593a13cb411bf14a3402d22150ecb781",
+      "size": 40381
+    }
+  }
+}

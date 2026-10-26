@@ -15,7 +15,7 @@ type KigyoBlock = Omit<KigyoDetail, BlockField | 'page'> & Partial<Pick<KigyoDet
 
 type Token = { s: string; y: number };
 
-const PDF = path.resolve('sources/ninkagai_detail.pdf');
+const PDF = path.resolve('sources/city/ninkagai_detail.pdf');
 
 const TIME = /^\d{1,2}:\d{2}$/;
 const HOURS_LABELS: [keyof KigyoBlock['hours'], RegExp][] = [

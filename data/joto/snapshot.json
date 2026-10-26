@@ -1,0 +1,209 @@
+{
+  "fetchedOn": "2026-10-22",
+  "files": {
+    "facility-pdfs/17-imahukuminami.pdf": {
+      "sha256": "8acc253292e46f608de11f9e3e1025491a785f21c44a3a37f9644c18b511f5e0",
+      "size": 994667
+    },
+    "facility-pdfs/17-namazue.pdf": {
+      "sha256": "f3a833dae45269c668bf1759f819ee1741fb83e2748e9a1f5c05ac12c62bf409",
+      "size": 144367
+    },
+    "facility-pdfs/17-sekime.pdf": {
+      "sha256": "0dbdf5f20d9ba3a885a3cec7f298f132ade412ac67eac3d6cf256da8f5d658c2",
+      "size": 142686
+    },
+    "facility-pdfs/17-sigino.pdf": {
+      "sha256": "301cd0a46491de379c75f8e2609920ad766950483164f61764567c4110930e29",
+      "size": 144155
+    },
+    "facility-pdfs/h17-1-aiiku.pdf": {
+      "sha256": "f7c942df7ac90f15d821150333eb33d7e89b660f3af4422f685340c1f25ed1b9",
+      "size": 1000022
+    },
+    "facility-pdfs/h17-10-yurikago.pdf": {
+      "sha256": "de084d40992466803be9324a5daaca460087c6f7b90e949271e8383f84afeb98",
+      "size": 997605
+    },
+    "facility-pdfs/h17-11-seitoku.pdf": {
+      "sha256": "d27edbf7ea051af440c2d1b18ca96a7e5c30d6d4bf3f2abc1c471406009f85b8",
+      "size": 999436
+    },
+    "facility-pdfs/h17-12-tatunoko.pdf": {
+      "sha256": "8ebd298e6bcca489e6d21791cd6605cf6f567d73693b2e091d389baebc96d295",
+      "size": 997568
+    },
+    "facility-pdfs/h17-13-yurikagodai2.pdf": {
+      "sha256": "f063c26e6834601d7ab188a6d93a505cbb6ac364978e31a7a95dba1e879bc0f8",
+      "size": 998071
+    },
+    "facility-pdfs/h17-14-noematunohana.pdf": {
+      "sha256": "500715a449fdfb1a6655590d396dd74dfa75ce6930270b7eaf235651642fa82c",
+      "size": 995316
+    },
+    "facility-pdfs/h17-15-kirara.pdf": {
+      "sha256": "f98613d0e13b2c0dca1f9515b2a78fed28c6045cf587222e36dabcf8e23cc9ed",
+      "size": 998442
+    },
+    "facility-pdfs/h17-17-higashinakahamahibari.pdf": {
+      "sha256": "e0952ddbaf263b03ec1cf7a94ef4e99866ff79a9571fed580a378e30e8bbaa56",
+      "size": 999700
+    },
+    "facility-pdfs/h17-18-imafukuaoitori.pdf": {
+      "sha256": "af9bbe5323768cdeb7416f4211f1f514c3554f08896226d5ab7ae4f100e71b07",
+      "size": 1001795
+    },
+    "facility-pdfs/h17-2-imafuku.pdf": {
+      "sha256": "0ee76aeb4e938ede3bc9e95136bf0cda50acee5e84dfffee973492651f120e7c",
+      "size": 991113
+    },
+    "facility-pdfs/h17-22-torejyatennouden.pdf": {
+      "sha256": "0f2d91e356b43995c03b6216e98d4b99c52be3039e43fe6c48d20d040f4c3903",
+      "size": 995605
+    },
+    "facility-pdfs/h17-23-sekimetyuuou.pdf": {
+      "sha256": "d75b3497296bd85979b17b290fe3eb55c43033bc93cb1f450f4b98ceb18f3899",
+      "size": 996229
+    },
+    "facility-pdfs/h17-24-aiaishiginoekimae.pdf": {
+      "sha256": "65f35223176eabc780981f43be0d7b8ed0a58fab37c376f801fec32e62eceecc",
+      "size": 999162
+    },
+    "facility-pdfs/h17-25-popinsshigino.pdf": {
+      "sha256": "74dd430a4d0648c068ad61fc78503f0cab2daa0490b015acb543818606862c0a",
+      "size": 989575
+    },
+    "facility-pdfs/h17-26-ureshiisekime.pdf": {
+      "sha256": "36035bdbc9d19a6cebf19debff71eb88029a0954ce8ab4303c6750ab2dbad9a3",
+      "size": 1000066
+    },
+    "facility-pdfs/h17-3-kurenai.pdf": {
+      "sha256": "ecc8de735a19b2013235c66ae88403ad462c5c6ed716fb97fba53e29ace1a03d",
+      "size": 1002268
+    },
+    "facility-pdfs/h17-4-nakayoshisumire.pdf": {
+      "sha256": "3b580befc6455bb95169ec7cc5c6fb7e8bc499e7158801ccf716490f922a6255",
+      "size": 1000320
+    },
+    "facility-pdfs/h17-5-sumire.pdf": {
+      "sha256": "c10d5adc802af03d2c4c559f4ca16db00eeb6d89422e1ef37c40bef4c1861bfe",
+      "size": 1002107
+    },
+    "facility-pdfs/h17-7-tubasa.pdf": {
+      "sha256": "1589899ad7fd0a2f0f9aa3e24f59c0fc6db3ae33f9d8b1e90827613a71bf1b3e",
+      "size": 1002662
+    },
+    "facility-pdfs/h17-8-morinomiya.pdf": {
+      "sha256": "ebb552507bf74b5f90b068529c9774b2c369e4a86b58b9f90c016be1eba92986",
+      "size": 999530
+    },
+    "facility-pdfs/h17-9-wanwan.pdf": {
+      "sha256": "c48584134bf28532a7f7cc01306735a8d5bf4692dfa590f52eaf77b272e8d00d",
+      "size": 1003371
+    },
+    "facility-pdfs/k17-1-sekimeseimaria.pdf": {
+      "sha256": "57af701c81481356e906f35a725fc72b9199fee3b4c7543fcaca27d2c617aecc",
+      "size": 1301526
+    },
+    "facility-pdfs/k17-2-joutouchidori.pdf": {
+      "sha256": "326162365c0758a5d24887e7eab846b481537cd8a20bd283eb588cabe609fdd3",
+      "size": 1291566
+    },
+    "facility-pdfs/k17-3-seiikujidou.pdf": {
+      "sha256": "79258bde68c0226ebf2f9c8263044abbd37f038ccaf90f9ece851ccee00b6d9a",
+      "size": 1303401
+    },
+    "facility-pdfs/k17-4-furuichitaiyou.pdf": {
+      "sha256": "444ceaf6664eb883a5efdc70962f24b5bd5e54fafbec4890f617a8a8b5ad7790",
+      "size": 1294488
+    },
+    "facility-pdfs/k17-5-joutouyotuba.pdf": {
+      "sha256": "ba8225459fa0a08128aef529dcf9bbc4183cc7dc85eaee0ea5df60d2f153c876",
+      "size": 1301656
+    },
+    "facility-pdfs/k17-6-suwa.pdf": {
+      "sha256": "59004a823c3d9c760fac65afb20681984ecc51e3149cd3750f277c6c610dbb12",
+      "size": 1288086
+    },
+    "facility-pdfs/k17-7-yumenoki.pdf": {
+      "sha256": "dfc55fe2696e207d0e0873afba99a02d8529f8e8aad567ff4a6bb869b6b4aa15",
+      "size": 1304753
+    },
+    "facility-pdfs/k17-8-oosakasinnaigakuin.pdf": {
+      "sha256": "4001083d1c08125ff5d7399cd1a014cf216c87de3cf85ac5bdebca8240a12ee5",
+      "size": 1297602
+    },
+    "facility-pdfs/k17-9-gamou.pdf": {
+      "sha256": "b512511ec618343f879d6d8236e36a9275e33b1ceee670b4830dfef5f6bb5e0b",
+      "size": 1285694
+    },
+    "facility-pdfs/t17-10-noesunfriends.pdf": {
+      "sha256": "ac8f14897d765651ce154f0bb2a6a7f9f16e51dfc1ced89f60d31b4b0b1e041c",
+      "size": 957963
+    },
+    "facility-pdfs/t17-11-tomarigifuruichi.pdf": {
+      "sha256": "4458d98e4c1e314ad8b1135eb7fb7de515bc07573a1c328f56aceb5e5ee7e69a",
+      "size": 961310
+    },
+    "facility-pdfs/t17-12-angelkidsjyoutou.pdf": {
+      "sha256": "5ff29a8e6009039c2a418293895b5453635d4ff55754410a95e075d6a2b492e3",
+      "size": 951853
+    },
+    "facility-pdfs/t17-2-shiginomirai.pdf": {
+      "sha256": "a7ab89569cdad348d5e6439a94caf67d6adb2994a23766f94cf60c42e41c70df",
+      "size": 960436
+    },
+    "facility-pdfs/t17-3-jyoutouchidorikids.pdf": {
+      "sha256": "950387d8bbbd2c6ccf9083955282502f8b25d47a592f02c4ba40cd9dcad47971",
+      "size": 964123
+    },
+    "facility-pdfs/t17-4-yumemi.pdf": {
+      "sha256": "d369098361d31b07f9d1e0afd7d5e87e654768d06d3520f416474efb4a9d3a84",
+      "size": 961833
+    },
+    "facility-pdfs/t17-5-kaiseiputiimafuku.pdf": {
+      "sha256": "07f7266d8267d2e1b699bc169e917cb9655defbad91d6e284384b1aeceb6f6d5",
+      "size": 968764
+    },
+    "facility-pdfs/t17-6-morinoko.pdf": {
+      "sha256": "1263f6d396b8a087b43a738ca22112719afa6abcb9bf9d0ba399897b001214ab",
+      "size": 967443
+    },
+    "facility-pdfs/t17-8-nukumorijyoutoutyuou.pdf": {
+      "sha256": "9764aff4a5c0aa9083f5987cc2b513e5d41b7b38a6aec778ca8938a5369d6aed",
+      "size": 957498
+    },
+    "facility-pdfs/t17-9-nichiikidshukaebashi.pdf": {
+      "sha256": "7c2a56261f74fc0d3ac84e6d3048a7b5d8f0c3fe3216e8c8f62f676115c9b3f8",
+      "size": 962580
+    },
+    "homepage-sources/1.html": {
+      "sha256": "7c7b428b23af371b90dfc29acba60c26b9d4dacc5b5c257fa07a96137ebea173",
+      "size": 81619
+    },
+    "homepage-sources/1/1080901.pdf": {
+      "sha256": "af392eef7ea628b77dfc927c563462d17a3d7bce5122d1fc2d3ad08473553260",
+      "size": 431292
+    },
+    "homepage-sources/1/m080901.pdf": {
+      "sha256": "def12463847b7acbc833f4e3ef1f1067a9751b4be8a2fe5f9b312186377b931e",
+      "size": 406929
+    },
+    "kigyo_page.html": {
+      "sha256": "35b2bfa0d9648ceb5ea89c3185b70a0aaf069df06c20ad80e53b9fa92d289f55",
+      "size": 38789
+    },
+    "list.pdf": {
+      "sha256": "a452810e6b7e0df67df5700f0ca22287da1864a31e927d92dfbb2e50c7e03c4e",
+      "size": 561695
+    },
+    "list.xlsx": {
+      "sha256": "7114a44a815a9b3b6fb16be08e6c2f6c480db0d310136df1e2d7439410a10f24",
+      "size": 14688
+    },
+    "vacancy_page.html": {
+      "sha256": "d46d706928a6846c383eada5e5b304ddb57e57226445322732dae86995976df8",
+      "size": 44265
+    }
+  }
+}

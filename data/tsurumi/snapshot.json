@@ -1,0 +1,417 @@
+{
+  "fetchedOn": "2026-10-23",
+  "files": {
+    "facility-pdfs/18-imazu.pdf": {
+      "sha256": "de16e98ad4ab01c92c769cb477eb7a2cdcc0f8b731b01fd2327a9c9d8e2ac0a7",
+      "size": 986916
+    },
+    "facility-pdfs/18-mattadai1.pdf": {
+      "sha256": "96ac773c53cb17d8779b3bf0169494db9b7a42fa22a8ac02fc4953bacd401516",
+      "size": 145501
+    },
+    "facility-pdfs/18-mattadai2.pdf": {
+      "sha256": "cad6b56b6f49a89cefded7f9a57725bd5340120a2b85446082e2decefe636103",
+      "size": 981566
+    },
+    "facility-pdfs/h18-1-turumienomoto.pdf": {
+      "sha256": "6ffcd25cb7074d697232bc13d5f3fde94e3b833f591db4662631f953c84d8421",
+      "size": 992381
+    },
+    "facility-pdfs/h18-10-nogiku.pdf": {
+      "sha256": "5d64008a07934e961539a1cb9451c26f25324ce288317daf2d52001307bf20fb",
+      "size": 996295
+    },
+    "facility-pdfs/h18-11-nijinoki.pdf": {
+      "sha256": "f1907e5ab5bbed5113b58ae8cb39a5c258238cfa56580b99d6f1faa8df01dc54",
+      "size": 1003694
+    },
+    "facility-pdfs/h18-12-yokodutumiminori.pdf": {
+      "sha256": "19ed15198046b40437f8905f1e27efa80069916cb688899eddc732561a39f364",
+      "size": 1002102
+    },
+    "facility-pdfs/h18-13-turumihatopoppo.pdf": {
+      "sha256": "492034de776b353bda1a76fe892011c0683e3fc6e65bfcd712e0ef128905a80c",
+      "size": 993538
+    },
+    "facility-pdfs/h18-14-sanaikodomo.pdf": {
+      "sha256": "778d8590f3f79e9935d26658692913bc1ddbec0a2772dbdd9e598f7983856373",
+      "size": 997682
+    },
+    "facility-pdfs/h18-15-izumino.pdf": {
+      "sha256": "2625dffe5a3844725ea8f392bc97fd734f282b6a458a59280ca9f75a09da4f03",
+      "size": 1008362
+    },
+    "facility-pdfs/h18-17-turumi.pdf": {
+      "sha256": "0f33f80710a485dddc4cfa8cfc46f4ef931c49ac03f6e94ec420e1cc0a8d9633",
+      "size": 990147
+    },
+    "facility-pdfs/h18-18-hopperuturumiryokuchi.pdf": {
+      "sha256": "4787ff52e23bd8f022e29ca8345ec102865cdaf579afda6b301b72bc285d47b6",
+      "size": 997618
+    },
+    "facility-pdfs/h18-2-syuneikan.pdf": {
+      "sha256": "b99e2aa553c6047eb85332ecfa359c205ba5dbedc5e56aaafe78dac02406c09f",
+      "size": 1000738
+    },
+    "facility-pdfs/h18-20-torejyayokodutumi.pdf": {
+      "sha256": "0d4666016422af9b7a5bef31c393de805413721a574f3dc5e3b23c07b67e1b7d",
+      "size": 997600
+    },
+    "facility-pdfs/h18-22-popinsturumiryokuchi.pdf": {
+      "sha256": "fcb0aa19e6c21eb48a1e20096feb61cb7f25467e9488cb8af063e28fe5dbddfa",
+      "size": 992369
+    },
+    "facility-pdfs/h18-23-sofiayokodutumi.pdf": {
+      "sha256": "033c84eaed164b2db0ac4bc9d13973181b17c93c0a7fa668c4134295fa9449a3",
+      "size": 999273
+    },
+    "facility-pdfs/h18-24-egaonomoriturumi.pdf": {
+      "sha256": "6a52e7c363eb544d6972293b4692d02637ee02e406af8ee387f96c27f9398e11",
+      "size": 1004815
+    },
+    "facility-pdfs/h18-25-ureshiihanaten.pdf": {
+      "sha256": "fbe9dd7460a2e933015ade38a986996460e719dedc9dc904f553aefecdcbfeac",
+      "size": 1000741
+    },
+    "facility-pdfs/h18-26-egaonomoriimadu.pdf": {
+      "sha256": "d2383ab8813f766479eec39472b80f6b301d49c2cd1bb0a92d851789eab18c2c",
+      "size": 1002846
+    },
+    "facility-pdfs/h18-27-yakeno.pdf": {
+      "sha256": "dab8a44806294cc22164cd3cf2df71ccc364c5e490de8f0aad0f158a52b229b5",
+      "size": 999291
+    },
+    "facility-pdfs/h18-3-turumigakuen.pdf": {
+      "sha256": "bc894d5af4b30c961216c160c939361cab1ea282c716c311ec5884bc8ef923d0",
+      "size": 994369
+    },
+    "facility-pdfs/h18-4-turumimidori.pdf": {
+      "sha256": "c6738696d0ca34285befb27deea3c70f9a19de61e49c7390d587bbed7ca900e4",
+      "size": 991540
+    },
+    "facility-pdfs/h18-5-hanaten.pdf": {
+      "sha256": "f200dcabcf21fbf5632dd6a79071124352b1604fcf552b1f84da904625803660",
+      "size": 992302
+    },
+    "facility-pdfs/h18-6-syuneikandai2.pdf": {
+      "sha256": "21f1ee4c97da2e102b587e6777e0701147a70d775814985649a89fde4637d1ed",
+      "size": 1000719
+    },
+    "facility-pdfs/h18-7-mitubasa.pdf": {
+      "sha256": "82fda7ef9d0655ce823b8b8416726a2ffe7c93fa2055a98b0f22494aaf6b7b43",
+      "size": 1001074
+    },
+    "facility-pdfs/h18-9-turumimidoridai2.pdf": {
+      "sha256": "79c264f5cc762ff5b6ae374e5001e03b53fd74452788292f043ec531b69fb970",
+      "size": 992980
+    },
+    "facility-pdfs/k18-1-mattaoomiya.pdf": {
+      "sha256": "112059e4eff120b11b627817c526add62a6b2d458e64b20aaa31d3afa33a5aa9",
+      "size": 1295347
+    },
+    "facility-pdfs/k18-2-nenpou.pdf": {
+      "sha256": "35086d9d13fc5e07ecff1ccbbccab90d197bc70b21b10345b33c9ddc71d6c57f",
+      "size": 1295912
+    },
+    "facility-pdfs/k18-3-sanaiyouchien.pdf": {
+      "sha256": "09fb6169c9b5e314eab219590b1d618b2df31164f75c4d12b1234a50d6c333d9",
+      "size": 1301222
+    },
+    "facility-pdfs/k18-4-mattahigashi.pdf": {
+      "sha256": "0ae302b5931d8ae65de38b181ad3a322c04b11360733dbd81167c9e3afc1c66a",
+      "size": 1293858
+    },
+    "facility-pdfs/k18-5-moroguchi.pdf": {
+      "sha256": "b3b0167e90bd5c932730706b8a8dc2d3b4dc77f0add813d16e6a1d2b672399b4",
+      "size": 1286180
+    },
+    "facility-pdfs/k18-6-yokodutumi.pdf": {
+      "sha256": "e1c34d1203c850c747af9825827f2b4029c30a7fe83db15e86bf5ab2b1276eaf",
+      "size": 1286430
+    },
+    "facility-pdfs/t18-1-turuminanairomoroguchi.pdf": {
+      "sha256": "fc2a0ef4565f95d66eb12a26c1c8298ed8e0b16ff0c10f77333b26647b667c89",
+      "size": 967139
+    },
+    "facility-pdfs/t18-10-shiawaseippaiimafuku.pdf": {
+      "sha256": "3fd1a22e8678dc79a0d779a962ab3d9ff646242e2a47247007636a5f334b36d5",
+      "size": 962203
+    },
+    "facility-pdfs/t18-2-kaiseiputiturumi.pdf": {
+      "sha256": "925e1eed65e13191ec067a171075556e28adc8db2eeb88d1dae6f6a705c8c92d",
+      "size": 970900
+    },
+    "facility-pdfs/t18-3-sofiamidori.pdf": {
+      "sha256": "5d145e4ab6898f07b9de88049466d35f584a9e9d49b704d4ca6f3d2334b43ffc",
+      "size": 968567
+    },
+    "facility-pdfs/t18-4-midori1nikoniko.pdf": {
+      "sha256": "2331752ea697f7f956d3416fd16849aa77bc729bd56276c8aa58f5a13d24297b",
+      "size": 961625
+    },
+    "facility-pdfs/t18-5-nenpou.pdf": {
+      "sha256": "23045b6a727af1cc288337fe64d3b7d091e6a48d6e294eb67c6d07aeabc60127",
+      "size": 967327
+    },
+    "facility-pdfs/t18-7-imafukuturuminikoniko.pdf": {
+      "sha256": "768f57a90d4cba9c6b90b7e7e3633540e6d7236443112b21f76d472e785538ab",
+      "size": 964351
+    },
+    "facility-pdfs/t18-8-hanatenhigashinikoniko.pdf": {
+      "sha256": "de0fcd25b28f31c6074749de7f451468a630cc6390249b32ad9648187824bd19",
+      "size": 954418
+    },
+    "facility-pdfs/t18-9-tomarigiimadunaka.pdf": {
+      "sha256": "72c5022f6a50c77b68c8a04b17d3e84dea6caa383f232ac01a09feea7cdbe494",
+      "size": 960462
+    },
+    "homepage-sources/1.html": {
+      "sha256": "0c47aab94fa4e74349e5b9cde1ca1521fea03cb2b85459857e4fcbc3179a0d73",
+      "size": 88720
+    },
+    "homepage-sources/1/20251028.pdf": {
+      "sha256": "3dea74ed25e285bb56f028565c0e2bd29a79a35688859ac842e998dd2afe0379",
+      "size": 106696
+    },
+    "homepage-sources/1/R8Izumino.pdf": {
+      "sha256": "58debb6c4ced1f6f6fa0c5cac0d4dd51ef2b40b8554c43bdfdfe3a8972e431cd",
+      "size": 245814
+    },
+    "homepage-sources/1/R8Nijinoki.pdf": {
+      "sha256": "7ab10dda5c7ff8eac74bd93407a3b24f6df23caa7d1806955c5ff8a7596a62ae",
+      "size": 230066
+    },
+    "homepage-sources/1/R8Nyuuennannnai.pdf": {
+      "sha256": "8bcc42de23c75a69829f355a6d590eee9aa581aaa75e5378a47c1269084469a1",
+      "size": 1160133
+    },
+    "homepage-sources/1/R8Tsuruminanairo.pdf": {
+      "sha256": "0ae870c9d6d02a715c8de0dd0dee00e26d038cb50f872f86fd54cb229e9d05c1",
+      "size": 290623
+    },
+    "homepage-sources/1/R8YokodutsumiMinori.pdf": {
+      "sha256": "aa4f095f890ae59dd09b5cbf3367adf88cfeec7fd98f79b9745946e6442355f1",
+      "size": 248953
+    },
+    "homepage-sources/1/R8enomotoyoucien.pdf": {
+      "sha256": "fd3b568bc862743d663b6c6e5787f0b1f52f6360c826de0ddb44ee4802e65755",
+      "size": 271711
+    },
+    "homepage-sources/1/R8kosodatemap1.pdf": {
+      "sha256": "be486377d9feab3c238346a7e3b5adfe20bd8f1b7ad43af196885d9a6ea296de",
+      "size": 915249
+    },
+    "homepage-sources/1/R8kosodatemap2.pdf": {
+      "sha256": "16b689367e6b3fbafba42695dec27e3f25782693992a6a9f41ec7ddc7fb06582",
+      "size": 758333
+    },
+    "homepage-sources/1/R8moroguci.pdf": {
+      "sha256": "aac901a565aeed79dc3bcf74a8a65e3f8894909d8a591c01e24229fa3368c913",
+      "size": 270361
+    },
+    "homepage-sources/1/R8riyousya.Chirashi.pdf": {
+      "sha256": "ac2eff02fd2f5d11f38c8111d16a7582df4192768827bcbe88bb4bde6cef0793",
+      "size": 253683
+    },
+    "homepage-sources/1/R8sannaikodomoenn.pdf": {
+      "sha256": "d19b552275d0833c2e785b00b571a808baa800cb65014822f733a0e7512a0460",
+      "size": 237893
+    },
+    "homepage-sources/1/R8tkikusuiyoucien.pdf": {
+      "sha256": "aefa5534e73ba4373ef67e17e01489744a4466fb7ad56c7dd24da9f13d41e560",
+      "size": 220563
+    },
+    "homepage-sources/1/R8turumiyoucien.pdf": {
+      "sha256": "6385a49b881e02a01a3abaaec83cdd1051933717fcb667e78f2f525e98d79598",
+      "size": 255548
+    },
+    "homepage-sources/1/hoikuryou.pdf": {
+      "sha256": "16f035a853a6796b6670f2b8f9ecd653b9b8f4046d93f4176912d8de1b5df5bf",
+      "size": 413185
+    },
+    "homepage-sources/1/r8egaonomorihoikuenimadu.pdf": {
+      "sha256": "bf143bd55011e1780a8be244bfaf3cc143973d1ca4e8b57980bdd6bec8e8f182",
+      "size": 248036
+    },
+    "homepage-sources/1/r8hanatenhigasinikonikohoikuen.pdf": {
+      "sha256": "f0a42965d8e4ba6bc52f32c4cef27406dea4e2fcba9d24cf325a182ac2a87a51",
+      "size": 235273
+    },
+    "homepage-sources/1/r8hanatenhoikuen.pdf": {
+      "sha256": "a121cc01cf4be148406a2ab2e407207c312cdde3e24e91eb49726117afe9e698",
+      "size": 226798
+    },
+    "homepage-sources/1/r8hopperurandoturumiryokuti.pdf": {
+      "sha256": "e322f8d5b2076c2ca2714b06fcfa2acfe3bebd57dafd70337b198924d533ac77",
+      "size": 229950
+    },
+    "homepage-sources/1/r8imahukuturuminikonikohoikuen.pdf": {
+      "sha256": "b3dcc55c112799a92b9576a4c216f98fb32832a477f4f87a8411a231ca53ae0b",
+      "size": 257643
+    },
+    "homepage-sources/1/r8imazuhoikusyo.pdf": {
+      "sha256": "910a6603f6f03a397e6024f349970a1dc703e22d22f10b1442527d62f11d8a71",
+      "size": 232275
+    },
+    "homepage-sources/1/r8kaiseiputihoikuen.pdf": {
+      "sha256": "a88dbbd1dae1d4006015dc8885cb592f075ecfc45959a3d1665618cad624258a",
+      "size": 228963
+    },
+    "homepage-sources/1/r8mattadai1hoikusyo.pdf": {
+      "sha256": "997d82456118b56b3c60d416a85ec5de6e3fd40df9e1f35fbc05dff0baaa9f21",
+      "size": 242079
+    },
+    "homepage-sources/1/r8mattadai2hoikusyo.pdf": {
+      "sha256": "8db529e0bc2168c665a724c16c5adbb25554ad3928b26c9559c64612f0c577bf",
+      "size": 239572
+    },
+    "homepage-sources/1/r8mattahigasikodomoen.pdf": {
+      "sha256": "4460fa1aca82736a2dbea355523b8a0524196fb53de72bae93ef02925243ea7f",
+      "size": 239059
+    },
+    "homepage-sources/1/r8mattaoomiyakodomoen.pdf": {
+      "sha256": "426e7a31dadc5ef25ddf00ff6766e44e7d9927b1efc06b3fb81c7a5952332dbc",
+      "size": 232262
+    },
+    "homepage-sources/1/r8midori1tyoumenikonikohoikuen.pdf": {
+      "sha256": "965cc60d951cbeda86895047a7ed69d5023cf0c64f595165367b9ac7277e9835",
+      "size": 289891
+    },
+    "homepage-sources/1/r8mitubasahoikuen.pdf": {
+      "sha256": "978e57800e690f19b27fb72513fa039d64ba0032863686d2711a4c0dc1c3419d",
+      "size": 294732
+    },
+    "homepage-sources/1/r8morogutikodomoen.pdf": {
+      "sha256": "2d702d54a0f92abec503ab436c82d2bed94b3d00d3243cbfe504e4fa3238fe7a",
+      "size": 263882
+    },
+    "homepage-sources/1/r8nenpouhoikuen.pdf": {
+      "sha256": "b905f4c2349829e70d633fdca1dd0bbbfe7d57afb50fe2a599674dfcf3f94be8",
+      "size": 249034
+    },
+    "homepage-sources/1/r8nenpouyoutien.pdf": {
+      "sha256": "b29719c4c8d4d8fe04d1ce4020c9a7775d07375875dfa9c4e0bf1b551541b799",
+      "size": 238753
+    },
+    "homepage-sources/1/r8nogikuhoikuen.pdf": {
+      "sha256": "952a974848aac71c8232364d6d24164431fd56de3ea930ea4ee2ddf4345e149c",
+      "size": 227387
+    },
+    "homepage-sources/1/r8nogikuhoikuenbunen.pdf": {
+      "sha256": "4cc6dbffa7a2092d8b1e68a81980b4f3fa7d7b5fbfb2994f225d4e2bed8156b3",
+      "size": 249839
+    },
+    "homepage-sources/1/r8poinzuna-sari-suku-ruturumiryokuti.pdf": {
+      "sha256": "0cffedc1f02a3f3a04d7cd2b5a9dc7419c990bf614d5f1ebb7e55d09d9f49e2c",
+      "size": 247340
+    },
+    "homepage-sources/1/r8rgaonomorihoikuenturumi.pdf": {
+      "sha256": "d78757c6599f8b81f1341a57c16aef6d15806af0224d51192d20c56d076c7be5",
+      "size": 238608
+    },
+    "homepage-sources/1/r8sanaiyoutien.pdf": {
+      "sha256": "aacb7c2a9c056eef55d775ce25c1f9ca7b71a6fd3a9a79c7247c6bf58af3264e",
+      "size": 359349
+    },
+    "homepage-sources/1/r8siawaseippaihoikuenimahuku.pdf": {
+      "sha256": "d973900e14d748ae47b72b0c292ec4df991d72a78a00242b2a653093c2372c96",
+      "size": 269574
+    },
+    "homepage-sources/1/r8sofiamidorihoikuen.pdf": {
+      "sha256": "18b4ca7478bda7790ddcedd6ff9cb98175cc071eb25d97e0765011eb39f1368f",
+      "size": 216785
+    },
+    "homepage-sources/1/r8sofiayokodutumihoikuen.pdf": {
+      "sha256": "c2928dbf2ceb81f27a6431a902daa8abf5e29026f75bd49d77fb9edf35a706be",
+      "size": 244098
+    },
+    "homepage-sources/1/r8syuneikanhoikuen.pdf": {
+      "sha256": "c4f70cf77af59a97a5a17bff2295e62c38eecdc8ceda7da32763e9b410e13541",
+      "size": 266917
+    },
+    "homepage-sources/1/r8syuneikanhoikuenkogumaen.pdf": {
+      "sha256": "ce3fcc9cfdfd93981a156f00df4d72072cd42f7d46bc1bf17c646bce1ae75df3",
+      "size": 237625
+    },
+    "homepage-sources/1/r8tomarigihoikuen.pdf": {
+      "sha256": "1c47edc4c741041655483b0cc37815d4f6589656760ab1d160416e84cec8ede0",
+      "size": 231811
+    },
+    "homepage-sources/1/r8torejya-kizzuyokodutumi.pdf": {
+      "sha256": "61e9d3e9d0cf50a1bffe71681f221bc9a05e27f2233ebedc850254a64ccd3d60",
+      "size": 265753
+    },
+    "homepage-sources/1/r8turumienomotohoikuen.pdf": {
+      "sha256": "0d8bf52324a8869d6c953e8e789b92d295a4f0bb9e529866d6d50f96b4913891",
+      "size": 274514
+    },
+    "homepage-sources/1/r8turumigakuen.pdf": {
+      "sha256": "e91c76bed3fae48bce36483592b8e703f1c95efa072614689d427dd3c0b8f5fb",
+      "size": 229107
+    },
+    "homepage-sources/1/r8turumihatopoppohoikuen.pdf": {
+      "sha256": "d2937e46e95bbb7f8e779a4df87b59e2310cae26d3bf07d2f51867d262428f38",
+      "size": 247794
+    },
+    "homepage-sources/1/r8turumihoikuen.pdf": {
+      "sha256": "4f40914f5a752bf8506e62e848eef157f801ebe709d35d0dceb371b5b8e704ed",
+      "size": 250194
+    },
+    "homepage-sources/1/r8turumimidoridai2hoikuenbunen.pdf": {
+      "sha256": "d89a43e10213899e246ccabb09dcd50f5cfdcea9b5a27db8fd094a345d520ff8",
+      "size": 262446
+    },
+    "homepage-sources/1/r8turumimidoridai2hoikuenhonenbunenturumipiyopiyohoikuen.pdf": {
+      "sha256": "d89a43e10213899e246ccabb09dcd50f5cfdcea9b5a27db8fd094a345d520ff8",
+      "size": 262446
+    },
+    "homepage-sources/1/r8turumimidorihoikuen.pdf": {
+      "sha256": "dd53118763c2a51f24e466bcaa21e0c660fb526d6f364f4bf7b331ed8cd140f1",
+      "size": 271988
+    },
+    "homepage-sources/1/r8yakenohoikuen.pdf": {
+      "sha256": "3be5ea14a8e61e0b9e1e4f4f64ab901e017b79f81b7f2077110434b96109d238",
+      "size": 238416
+    },
+    "homepage-sources/1/r8yokodutumikodomoen.pdf": {
+      "sha256": "ecba864c51956053d2cf8a91011dd422aae2f1c830c320425e720bc047d2384f",
+      "size": 247323
+    },
+    "homepage-sources/1/riyouannnai.pdf": {
+      "sha256": "d74543480fbc35e1d3bcedd2c0050194dca465d74e0d5dea523846d5bb36c5be",
+      "size": 8696593
+    },
+    "homepage-sources/1/syuneikandai2hoikuen.pdf": {
+      "sha256": "e5c4c5ef03db0baa65b59b54684ae4cea84fb17d5c81672a016c850eaa7b614e",
+      "size": 216877
+    },
+    "homepage-sources/1/uresiihoikuenhanaten.pdf": {
+      "sha256": "ebb0a4c862239774711b8b6d0b78e7fd29858b7075450e54ac23ff26a940b91c",
+      "size": 234593
+    },
+    "kigyo.pdf": {
+      "sha256": "40badcb7c99520c77f45ce6af66825d15ab215a30ad3b3bec32055a1cf697feb",
+      "size": 60512
+    },
+    "kigyo_page.html": {
+      "sha256": "67ff4d0b5d93146fc9aebb23906ad14e3432bfa44a9906fe97572ac67073c80d",
+      "size": 31516
+    },
+    "list.pdf": {
+      "sha256": "dc643bf8615f689a936246b571c6205bdced4da0596af901f082e9f1ceeffb2f",
+      "size": 470996
+    },
+    "list.xlsx": {
+      "sha256": "1dc24c5b3a12c9a740b756e1421a6be15ebbb68a4c70fedc70f7a37f34be15ae",
+      "size": 13764
+    },
+    "vacancy.xls": {
+      "sha256": "e4faf794269f97a903f32e1264475cfe48012109f0308ee2f69c8f53fbe95c4e",
+      "size": 34816
+    },
+    "vacancy_page.html": {
+      "sha256": "10861a17906969d1e94b690bc150494810be1440847bfa269c56beb67b1e6295",
+      "size": 32089
+    }
+  }
+}

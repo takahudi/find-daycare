@@ -1,8 +1,10 @@
 {
-  "generatedAt": "2026-10-25T23:20:37.055Z",
+  "generatedAt": "2026-10-25T23:46:53.537Z",
+  "citySnapshot": "2026-10-23",
   "wards": [
     {
       "id": "chuo",
+      "snapshot": "2026-10-21",
       "name": "中央区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -28,6 +30,7 @@
     },
     {
       "id": "higashinari",
+      "snapshot": "2026-10-21",
       "name": "東成区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -57,6 +60,7 @@
     },
     {
       "id": "tennoji",
+      "snapshot": "2026-10-21",
       "name": "天王寺区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -90,6 +94,7 @@
     },
     {
       "id": "naniwa",
+      "snapshot": "2026-10-22",
       "name": "浪速区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -135,6 +140,7 @@
     },
     {
       "id": "nishi",
+      "snapshot": "2026-10-22",
       "name": "西区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -164,6 +170,7 @@
     },
     {
       "id": "ikuno",
+      "snapshot": "2026-10-22",
       "name": "生野区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -185,6 +192,7 @@
     },
     {
       "id": "abeno",
+      "snapshot": "2026-10-22",
       "name": "阿倍野区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -210,6 +218,7 @@
     },
     {
       "id": "joto",
+      "snapshot": "2026-10-22",
       "name": "城東区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -235,6 +244,7 @@
     },
     {
       "id": "kita",
+      "snapshot": "2026-10-22",
       "name": "北区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -260,6 +270,7 @@
     },
     {
       "id": "miyakojima",
+      "snapshot": "2026-10-22",
       "name": "都島区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -281,6 +292,7 @@
     },
     {
       "id": "fukushima",
+      "snapshot": "2026-10-22",
       "name": "福島区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -306,6 +318,7 @@
     },
     {
       "id": "nishinari",
+      "snapshot": "2026-10-22",
       "name": "西成区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -327,6 +340,7 @@
     },
     {
       "id": "higashisumiyoshi",
+      "snapshot": "2026-10-22",
       "name": "東住吉区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -356,6 +370,7 @@
     },
     {
       "id": "sumiyoshi",
+      "snapshot": "2026-10-22",
       "name": "住吉区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -381,6 +396,7 @@
     },
     {
       "id": "hirano",
+      "snapshot": "2026-10-22",
       "name": "平野区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -406,6 +422,7 @@
     },
     {
       "id": "tsurumi",
+      "snapshot": "2026-10-23",
       "name": "鶴見区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -431,6 +448,7 @@
     },
     {
       "id": "asahi",
+      "snapshot": "2026-10-23",
       "name": "旭区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -452,6 +470,7 @@
     },
     {
       "id": "yodogawa",
+      "snapshot": "2026-10-23",
       "name": "淀川区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -473,6 +492,7 @@
     },
     {
       "id": "higashiyodogawa",
+      "snapshot": "2026-10-23",
       "name": "東淀川区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -494,6 +514,7 @@
     },
     {
       "id": "nishiyodogawa",
+      "snapshot": "2026-10-23",
       "name": "西淀川区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -519,6 +540,7 @@
     },
     {
       "id": "konohana",
+      "snapshot": "2026-10-23",
       "name": "此花区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -540,6 +562,7 @@
     },
     {
       "id": "minato",
+      "snapshot": "2026-10-23",
       "name": "港区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -561,6 +584,7 @@
     },
     {
       "id": "taisho",
+      "snapshot": "2026-10-23",
       "name": "大正区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
@@ -586,6 +610,7 @@
     },
     {
       "id": "suminoe",
+      "snapshot": "2026-10-23",
       "name": "住之江区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",

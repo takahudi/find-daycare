@@ -2,7 +2,7 @@
 // 対象の区と取得元は scripts/wards.ts を参照。
 //
 // 入力（一次情報は sources/、手で整えた JSON と抽出結果は data/）
-//   sources/sukusukudata.csv           大阪市「保育施設等 空き情報マップ」のデータ（全市。緯度経度・年齢別空き人数）
+//   sources/city/sukusukudata.csv           大阪市「保育施設等 空き情報マップ」のデータ（全市。緯度経度・年齢別空き人数）
 //   sources/<区>/list.xlsx             大阪市「保育施設等一覧（区別）」（施設種別・設置運営・郵便番号・運営法人）
 //   sources/<区>/vacancy.xlsx|xls|pdf  区役所の空き情報（xlsx・xls の区は CSV と自動照合する）
 //   sources/<区>/kigyo_page.html       区役所「企業主導型保育事業所の空き情報」ページ
@@ -24,10 +24,12 @@ import { SRC, loadWardInputs, saveGeocodeCache } from './build-data/inputs.ts';
 import { buildLicensed } from './build-data/licensed.ts';
 import { reconcileVacancies } from './build-data/reconcile.ts';
 import { buildKigyo } from './build-data/kigyo.ts';
+import { readManifest, SNAPSHOT_IDS } from './snapshots.ts';
 import { finishWard } from './build-data/ward.ts';
 
 const OUT = path.resolve('src/data/facilities.json');
-const csv = parseCsv((await readFile(path.join(SRC, 'sukusukudata.csv'), 'utf8')).replace(/^﻿/, ''));
+const snapshots = Object.fromEntries(await Promise.all(SNAPSHOT_IDS.map(async (id) => [id, await readManifest(id)] as const)));
+const csv = parseCsv((await readFile(path.join(SRC, 'city', 'sukusukudata.csv'), 'utf8')).replace(/^﻿/, ''));
 const [, ...csvRows] = csv;
 const now = new Date();
 const warnings: string[] = [];
@@ -46,12 +48,13 @@ for (const ward of WARDS) {
     await saveGeocodeCache(ward.id, input.geocodeCache);
   }
   const wardFacilities = [...licensed, ...kigyo];
-  wards.push(finishWard(ward, wardRows, wardFacilities, input, kigyoAsOf, now, warn));
+  wards.push(finishWard(ward, wardRows, wardFacilities, input, kigyoAsOf, now, warn, snapshots[ward.id].fetchedOn));
   facilities.push(...wardFacilities);
 }
 
 const data: Dataset = {
   generatedAt: now.toISOString(),
+  citySnapshot: snapshots.city.fetchedOn,
   wards,
   commonSources: [
     { label: '大阪市「保育施設等 空き情報マップ」（位置情報・空き人数データ）', url: CITY_SOURCES.vacancyMap },

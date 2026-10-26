@@ -1,5 +1,13 @@
 import * as v from 'valibot';
-import { CapacitySchema, CountSchema, HomeSchema, inOsakaCity, HttpUrlSchema, TextSchema } from '../src/schema.ts';
+import {
+  CapacitySchema,
+  CountSchema,
+  HomeSchema,
+  inOsakaCity,
+  HttpUrlSchema,
+  TextSchema,
+  SnapshotDateSchema,
+} from '../src/schema.ts';
 
 export const PdfDetailSchema = v.strictObject({
   kana: v.nullable(TextSchema),
@@ -47,7 +55,53 @@ export const GeocodePositionSchema = v.pipe(
   v.check((position) => inOsakaCity(position), '座標が大阪市内の範囲外です'),
 );
 
+export const SnapshotPathSchema = v.pipe(
+  v.string(),
+  v.check(
+    (name) =>
+      name
+        .split('/')
+        .every(
+          (part) =>
+            part.length > 0 &&
+            part !== '.' &&
+            part !== '..' &&
+            !/[\\:<>"|?*]/.test(part) &&
+            !part.split('').some((c) => c.charCodeAt(0) < 32) &&
+            !/[. ]$/.test(part) &&
+            !/^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(part),
+        ) && name.toLowerCase() !== 'snapshot.json',
+    '安全な相対POSIXパスが必要です',
+  ),
+);
+export const SnapshotFileSchema = v.strictObject({
+  sha256: v.pipe(v.string(), v.regex(/^[a-f0-9]{64}$/)),
+  size: v.pipe(v.number(), v.safeInteger(), v.minValue(0)),
+});
+export const SnapshotSchema = v.pipe(
+  v.strictObject({
+    fetchedOn: SnapshotDateSchema,
+    files: v.record(SnapshotPathSchema, SnapshotFileSchema),
+  }),
+  v.check(({ files }) => {
+    const names = Object.keys(files).map((name) => name.toLowerCase());
+    const unique = new Set(names);
+    return (
+      names.length > 0 &&
+      unique.size === names.length &&
+      names.every((name) =>
+        name
+          .split('/')
+          .slice(0, -1)
+          .every((_, i, parts) => !unique.has(parts.slice(0, i + 1).join('/'))),
+      )
+    );
+  }, 'ファイルは1件以上必要で、パスの重複や親ファイルとの衝突は許可されません'),
+);
+export type Snapshot = v.InferOutput<typeof SnapshotSchema>;
+
 export const WardDataSchemas = {
+  'snapshot.json': SnapshotSchema,
   'pdf-details.json': v.record(TextSchema, PdfDetailSchema),
   'manual-details.json': v.record(TextSchema, ManualDetailSchema),
   'ward-details.json': v.record(TextSchema, WardDetailSchema),
