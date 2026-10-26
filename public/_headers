@@ -4,3 +4,6 @@
   Referrer-Policy: no-referrer
   Permissions-Policy: geolocation=(self), camera=(), microphone=(), accelerometer=(), gyroscope=(), magnetometer=(), payment=(), usb=(), display-capture=(), fullscreen=(), autoplay=(), encrypted-media=(), picture-in-picture=(), screen-wake-lock=(), xr-spatial-tracking=()
   Cross-Origin-Opener-Policy: same-origin
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

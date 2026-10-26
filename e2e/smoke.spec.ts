@@ -107,7 +107,7 @@ test.afterEach(async ({ page }) => {
   expect(violationsByPage.get(page), '読み込みと操作の間に CSP 違反がない').toEqual([]);
 });
 
-for (const path of ['/', '/no-such-page']) {
+for (const path of ['/', '/?a=b']) {
   test(`${path} はセキュリティヘッダー付きでアプリを表示する`, async ({ page }) => {
     const response = await page.goto(path);
 
@@ -129,12 +129,10 @@ for (const path of ['/', '/no-such-page']) {
   });
 }
 
-test('/wrangler.json は生成ファイルを公開せず SPA HTML を返す', async ({ request }) => {
+test('/wrangler.json は生成ファイルを公開せず404を返す', async ({ request }) => {
   const response = await request.get('/wrangler.json');
 
-  expect(response.status()).toBe(200);
-  expect(response.headers()['content-type']).toContain('text/html');
-  expect(await response.text()).toBe(await (await request.get('/')).text());
+  expect(response.status()).toBe(404);
 });
 
 test('施設種別の選択肢を保ち、企業主導型と認可外を別のバッジで表示する', async ({ page }) => {

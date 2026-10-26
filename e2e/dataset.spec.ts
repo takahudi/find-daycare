@@ -60,6 +60,18 @@ for (const [name, viewport] of [
   });
 }
 
+test('施設データのハッシュ付きJSONは長期キャッシュと共通セキュリティヘッダーを返す', async ({ page }) => {
+  const datasetResponse = page.waitForResponse((response) => /\/assets\/facilities-[^/]+\.json$/.test(response.url()));
+  const documentResponse = await page.goto('/');
+  const response = await datasetResponse;
+  expect(response.status()).toBe(200);
+  expect(response.headers()['cache-control']).toBe('public, max-age=31536000, immutable');
+  expect(response.headers()['x-content-type-options']).toBe('nosniff');
+  expect(response.headers()['content-security-policy']).toBeTruthy();
+  expect(response.headers()['content-security-policy']).toBe(documentResponse?.headers()['content-security-policy']);
+  await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible();
+});
+
 test('施設データはビルドHTMLのpreloadと同じURLを一度だけ取得する', async ({ page }) => {
   const requests: string[] = [];
   page.on('request', (request) => {
