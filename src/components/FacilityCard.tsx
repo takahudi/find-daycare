@@ -27,6 +27,7 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
       ref={ref}
       className={`card${selected ? ' card--selected' : ''}`}
       aria-labelledby={nameId}
+      data-facility-id={f.id}
       aria-current={selected || undefined}
       onClick={onSelect}
     >

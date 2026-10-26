@@ -1,4 +1,38 @@
-import { expect, type Locator } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import { expect, type Locator, type Page } from '@playwright/test';
+
+export async function leafletAxe(page: Page, selectors: string[] = []) {
+  const scan = () => {
+    const builder = new AxeBuilder({ page });
+    for (const selector of selectors) builder.include(selector);
+    return builder;
+  };
+  const general = await scan()
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'])
+    .disableRules(['target-size'])
+    .analyze();
+  // SC 2.5.8 の Essential 例外は、位置が意味を持つ Leaflet ピンのサイズだけに適用する。
+  const targets = await scan().withRules(['target-size']).exclude('.leaflet-marker-icon').analyze();
+  return [general, targets];
+}
+
+export async function leafletContrastSummary(page: Page, results: Awaited<ReturnType<typeof leafletAxe>>) {
+  const summary = results.flatMap((result) =>
+    result.incomplete
+      .filter((rule) => rule.id === 'color-contrast')
+      .flatMap((rule) => rule.nodes.map((node) => ({ target: node.target, reason: node.failureSummary }))),
+  );
+  return page.evaluate(
+    (nodes) =>
+      nodes.filter(
+        (node) =>
+          !node.target.some(
+            (selector) => typeof selector === 'string' && document.querySelector(selector)?.closest('.leaflet-marker-icon'),
+          ),
+      ),
+    summary,
+  );
+}
 
 export async function expectUnlicensedPinShape(map: Locator) {
   const pins = map.getByRole('button', { name: /（認可外）/ }).getByRole('img');

@@ -1,5 +1,11 @@
 import { expect, test, type Page } from '@playwright/test';
-import { openVisibleUnlicensedPopup, expectUnlicensedPinShape, expectLicensedPinShape } from './leaflet.ts';
+import {
+  openVisibleUnlicensedPopup,
+  expectUnlicensedPinShape,
+  expectLicensedPinShape,
+  leafletAxe,
+  leafletContrastSummary,
+} from './leaflet.ts';
 import data from '../src/data/facilities.json' with { type: 'json' };
 
 function parseCsp(header: string) {
@@ -226,6 +232,69 @@ function facilityCard(page: Page, facility: TestFacility) {
   return page.getByRole('article', { name: new RegExp(`^(?:\\d+\\s*)?${name}$`) });
 }
 
+function accessibilityRepresentatives() {
+  const pick = (state: string, predicate: (facility: TestFacility) => boolean) =>
+    representativeFacility(
+      `${state}、0・1歳のいずれか受入れ可能`,
+      (f) => (f.vacancies[0] !== null || f.vacancies[1] !== null) && predicate(f),
+    );
+  const shared = pick('共有枠', (f) => f.sharedVacancy !== null);
+  const open = pick('共有枠以外の空きありセル', (f) =>
+    f.vacancies.some((v, age) => v !== null && v > 0 && !f.sharedVacancy?.ages.includes(age)),
+  );
+  const ineligible = pick('受入れ対象外セル', (f) => f.vacancies.some((v) => v === null));
+  const full = pick('空きなしセル', (f) => f.vacancies.some((v) => v === 0));
+  const typeLabels: Record<string, string> = {
+    nursery: '保育所',
+    kodomoen: '認定こども園',
+    community: '地域型保育事業',
+    kigyo: '企業主導型',
+  };
+  const facilities = [
+    ...new Set([
+      ...Object.keys(typeLabels).map((type) => pick(`施設種別 ${type}`, (f) => f.facilityType === type)),
+      ...['licensed', 'unlicensed'].map((licensing) => pick(`認可区分 ${licensing}`, (f) => f.licensing === licensing)),
+      shared,
+      open,
+      ineligible,
+      full,
+      pick('所有区分・詳細種別のバッジ', (f) =>
+        Boolean(f.ownership || (f.detailType && f.detailType !== typeLabels[f.facilityType])),
+      ),
+      pick('備考', (f) => Boolean(f.note)),
+      pick('サービスのタグ', (f) => f.services.length > 0),
+      pick('公式サイトへのリンク', (f) => Boolean(f.website)),
+      pick('PDF へのリンク', (f) => Boolean(f.infoPdfUrl)),
+    ]),
+  ];
+  return { shared, open, ineligible, full, facilities };
+}
+
+async function representativeScope(page: Page, facilities: TestFacility[]) {
+  const selectors = [
+    'header:has(h1)',
+    '[aria-label="絞り込み"]',
+    '[aria-label="表示切替"]',
+    '[aria-label="施設一覧"] > p',
+    '[aria-label="施設一覧"] > footer',
+    '[aria-label="地図"]',
+  ];
+  for (const facility of facilities) {
+    await expect(facilityCard(page, facility)).toHaveAttribute('data-facility-id', facility.id);
+    selectors.push(`article[data-facility-id="${facility.id}"]`);
+  }
+  for (const selector of selectors) await expect(page.locator(selector)).toHaveCount(1);
+  return selectors;
+}
+
+async function filterToRepresentativeWards(page: Page, facilities: TestFacility[]) {
+  const wards = page.getByRole('group', { name: '区', exact: true });
+  const selected = new Set(facilities.map((f) => f.ward));
+  for (const ward of data.wards.filter((w) => !selected.has(w.id))) {
+    await wards.getByRole('button', { name: ward.name, exact: true }).click();
+  }
+}
+
 test('地図ピンの名前で空き人数と空きなしを区別できる', async ({ page }) => {
   const open = representativeFacility(
     '認可施設の空きありピン',
@@ -242,3 +311,121 @@ test('地図ピンの名前で空き人数と空きなしを区別できる', as
   await expect(map.getByRole('button', { name: `${open.name}（認可）空き${count}人`, exact: true })).toHaveCount(1);
   await expect(map.getByRole('button', { name: `${full.name}（認可）空きなし`, exact: true })).toHaveCount(1);
 });
+
+type AccessibilityRepresentatives = ReturnType<typeof accessibilityRepresentatives>;
+
+const representativeCardScope = (page: Page, reps: AccessibilityRepresentatives) => representativeScope(page, reps.facilities);
+
+const accessibilityStates: {
+  name: string;
+  viewport: { width: number; height: number };
+  fullPage: boolean;
+  setup: (page: Page, reps: AccessibilityRepresentatives) => Promise<void>;
+  scope: (page: Page, reps: AccessibilityRepresentatives) => Promise<string[]>;
+}[] = [
+  {
+    name: 'デスクトップの初期表示',
+    viewport: { width: 1280, height: 800 },
+    fullPage: false,
+    setup: async (page) => {
+      await expect(page.getByRole('article')).toHaveCount(data.facilities.length);
+    },
+    scope: representativeCardScope,
+  },
+  {
+    name: 'モバイルのリスト表示',
+    viewport: { width: 390, height: 844 },
+    fullPage: false,
+    setup: async (page) => {
+      await expect(page.getByRole('article')).toHaveCount(data.facilities.length);
+      await expect(page.getByRole('button', { name: 'リスト', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    },
+    scope: representativeCardScope,
+  },
+  {
+    name: 'モバイルの地図で施設の詳細を表示',
+    viewport: { width: 390, height: 844 },
+    fullPage: true,
+    setup: async (page) => {
+      for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
+        await page.getByRole('group', { name: '種別', exact: true }).getByRole('button', { name: label, exact: true }).click();
+      }
+      await page.getByRole('button', { name: '地図', exact: true }).click();
+      const map = page.getByRole('region', { name: '地図', exact: true });
+      await map.scrollIntoViewIfNeeded();
+      await openVisibleUnlicensedPopup(map);
+      await expect(map.getByRole('group', { name: '施設の詳細' })).toBeVisible();
+    },
+    scope: async () => [],
+  },
+  {
+    name: '住所検索で自宅を指定した表示',
+    viewport: { width: 1280, height: 800 },
+    fullPage: false,
+    setup: async (page, { facilities }) => {
+      await filterToRepresentativeWards(page, facilities);
+      const address = '大阪市北区中之島1-3-20';
+      await page.route('https://msearch.gsi.go.jp/**', (route) =>
+        route.fulfill({ json: [{ geometry: { coordinates: [135.5023, 34.6937] }, properties: { title: address } }] }),
+      );
+      await page.getByRole('searchbox', { name: '自宅の住所' }).fill(address);
+      await page.getByRole('button', { name: '近い順に並べる' }).click();
+      await expect(page.getByRole('status')).toContainText(address);
+      await expect(page.getByRole('article').first()).toContainText('自宅から');
+    },
+    scope: representativeCardScope,
+  },
+  {
+    name: '全施設種別と空き人数の各状態を含む絞り込みとカード選択',
+    viewport: { width: 390, height: 844 },
+    fullPage: false,
+    setup: async (page, { facilities, shared, open, ineligible, full }) => {
+      await filterToRepresentativeWards(page, facilities);
+      const ages = page.getByRole('group', { name: 'クラス年齢', exact: true });
+      await ages.getByRole('button', { name: '0歳', exact: true }).click();
+      await ages.getByRole('button', { name: '1歳', exact: true }).click();
+      const wardIds = new Set(facilities.map((f) => f.ward));
+      await expect(page.getByRole('article')).toHaveCount(
+        data.facilities.filter((f) => wardIds.has(f.ward) && (f.vacancies[0] !== null || f.vacancies[1] !== null)).length,
+      );
+      for (const facility of facilities) await expect(facilityCard(page, facility)).toBeVisible();
+      await expect(facilityCard(page, full).getByRole('cell').filter({ hasText: '×' }).first()).toBeVisible();
+      await expect(facilityCard(page, ineligible).getByRole('cell').filter({ hasText: '—' }).first()).toBeVisible();
+      const age = open.vacancies.findIndex((v, a) => v !== null && v > 0 && !open.sharedVacancy?.ages.includes(a));
+      await expect(
+        facilityCard(page, open).getByRole('cell', { name: new RegExp(`^${age}歳\\s*${open.vacancies[age]}$`) }),
+      ).toBeVisible();
+      const group = shared.sharedVacancy!;
+      await expect(
+        facilityCard(page, shared)
+          .getByRole('cell')
+          .filter({ hasText: `${group.ages.join('・')}歳` }),
+      ).toHaveAttribute('title', `${group.ages.join('・')}歳: 空き${group.count}人（共有）`);
+      await facilityCard(page, facilities[0]).getByRole('heading').click();
+      await expect(facilityCard(page, facilities[0])).toHaveAttribute('aria-current', 'true');
+    },
+    scope: representativeCardScope,
+  },
+];
+
+for (const state of accessibilityStates) {
+  test(`${state.name}にアクセシビリティ違反がない`, async ({ page }, testInfo) => {
+    const reps = accessibilityRepresentatives();
+    await page.setViewportSize(state.viewport);
+    await state.setup(page, reps);
+    const results = await leafletAxe(page, state.fullPage ? [] : await state.scope(page, reps));
+    const violations = results.flatMap((result) => result.violations);
+    const incomplete = await leafletContrastSummary(page, results);
+    await testInfo.attach('axe-color-contrast-incomplete', {
+      body: JSON.stringify(incomplete, null, 2),
+      contentType: 'application/json',
+    });
+    if (violations.length > 0) {
+      await testInfo.attach('axe', { body: JSON.stringify(violations, null, 2), contentType: 'application/json' });
+    }
+    const details = violations
+      .map((violation) => `${violation.id}: \n${violation.nodes.map((node) => node.target.join(' ')).join('\n')}`)
+      .join('\n');
+    expect(violations, details).toEqual([]);
+  });
+}
