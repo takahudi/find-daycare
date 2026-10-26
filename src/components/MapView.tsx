@@ -123,11 +123,15 @@ export function MapView({ facilities, vacancyOf, distanceOf, home, selectedId, o
       )}
       {home && selected && (
         <Polyline
+          className="route-line"
           positions={[
             [home.lat, home.lng],
             [selected.lat, selected.lng],
           ]}
-          pathOptions={{ color: '#e8743b', weight: 3, dashArray: '6 6' }}
+          pathOptions={{
+            weight: 3,
+            dashArray: '6 6',
+          }}
         />
       )}
 

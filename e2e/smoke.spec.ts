@@ -136,10 +136,10 @@ test('施設種別の選択肢を保ち、企業主導型と認可外を別の�
   const cards = page.getByRole('region', { name: '施設一覧' }).getByRole('article');
   await expect(cards).toHaveCount(data.facilities.length);
   for (const [type, label, color] of [
-    ['nursery', '保育所', 'rgb(58, 123, 213)'],
-    ['kodomoen', '認定こども園', 'rgb(194, 85, 143)'],
-    ['community', '地域型保育事業', 'rgb(138, 107, 209)'],
-    ['kigyo', '企業主導型', 'rgb(183, 121, 31)'],
+    ['nursery', '保育所', 'rgb(51, 108, 188)'],
+    ['kodomoen', '認定こども園', 'rgb(168, 74, 124)'],
+    ['community', '地域型保育事業', 'rgb(118, 92, 179)'],
+    ['kigyo', '企業主導型', 'rgb(151, 100, 26)'],
   ]) {
     const facility = representativeFacility(label, (f) => f.facilityType === type);
     await expect(

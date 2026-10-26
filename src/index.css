@@ -2,18 +2,19 @@
   --bg: #f6f4ef;
   --surface: #ffffff;
   --ink: #23262b;
-  --muted: #6b7078;
+  --muted: #696e75;
   --line: #e4e1d9;
   --accent: #e8743b;
+  --accent-fill: #b95c2f;
   --accent-ink: #b4501d;
-  --open: #2f9e6e;
+  --open: #257b56;
   --open-bg: #e3f4ec;
-  --full: #9aa0a6;
+  --full: #6a6e72;
   --full-bg: #f0f0ee;
-  --nursery: #3a7bd5;
-  --kodomoen: #c2558f;
-  --community: #8a6bd1;
-  --kigyo: #b7791f;
+  --nursery: #336cbc;
+  --kodomoen: #a84a7c;
+  --community: #765cb3;
+  --kigyo: #97641a;
   --unlicensed: #8a5a12;
   --unlicensed-bg: #fbf1df;
   --radius: 14px;
@@ -114,7 +115,7 @@ select {
   padding: 10px 16px;
   border: 0;
   border-radius: 999px;
-  background: var(--accent);
+  background: var(--accent-fill);
   color: #fff;
   font-weight: 700;
   cursor: pointer;
@@ -385,7 +386,7 @@ button.link {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-fill);
   color: #fff;
   font-size: 0.78rem;
 }
@@ -431,7 +432,7 @@ button.link {
 
 .vacancy__cell--na {
   background: repeating-linear-gradient(135deg, #fafaf8 0 4px, #f1f0ec 4px 8px);
-  color: #c4c7cb;
+  color: var(--full);
 }
 
 .vacancy__cell--focus {
@@ -512,6 +513,14 @@ button.link {
   font-size: 0.8rem;
 }
 
+.card__links a,
+.card__map-btn {
+  display: inline-flex;
+  align-items: center;
+  min-width: 24px;
+  min-height: 24px;
+}
+
 .card__map-btn {
   padding: 0;
   border: 0;
@@ -523,6 +532,10 @@ button.link {
 }
 
 /* ---------- map ---------- */
+.route-line {
+  stroke: var(--accent);
+}
+
 .pin {
   display: grid;
   place-items: center;
@@ -542,7 +555,9 @@ button.link {
 }
 
 .pin--full {
-  background: var(--full);
+  background: var(--full-bg);
+  color: var(--full);
+  border-color: var(--full);
 }
 
 /* 認可外は四角いピンで区別する */
@@ -560,6 +575,7 @@ button.link {
   width: 34px;
   height: 34px;
   background: var(--accent);
+  color: var(--ink);
   font-size: 0.85rem;
 }
 
@@ -620,7 +636,7 @@ button.link {
 }
 
 .popup-vacancy .na {
-  color: #c4c7cb;
+  color: var(--full);
 }
 
 /* ---------- footer ---------- */
@@ -639,6 +655,13 @@ button.link {
 .sources ul {
   margin: 0;
   padding-left: 18px;
+}
+
+.sources li > a {
+  display: inline-block;
+  min-width: 24px;
+  min-height: 24px;
+  padding-block: 3px;
 }
 
 /* ---------- mobile ---------- */
