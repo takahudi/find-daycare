@@ -52,6 +52,7 @@ test.beforeEach(async ({ page }) => {
 
 test('トップページを開ける', async ({ page }) => {
   await expect(page).toHaveTitle('大阪市 保育施設 空き状況マップ');
+  await expect(page.getByText('空き情報：', { exact: false })).toBeVisible();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('空き状況マップ');
 });
 
