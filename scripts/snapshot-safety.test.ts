@@ -141,10 +141,25 @@ it('別destへのrestoreは未保管の旧ツリーを置換できる', async ()
 
 it.each(['missing', 'discard'])('fetchは認証情報がなくても%sなら取得できる', async (mode) => {
   if (mode === 'missing') await rm(path.join(sources, 'chuo'), { recursive: true });
-  headMock.mockClear();
   await fetchSnapshot('chuo', download, { ...options(), discardUnarchived: mode === 'discard' ? ['chuo'] : [] });
   expect(await readFile(path.join(sources, 'chuo', 'list.xlsx'), 'utf8')).toBe('new');
-  expect(headMock).not.toHaveBeenCalled();
+});
+
+it('restoreは別の復元先にあるディレクトリ以外を取得前に拒否する', async () => {
+  const dest = path.join(root, 'out');
+  await mkdir(dest);
+  await writeFile(path.join(dest, 'chuo'), 'keep file');
+  await expect(restoreSnapshots(storage, ['chuo'], { ...options(), dest })).rejects.toThrow('通常のディレクトリ');
+  expect(getMock).not.toHaveBeenCalled();
+  expect(await readFile(path.join(dest, 'chuo'), 'utf8')).toBe('keep file');
+});
+
+it('restoreは取得日を決められないidがあれば、どのidも取得する前に拒否する', async () => {
+  const dest = path.join(root, 'out');
+  await expect(restoreSnapshots(storage, ['chuo', 'kita'], { ...options(), dest })).rejects.toThrow(
+    'kita: 作業ツリーのマニフェストがありません',
+  );
+  expect(getMock).not.toHaveBeenCalled();
 });
 
 it('restoreの削除許可は指定したidだけに適用する', async () => {
@@ -202,7 +217,7 @@ for (const mode of ['dest junction', 'sources junction'] as const) {
 }
 
 for (const command of ['fetch', 'restore'] as const) {
-  it(command + 'は検証後に変わった旧ツリーを退避先に保持し、その場所と新ツリーを案内する', async () => {
+  it(command + 'は検証後に旧ツリーが変わったら置換を中止し、旧ツリーを元の場所に戻す', async () => {
     const old = path.join(sources, 'chuo', 'old');
     const change = async () => writeFile(old, 'changed during download');
     const result =
@@ -226,16 +241,11 @@ for (const command of ['fetch', 'restore'] as const) {
             ['chuo'],
             options(),
           );
-    await expect(result).rejects.toThrow('旧データを保持');
-    const kept = (await readdir(sources)).find((name) => name.endsWith('-old'));
-    if (!kept) throw new Error('旧ツリーの退避先がありません');
-    const previous = path.join(sources, kept);
-    await expect(result).rejects.toThrow(previous);
-    await expect(result).rejects.toThrow(`新データ: ${path.join(sources, 'chuo')}`);
-    expect(await readFile(path.join(previous, 'old'), 'utf8')).toBe('changed during download');
-    expect(await readFile(path.join(sources, 'chuo', command === 'fetch' ? 'list.xlsx' : 'old'), 'utf8')).toBe(
-      command === 'fetch' ? 'new' : 'keep',
-    );
+    await expect(result).rejects.toThrow('事前検証の後に旧ツリーが変更されたため、置換を中止しました');
+    expect((await readdir(sources)).filter((name) => name.endsWith('-old'))).toEqual([]);
+    expect(await readFile(path.join(sources, 'chuo', 'old'), 'utf8')).toBe('changed during download');
+    expect(await readdir(path.join(sources, 'chuo'))).toEqual(['old']);
+    expect(JSON.parse(await readFile(path.join(data, 'chuo', 'snapshot.json'), 'utf8')).fetchedOn).toBe(date);
   });
 
   it.each([false, true])(command + 'はディレクトリ以外を取得前に拒否する（discard=%s）', async (discard) => {

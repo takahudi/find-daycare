@@ -7,6 +7,7 @@ import { SnapshotDateSchema } from '../src/schema.ts';
 import { parseJson } from './json.ts';
 import {
   assertReplaceable,
+  existingDirectory,
   loadVerifiedSnapshots,
   manifestBytes,
   readManifestIfExists,
@@ -149,17 +150,19 @@ export async function restoreSnapshots(
     throw new Error('R2の認証情報がありません。保管と保管状況の確認の両方に認証情報が必要です。.envを設定してください');
   const canonical = (directory: string) => (process.platform === 'win32' ? directory.toLowerCase() : directory);
   const intoSources = canonical(await realDirectoryPath(dest)) === canonical(await realDirectoryPath(sources));
-  const verified = new Map<string, Snapshot | undefined>();
-  if (intoSources) {
-    for (const { id } of selections) {
-      verified.set(id, await assertReplaceable(id, path.join(sources, id), storage, data, discardUnarchived.includes(id)));
-    }
-  }
-  const totals = { ids: selections.length, files: 0, bytes: 0 };
+  const plans = [];
   for (const { id, date } of selections) {
     const local = await readManifestIfExists(id, data);
     const fetchedOn = date ?? local?.fetchedOn;
     if (!fetchedOn) throw new Error(id + ': 作業ツリーのマニフェストがありません。復元する取得日を指定してください');
+    let verified: Snapshot | undefined;
+    if (intoSources)
+      verified = await assertReplaceable(id, path.join(sources, id), storage, data, discardUnarchived.includes(id));
+    else await existingDirectory(path.join(dest, id));
+    plans.push({ id, local, fetchedOn, verified });
+  }
+  const totals = { ids: selections.length, files: 0, bytes: 0 };
+  for (const { id, local, fetchedOn, verified } of plans) {
     const prefix = `snapshots/${id}/${fetchedOn}`;
     const manifest = parseJson(Buffer.from(await storage.get(`${prefix}/snapshot.json`)).toString('utf8'), 'snapshot.json');
     if (manifest.fetchedOn !== fetchedOn) throw new Error(`${prefix}: マニフェストの取得日が一致しません`);
@@ -182,7 +185,7 @@ export async function restoreSnapshots(
         });
         return updateManifest ? stageManifest(id, manifest, data) : undefined;
       },
-      verified.get(id),
+      verified,
     );
     totals.files += Object.keys(manifest.files).length;
     totals.bytes += bytes;

@@ -123,6 +123,12 @@ async function optionalStat(file: string) {
   });
 }
 
+export async function existingDirectory(target: string) {
+  const old = await optionalStat(target);
+  if (old && (!old.isDirectory() || old.isSymbolicLink())) throw new Error(`${target}: 通常のディレクトリではありません`);
+  return Boolean(old);
+}
+
 export async function renameWithRetry(from: string, to: string) {
   for (let attempt = 0; ; attempt++) {
     try {
@@ -156,11 +162,13 @@ export async function replaceDirectory(
   const errors: unknown[] = [];
   try {
     staged = await populate(temporary);
-    const old = await optionalStat(target);
-    if (old && (!old.isDirectory() || old.isSymbolicLink())) throw new Error(`${target}: 通常のディレクトリではありません`);
-    if (old) {
+    if (await existingDirectory(target)) {
       await renameWithRetry(target, previous);
       movedOld = true;
+      if (verified)
+        await verifyLocalFiles(previous, verified).catch((error: unknown) => {
+          throw new Error(`${target}: 事前検証の後に旧ツリーが変更されたため、置換を中止しました`, { cause: error });
+        });
     }
     await renameWithRetry(temporary, target);
     movedNew = true;
@@ -202,16 +210,6 @@ export async function replaceDirectory(
     );
   }
   if (movedOld) {
-    if (verified) {
-      try {
-        await verifyLocalFiles(previous, verified);
-      } catch (error) {
-        throw new Error(
-          `置換は完了しました。新データ: ${target}\n旧ツリーが事前検証後に変更されたか再検証できないため、旧データを保持しました: ${previous}`,
-          { cause: error },
-        );
-      }
-    }
     try {
       await rm(previous, { recursive: true });
     } catch (error) {
@@ -229,10 +227,7 @@ export async function assertReplaceable(
   data = path.resolve('data'),
   discardUnarchived = false,
 ) {
-  const old = await optionalStat(target);
-  if (!old) return undefined;
-  if (!old.isDirectory() || old.isSymbolicLink()) throw new Error(`${target}: 通常のディレクトリではありません`);
-  if (discardUnarchived) return undefined;
+  if (!(await existingDirectory(target)) || discardUnarchived) return undefined;
   function refuse(reason: string, cause?: unknown): never {
     throw new Error(
       `${id}: 置換を拒否しました。${reason}\nツリーと作業ツリーのマニフェストが一致するブランチで pnpm data:archive ${id} を実行するか、削除を許可する対象ごとに --discard-unarchived ${id} を指定して再実行してください`,
