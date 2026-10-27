@@ -1,36 +1,13 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
-import rawData from './data/facilities.json';
 import * as v from 'valibot';
-import { DatasetSchema, HomeSchema } from './schema';
-import type { FacilityType, Facility, Home } from './schema';
+import { HomeSchema } from './schema';
+import type { Dataset, FacilityType, Facility, Home } from './schema';
+import { summarizeDataset, type DatasetSummary } from './lib/dataset-summary';
 import { FacilityCard } from './components/FacilityCard';
 import { MapView } from './components/MapView';
 import { distanceMeters, geocode } from './lib/geo';
 import { AGE_LABELS, AGES, acceptsAny, vacancyCount } from './lib/vacancy';
 import { FACILITY_TYPES, FACILITY_TYPE_LABELS, LICENSING_LABELS } from './lib/facility-labels';
-
-const data = v.parse(DatasetSchema, rawData);
-const WARD_NAMES = data.wards.map((w) => w.name);
-// 区が増えると区名を並べきれないので、5区以上は区の数で表す（区名は見出しのツールチップに出す）
-const TITLE =
-  WARD_NAMES.length >= 24
-    ? '大阪市'
-    : WARD_NAMES.length >= 5
-      ? `大阪市 ${WARD_NAMES.length}区`
-      : `大阪市 ${WARD_NAMES.join('・')}`;
-// 区ごとの空き情報の時点が揃っていれば1つにまとめて表示する
-const asOfLabels = [...new Set(data.wards.map((w) => `${w.vacancyAsOf}（${w.vacancyFor}）`))];
-// 企業主導型の時点は区ごとにずれることがあるので、最も多い時点を基本にし、違う区だけ区名付きで添える
-const kigyoAsOfText = (() => {
-  const byLabel = new Map<string, string[]>();
-  for (const w of data.wards) {
-    if (w.kigyoVacancyAsOf) byLabel.set(w.kigyoVacancyAsOf, [...(byLabel.get(w.kigyoVacancyAsOf) ?? []), w.name]);
-  }
-  const [main, ...others] = [...byLabel].sort((a, b) => b[1].length - a[1].length);
-  if (!main) return null;
-  const exceptions = others.map(([label, names]) => `${names.join('・')}は${label}`).join('、');
-  return exceptions ? `${main[0]}（${exceptions}）` : main[0];
-})();
 
 const SortKeySchema = v.picklist(['distance', 'vacancy', 'name']);
 type SortKey = v.InferOutput<typeof SortKeySchema>;
@@ -47,7 +24,9 @@ function loadHome(): Home | null {
   }
 }
 
-export default function App() {
+export default function App({ data }: { data: Dataset }) {
+  const summary = useMemo(() => summarizeDataset(data), [data]);
+  const { wardNames, title, asOfLabels, kigyoAsOfText } = summary;
   const [ages, setAges] = useState<number[]>([]);
   const [wardIds, setWardIds] = useState<string[]>(data.wards.map((w) => w.id));
   const [facilityTypes, setFacilityTypes] = useState<FacilityType[]>([...FACILITY_TYPES]);
@@ -70,7 +49,7 @@ export default function App() {
   const distanceOf = useMemo(() => {
     const cache = new Map(data.facilities.map((f) => [f.id, home ? distanceMeters(home, f) : null]));
     return (f: Facility) => cache.get(f.id) ?? null;
-  }, [home]);
+  }, [data, home]);
   const vacancyOf = useMemo(() => (f: Facility) => vacancyCount(f, ages), [ages]);
 
   const visible = useMemo(() => {
@@ -89,7 +68,7 @@ export default function App() {
       name: byName,
     };
     return list.sort(comparators[sort]);
-  }, [wardIds, facilityTypes, ages, onlyOpen, sort, distanceOf, vacancyOf]);
+  }, [data, wardIds, facilityTypes, ages, onlyOpen, sort, distanceOf, vacancyOf]);
 
   const openCount = visible.filter((f) => vacancyOf(f) > 0).length;
 
@@ -107,7 +86,7 @@ export default function App() {
     setSearching(true);
     setError(null);
     try {
-      const found = await geocode(address, WARD_NAMES, controller.signal);
+      const found = await geocode(address, wardNames, controller.signal);
       setHome(found);
       setSort('distance');
       setSelectedId(null);
@@ -140,8 +119,8 @@ export default function App() {
     <div className={`app app--${mobileView}`}>
       <header className="topbar">
         <div className="topbar__title">
-          <h1 title={`対象: ${WARD_NAMES.join('・')}`}>
-            {TITLE}の保育施設 <span>空き状況マップ</span>
+          <h1 title={`対象: ${wardNames.join('・')}`}>
+            {title}の保育施設 <span>空き状況マップ</span>
           </h1>
           <p className="topbar__asof">
             空き情報：
@@ -303,7 +282,7 @@ export default function App() {
             ))}
             {visible.length === 0 && <p className="empty">条件に合う施設がありません。絞り込みを変更してください。</p>}
           </div>
-          <Sources />
+          <Sources data={data} summary={summary} />
         </section>
 
         <section className="map-pane" aria-label="地図">
@@ -349,12 +328,12 @@ export default function App() {
   );
 }
 
-function Sources() {
+function Sources({ data, summary: { wardNames, asOfLabels } }: { data: Dataset; summary: DatasetSummary }) {
   return (
     <footer className="sources">
       <p>
         空き人数は{asOfLabels.join('／')}の情報です。日々変動するため、利用申込みの前に必ず各区の保健福祉センター（
-        {WARD_NAMES.map((n) => `${n}役所`).join('・')}）または各施設へご確認ください。距離は直線距離です。
+        {wardNames.map((n) => `${n}役所`).join('・')}）または各施設へご確認ください。距離は直線距離です。
       </p>
       <p>
         企業主導型保育事業所は認可外保育施設です。利用は施設と保護者の直接契約で、区役所の利用調整の対象外です。利用料・対象年齢・利用条件は施設ごとに異なるため、見学のうえ施設へ直接お問い合わせください（空き人数は地域枠の数）。

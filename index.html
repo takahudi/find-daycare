@@ -4,10 +4,21 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link id="facilities-data" rel="preload" href="/src/data/facilities.json" as="fetch" crossorigin />
     <title>大阪市 保育施設 空き状況マップ</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="app">
+        <header class="topbar">
+          <h1>大阪市の保育施設 <span>空き状況マップ</span></h1>
+        </header>
+        <main class="list">
+          <p role="status">施設データを読み込んでいます…</p>
+        </main>
+      </div>
+    </div>
+    <noscript>施設の空き状況を表示するには JavaScript を有効にしてください。</noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
