@@ -236,6 +236,40 @@ Windowsで使用中のファイルによるrename失敗は、合計約9秒を上
 `data:verify [<id> ...]` は一次情報を作業ツリーのマニフェストと照合します。`data:build` はすべての単位の検証を抽出処理より先に実行します。マニフェストや一次情報の欠落・不一致がある場合は、`data/` に書き込む前に停止し、`data:restore` を案内します。`facilities.json` の各区の `snapshot` と全市共通の `citySnapshot` に、使用した取得日を記録します。保管は [ADR 0001](docs/adr/0001-raw-sources-in-r2-per-ward-snapshots.md) に従いレビュー後に実行し、取得時にはアップロードしません。
 
 
+## 地図タイルを作る・保管する
+
+Protomapsの日次ビルドから、大阪市の範囲 `[135.36, 34.56, 135.62, 34.77]`（西・南・東・北）にかかるz0〜15のタイルを切り出します。範囲とズームは `scripts/map-tiles/config.ts` で定義します。画面への組み込みと配信は後続の変更で行います。
+
+地図専用の非公開R2バケットを作ります。`<name>` を作成するバケット名に置き換えてください。
+
+```bash
+pnpm exec wrangler r2 bucket create <name> --location apac
+```
+
+[R2 APIトークンの作成手順](https://developers.cloudflare.com/r2/api/tokens/)に従い、そのバケットだけを対象にした **Object Read & Write** のトークンを発行します。一次情報用のバケット・トークンとは分けます。`.env.example` を参考に、`.env` に次の変数を設定してください。`R2_ACCOUNT_ID` は一次情報用と共通です。
+
+```dotenv
+R2_ACCOUNT_ID=
+R2_MAP_ACCESS_KEY_ID=
+R2_MAP_SECRET_ACCESS_KEY=
+R2_MAP_BUCKET=
+```
+
+切り出しにはR2の認証情報は不要です。保管コマンドは `.env` があれば読み込み、環境変数も使用できます。`.env` はGitに含めません。
+
+```bash
+pnpm map:extract --build 20261027
+# data/map/tiles.jsonの差分を確認してPRを作成
+# レビュー後に実行
+pnpm map:archive
+```
+
+切り出しは `map-tiles/osaka-<build>.pmtiles` を作り、元ビルド・タイルの版・範囲・枚数・保管先のkey・SHA-256・バイト数を `data/map/tiles.json` に記録します。`build` は `YYYYMMDD` の8桁で指定します。`pnpm map:extract` でbuildを省くと、記録の `source.build` から作り直します。記録もなければ停止します。同じ入力からは同じSHA-256のファイルを生成します。20261027のビルドでは877枚、約46.5MBです。記録だけをコミットし、`map-tiles/` のファイルはGitに含めません。
+
+`map:archive` はローカルファイルのSHA-256とバイト数を記録と照合し、`tiles/osaka-<build>.pmtiles` に保管します。同じSHA-256で保管済みなら省略し、異なれば上書きせず停止します。新規のPUTには `If-None-Match: *` とSHA-256のメタデータを付け、保管後もHEADで確認します。通信障害や途中失敗のあとには同じコマンドを再実行できます。
+
+タイルの出典は [Protomaps Basemap](https://docs.protomaps.com/basemaps/downloads) と [OpenStreetMap contributors](https://www.openstreetmap.org/copyright) です。OpenStreetMapのデータは [Open Database License（ODbL）](https://opendatacommons.org/licenses/odbl/) に従います。切り出したPMTilesにも元の出典メタデータを残します。地図を表示する際にはOpenStreetMapの出典を表示します。
+
 ## 構成
 
 Vite + React + TypeScript、地図は Leaflet（react-leaflet）。

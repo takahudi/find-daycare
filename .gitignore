@@ -15,6 +15,7 @@ dist-ssr
 
 # 市から取得した一次情報は R2 に保管する（docs/adr/0001）。手で整えた JSON と抽出結果だけをコミットする
 /sources/
+/map-tiles/
 
 # Secrets
 .env

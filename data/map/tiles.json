@@ -1,0 +1,21 @@
+{
+  "source": {
+    "build": "20261027",
+    "url": "https://build.protomaps.com/20261027.pmtiles",
+    "tilesVersion": "4.15.2"
+  },
+  "bbox": [
+    135.36,
+    34.56,
+    135.62,
+    34.77
+  ],
+  "minZoom": 0,
+  "maxZoom": 15,
+  "tiles": 877,
+  "object": {
+    "key": "tiles/osaka-20261027.pmtiles",
+    "sha256": "ce7517b8d2ac1e85969ffc8e6a2fc5d0110c9305470386b69a61314a5af8b901",
+    "size": 46546620
+  }
+}
