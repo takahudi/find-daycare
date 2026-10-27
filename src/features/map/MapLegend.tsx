@@ -1,4 +1,5 @@
 import { LICENSING_LABELS } from '../../lib/facility-labels';
+import './pins.css';
 
 export function MapLegend({ hasHome: home }: { hasHome: boolean }) {
   return (

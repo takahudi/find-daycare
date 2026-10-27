@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip } from 'react-leaflet';
 import type { Facility, Home } from '../../schema';
 import { formatDistance } from '../../lib/geo';
 import { AGE_LABELS } from '../../lib/vacancy';
 import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../../lib/facility-labels';
 import { MapController } from './MapController';
+import 'leaflet/dist/leaflet.css';
+import './pins.css';
 
 interface Props {
   facilities: Facility[];

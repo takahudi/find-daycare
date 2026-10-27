@@ -39,7 +39,7 @@ export function HomeForm({ state, onHomeChosen }: Props) {
           {error ?? (
             <>
               🏠 <strong>{home!.label}</strong> からの直線距離で表示中
-              <button type="button" className="link" onClick={clearHome}>
+              <button type="button" className="link-button" onClick={clearHome}>
                 解除
               </button>
             </>

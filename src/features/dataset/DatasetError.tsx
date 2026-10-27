@@ -11,7 +11,7 @@ export default function DatasetError({ error }: { error: Error }) {
           <p>施設データを読み込めませんでした。</p>
           <p>{error.message}</p>
         </div>
-        <button type="button" className="link" onClick={() => location.reload()}>
+        <button type="button" className="link-button" onClick={() => location.reload()}>
           再読み込み
         </button>
       </main>
