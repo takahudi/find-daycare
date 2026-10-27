@@ -1,4 +1,4 @@
-import { PMTiles, ResolvedValueCache } from 'pmtiles';
+import { Compression, PMTiles, ResolvedValueCache } from 'pmtiles';
 import manifest from '../data/map/tiles.json' with { type: 'json' };
 
 export interface TileBucket {
@@ -9,7 +9,16 @@ export interface TileBucket {
 }
 
 const archives = new WeakMap<TileBucket, PMTiles>();
-const compressedBytes = async (data: ArrayBuffer) => data;
+
+async function uncompressedDirectory(data: ArrayBuffer, compression: Compression) {
+  if (compression !== Compression.None) throw new Error('地図タイルのディレクトリは非圧縮が必要です');
+  return data;
+}
+
+async function gzipTile(data: ArrayBuffer, compression: Compression) {
+  if (compression !== Compression.Gzip) throw new Error('地図タイルはgzip圧縮が必要です');
+  return data;
+}
 
 function archiveFor(bucket: TileBucket): PMTiles {
   let archive = archives.get(bucket);
@@ -26,8 +35,8 @@ function archiveFor(bucket: TileBucket): PMTiles {
           return { data };
         },
       },
-      new ResolvedValueCache(100, true, compressedBytes),
-      compressedBytes,
+      new ResolvedValueCache(100, true, uncompressedDirectory),
+      gzipTile,
     );
     archives.set(bucket, archive);
   }

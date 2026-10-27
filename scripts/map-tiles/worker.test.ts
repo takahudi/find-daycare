@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { gunzipSync } from 'node:zlib';
-import { bytesToHeader } from 'pmtiles';
+import { bytesToHeader, Compression } from 'pmtiles';
 import { afterEach, expect, it, vi } from 'vitest';
 import manifest from '../../data/map/tiles.json' with { type: 'json' };
 import { serveTile } from '../../worker/tiles.ts';
@@ -16,8 +16,7 @@ const cacheHeaders = {
   'cross-origin-resource-policy': 'same-origin',
 };
 
-function fakeBucket() {
-  const bytes = createTileFixture();
+function fakeBucket(bytes = createTileFixture()) {
   const get = vi.fn<TileBucket['get']>(async (_key, { range }) => ({
     size: bytes.length,
     arrayBuffer: async () => Uint8Array.from(bytes.subarray(range.offset, range.offset + range.length)).buffer,
@@ -139,6 +138,22 @@ it.each(['missing', 'unreadable', 'truncated'])('R2が%sのとき503を記録し
   expect(response.headers.get('cache-control')).toBe('no-store');
   expect(error).toHaveBeenCalledWith('地図タイルをR2から読み取れませんでした', expect.any(Error));
   expect((await serveTile(request(), bucket)).status).toBe(200);
+});
+
+it.each([
+  { part: 'ディレクトリ', offset: 97, compression: Compression.Gzip },
+  { part: 'ディレクトリ', offset: 97, compression: Compression.Unknown },
+  { part: 'タイル', offset: 98, compression: Compression.None },
+  { part: 'タイル', offset: 98, compression: Compression.Brotli },
+])('未対応の圧縮形式（$part、$compression）は503を記録しキャッシュしない', async ({ offset, compression }) => {
+  const bytes = createTileFixture();
+  bytes[offset] = compression;
+  const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+  const response = await serveTile(request(), fakeBucket(bytes));
+  expect(response.status).toBe(503);
+  expect(response.headers.get('cache-control')).toBe('no-store');
+  expect(await response.text()).toBe('');
+  expect(error).toHaveBeenCalledWith('地図タイルをR2から読み取れませんでした', expect.any(Error));
 });
 
 it('R2からPMTilesの指定位置だけを読み、2回目にはヘッダとディレクトリを読み直さない', async () => {
