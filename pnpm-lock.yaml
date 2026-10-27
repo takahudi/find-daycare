@@ -236,6 +236,9 @@ importers:
       pdfjs-dist:
         specifier: ^6.4.299
         version: 6.4.299
+      pmtiles:
+        specifier: ^4.5.0
+        version: 4.5.0
       typescript:
         specifier: ~7.0.2
         version: 7.0.2
@@ -1534,6 +1537,9 @@ packages:
       picomatch:
         optional: true
 
+  fflate@0.8.3:
+    resolution: {integrity: sha512-tbZNuJrLwGUp3zshBtdy4W+ORxZuIh8a5ilyIEQDC5rY1f3U20JMry0Ll3WBzU58EZKsEuJFXhb5gwv8CsPvgA==}
+
   flru@1.0.2:
     resolution: {integrity: sha512-kWyh8ADvHBFz6ua5xYOPnUroZTT/bwWfrCeL0Wj1dzG4/YOmOcfJ99W8dOVyyynJN35rZ9aCOtHChqQovV7yog==}
     engines: {node: '>=6'}
@@ -1811,6 +1817,9 @@ packages:
     resolution: {integrity: sha512-HCrVhHr5QQuwYoswEUGTb7gGp522yflbv/ST8nF4sFWGuLjQCt17Q/EubpGGSNKYn1tsTCPZxqHhHCfVURu7UA==}
     engines: {node: '>=20'}
     hasBin: true
+
+  pmtiles@4.5.0:
+    resolution: {integrity: sha512-CBeD4SoUluFziGdy/8k7FOjQxQy486n+929W/tWophauvMICpkZ26vGBWhDt/6b1FZQWNaf4jFdT/5+q0Wii5w==}
 
   postcss@8.5.31:
     resolution: {integrity: sha512-YUbWYCgErwnMAVkjUnYa+KlMBzGpHwiIt/DE7f0G33AuX2LH9UcTk6KgWxd3zRU+pN3u/C+Xl3EnMLM4Hea7Sg==}
@@ -2897,6 +2906,8 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.7
 
+  fflate@0.8.3: {}
+
   flru@1.0.2: {}
 
   frac@1.1.2: {}
@@ -3128,6 +3139,10 @@ snapshots:
   playwright@1.64.1:
     dependencies:
       playwright-core: 1.64.1
+
+  pmtiles@4.5.0:
+    dependencies:
+      fflate: 0.8.3
 
   postcss@8.5.31:
     dependencies:
