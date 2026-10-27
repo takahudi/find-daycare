@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import L from 'leaflet';
 import { MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip } from 'react-leaflet';
 import type { Facility, Home } from '../../schema';
@@ -45,15 +45,18 @@ const homeIcon = L.divIcon({
   iconAnchor: [17, 17],
 });
 
+function SelectedPopup({ selectedId, markerRefs }: { selectedId: string | null; markerRefs: RefObject<Map<string, L.Marker>> }) {
+  useEffect(() => {
+    if (selectedId) markerRefs.current.get(selectedId)?.openPopup();
+  }, [selectedId, markerRefs]);
+  return null;
+}
+
 export function MapView({ facilities, allFacilities, vacancyOf, distanceOf, home, selectedId, onSelect }: Props) {
   const markerRefs = useRef(new Map<string, L.Marker>());
   const selected = facilities.find((f) => f.id === selectedId);
   // URL の初期絞り込みにかかわらず全施設を収め、以後の絞り込みでは範囲を変えない。
   const [initialBounds] = useState(() => L.latLngBounds(allFacilities.map((f) => L.latLng(f.lat, f.lng))).pad(0.05));
-
-  useEffect(() => {
-    if (selectedId) markerRefs.current.get(selectedId)?.openPopup();
-  }, [selectedId]);
 
   return (
     <MapContainer bounds={initialBounds} className={styles.map} scrollWheelZoom>
@@ -124,6 +127,8 @@ export function MapView({ facilities, allFacilities, vacancyOf, distanceOf, home
           </Marker>
         );
       })}
+      {/* react-leaflet の passive effect（addLayer と bindPopup）より後に開く必要があるため、マーカーより後に置く。 */}
+      <SelectedPopup selectedId={selectedId} markerRefs={markerRefs} />
     </MapContainer>
   );
 }

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelectedFacility } from '../features/facilities/useSelectedFacility';
 import type { Dataset } from '../schema';
 import { summarizeDataset } from '../lib/dataset-summary';
 import { listFacilities } from '../lib/list-facilities';
@@ -21,7 +22,6 @@ export default function App({ data }: { data: Dataset }) {
   const { home } = homeState;
   const filters = useFilters({ wardIds: data.wards.map((w) => w.id), sort: home ? 'distance' : 'vacancy' });
   const { ages, wardIds, facilityTypes, onlyOpen, sort, followDefaultSort } = filters;
-  const [selectedId, setSelectedId] = useState<string | null>(null);
   const onHomeChosen = (source: HomeChoice) => {
     followDefaultSort();
     if (source === 'search') setSelectedId(null);
@@ -33,6 +33,16 @@ export default function App({ data }: { data: Dataset }) {
     { ages, wardIds, facilityTypes, onlyOpen, sort },
     home,
   );
+
+  const { selectedId, setSelectedId } = useSelectedFacility(
+    data.facilities.map((facility) => facility.id),
+    visible.map((facility) => facility.id),
+  );
+  const [initialSelectedId] = useState(selectedId);
+  useEffect(() => {
+    // カード操作では表示位置を変えず、読み込み時に選択されていた施設だけに移動する。
+    if (initialSelectedId) scrollToFacility(initialSelectedId);
+  }, [initialSelectedId]);
 
   const select = (id: string, from: 'list' | 'map') => {
     setSelectedId(id);
