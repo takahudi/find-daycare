@@ -1,9 +1,23 @@
 import { useId } from 'react';
-import type { Facility } from '../../schema';
+import type { Facility, FacilityType } from '../../schema';
 import { formatDistance, walkMinutes } from '../../lib/geo';
 import { AGE_LABELS, vacancyCount } from '../../lib/vacancy';
 import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../../lib/facility-labels';
 import { FACILITY_ID_ATTRIBUTE } from './scroll-to-facility';
+import styles from './FacilityCard.module.css';
+
+const badgeByFacilityType: Record<FacilityType, string> = {
+  nursery: styles.badgeNursery,
+  kodomoen: styles.badgeKodomoen,
+  community: styles.badgeCommunity,
+  kigyo: styles.badgeKigyo,
+};
+
+const cellByVacancyState: Record<'open' | 'full' | 'na', string> = {
+  open: styles.cellOpen,
+  full: styles.cellFull,
+  na: styles.cellNa,
+};
 
 interface Props {
   facility: Facility;
@@ -24,41 +38,43 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
 
   return (
     <article
-      className={`card${selected ? ' card--selected' : ''}`}
+      className={`${styles.card}${selected ? ` ${styles.cardSelected}` : ''}`}
       aria-labelledby={nameId}
       {...{ [FACILITY_ID_ATTRIBUTE]: f.id }}
       aria-current={selected || undefined}
       onClick={onSelect}
     >
-      <header className="card__head">
-        <ul className="card__badges" role="list" aria-label="分類">
-          <li className="badge badge--ward">{f.wardName}</li>
-          <li className={`badge badge--${f.facilityType}`}>{typeLabel}</li>
-          {f.licensing === 'unlicensed' && <li className="badge badge--unlicensed">{LICENSING_LABELS[f.licensing]}</li>}
-          {f.ownership && <li className="badge badge--plain">{f.ownership}</li>}
-          {showDetailType && <li className="badge badge--plain">{f.detailType}</li>}
+      <header className={styles.cardHead}>
+        <ul className={styles.cardBadges} role="list" aria-label="分類">
+          <li className={`${styles.badge} ${styles.badgeWard}`}>{f.wardName}</li>
+          <li className={`${styles.badge} ${badgeByFacilityType[f.facilityType]}`}>{typeLabel}</li>
+          {f.licensing === 'unlicensed' && (
+            <li className={`${styles.badge} ${styles.badgeUnlicensed}`}>{LICENSING_LABELS[f.licensing]}</li>
+          )}
+          {f.ownership && <li className={`${styles.badge} ${styles.badgePlain}`}>{f.ownership}</li>}
+          {showDetailType && <li className={`${styles.badge} ${styles.badgePlain}`}>{f.detailType}</li>}
         </ul>
-        <h2 id={nameId} className="card__title">
-          {rank !== null && <span className="card__rank">{rank}</span>}
+        <h2 id={nameId} className={styles.cardTitle}>
+          {rank !== null && <span className={styles.cardRank}>{rank}</span>}
           {f.name}
         </h2>
-        {f.kana && <p className="card__kana">{f.kana}</p>}
+        {f.kana && <p className={styles.cardKana}>{f.kana}</p>}
         {f.licensing === 'unlicensed' && (
-          <p className="card__caution">
+          <p className={styles.cardCaution}>
             認可外保育施設です。申込みは区役所ではなく施設との直接契約です
             {f.facilityType === 'kigyo' && '（空き人数は地域枠）'}。
           </p>
         )}
         {distance !== null && (
-          <p className="card__distance">
+          <p className={styles.cardDistance}>
             🏠 自宅から <strong>{formatDistance(distance)}</strong>
-            <span className="muted">（直線・徒歩約{walkMinutes(distance)}分）</span>
+            <span className={styles.walkTime}>（直線・徒歩約{walkMinutes(distance)}分）</span>
           </p>
         )}
       </header>
 
-      <div className="vacancy" role="table" aria-label="年齢別の空き人数">
-        <div role="row" className="vacancy__row">
+      <div role="table" aria-label="年齢別の空き人数">
+        <div role="row" className={styles.vacancyRow}>
           {f.vacancies.map((v, age) => {
             // 共有枠（例: 1・2歳あわせて1人）は1つのセルにまとめて表示する
             const group = shared?.ages.includes(age) ? shared.ages : [age];
@@ -70,22 +86,26 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
               <div
                 key={age}
                 role="cell"
-                className={`vacancy__cell vacancy__cell--${state}${focus ? ' vacancy__cell--focus' : ''}`}
+                className={`${styles.vacancyCell} ${cellByVacancyState[state]}${focus ? ` ${styles.cellFocus}` : ''}`}
                 style={group.length > 1 ? { gridColumn: `span ${group.length}` } : undefined}
                 title={v === null ? `${label}: 受入れ対象外` : `${label}: 空き${v}人${group.length > 1 ? '（共有）' : ''}`}
               >
-                <span className="vacancy__age">{label}</span>
-                <span className="vacancy__num">{v === null ? '—' : v > 0 ? v : '×'}</span>
+                <span className={styles.vacancyAge}>{label}</span>
+                <span className={styles.vacancyNum}>{v === null ? '—' : v > 0 ? v : '×'}</span>
               </div>
             );
           })}
         </div>
-        <p className="vacancy__summary">
-          {total > 0 ? <span className="ok">空きあり 計{total}人</span> : <span className="ng">現在空きなし</span>}
+        <p className={styles.vacancySummary}>
+          {total > 0 ? (
+            <span className={styles.summaryOpen}>空きあり 計{total}人</span>
+          ) : (
+            <span className={styles.summaryFull}>現在空きなし</span>
+          )}
         </p>
       </div>
 
-      <dl className="card__facts">
+      <dl className={styles.cardFacts}>
         {f.capacity && (
           <>
             <dt>定員</dt>
@@ -122,16 +142,16 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
       </dl>
 
       {f.services.length > 0 && (
-        <ul className="card__tags">
+        <ul className={styles.cardTags}>
           {f.services.map((s) => (
             <li key={s}>{s}</li>
           ))}
         </ul>
       )}
-      {f.note && <p className="card__note">{f.note}</p>}
+      {f.note && <p className={styles.cardNote}>{f.note}</p>}
 
-      <footer className="card__links" onClick={(e) => e.stopPropagation()}>
-        <button type="button" className="card__map-btn" onClick={onShowOnMap}>
+      <footer className={styles.cardLinks} onClick={(e) => e.stopPropagation()}>
+        <button type="button" className={styles.cardMapBtn} onClick={onShowOnMap}>
           📍 地図で見る
         </button>
         {f.website && (

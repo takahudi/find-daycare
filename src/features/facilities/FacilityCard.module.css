@@ -1,0 +1,253 @@
+.walkTime {
+  color: var(--muted);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
+}
+
+.card:hover {
+  transform: translateY(-1px);
+  border-color: var(--line);
+}
+
+.cardSelected,
+.cardSelected:hover {
+  border-color: var(--accent);
+}
+
+.cardHead {
+  display: grid;
+  gap: 2px;
+}
+
+.cardBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0 0 4px;
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  padding: 1px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.badgeNursery {
+  background: var(--nursery);
+}
+
+.badgeKodomoen {
+  background: var(--kodomoen);
+}
+
+.badgeCommunity {
+  background: var(--community);
+}
+
+.badgeWard {
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.badgeKigyo {
+  background: var(--kigyo);
+}
+
+.badgeUnlicensed {
+  background: var(--unlicensed-bg);
+  color: var(--unlicensed);
+}
+
+.cardCaution {
+  margin: 4px 0 0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--unlicensed-bg);
+  color: var(--unlicensed);
+  font-size: 0.75rem;
+}
+
+.badgePlain {
+  background: var(--full-bg);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.cardRank {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-fill);
+  color: #fff;
+  font-size: 0.78rem;
+}
+
+.cardKana {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.cardDistance {
+  margin: 4px 0 0;
+  font-size: 0.88rem;
+}
+
+.cardDistance strong {
+  color: var(--accent-ink);
+}
+
+.vacancyRow {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+}
+
+.vacancyCell {
+  display: grid;
+  justify-items: center;
+  padding: 4px 0 2px;
+  border-radius: 8px;
+  border: 1.5px solid transparent;
+}
+
+.cellOpen {
+  background: var(--open-bg);
+  color: var(--open);
+}
+
+.cellFull {
+  background: var(--full-bg);
+  color: var(--full);
+}
+
+.cellNa {
+  background: repeating-linear-gradient(135deg, #fafaf8 0 4px, #f1f0ec 4px 8px);
+  color: var(--full);
+}
+
+.cellFocus {
+  border-color: var(--accent);
+}
+
+.vacancyAge {
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.vacancyNum {
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.vacancySummary {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.vacancySummary .summaryOpen {
+  color: var(--open);
+}
+
+.vacancySummary .summaryFull {
+  color: var(--full);
+}
+
+.cardFacts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 10px;
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.cardFacts dt {
+  color: var(--muted);
+}
+
+.cardFacts dd {
+  margin: 0;
+}
+
+.cardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cardTags li {
+  padding: 1px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.cardNote {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.cardLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  font-size: 0.8rem;
+}
+
+.cardLinks a,
+.cardMapBtn {
+  display: inline-flex;
+  align-items: center;
+  min-width: 24px;
+  min-height: 24px;
+}
+
+.cardMapBtn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent-ink);
+  font-size: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}

@@ -1,6 +1,7 @@
 import type { Facility } from '../../schema';
 import { AGE_LABELS } from '../../lib/vacancy';
 import { FacilityCard } from './FacilityCard';
+import styles from './FacilityList.module.css';
 
 interface Props {
   facilities: Facility[];
@@ -17,11 +18,11 @@ export function FacilityList({ facilities, distanceOf, vacancyOf, ages, showRank
   const openCount = facilities.filter((f) => vacancyOf(f) > 0).length;
   return (
     <>
-      <p className="list__count">
+      <p className={styles.count}>
         {facilities.length}件中 <strong>{openCount}件</strong>
         に空きあり{ages.length > 0 && `（${ages.map((a) => AGE_LABELS[a]).join('・')}クラス）`}
       </p>
-      <div className="cards">
+      <div className={styles.cards}>
         {facilities.map((f, i) => (
           <FacilityCard
             key={f.id}
@@ -34,7 +35,7 @@ export function FacilityList({ facilities, distanceOf, vacancyOf, ages, showRank
             onShowOnMap={() => onShowOnMap(f.id)}
           />
         ))}
-        {facilities.length === 0 && <p className="empty">条件に合う施設がありません。絞り込みを変更してください。</p>}
+        {facilities.length === 0 && <p className={styles.empty}>条件に合う施設がありません。絞り込みを変更してください。</p>}
       </div>
     </>
   );
