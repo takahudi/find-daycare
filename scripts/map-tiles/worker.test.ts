@@ -73,6 +73,31 @@ it.each(['GET', 'HEAD'])('範囲内のないタイルは%sで204とキャッシ�
   expect(await response.text()).toBe('');
 });
 
+it.each(['GET', 'HEAD'])('ないタイルでも%sのETagが一致すればR2を読まず304を返す', async (method) => {
+  const bucket = fakeBucket();
+  const path = tilePath(1, 0, 1);
+  const missing = await serveTile(request(path), bucket);
+  expect(missing.status).toBe(204);
+  const etag = missing.headers.get('etag')!;
+  bucket.get.mockClear();
+  const response = await serveTile(request(path, { method, headers: { 'If-None-Match': etag } }), bucket);
+  expect(response.status).toBe(304);
+  expect(Object.fromEntries(response.headers)).toMatchObject({ ...cacheHeaders, etag });
+  expect(await response.text()).toBe('');
+  expect(bucket.get).not.toHaveBeenCalled();
+});
+
+it.each(['GET', 'HEAD'])('R2が読めなくても%sのETagが一致すればR2を読まず304を返す', async (method) => {
+  const bucket = fakeBucket();
+  bucket.get.mockRejectedValue(new Error('R2 unavailable'));
+  const etag = `"${manifest.object.sha256}-0-0-0"`;
+  const response = await serveTile(request(tilePath(), { method, headers: { 'If-None-Match': etag } }), bucket);
+  expect(response.status).toBe(304);
+  expect(Object.fromEntries(response.headers)).toMatchObject({ ...cacheHeaders, etag });
+  expect(await response.text()).toBe('');
+  expect(bucket.get).not.toHaveBeenCalled();
+});
+
 it.each([
   '/map/tiles/bad/0/0/0.mvt',
   tilePath().replace('.mvt', '.png'),

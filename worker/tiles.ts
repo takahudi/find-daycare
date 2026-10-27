@@ -46,24 +46,25 @@ export async function serveTile(request: Request, bucket: TileBucket): Promise<R
   if (![z, x, y].every(Number.isSafeInteger) || z < manifest.minZoom || z > manifest.maxZoom || x >= 2 ** z || y >= 2 ** z)
     return uncached(404);
 
+  const etag = `"${manifest.object.sha256}-${z}-${x}-${y}"`;
+  const headers = {
+    'Content-Type': 'application/vnd.mapbox-vector-tile',
+    'Cache-Control': 'public, max-age=31536000, immutable',
+    ETag: etag,
+    'X-Content-Type-Options': 'nosniff',
+    'Cross-Origin-Resource-Policy': 'same-origin',
+  };
+  if (
+    request.headers
+      .get('If-None-Match')
+      ?.split(',')
+      .some((value) => value.trim() === '*' || value.trim().replace(/^W\//, '') === etag)
+  )
+    return new Response(null, { status: 304, headers });
+
   try {
     const tile = await archiveFor(bucket).getZxy(z, x, y);
-    const etag = `"${manifest.object.sha256}-${z}-${x}-${y}"`;
-    const headers = {
-      'Content-Type': 'application/vnd.mapbox-vector-tile',
-      'Cache-Control': 'public, max-age=31536000, immutable',
-      ETag: etag,
-      'X-Content-Type-Options': 'nosniff',
-      'Cross-Origin-Resource-Policy': 'same-origin',
-    };
     if (!tile) return new Response(null, { status: 204, headers });
-    if (
-      request.headers
-        .get('If-None-Match')
-        ?.split(',')
-        .some((value) => value.trim() === '*' || value.trim().replace(/^W\//, '') === etag)
-    )
-      return new Response(null, { status: 304, headers });
     const init: ResponseInit & { encodeBody: 'manual' } = {
       status: 200,
       headers: { ...headers, 'Content-Encoding': 'gzip' },
