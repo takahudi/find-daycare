@@ -63,7 +63,11 @@ export default function App({ data }: { data: Dataset }) {
     // 企業主導型はふりがなの一次情報がないので施設名で並べる
     const byName = (a: Facility, b: Facility) => (a.kana || a.name).localeCompare(b.kana || b.name, 'ja');
     const comparators: Record<SortKey, (a: Facility, b: Facility) => number> = {
-      distance: (a, b) => (distanceOf(a) ?? 0) - (distanceOf(b) ?? 0) || byName(a, b),
+      distance: (a, b) => {
+        const distanceA = distanceOf(a) ?? 0;
+        const distanceB = distanceOf(b) ?? 0;
+        return distanceA - distanceB || byName(a, b);
+      },
       vacancy: (a, b) => vacancyOf(b) - vacancyOf(a) || byName(a, b),
       name: byName,
     };
@@ -85,16 +89,18 @@ export default function App({ data }: { data: Dataset }) {
     searchAbort.current = controller;
     setSearching(true);
     setError(null);
-    try {
-      const found = await geocode(address, wardNames, controller.signal);
-      setHome(found);
-      setSort('distance');
-      setSelectedId(null);
-    } catch (err) {
-      if (!controller.signal.aborted) setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      if (searchAbort.current === controller) setSearching(false);
-    }
+    await geocode(address, wardNames, controller.signal)
+      .then((found) => {
+        setHome(found);
+        setSort('distance');
+        setSelectedId(null);
+      })
+      .catch((err: unknown) => {
+        if (!controller.signal.aborted) setError(err instanceof Error ? err.message : String(err));
+      })
+      .finally(() => {
+        if (searchAbort.current === controller) setSearching(false);
+      });
   }
 
   function locateMe() {
