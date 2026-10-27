@@ -1,0 +1,23 @@
+.sources {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.sources p {
+  margin: 0 0 6px;
+}
+
+.sources ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.sources li > a {
+  display: inline-block;
+  min-width: 24px;
+  min-height: 24px;
+  padding-block: 3px;
+}

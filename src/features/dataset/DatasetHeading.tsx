@@ -1,6 +1,7 @@
 import type { Dataset } from '../../schema';
 import type { DatasetSummary } from '../../lib/dataset-summary';
 import { SiteTitle } from './SiteTitle';
+import styles from './DatasetHeading.module.css';
 
 export function DatasetHeading({ data, summary }: { data: Dataset; summary: DatasetSummary }) {
   const { wardNames, title, asOfLabels, kigyoAsOfText } = summary;
@@ -8,7 +9,7 @@ export function DatasetHeading({ data, summary }: { data: Dataset; summary: Data
   return (
     <div>
       <SiteTitle area={title} title={wardTitle} />
-      <p className="topbar__asof">
+      <p className={styles.asOf}>
         空き情報：
         {asOfLabels.length === 1 ? (
           <strong>{asOfLabels[0]}</strong>
