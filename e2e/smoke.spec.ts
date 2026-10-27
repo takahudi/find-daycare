@@ -87,6 +87,43 @@ test('地図と施設のピンが表示される', async ({ page }) => {
   await expect(map.getByRole('button', { name: /（認可(?:外)?）/ }).first()).toBeVisible();
 });
 
+test('デスクトップで地図のピンを選ぶと画面外の対応カードまで一覧がスクロールする', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  const list = page.getByRole('region', { name: '施設一覧', exact: true });
+  const cards = list.getByRole('article');
+  await expect(cards).toHaveCount(data.facilities.length);
+  await list.evaluate((node) => {
+    node.scrollTop = node.scrollHeight;
+  });
+  const before = await list.evaluate((node) => ({
+    scrollTop: node.scrollTop,
+    top: node.getBoundingClientRect().top,
+    bottom: node.getBoundingClientRect().bottom,
+  }));
+  expect(before.scrollTop).toBeGreaterThan(0);
+  const offscreenIds = await cards.evaluateAll(
+    (nodes, bounds) =>
+      nodes
+        .filter((node) => {
+          const box = node.getBoundingClientRect();
+          return box.bottom <= bounds.top || box.top >= bounds.bottom;
+        })
+        .map((node) => node.getAttribute('data-facility-id')),
+    before,
+  );
+
+  await openVisibleUnlicensedPopup(page.getByRole('region', { name: '地図', exact: true }));
+
+  const selected = list.locator('article[aria-current="true"]');
+  await expect(selected).toHaveCount(1);
+  expect(offscreenIds, '選んだピンに対応するカードは操作前に一覧の表示範囲外にある').toContain(
+    await selected.getAttribute('data-facility-id'),
+  );
+  // 一覧の端に揃えると、環境によっては1px未満だけ表示外になる（CI で 0.9993）
+  await expect(selected).toBeInViewport({ ratio: 0.99 });
+  await expect.poll(() => list.evaluate((node) => node.scrollTop)).toBeLessThan(before.scrollTop);
+});
+
 test('住所を検索すると、その住所からの距離で施設を表示する', async ({ page }) => {
   const address = '大阪市北区中之島1-3-20';
   await page.route('https://msearch.gsi.go.jp/**', (route) =>

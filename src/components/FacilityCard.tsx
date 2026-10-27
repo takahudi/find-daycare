@@ -1,4 +1,4 @@
-import { useId, type Ref } from 'react';
+import { useId } from 'react';
 import type { Facility } from '../schema';
 import { formatDistance, walkMinutes } from '../lib/geo';
 import { AGE_LABELS, vacancyCount } from '../lib/vacancy';
@@ -12,10 +12,9 @@ interface Props {
   selected: boolean;
   onSelect: () => void;
   onShowOnMap: () => void;
-  ref?: Ref<HTMLElement>;
 }
 
-export function FacilityCard({ facility: f, rank, distance, highlightAges, selected, onSelect, onShowOnMap, ref }: Props) {
+export function FacilityCard({ facility: f, rank, distance, highlightAges, selected, onSelect, onShowOnMap }: Props) {
   const nameId = useId();
   const total = vacancyCount(f, []);
   const shared = f.sharedVacancy;
@@ -24,7 +23,6 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
 
   return (
     <article
-      ref={ref}
       className={`card${selected ? ' card--selected' : ''}`}
       aria-labelledby={nameId}
       data-facility-id={f.id}
