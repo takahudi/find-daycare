@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.node.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.worker-tests.tsbuildinfo",
+    "strict": true
+  },
+  "include": ["worker/**/*.test.ts"]
+}

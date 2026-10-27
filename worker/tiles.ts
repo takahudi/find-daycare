@@ -74,11 +74,11 @@ export async function serveTile(request: Request, bucket: TileBucket): Promise<R
   try {
     const tile = await archiveFor(bucket).getZxy(z, x, y);
     if (!tile) return new Response(null, { status: 204, headers });
-    const init: ResponseInit & { encodeBody: 'manual' } = {
+    const init = {
       status: 200,
       headers: { ...headers, 'Content-Encoding': 'gzip' },
       encodeBody: 'manual',
-    };
+    } as const;
     return new Response(request.method === 'HEAD' ? null : tile.data, init);
   } catch (error) {
     console.error('地図タイルをR2から読み取れませんでした', error);

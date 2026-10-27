@@ -1,11 +1,12 @@
-import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { gunzipSync } from 'node:zlib';
 import { bytesToHeader, Compression } from 'pmtiles';
 import { afterEach, expect, it, vi } from 'vitest';
-import manifest from '../../data/map/tiles.json' with { type: 'json' };
-import { serveTile } from '../../worker/tiles.ts';
-import type { TileBucket } from '../../worker/tiles.ts';
-import { createTileFixture, fixtureTiles } from './tile-fixture.ts';
+import { unstable_readConfig } from 'wrangler';
+import manifest from '../data/map/tiles.json' with { type: 'json' };
+import { createTileFixture, fixtureTiles } from '../scripts/map-tiles/tile-fixture.ts';
+import { serveTile } from './tiles.ts';
+import type { TileBucket } from './tiles.ts';
 
 const tilePath = (z = 0, x = 0, y = 0) => `/map/tiles/${manifest.source.build}/${z}/${x}/${y}.mvt`;
 const request = (path = tilePath(), init?: RequestInit) => new Request(`https://example.test${path}`, init);
@@ -173,9 +174,9 @@ it('R2からPMTilesの指定位置だけを読み、2回目にはヘッダとデ
   ]);
 });
 
-it('ソース設定はタイルだけを先にWorkerへ渡し地図のR2だけを結び付ける', async () => {
-  const config = JSON.parse((await readFile('wrangler.jsonc', 'utf8')).replace(/,\s*([}\]])/g, '$1'));
-  expect(config.main).toBe('worker/index.ts');
+it('ソース設定はタイルだけを先にWorkerへ渡し地図のR2だけを結び付ける', () => {
+  const config = unstable_readConfig({ config: 'wrangler.jsonc' });
+  expect(config.main).toBe(resolve('worker/index.ts'));
   expect(config.assets).toEqual({ binding: 'ASSETS', run_worker_first: ['/map/tiles/*'], not_found_handling: 'none' });
   expect(config.r2_buckets).toEqual([{ binding: 'MAP_TILES', bucket_name: 'find-daycare-map' }]);
 });
