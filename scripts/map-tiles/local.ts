@@ -9,4 +9,4 @@ const file = `map-tiles/osaka-${manifest.source.build}.pmtiles`;
 const bytes = await readFile(file);
 if (bytes.length !== manifest.object.size || sha256(bytes) !== manifest.object.sha256)
   throw new Error(`${file}: ローカルファイルのsha256またはsizeが記録と一致しません`);
-putLocalTiles(file);
+putLocalTiles(file, '.wrangler/state');

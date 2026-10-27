@@ -268,7 +268,7 @@ pnpm map:archive
 
 切り出しは `map-tiles/osaka-<build>.pmtiles` を作り、元ビルド・タイルの版・範囲・枚数・保管先のkey・SHA-256・バイト数を `data/map/tiles.json` に記録します。`build` は `YYYYMMDD` の8桁で指定します。`pnpm map:extract` でbuildを省くと、記録の `source.build` から作り直します。記録もなければ停止します。同じ入力からは同じSHA-256のファイルを生成します。20261027のビルドでは877枚、約46.5MBです。記録だけをコミットし、`map-tiles/` のファイルはGitに含めません。
 
-ローカルでタイルを使うには、ファイルを用意して `pnpm map:local` を実行します。ファイルの SHA-256 とバイト数を確認してから、ローカル R2 の同じキーへ入れます。本番 R2 は変更しません。Vite と `wrangler dev --persist-to .wrangler/state` は同じ保存先を使います。E2E は起動前に小さな検証用 PMTiles を同じローカルキーへ入れるので、本物のタイルに戻すときは `pnpm map:local` を再実行します。
+ローカルでタイルを使うには、ファイルを用意して `pnpm map:local` を実行します。ファイルの SHA-256 とバイト数を確認してから、ローカル R2 の同じキーへ入れます。本番 R2 は変更しません。Vite と `wrangler dev --persist-to .wrangler/state` は同じ保存先を使います。E2E は専用の `.wrangler/e2e-state` に小さな検証用 PMTiles を入れます。
 
 タイル配信の確認には、E2E と同じ Wrangler の経路を使います。
 

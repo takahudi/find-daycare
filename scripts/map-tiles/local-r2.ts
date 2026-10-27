@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import manifest from '../../data/map/tiles.json' with { type: 'json' };
 
-export function putLocalTiles(file: string) {
+export function putLocalTiles(file: string, persistTo: string) {
   execFileSync(
     process.execPath,
     [
@@ -17,7 +17,7 @@ export function putLocalTiles(file: string) {
       'wrangler.jsonc',
       '--local',
       '--persist-to',
-      '.wrangler/state',
+      persistTo,
     ],
     { stdio: 'inherit' },
   );
