@@ -1,6 +1,7 @@
 import { gzipSync } from 'node:zlib';
 import { Compression, TileType, zxyToTileId } from 'pmtiles';
 import manifest from '../../data/map/tiles.json' with { type: 'json' };
+import { MAP_AREA } from './config.ts';
 import { writePMTiles } from './pmtiles-writer.ts';
 
 export const fixtureTiles = [
@@ -12,7 +13,7 @@ export function createTileFixture() {
   return writePMTiles(
     fixtureTiles.map(({ z, x, y, bytes }) => ({ tileId: zxyToTileId(z, x, y), bytes })),
     {
-      bounds: [135.36, 34.56, 135.62, 34.77],
+      bounds: MAP_AREA.bbox,
       minZoom: manifest.minZoom,
       maxZoom: manifest.maxZoom,
       tileType: TileType.Mvt,
