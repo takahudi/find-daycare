@@ -12,6 +12,7 @@ import './pins.css';
 
 interface Props {
   facilities: Facility[];
+  allFacilities: Facility[];
   vacancyOf: (f: Facility) => number;
   distanceOf: (f: Facility) => number | null;
   home: Home | null;
@@ -44,11 +45,11 @@ const homeIcon = L.divIcon({
   iconAnchor: [17, 17],
 });
 
-export function MapView({ facilities, vacancyOf, distanceOf, home, selectedId, onSelect }: Props) {
+export function MapView({ facilities, allFacilities, vacancyOf, distanceOf, home, selectedId, onSelect }: Props) {
   const markerRefs = useRef(new Map<string, L.Marker>());
   const selected = facilities.find((f) => f.id === selectedId);
-  // 初期表示は全施設が収まる範囲（以後は絞り込みで地図を動かさない）
-  const [initialBounds] = useState(() => L.latLngBounds(facilities.map((f) => L.latLng(f.lat, f.lng))).pad(0.05));
+  // URL の初期絞り込みにかかわらず全施設を収め、以後の絞り込みでは範囲を変えない。
+  const [initialBounds] = useState(() => L.latLngBounds(allFacilities.map((f) => L.latLng(f.lat, f.lng))).pad(0.05));
 
   useEffect(() => {
     if (selectedId) markerRefs.current.get(selectedId)?.openPopup();

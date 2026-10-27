@@ -1,26 +1,29 @@
-import { useState } from 'react';
+import { useQueryStates } from 'nuqs';
 import type { FacilityType } from '../../schema';
 import { FACILITY_TYPES } from '../../lib/facility-labels';
+import { AGES } from '../../lib/vacancy';
 import type { SortKey } from '../../lib/list-facilities';
+import { createFilterParsers } from './query-state';
 
-const toggle = <T>(list: T[], value: T) => (list.includes(value) ? list.filter((x) => x !== value) : [...list, value]);
+export const toggleSelection = <T>(list: T[], value: T, values: readonly T[]) =>
+  values.filter((candidate) => (candidate === value ? !list.includes(candidate) : list.includes(candidate)));
 
 export function useFilters(initial: { wardIds: string[]; sort: SortKey }) {
-  const [ages, setAges] = useState<number[]>([]);
-  const [wardIds, setWardIds] = useState<string[]>(initial.wardIds);
-  const [facilityTypes, setFacilityTypes] = useState<FacilityType[]>([...FACILITY_TYPES]);
-  const [onlyOpen, setOnlyOpen] = useState(false);
-  const [sort, setSort] = useState<SortKey>(initial.sort);
+  const [query, setQuery] = useQueryStates(createFilterParsers(initial.wardIds));
+  const sort = query.sort === 'distance' && initial.sort !== 'distance' ? 'vacancy' : (query.sort ?? initial.sort);
   return {
-    ages,
-    wardIds,
-    facilityTypes,
-    onlyOpen,
+    ages: query.age,
+    wardIds: query.ward,
+    facilityTypes: query.type,
+    onlyOpen: query.open,
     sort,
-    toggleAge: (age: number) => setAges((current) => toggle(current, age).sort((a, b) => a - b)),
-    toggleWard: (wardId: string) => setWardIds((current) => toggle(current, wardId)),
-    toggleFacilityType: (facilityType: FacilityType) => setFacilityTypes((current) => toggle(current, facilityType)),
-    setOnlyOpen: (value: boolean) => setOnlyOpen(value),
-    setSort: (value: SortKey) => setSort(value),
+    toggleAge: (age: number) => void setQuery((current) => ({ age: toggleSelection(current.age, age, AGES) })),
+    toggleWard: (wardId: string) =>
+      void setQuery((current) => ({ ward: toggleSelection(current.ward, wardId, initial.wardIds) })),
+    toggleFacilityType: (facilityType: FacilityType) =>
+      void setQuery((current) => ({ type: toggleSelection(current.type, facilityType, FACILITY_TYPES) })),
+    setOnlyOpen: (value: boolean) => void setQuery({ open: value }),
+    followDefaultSort: () => void setQuery({ sort: null }),
+    setSort: (value: SortKey) => void setQuery({ sort: value === initial.sort ? null : value }),
   };
 }

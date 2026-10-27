@@ -20,10 +20,10 @@ export default function App({ data }: { data: Dataset }) {
   const homeState = useHome(wardNames);
   const { home } = homeState;
   const filters = useFilters({ wardIds: data.wards.map((w) => w.id), sort: home ? 'distance' : 'vacancy' });
-  const { ages, wardIds, facilityTypes, onlyOpen, sort, setSort } = filters;
+  const { ages, wardIds, facilityTypes, onlyOpen, sort, followDefaultSort } = filters;
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const onHomeChosen = (source: HomeChoice) => {
-    setSort('distance');
+    followDefaultSort();
     if (source === 'search') setSelectedId(null);
   };
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
@@ -81,6 +81,7 @@ export default function App({ data }: { data: Dataset }) {
         <section className={styles.mapPane} aria-label="地図">
           <MapView
             facilities={visible}
+            allFacilities={data.facilities}
             vacancyOf={vacancyOf}
             distanceOf={distanceOf}
             home={home}
