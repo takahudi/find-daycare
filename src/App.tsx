@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import * as v from 'valibot';
 import { HomeSchema } from './schema';
-import type { Dataset, FacilityType, Facility, Home } from './schema';
+import type { Dataset, FacilityType, Home } from './schema';
 import { summarizeDataset, type DatasetSummary } from './lib/dataset-summary';
 import { FacilityCard } from './components/FacilityCard';
 import { MapView } from './components/MapView';
-import { distanceMeters, geocode } from './lib/geo';
-import { AGE_LABELS, AGES, acceptsAny, vacancyCount } from './lib/vacancy';
+import { geocode } from './lib/geo';
+import { listFacilities, type SortKey } from './lib/list-facilities';
+import { AGE_LABELS, AGES } from './lib/vacancy';
 import { FACILITY_TYPES, FACILITY_TYPE_LABELS, LICENSING_LABELS } from './lib/facility-labels';
 
 const SortKeySchema = v.picklist(['distance', 'vacancy', 'name']);
-type SortKey = v.InferOutput<typeof SortKeySchema>;
 
 const HOME_KEY = 'find-daycare:home';
 
@@ -49,29 +49,7 @@ export default function App({ data }: { data: Dataset }) {
 
   // 一覧の計算と JSX の可変スコープが結合するため、分割まではキャッシュ境界を明示する
   const { visible, distanceOf, vacancyOf } = useMemo(() => {
-    const distances = new Map(data.facilities.map((f) => [f.id, home ? distanceMeters(home, f) : null]));
-    const distanceFor = (f: Facility) => distances.get(f.id) ?? null;
-    const vacancyFor = (f: Facility) => vacancyCount(f, ages);
-    const filtered = data.facilities.filter(
-      (f) =>
-        wardIds.includes(f.ward) &&
-        facilityTypes.includes(f.facilityType) &&
-        acceptsAny(f, ages) &&
-        (!onlyOpen || vacancyFor(f) > 0),
-    );
-    // 企業主導型はふりがなの一次情報がないので施設名で並べる
-    const byName = (a: Facility, b: Facility) => (a.kana || a.name).localeCompare(b.kana || b.name, 'ja');
-    const comparators: Record<SortKey, (a: Facility, b: Facility) => number> = {
-      distance: (a, b) => {
-        const distanceA = distanceFor(a) ?? 0;
-        const distanceB = distanceFor(b) ?? 0;
-        return distanceA - distanceB || byName(a, b);
-      },
-      vacancy: (a, b) => vacancyFor(b) - vacancyFor(a) || byName(a, b),
-      name: byName,
-    };
-    filtered.sort(comparators[sort]);
-    return { visible: filtered, distanceOf: distanceFor, vacancyOf: vacancyFor };
+    return listFacilities(data.facilities, { ages, wardIds, facilityTypes, onlyOpen, sort }, home);
   }, [data.facilities, home, wardIds, facilityTypes, ages, onlyOpen, sort]);
 
   const openCount = visible.filter((f) => vacancyOf(f) > 0).length;
