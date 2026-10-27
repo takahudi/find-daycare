@@ -193,6 +193,8 @@ it.each([null, 'W/"build-a"'])('最初の応答のETagが%sなら版を固定で
 it.each([
   ['bytes 101-102/1000', 2],
   ['bytes 100-100/1000', 1],
+  ['bytes 100-100/1000', 2],
+  ['bytes 100-101/102', 1],
   [null, 2],
 ])('Content-Rangeが%sで本文が%i バイトの応答は、要求と違うので再試行せず止める', async (contentRange, size) => {
   const fetch = vi.fn(

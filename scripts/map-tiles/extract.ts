@@ -55,12 +55,16 @@ export class ProtomapsSource implements Source {
         }
         this.etag = etag;
         const contentRange = response.headers.get('content-range') ?? '';
-        const data = await response.arrayBuffer();
+        const wrongRange = new Error(`Range ${this.url}: 要求した範囲と異なる応答です（${contentRange || 'Content-Rangeなし'}）`);
         const match = /^bytes (\d+)-(\d+)\/(\d+)$/.exec(contentRange);
-        const [start, end, total] = match ? [Number(match[1]), Number(match[2]), Number(match[3])] : [NaN, NaN, NaN];
+        if (!match || Number(match[1]) !== offset) {
+          await response.body?.cancel();
+          throw wrongRange;
+        }
+        const [end, total] = [Number(match[2]), Number(match[3])];
+        const data = await response.arrayBuffer();
         const endOfFile = data.byteLength < length && end + 1 === total;
-        if (start !== offset || end - start + 1 !== data.byteLength || (data.byteLength !== length && !endOfFile))
-          throw new Error(`Range ${this.url}: 要求した範囲と異なる応答です（${contentRange || 'Content-Rangeなし'}）`);
+        if (end - offset + 1 !== data.byteLength || (data.byteLength !== length && !endOfFile)) throw wrongRange;
         return { data, etag };
       },
       undefined,
