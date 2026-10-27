@@ -172,6 +172,9 @@ importers:
       nuqs:
         specifier: ^2.10.2
         version: 2.10.2(react@19.3.1)
+      pmtiles:
+        specifier: ^4.5.0
+        version: 4.5.0
       react:
         specifier: ^19.3.1
         version: 19.3.1
@@ -236,9 +239,6 @@ importers:
       pdfjs-dist:
         specifier: ^6.4.299
         version: 6.4.299
-      pmtiles:
-        specifier: ^4.5.0
-        version: 4.5.0
       typescript:
         specifier: ~7.0.2
         version: 7.0.2

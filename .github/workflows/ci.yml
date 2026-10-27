@@ -36,7 +36,7 @@ jobs:
         with:
           name: workers-build
           path: dist/
-          # .assetsignore prevents the generated Wrangler config from being served
+          # Keep the Vite plugin's .assetsignore in the client assets
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
@@ -98,7 +98,7 @@ jobs:
           path: dist/
       - id: deploy
         run: |
-          pnpm exec wrangler versions upload --config wrangler.jsonc --assets dist --preview-alias "$PREVIEW_ALIAS"
+          pnpm exec wrangler versions upload --config wrangler.jsonc --assets dist/client --preview-alias "$PREVIEW_ALIAS"
           url=$(jq -ser '[.[] | select(.type == "version-upload" and .version == 1)][-1].preview_alias_url | select(type == "string" and startswith("https://"))' "$WRANGLER_OUTPUT_FILE_PATH")
           echo "url=$url" >> "$GITHUB_OUTPUT"
           printf 'Preview URL: %s\n' "$url" >> "$GITHUB_STEP_SUMMARY"
@@ -165,7 +165,7 @@ jobs:
           path: dist/
       - id: deploy
         run: |
-          pnpm exec wrangler deploy --config wrangler.jsonc --assets dist
+          pnpm exec wrangler deploy --config wrangler.jsonc --assets dist/client
           url=$(jq -ser '[.[] | select(.type == "deploy" and .version == 1)][-1].targets[] | select(startswith("https://") and endswith(".workers.dev"))' "$WRANGLER_OUTPUT_FILE_PATH")
           echo "url=$url" >> "$GITHUB_OUTPUT"
         env:

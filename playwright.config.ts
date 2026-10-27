@@ -16,7 +16,7 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     // ビルド成果物の設定を実行せず、ソース設定と検証対象の assets を使う
-    command: `${process.env.PLAYWRIGHT_SKIP_BUILD ? '' : 'pnpm build && '}pnpm exec wrangler dev --config wrangler.jsonc --assets dist --local --persist-to .wrangler/state --ip 127.0.0.1 --port ${port}`,
+    command: `${process.env.PLAYWRIGHT_SKIP_BUILD ? '' : 'pnpm build && '}pnpm map:fixture && pnpm exec wrangler dev --config wrangler.jsonc --assets dist/client --local --persist-to .wrangler/e2e-state --ip 127.0.0.1 --port ${port}`,
     url: `http://localhost:${port}`,
   },
 });

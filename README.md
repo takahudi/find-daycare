@@ -47,6 +47,8 @@ Cloudflare Vite プラグインを使い、Workers の実行環境（workerd）�
 
 Cloudflare Workers Static Assets の workers.dev に公開します。リポジトリへの書き込み権限を持つ人が同じリポジトリ内のブランチから作った PR では、チェックと E2E が通ると PR ごとのプレビュー URL を作ります。フォークや Bot が作成した PR ではプレビューを作りません。
 
+Worker は `/map/tiles/<build>/<z>/<x>/<y>.mvt` を地図専用 R2 バケット `find-daycare-map` の PMTiles から配信します。それ以外は静的アセットに渡します。ビルドはアセットを `dist/client`、Worker を `dist/find_daycare` に出力します。CI の E2E とデプロイは、どちらも `wrangler.jsonc` の Worker ソースを使います。
+
 プレビュー URL は `https://pr-<PR番号>-find-daycare.<workers.dev サブドメイン>.workers.dev` です。各実行の GitHub Actions Summary から開けます。GitHub の preview 環境では、最新のプレビューだけがアクティブなデプロイとして表示されます。
 
 `main` にマージすると、CI でビルドし、E2E を通過した同じ artifact を本番にデプロイします。GitHub リポジトリの secrets に `CLOUDFLARE_API_TOKEN` と `CLOUDFLARE_ACCOUNT_ID` を設定してください。
@@ -57,7 +59,7 @@ Cloudflare Workers Static Assets の workers.dev に公開します。リポジ�
 
 ```bash
 pnpm build
-pnpm exec wrangler deploy --config wrangler.jsonc --assets dist
+pnpm exec wrangler deploy --config wrangler.jsonc --assets dist/client
 ```
 
 ## 開発時のチェック
@@ -238,7 +240,7 @@ Windowsで使用中のファイルによるrename失敗は、合計約9秒を上
 
 ## 地図タイルを作る・保管する
 
-Protomapsの日次ビルドから、大阪市の範囲 `[135.36, 34.56, 135.62, 34.77]`（西・南・東・北）にかかるz0〜15のタイルを切り出します。範囲とズームは `scripts/map-tiles/config.ts` で定義します。画面への組み込みと配信は後続の変更で行います。
+Protomapsの日次ビルドから、大阪市の範囲 `[135.36, 34.56, 135.62, 34.77]`（西・南・東・北）にかかるz0〜15のタイルを切り出します。範囲とズームは `scripts/map-tiles/config.ts` で定義します。Worker は `data/map/tiles.json` の build と保管先を使い、gzip の MVT を配信します。画面への組み込みは後続の変更で行います。
 
 地図専用の非公開R2バケットを作ります。`<name>` を作成するバケット名に置き換えてください。
 
@@ -265,6 +267,17 @@ pnpm map:archive
 ```
 
 切り出しは `map-tiles/osaka-<build>.pmtiles` を作り、元ビルド・タイルの版・範囲・枚数・保管先のkey・SHA-256・バイト数を `data/map/tiles.json` に記録します。`build` は `YYYYMMDD` の8桁で指定します。`pnpm map:extract` でbuildを省くと、記録の `source.build` から作り直します。記録もなければ停止します。同じ入力からは同じSHA-256のファイルを生成します。20261027のビルドでは877枚、約46.5MBです。記録だけをコミットし、`map-tiles/` のファイルはGitに含めません。
+
+ローカルでタイルを使うには、ファイルを用意して `pnpm map:local` を実行します。ファイルの SHA-256 とバイト数を確認してから、ローカル R2 の同じキーへ入れます。本番 R2 は変更しません。Vite と `wrangler dev --persist-to .wrangler/state` は同じ保存先を使います。E2E は専用の `.wrangler/e2e-state` に小さな検証用 PMTiles を入れます。
+
+タイル配信の確認には、E2E と同じ Wrangler の経路を使います。
+
+```bash
+pnpm build
+pnpm exec wrangler dev --config wrangler.jsonc --assets dist/client --local --persist-to .wrangler/state
+```
+
+使用中の `@cloudflare/vite-plugin` 1.64.0 の開発経路では、gzip 応答を展開した本文と元の Content-Length が混在し、タイルの取得が失敗します。`pnpm dev` は同じローカル R2 を読みますが、タイルの確認には上のコマンドを使ってください。
 
 `map:archive` はローカルファイルのSHA-256とバイト数を記録と照合し、`tiles/osaka-<build>.pmtiles` に保管します。同じSHA-256で保管済みなら省略し、異なれば上書きせず停止します。新規のPUTには `If-None-Match: *` とSHA-256のメタデータを付け、保管後もHEADで確認します。通信障害や途中失敗のあとには同じコマンドを再実行できます。
 
