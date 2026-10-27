@@ -5,7 +5,7 @@ import { parseJson } from '../json.ts';
 import { createR2Storage } from '../snapshot-storage.ts';
 import type { SnapshotStorage } from '../snapshot-storage.ts';
 import { sha256 } from '../snapshots.ts';
-import { MAP_R2_ENVIRONMENT } from './config.ts';
+import { MAP_R2_ENVIRONMENT, MAP_R2_REQUEST_TIMEOUTS } from './config.ts';
 
 export async function archiveMapTiles(storage: SnapshotStorage, { root = process.cwd(), log = console.log } = {}) {
   const manifest = parseJson(await readFile(path.join(root, 'data/map/tiles.json'), 'utf8'), 'tiles.json');
@@ -27,5 +27,5 @@ export async function archiveMapTiles(storage: SnapshotStorage, { root = process
 
 if (import.meta.main) {
   parseArgs();
-  await archiveMapTiles(createR2Storage(MAP_R2_ENVIRONMENT));
+  await archiveMapTiles(createR2Storage(MAP_R2_ENVIRONMENT, MAP_R2_REQUEST_TIMEOUTS));
 }

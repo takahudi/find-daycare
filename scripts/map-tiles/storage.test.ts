@@ -2,7 +2,7 @@ import { AwsV4Signer } from 'aws4fetch';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { createR2Storage } from '../snapshot-storage.ts';
 import { sha256 } from '../snapshots.ts';
-import { MAP_R2_ENVIRONMENT } from './config.ts';
+import { MAP_R2_ENVIRONMENT, MAP_R2_REQUEST_TIMEOUTS } from './config.ts';
 
 beforeEach(() => {
   vi.stubEnv('R2_ACCOUNT_ID', 'a'.repeat(32));
@@ -14,8 +14,25 @@ beforeEach(() => {
   vi.stubEnv('R2_MAP_BUCKET', 'map-bucket');
 });
 afterEach(() => {
+  vi.restoreAllMocks();
   vi.unstubAllGlobals();
   vi.unstubAllEnvs();
+});
+
+it('一次情報の要求は120秒、地図のPUTだけは15分の上限を使う', async () => {
+  const timeout = vi.spyOn(AbortSignal, 'timeout');
+  vi.stubGlobal('fetch', async () => new Response(null));
+  const bytes = Buffer.from('map');
+  const hash = sha256(bytes);
+  const snapshot = createR2Storage();
+  await snapshot.head('key');
+  await snapshot.get('key');
+  await snapshot.put('key', bytes, hash);
+  const map = createR2Storage(MAP_R2_ENVIRONMENT, MAP_R2_REQUEST_TIMEOUTS);
+  await map.head('key');
+  await map.get('key');
+  await map.put('key', bytes, hash);
+  expect(timeout.mock.calls.map(([ms]) => ms)).toEqual([120_000, 120_000, 120_000, 120_000, 120_000, 900_000]);
 });
 
 it('地図の認証情報とバケットを使い、条件付きPUTにsha256を付ける', async () => {

@@ -10,3 +10,5 @@ export const MAP_R2_ENVIRONMENT = {
   secretAccessKey: 'R2_MAP_SECRET_ACCESS_KEY',
   bucket: 'R2_MAP_BUCKET',
 } as const;
+
+export const MAP_R2_REQUEST_TIMEOUTS = { PUT: 15 * 60_000 } as const;

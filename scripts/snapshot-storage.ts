@@ -55,6 +55,12 @@ export interface R2Environment {
   bucket: string;
 }
 
+interface R2RequestTimeouts {
+  HEAD?: number;
+  GET?: number;
+  PUT?: number;
+}
+
 const snapshotEnvironment: R2Environment = {
   accountId: 'R2_ACCOUNT_ID',
   accessKeyId: 'R2_ACCESS_KEY_ID',
@@ -71,7 +77,10 @@ export function createR2StorageIfConfigured() {
   return Object.values(snapshotEnvironment).every((name) => process.env[name]?.trim()) ? createR2Storage() : undefined;
 }
 
-export function createR2Storage(environment: R2Environment = snapshotEnvironment): SnapshotStorage {
+export function createR2Storage(
+  environment: R2Environment = snapshotEnvironment,
+  requestTimeouts: R2RequestTimeouts = {},
+): SnapshotStorage {
   loadEnvironment();
   const missing = Object.values(environment).filter((name) => !process.env[name]?.trim());
   if (missing.length) throw new Error(`R2環境変数がありません: ${missing.join(', ')}。READMEを確認してください`);
@@ -93,12 +102,12 @@ export function createR2Storage(environment: R2Environment = snapshotEnvironment
         encodeURIComponent(segment).replace(/[!'()*]/g, (char) => '%' + char.charCodeAt(0).toString(16).toUpperCase()),
       )
       .join('/')}`;
-  async function request(key: string, method: string, bytes?: Uint8Array, hash?: string) {
+  async function request(key: string, method: keyof R2RequestTimeouts, bytes?: Uint8Array, hash?: string) {
     return client.fetch(url(key), {
       method,
       ...(bytes ? { body: Buffer.from(bytes) } : {}),
       ...(hash ? { headers: { 'x-amz-meta-sha256': hash, 'x-amz-content-sha256': hash, 'If-None-Match': '*' } } : {}),
-      signal: AbortSignal.timeout(120_000),
+      signal: AbortSignal.timeout(requestTimeouts[method] ?? 120_000),
     });
   }
   return {
