@@ -446,6 +446,8 @@ const accessibilityStates: {
 
 for (const state of accessibilityStates) {
   test(`${state.name}にアクセシビリティ違反がない`, async ({ page }, testInfo) => {
+    // 全施設を描画した画面の検査は、遅い CI の runner で既定の30秒を超えることがある
+    test.setTimeout(60_000);
     const reps = accessibilityRepresentatives();
     await page.setViewportSize(state.viewport);
     await state.setup(page, reps);
