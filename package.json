@@ -27,7 +27,9 @@
     "data:restore": "node scripts/data-restore.ts",
     "data:verify": "node scripts/data-verify.ts",
     "map:extract": "node scripts/map-tiles/extract.ts",
-    "map:archive": "node scripts/map-tiles/archive.ts"
+    "map:archive": "node scripts/map-tiles/archive.ts",
+    "map:local": "node scripts/map-tiles/local.ts",
+    "map:fixture": "node scripts/map-tiles/seed-e2e.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
