@@ -56,10 +56,7 @@ for (const [name, viewport] of [
     await expectAccessible(page);
     await page.unroute(datasetRoute);
     await page.getByRole('button', { name: '再読み込み', exact: true }).click();
-    // goto と違い load を待たずに数え始めるため、遅い CI では全施設の描画が既定の5秒を超える
-    await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible({
-      timeout: 15_000,
-    });
+    await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible();
   });
 }
 
