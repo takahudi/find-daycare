@@ -25,8 +25,10 @@ function loadHome(): Home | null {
 }
 
 export default function App({ data }: { data: Dataset }) {
-  const summary = useMemo(() => summarizeDataset(data), [data]);
+  const summary = summarizeDataset(data);
   const { wardNames, title, asOfLabels, kigyoAsOfText } = summary;
+  // join を後ろへ延ばすと集計の可変スコープがフックをまたぎ、キャッシュされない
+  const wardTitle = `対象: ${wardNames.join('・')}`;
   const [ages, setAges] = useState<number[]>([]);
   const [wardIds, setWardIds] = useState<string[]>(data.wards.map((w) => w.id));
   const [facilityTypes, setFacilityTypes] = useState<FacilityType[]>([...FACILITY_TYPES]);
@@ -38,7 +40,6 @@ export default function App({ data }: { data: Dataset }) {
   const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
-  const cardRefs = useRef(new Map<string, HTMLElement>());
   const searchAbort = useRef<AbortController | null>(null);
 
   useEffect(() => {
@@ -46,35 +47,42 @@ export default function App({ data }: { data: Dataset }) {
     else localStorage.removeItem(HOME_KEY);
   }, [home]);
 
-  const distanceOf = useMemo(() => {
-    const cache = new Map(data.facilities.map((f) => [f.id, home ? distanceMeters(home, f) : null]));
-    return (f: Facility) => cache.get(f.id) ?? null;
-  }, [data, home]);
-  const vacancyOf = useMemo(() => (f: Facility) => vacancyCount(f, ages), [ages]);
-
-  const visible = useMemo(() => {
-    const list = data.facilities.filter(
+  // 一覧の計算と JSX の可変スコープが結合するため、分割まではキャッシュ境界を明示する
+  const { visible, distanceOf, vacancyOf } = useMemo(() => {
+    const distances = new Map(data.facilities.map((f) => [f.id, home ? distanceMeters(home, f) : null]));
+    const distanceFor = (f: Facility) => distances.get(f.id) ?? null;
+    const vacancyFor = (f: Facility) => vacancyCount(f, ages);
+    const filtered = data.facilities.filter(
       (f) =>
         wardIds.includes(f.ward) &&
         facilityTypes.includes(f.facilityType) &&
         acceptsAny(f, ages) &&
-        (!onlyOpen || vacancyOf(f) > 0),
+        (!onlyOpen || vacancyFor(f) > 0),
     );
     // 企業主導型はふりがなの一次情報がないので施設名で並べる
     const byName = (a: Facility, b: Facility) => (a.kana || a.name).localeCompare(b.kana || b.name, 'ja');
     const comparators: Record<SortKey, (a: Facility, b: Facility) => number> = {
-      distance: (a, b) => (distanceOf(a) ?? 0) - (distanceOf(b) ?? 0) || byName(a, b),
-      vacancy: (a, b) => vacancyOf(b) - vacancyOf(a) || byName(a, b),
+      distance: (a, b) => {
+        const distanceA = distanceFor(a) ?? 0;
+        const distanceB = distanceFor(b) ?? 0;
+        return distanceA - distanceB || byName(a, b);
+      },
+      vacancy: (a, b) => vacancyFor(b) - vacancyFor(a) || byName(a, b),
       name: byName,
     };
-    return list.sort(comparators[sort]);
-  }, [data, wardIds, facilityTypes, ages, onlyOpen, sort, distanceOf, vacancyOf]);
+    filtered.sort(comparators[sort]);
+    return { visible: filtered, distanceOf: distanceFor, vacancyOf: vacancyFor };
+  }, [data.facilities, home, wardIds, facilityTypes, ages, onlyOpen, sort]);
 
   const openCount = visible.filter((f) => vacancyOf(f) > 0).length;
 
   const select = (id: string, from: 'list' | 'map') => {
     setSelectedId(id);
-    if (from === 'map') cardRefs.current.get(id)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (from === 'map') {
+      document
+        .querySelector<HTMLElement>(`[data-facility-id="${CSS.escape(id)}"]`)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   };
 
   async function onSearch(e: FormEvent) {
@@ -85,16 +93,18 @@ export default function App({ data }: { data: Dataset }) {
     searchAbort.current = controller;
     setSearching(true);
     setError(null);
-    try {
-      const found = await geocode(address, wardNames, controller.signal);
-      setHome(found);
-      setSort('distance');
-      setSelectedId(null);
-    } catch (err) {
-      if (!controller.signal.aborted) setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      if (searchAbort.current === controller) setSearching(false);
-    }
+    await geocode(address, wardNames, controller.signal)
+      .then((found) => {
+        setHome(found);
+        setSort('distance');
+        setSelectedId(null);
+      })
+      .catch((err: unknown) => {
+        if (!controller.signal.aborted) setError(err instanceof Error ? err.message : String(err));
+      })
+      .finally(() => {
+        if (searchAbort.current === controller) setSearching(false);
+      });
   }
 
   function locateMe() {
@@ -119,7 +129,7 @@ export default function App({ data }: { data: Dataset }) {
     <div className={`app app--${mobileView}`}>
       <header className="topbar">
         <div className="topbar__title">
-          <h1 title={`対象: ${wardNames.join('・')}`}>
+          <h1 title={wardTitle}>
             {title}の保育施設 <span>空き状況マップ</span>
           </h1>
           <p className="topbar__asof">
@@ -264,10 +274,6 @@ export default function App({ data }: { data: Dataset }) {
             {visible.map((f, i) => (
               <FacilityCard
                 key={f.id}
-                ref={(el) => {
-                  if (el) cardRefs.current.set(f.id, el);
-                  else cardRefs.current.delete(f.id);
-                }}
                 facility={f}
                 rank={sort === 'distance' && home ? i + 1 : null}
                 distance={distanceOf(f)}

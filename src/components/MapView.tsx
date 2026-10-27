@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
 import type { Facility, Home } from '../schema';
@@ -53,6 +53,7 @@ function MapController({ facilities, home, selectedId }: Pick<Props, 'facilities
   // スマホ幅でリストタブを表示中は地図が非表示（サイズ0）で、その状態で移動すると座標計算が NaN になり落ちる。
   // 非表示の間に来た移動は覚えておき、地図が表示されてから実行する
   const pendingMove = useRef<(() => void) | null>(null);
+  // effect の依存として同一性を保てない場合に、コンパイラの検証でビルドを失敗させるため残す
   const moveWhenVisible = useCallback(
     (move: () => void) => {
       const { clientWidth, clientHeight } = map.getContainer();
@@ -97,7 +98,7 @@ function MapController({ facilities, home, selectedId }: Pick<Props, 'facilities
 
 export function MapView({ facilities, vacancyOf, distanceOf, home, selectedId, onSelect }: Props) {
   const markerRefs = useRef(new Map<string, L.Marker>());
-  const selected = useMemo(() => facilities.find((f) => f.id === selectedId), [facilities, selectedId]);
+  const selected = facilities.find((f) => f.id === selectedId);
   // 初期表示は全施設が収まる範囲（以後は絞り込みで地図を動かさない）
   const [initialBounds] = useState(() => L.latLngBounds(facilities.map((f) => L.latLng(f.lat, f.lng))).pad(0.05));
 
