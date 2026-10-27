@@ -48,7 +48,7 @@ for (const ward of WARDS) {
     await saveGeocodeCache(ward.id, input.geocodeCache);
   }
   const wardFacilities = [...licensed, ...kigyo];
-  wards.push(finishWard(ward, wardRows, wardFacilities, input, kigyoAsOf, now, warn, snapshots[ward.id].fetchedOn));
+  wards.push(finishWard(ward, wardRows, wardFacilities, input, kigyoAsOf, warn, snapshots[ward.id].fetchedOn));
   facilities.push(...wardFacilities);
 }
 

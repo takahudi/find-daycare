@@ -4,13 +4,25 @@ import type { Warn } from './types.ts';
 import type { WardInputs } from './inputs.ts';
 import { normName } from './text.ts';
 
+export function getVacancyDates(asOfMonth: number, admissionMonth: number, snapshot: string) {
+  // CSV には年がないため、端末の時計ではなく一次情報の取得日に最も近い年を選ぶ。
+  const snapshotYear = Number(snapshot.slice(0, 4));
+  const monthDifference = asOfMonth - Number(snapshot.slice(5, 7));
+  const asOfYear = snapshotYear + (monthDifference > 6 ? -1 : monthDifference < -6 ? 1 : 0);
+  const admissionYear = asOfYear + (admissionMonth < asOfMonth ? 1 : 0);
+  return {
+    vacancyAsOf: `令和${asOfYear - 2018}年${asOfMonth}月1日現在`,
+    vacancyFor: `${admissionMonth}月1日入所用`,
+    admissionDate: `${admissionYear}-${String(admissionMonth).padStart(2, '0')}-01`,
+  };
+}
+
 export function finishWard(
   ward: WardConfig,
   wardRows: string[][],
   wardFacilities: Facility[],
   input: WardInputs,
   kigyoAsOf: string | null,
-  now: Date,
   warn: Warn,
   snapshot: string,
 ): Ward {
@@ -31,15 +43,11 @@ export function finishWard(
     }
   }
 
-  // CSV には月しかないので、年はビルド日から推定する（12月に翌年1月分を取り込むケースも考慮）
-  const reiwa = (month: number) => (month > now.getMonth() + 2 ? now.getFullYear() - 1 : now.getFullYear()) - 2018;
-  const asOfMonth = Number(wardRows[0][16]);
   return {
     id: ward.id,
     snapshot,
     name: ward.name,
-    vacancyAsOf: `令和${reiwa(asOfMonth)}年${asOfMonth}月1日現在`,
-    vacancyFor: `${Number(wardRows[0][20])}月1日入所用`,
+    ...getVacancyDates(Number(wardRows[0][16]), Number(wardRows[0][20]), snapshot),
     kigyoVacancyAsOf: kigyoAsOf,
     sources: [
       { label: `${ward.name}役所「保育施設等の空き状況」`, url: ward.vacancyPage },

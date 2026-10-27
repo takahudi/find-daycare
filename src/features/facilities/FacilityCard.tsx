@@ -3,6 +3,7 @@ import type { Facility, FacilityType } from '../../schema';
 import { formatDistance, walkMinutes } from '../../lib/geo';
 import { AGE_LABELS, vacancyCount } from '../../lib/vacancy';
 import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../../lib/facility-labels';
+import { VacancyExpiryBadge } from '../dataset/VacancyExpiry';
 import { FACILITY_ID_ATTRIBUTE } from './scroll-to-facility';
 import styles from './FacilityCard.module.css';
 
@@ -21,6 +22,7 @@ const cellByVacancyState: Record<'open' | 'full' | 'na', string> = {
 
 interface Props {
   facility: Facility;
+  vacancyExpired: boolean;
   rank: number | null;
   distance: number | null;
   highlightAges: number[];
@@ -29,7 +31,16 @@ interface Props {
   onShowOnMap: () => void;
 }
 
-export function FacilityCard({ facility: f, rank, distance, highlightAges, selected, onSelect, onShowOnMap }: Props) {
+export function FacilityCard({
+  facility: f,
+  vacancyExpired,
+  rank,
+  distance,
+  highlightAges,
+  selected,
+  onSelect,
+  onShowOnMap,
+}: Props) {
   const nameId = useId();
   const total = vacancyCount(f, []);
   const shared = f.sharedVacancy;
@@ -102,6 +113,7 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
           ) : (
             <span className={styles.summaryFull}>現在空きなし</span>
           )}
+          {vacancyExpired && <VacancyExpiryBadge />}
         </p>
       </div>
 

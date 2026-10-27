@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useSelectedFacility } from '../features/facilities/useSelectedFacility';
-import type { Dataset } from '../schema';
+import type { Dataset, Facility } from '../schema';
+import { isFacilityVacancyExpired } from '../lib/vacancy-expiry';
 import { summarizeDataset } from '../lib/dataset-summary';
 import { listFacilities } from '../lib/list-facilities';
 import { DatasetHeading } from '../features/dataset/DatasetHeading';
+import { useExpiredWards } from '../features/dataset/useExpiredWards';
 import { Sources } from '../features/dataset/Sources';
 import { FacilityList } from '../features/facilities/FacilityList';
 import { scrollToFacility } from '../features/facilities/scroll-to-facility';
@@ -16,6 +18,9 @@ import { MapLegend } from '../features/map/MapLegend';
 import styles from './App.module.css';
 
 export default function App({ data }: { data: Dataset }) {
+  const expiredWards = useExpiredWards(data.wards);
+  const expiredWardIds = new Set(expiredWards.map((ward) => ward.id));
+  const vacancyExpiredOf = (facility: Facility) => isFacilityVacancyExpired(facility, expiredWardIds);
   const summary = summarizeDataset(data);
   const { wardNames } = summary;
   const homeState = useHome(wardNames);
@@ -54,7 +59,7 @@ export default function App({ data }: { data: Dataset }) {
   return (
     <div className={`${styles.app} ${mobileView === 'list' ? styles.listView : styles.mapView}`}>
       <header className={styles.topbar}>
-        <DatasetHeading data={data} summary={summary} />
+        <DatasetHeading data={data} summary={summary} expiredWards={expiredWards} />
 
         <HomeForm state={homeState} onHomeChosen={onHomeChosen} statusClassName={styles.homeStatus} />
       </header>
@@ -76,6 +81,7 @@ export default function App({ data }: { data: Dataset }) {
             facilities={visible}
             distanceOf={distanceOf}
             vacancyOf={vacancyOf}
+            vacancyExpiredOf={vacancyExpiredOf}
             ages={ages}
             showRank={sort === 'distance' && !!home}
             selectedId={selectedId}
@@ -93,6 +99,7 @@ export default function App({ data }: { data: Dataset }) {
             facilities={visible}
             allFacilities={data.facilities}
             vacancyOf={vacancyOf}
+            vacancyExpiredOf={vacancyExpiredOf}
             distanceOf={distanceOf}
             home={home}
             selectedId={selectedId}

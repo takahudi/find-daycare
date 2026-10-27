@@ -6,6 +6,7 @@ import {
   FacilitySchema,
   FacilityTypeSchema,
   HomeSchema,
+  WardSchema,
   LICENSING_BY_FACILITY_TYPE,
   type Dataset,
 } from './schema';
@@ -20,6 +21,41 @@ function expectFacilityIssue(data: Dataset, id: string, message: string) {
 }
 
 describe('公開データ', () => {
+  it.each([
+    ['2026-11-01', '2026-12-31', true],
+    ['2027-03-01', '2026-12-31', true],
+    ['2026-10-01', '2026-12-31', false],
+    ['2027-04-01', '2026-12-31', false],
+    ['2026-01-01', '2026-12-31', false],
+    ['2026-12-01', '2027-01-01', true],
+    ['2027-02-01', '2026-12-31', true],
+  ])('入所日%sと取得日%sの間隔の検証結果は%s', (admissionDate, snapshot, valid) => {
+    const data = dataset();
+    Object.assign(data.wards[0], { admissionDate, snapshot, vacancyFor: Number(admissionDate.slice(5, 7)) + '月1日入所用' });
+    const result = v.safeParse(DatasetSchema, data);
+    expect(result.success).toBe(valid);
+    if (!valid && !result.success)
+      expect(result.issues.some((issue) => issue.message.includes(data.wards[0].id) && issue.message.includes('取得月'))).toBe(
+        true,
+      );
+  });
+
+  it.each([undefined, '', '2026/11/01', '2026-1-01', '2026-13-01', '2026-00-01', '2026-11-02', '2026-02-30', '2026-02-29'])(
+    '入所日は必須で、実在するISO形式の月初日だけを受け付ける (%s)',
+    (admissionDate) => {
+      expect(v.safeParse(WardSchema, { ...rawData.wards[0], admissionDate }).success).toBe(false);
+    },
+  );
+
+  it.each(['2026-11-01', '2027-01-01', '2028-02-01'])('実在する入所日の月と表示が一致すれば受け付ける (%s)', (admissionDate) => {
+    const vacancyFor = String(Number(admissionDate.slice(5, 7))) + '月1日入所用';
+    expect(v.safeParse(WardSchema, { ...rawData.wards[0], admissionDate, vacancyFor }).success).toBe(true);
+  });
+
+  it.each(['12月1日入所用', '入所月不明'])('入所日と一致しない入所月の表示を拒否する (%s)', (vacancyFor) => {
+    expect(v.safeParse(WardSchema, { ...rawData.wards[0], admissionDate: '2026-11-01', vacancyFor }).success).toBe(false);
+  });
+
   it.each(['', '2026/10/22', '2026-1-22', '2026-13-22', '2026-02-30', '2026-02-29'])(
     'スナップショットの取得日をISO日付として検証する (%s)',
     (date) => {

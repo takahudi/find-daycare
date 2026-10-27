@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T23:46:53.537Z",
+  "generatedAt": "2026-10-27T09:04:18.513Z",
   "citySnapshot": "2026-10-23",
   "wards": [
     {
@@ -8,6 +8,7 @@
       "name": "中央区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -34,6 +35,7 @@
       "name": "東成区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -64,6 +66,7 @@
       "name": "天王寺区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -98,6 +101,7 @@
       "name": "浪速区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -144,6 +148,7 @@
       "name": "西区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年9月1日現在",
       "sources": [
         {
@@ -174,6 +179,7 @@
       "name": "生野区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -196,6 +202,7 @@
       "name": "阿倍野区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年4月1日現在",
       "sources": [
         {
@@ -222,6 +229,7 @@
       "name": "城東区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -248,6 +256,7 @@
       "name": "北区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -274,6 +283,7 @@
       "name": "都島区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -296,6 +306,7 @@
       "name": "福島区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -322,6 +333,7 @@
       "name": "西成区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -344,6 +356,7 @@
       "name": "東住吉区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -374,6 +387,7 @@
       "name": "住吉区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -400,6 +414,7 @@
       "name": "平野区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -426,6 +441,7 @@
       "name": "鶴見区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -452,6 +468,7 @@
       "name": "旭区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -474,6 +491,7 @@
       "name": "淀川区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": null,
       "sources": [
         {
@@ -496,6 +514,7 @@
       "name": "東淀川区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -518,6 +537,7 @@
       "name": "西淀川区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -544,6 +564,7 @@
       "name": "此花区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -566,6 +587,7 @@
       "name": "港区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -588,6 +610,7 @@
       "name": "大正区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {
@@ -614,6 +637,7 @@
       "name": "住之江区",
       "vacancyAsOf": "令和8年10月1日現在",
       "vacancyFor": "11月1日入所用",
+      "admissionDate": "2026-11-01",
       "kigyoVacancyAsOf": "令和8年10月1日現在",
       "sources": [
         {

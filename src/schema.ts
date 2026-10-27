@@ -117,24 +117,39 @@ export const FacilitySchema = v.pipe(
 );
 
 export const SourceSchema = v.object({ label: TextSchema, url: HttpUrlSchema });
+const isRealDate = (date: string) => {
+  const timestamp = Date.parse(date);
+  return Number.isFinite(timestamp) && new Date(timestamp).toISOString().slice(0, 10) === date;
+};
+
 export const SnapshotDateSchema = v.pipe(
   v.string(),
   v.isoDate('取得日はYYYY-MM-DD形式が必要です'),
-  v.check((date) => {
-    const timestamp = Date.parse(date);
-    return Number.isFinite(timestamp) && new Date(timestamp).toISOString().slice(0, 10) === date;
-  }, '実在する取得日が必要です'),
+  v.check(isRealDate, '実在する取得日が必要です'),
 );
 
-export const WardSchema = v.object({
-  id: TextSchema,
-  name: TextSchema,
-  snapshot: SnapshotDateSchema,
-  vacancyAsOf: TextSchema,
-  vacancyFor: TextSchema,
-  kigyoVacancyAsOf: v.nullable(TextSchema),
-  sources: v.pipe(v.array(SourceSchema), v.minLength(1, '区の出典が必要です')),
-});
+export const AdmissionDateSchema = v.pipe(
+  v.string(),
+  v.isoDate('入所日はYYYY-MM-DD形式が必要です'),
+  v.check((date) => date.endsWith('-01') && isRealDate(date), '入所日は実在する月初日が必要です'),
+);
+
+export const WardSchema = v.pipe(
+  v.object({
+    id: TextSchema,
+    name: TextSchema,
+    snapshot: SnapshotDateSchema,
+    vacancyAsOf: TextSchema,
+    vacancyFor: TextSchema,
+    admissionDate: AdmissionDateSchema,
+    kigyoVacancyAsOf: v.nullable(TextSchema),
+    sources: v.pipe(v.array(SourceSchema), v.minLength(1, '区の出典が必要です')),
+  }),
+  v.check(
+    (ward) => Number(ward.vacancyFor.match(/^(\d{1,2})月1日入所用$/)?.[1]) === Number(ward.admissionDate.slice(5, 7)),
+    '入所月の表示と入所日が一致しません',
+  ),
+);
 
 export const DatasetSchema = v.pipe(
   v.object({
@@ -151,6 +166,10 @@ export const DatasetSchema = v.pipe(
     for (const w of data.wards) {
       if (wards.has(w.id)) addIssue({ message: `${w.name} (${w.id}): 区IDが重複しています` });
       wards.set(w.id, w.name);
+      const monthIndex = (date: string) => Number(date.slice(0, 4)) * 12 + Number(date.slice(5, 7));
+      const monthDifference = monthIndex(w.admissionDate) - monthIndex(w.snapshot);
+      if (monthDifference < -1 || monthDifference > 3)
+        addIssue({ message: w.name + ' (' + w.id + '): 入所日は取得月の1か月前から3か月後の範囲が必要です' });
       if (!data.facilities.some((f) => f.ward === w.id)) addIssue({ message: `${w.name} (${w.id}): 施設が1件もありません` });
     }
     const ids = new Set<string>();
