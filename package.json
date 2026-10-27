@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "vite",
     "build": "pnpm typecheck && vite build",
-    "lint": "oxlint",
+    "lint": "pnpm types:worker && oxlint",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "typecheck": "pnpm types:worker && tsc -b",
