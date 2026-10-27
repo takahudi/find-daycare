@@ -48,7 +48,19 @@ export async function withRetry<T>(
   }
 }
 
-const names = ['R2_ACCOUNT_ID', 'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY', 'R2_BUCKET'] as const;
+export interface R2Environment {
+  accountId: string;
+  accessKeyId: string;
+  secretAccessKey: string;
+  bucket: string;
+}
+
+const snapshotEnvironment: R2Environment = {
+  accountId: 'R2_ACCOUNT_ID',
+  accessKeyId: 'R2_ACCESS_KEY_ID',
+  secretAccessKey: 'R2_SECRET_ACCESS_KEY',
+  bucket: 'R2_BUCKET',
+};
 
 function loadEnvironment() {
   if (existsSync('.env')) process.loadEnvFile('.env');
@@ -56,21 +68,20 @@ function loadEnvironment() {
 
 export function createR2StorageIfConfigured() {
   loadEnvironment();
-  return names.every((name) => process.env[name]?.trim()) ? createR2Storage() : undefined;
+  return Object.values(snapshotEnvironment).every((name) => process.env[name]?.trim()) ? createR2Storage() : undefined;
 }
 
-export function createR2Storage(): SnapshotStorage {
+export function createR2Storage(environment: R2Environment = snapshotEnvironment): SnapshotStorage {
   loadEnvironment();
-  const missing = names.filter((name) => !process.env[name]?.trim());
-  if (missing.length)
-    throw new Error(`R2環境変数がありません: ${missing.join(', ')}。READMEの「一次情報を保管・復元する」を確認してください`);
-  const account = process.env.R2_ACCOUNT_ID ?? '';
-  const bucket = process.env.R2_BUCKET ?? '';
+  const missing = Object.values(environment).filter((name) => !process.env[name]?.trim());
+  if (missing.length) throw new Error(`R2環境変数がありません: ${missing.join(', ')}。READMEを確認してください`);
+  const account = process.env[environment.accountId] ?? '';
+  const bucket = process.env[environment.bucket] ?? '';
   if (!/^[a-f0-9]{32}$/.test(account) || !/^[a-z0-9][a-z0-9.-]*[a-z0-9]$/.test(bucket))
-    throw new Error('R2_ACCOUNT_ID または R2_BUCKET が不正です。READMEを確認してください');
+    throw new Error(`${environment.accountId} または ${environment.bucket} が不正です。READMEを確認してください`);
   const client = new AwsClient({
-    accessKeyId: process.env.R2_ACCESS_KEY_ID ?? '',
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY ?? '',
+    accessKeyId: process.env[environment.accessKeyId] ?? '',
+    secretAccessKey: process.env[environment.secretAccessKey] ?? '',
     region: 'auto',
     service: 's3',
     retries: 0,

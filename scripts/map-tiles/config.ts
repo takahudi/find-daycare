@@ -3,3 +3,10 @@ export const MAP_AREA = {
   minZoom: 0,
   maxZoom: 15,
 } as const;
+
+export const MAP_R2_ENVIRONMENT = {
+  accountId: 'R2_ACCOUNT_ID',
+  accessKeyId: 'R2_MAP_ACCESS_KEY_ID',
+  secretAccessKey: 'R2_MAP_SECRET_ACCESS_KEY',
+  bucket: 'R2_MAP_BUCKET',
+} as const;
