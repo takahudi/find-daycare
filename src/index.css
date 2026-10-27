@@ -68,57 +68,6 @@ select {
   color: var(--muted);
 }
 
-.search {
-  display: flex;
-  gap: 8px;
-}
-
-.search input {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 14px;
-  border: 1.5px solid var(--line);
-  border-radius: 999px;
-  background: var(--bg);
-}
-
-.search input:focus {
-  outline: none;
-  border-color: var(--accent);
-  background: var(--surface);
-}
-
-.search button {
-  padding: 10px 16px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--accent-fill);
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.search button:disabled {
-  opacity: 0.6;
-  cursor: progress;
-}
-
-.search button.ghost {
-  background: transparent;
-  color: var(--accent-ink);
-  border: 1.5px solid var(--accent);
-}
-
-.search__status {
-  margin: 0;
-  font-size: 0.85rem;
-}
-
-.search__status--error {
-  color: #c0392b;
-}
-
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -536,14 +485,6 @@ select {
 
 /* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
 @media (max-width: 860px) {
-  .search {
-    flex-wrap: wrap;
-  }
-
-  .search input {
-    flex-basis: 100%;
-  }
-
   .filters {
     padding: 8px 14px;
     gap: 8px;
