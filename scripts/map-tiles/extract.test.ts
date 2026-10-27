@@ -18,7 +18,8 @@ afterEach(async () => {
 });
 const header = { bounds: MAP_AREA.bbox, minZoom: 0, maxZoom: 15, tileType: TileType.Mvt, tileCompression: Compression.Gzip };
 const metadata = { version: '4.15.2', vector_layers: [], attribution: 'test attribution' };
-const tiles = [0, 1, 15].map((z) => ({ tileId: tileCoordinates(z)[0].tileId, bytes: gzipSync(`tile z${z}`) }));
+const coordinates = Array.from({ length: 16 }, (_, z) => tileCoordinates(z)).flat();
+const tiles = coordinates.map(({ z, tileId }) => ({ tileId, bytes: gzipSync(`tile z${z}`) }));
 function sourceFor(bytes: Uint8Array): Source {
   return {
     getKey: () => 'memory',
@@ -32,7 +33,7 @@ it('大阪市のbboxにかかるタイルは各ズームの期待枚数となり
   expect(counts.reduce((sum, count) => sum + count, 0)).toBe(877);
 });
 
-it('内部圧縮がgzipの元ファイルから、存在するタイルの元バイト列とメタデータを切り出す', async () => {
+it('内部圧縮がgzipの元ファイルから、全座標のタイルの元バイト列とメタデータを切り出す', async () => {
   const original = Buffer.from(writePMTiles(tiles, header, metadata));
   const offset = (at: number) => Number(original.readBigUInt64LE(at));
   const root = gzipSync(original.subarray(offset(8), offset(8) + offset(16)));
@@ -49,25 +50,37 @@ it('内部圧縮がgzipの元ファイルから、存在するタイルの元バ
     compressedHeader.writeBigUInt64LE(BigInt(value), at);
   compressedHeader[97] = Compression.Gzip;
   const result = await extractTiles(sourceFor(Buffer.concat([compressedHeader, root, json, data])));
-  expect(result.tiles).toBe(3);
+  expect(result.tiles).toBe(877);
   expect(result.tilesVersion).toBe('4.15.2');
   const reader = new PMTiles(sourceFor(result.bytes), undefined, async (bytes) => bytes);
-  for (const z of [0, 1, 15]) {
-    const { x, y } = tileCoordinates(z)[0];
+  for (const { z, x, y } of coordinates) {
     expect(new Uint8Array((await reader.getZxy(z, x, y))!.data)).toEqual(new Uint8Array(gzipSync(`tile z${z}`)));
   }
   expect(await reader.getMetadata()).toEqual(metadata);
 });
 
-it.each([{ tileType: TileType.Png }, { tileCompression: Compression.None }, { maxZoom: 14 }])(
+it.each([{ tileType: TileType.Png }, { tileCompression: Compression.None }, { minZoom: 1 }, { maxZoom: 14 }])(
   '対応しない元ヘッダ%sはタイルを取得する前に拒否する',
   async (change) => {
     const source = sourceFor(writePMTiles(tiles, { ...header, ...change }, metadata));
     const getBytes = vi.spyOn(source, 'getBytes');
-    await expect(extractTiles(source)).rejects.toThrow('MVT・gzip・maxZoom');
+    await expect(extractTiles(source)).rejects.toThrow('MVT・gzip・minZoom 0・maxZoom');
     expect(getBytes).toHaveBeenCalledTimes(1);
   },
 );
+
+it('範囲内に3枚だけある元ファイルは失敗し、欠けた座標は先頭5件だけを表示する', async () => {
+  const sparse = [0, 1, 15].map((z) => tiles.find((tile) => tile.tileId === tileCoordinates(z)[0].tileId)!);
+  const missing = coordinates.filter(({ tileId }) => !sparse.some((tile) => tile.tileId === tileId));
+  await expect(extractTiles(sourceFor(writePMTiles(sparse, header, metadata)))).rejects.toThrow(
+    new Error(
+      `範囲内のタイルが874枚欠けています: ${missing
+        .slice(0, 5)
+        .map(({ z, x, y }) => `${z}/${x}/${y}`)
+        .join(', ')}`,
+    ),
+  );
+});
 
 it('元メタデータのキーの並びを書き出したファイルでも保つ', async () => {
   const sourceMetadata = { attribution: 'test attribution', name: 'test map', vector_layers: [], version: '4.15.2' };

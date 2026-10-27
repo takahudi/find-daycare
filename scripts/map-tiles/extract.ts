@@ -50,8 +50,13 @@ export function tileCoordinates(z: number) {
 export async function extractTiles(source: Source) {
   const reader = new PMTiles(source);
   const header = await reader.getHeader();
-  if (header.tileType !== TileType.Mvt || header.tileCompression !== Compression.Gzip || header.maxZoom < MAP_AREA.maxZoom)
-    throw new Error('元ファイルにはMVT・gzip・maxZoom 15以上が必要です');
+  if (
+    header.tileType !== TileType.Mvt ||
+    header.tileCompression !== Compression.Gzip ||
+    header.minZoom > MAP_AREA.minZoom ||
+    header.maxZoom < MAP_AREA.maxZoom
+  )
+    throw new Error('元ファイルにはMVT・gzip・minZoom 0・maxZoom 15以上が必要です');
   const metadata = await reader.getMetadata();
   v.assert(
     v.looseObject({
@@ -66,14 +71,17 @@ export async function extractTiles(source: Source) {
     tileCoordinates(MAP_AREA.minZoom + i),
   ).flat();
   const tiles: Tile[] = [];
+  const missing: string[] = [];
   await concurrently(
     coordinates,
     async ({ z, x, y, tileId }) => {
       const tile = await rawReader.getZxy(z, x, y);
       if (tile) tiles.push({ tileId, bytes: new Uint8Array(tile.data) });
+      else missing.push(`${z}/${x}/${y}`);
     },
     8,
   );
+  if (missing.length) throw new Error(`範囲内のタイルが${missing.length}枚欠けています: ${missing.slice(0, 5).join(', ')}`);
   const bytes = writePMTiles(
     tiles,
     {
