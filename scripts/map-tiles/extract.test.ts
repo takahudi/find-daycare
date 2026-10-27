@@ -7,12 +7,13 @@ import type { Source } from 'pmtiles';
 import { afterEach, expect, it, vi } from 'vitest';
 import { parseJson } from '../json.ts';
 import { MAP_AREA } from './config.ts';
-import { extractMapTiles, extractTiles, RetryFetchSource, tileCoordinates } from './extract.ts';
+import { extractMapTiles, extractTiles, ProtomapsSource, tileCoordinates } from './extract.ts';
 import { writePMTiles } from './pmtiles-writer.ts';
 
 const roots: string[] = [];
 afterEach(async () => {
   vi.useRealTimers();
+  vi.restoreAllMocks();
   vi.unstubAllGlobals();
   await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
 });
@@ -94,26 +95,95 @@ it('元メタデータにversionがなければ推測せず停止する', async 
   await expect(extractTiles(source)).rejects.toThrow('version');
 });
 
-it('Range取得の5xxとネットワーク障害を再試行して復旧する', async () => {
+it('Range取得の5xx・429・ネットワーク障害を再試行して復旧する', async () => {
   vi.useFakeTimers();
   const fetch = vi
     .fn()
     .mockResolvedValueOnce(new Response(null, { status: 503 }))
+    .mockResolvedValueOnce(new Response(null, { status: 429 }))
     .mockRejectedValueOnce(new TypeError('fetch failed'))
     .mockResolvedValueOnce(new Response('ok', { status: 206 }));
   vi.stubGlobal('fetch', fetch);
-  const result = new RetryFetchSource('https://build.protomaps.com/20261027.pmtiles').getBytes(100, 2);
+  const result = new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles').getBytes(100, 2);
   await vi.runAllTimersAsync();
   expect(Buffer.from((await result).data).toString()).toBe('ok');
-  expect(fetch).toHaveBeenCalledTimes(3);
+  expect(fetch).toHaveBeenCalledTimes(4);
   for (const [, options] of fetch.mock.calls) expect(options.headers.get('range')).toBe('bytes=100-101');
 });
 
-it('Range取得の403は再試行しない', async () => {
-  const fetch = vi.fn(async () => new Response(null, { status: 403 }));
+it.each([200, 403, 404, 412, 429, 503])('206以外の%sはボディをcancelし、429と5xxだけ再試行する', async (status) => {
+  vi.useFakeTimers();
+  const cancel = vi.fn();
+  const fetch = vi.fn(async () => new Response(new ReadableStream({ cancel }), { status }));
   vi.stubGlobal('fetch', fetch);
-  await expect(new RetryFetchSource('https://build.protomaps.com/20261027.pmtiles').getBytes(0, 127)).rejects.toThrow('403');
+  const assertion = expect(
+    new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles').getBytes(0, 127),
+  ).rejects.toThrow();
+  await vi.runAllTimersAsync();
+  await assertion;
+  const attempts = status === 429 || status === 503 ? 4 : 1;
+  expect(fetch).toHaveBeenCalledTimes(attempts);
+  expect(cancel).toHaveBeenCalledTimes(attempts);
+});
+
+it('最初のヘッダ取得が404なら新しいbuildの指定方法を案内する', async () => {
+  const fetch = vi.fn(async () => new Response(null, { status: 404 }));
+  vi.stubGlobal('fetch', fetch);
+  await expect(extractTiles(new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles'))).rejects.toThrow(
+    'そのbuildはbuild.protomaps.comにもうありません。--build YYYYMMDDで新しいbuildを指定してください',
+  );
   expect(fetch).toHaveBeenCalledTimes(1);
+});
+
+it('最初のETagを以後のIf-Matchに付け、Range要求ごとに120秒の上限を使う', async () => {
+  const fetch = vi.fn<typeof globalThis.fetch>(async () => new Response('ok', { status: 206, headers: { ETag: '"build-a"' } }));
+  vi.stubGlobal('fetch', fetch);
+  const timeout = vi.spyOn(AbortSignal, 'timeout');
+  const source = new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles');
+  await source.getBytes(0, 2);
+  const result = await source.getBytes(100, 2);
+  expect(result.etag).toBe('"build-a"');
+  expect(Buffer.from(result.data).toString()).toBe('ok');
+  expect(new Headers(fetch.mock.calls[0][1]?.headers).get('if-match')).toBeNull();
+  expect(new Headers(fetch.mock.calls[1][1]?.headers).get('if-match')).toBe('"build-a"');
+  expect(new Headers(fetch.mock.calls[1][1]?.headers).get('range')).toBe('bytes=100-101');
+  expect(timeout.mock.calls.map(([ms]) => ms)).toEqual([120_000, 120_000]);
+});
+
+it.each(['"build-b"', null])('取得途中のETagが%sに変わればボディをcancelし、再試行しない', async (etag) => {
+  const cancel = vi.fn();
+  const fetch = vi
+    .fn()
+    .mockResolvedValueOnce(new Response('ok', { status: 206, headers: { ETag: '"build-a"' } }))
+    .mockResolvedValueOnce(new Response(new ReadableStream({ cancel }), { status: 206, headers: etag ? { ETag: etag } : {} }));
+  vi.stubGlobal('fetch', fetch);
+  const source = new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles');
+  await source.getBytes(0, 2);
+  await expect(source.getBytes(100, 2)).rejects.toThrow('ETagが変わりました');
+  expect(fetch).toHaveBeenCalledTimes(2);
+  expect(cancel).toHaveBeenCalledTimes(1);
+});
+
+it.each([206, 412])('タイル取得中に版の変更を%sで受け取ったらヘッダを再取得せず抽出全体を失敗させる', async (status) => {
+  const original = writePMTiles(tiles, header, metadata);
+  let requests = 0;
+  const fetch = vi.fn(async (_url: string, options: RequestInit) => {
+    const range = new Headers(options.headers).get('range')!.match(/^bytes=(\d+)-(\d+)$/)!;
+    requests++;
+    const changed = requests > 2;
+    return new Response(Buffer.from(original.subarray(Number(range[1]), Number(range[2]) + 1)), {
+      status: changed ? status : 206,
+      headers: { ETag: changed ? '"build-b"' : '"build-a"' },
+    });
+  });
+  vi.stubGlobal('fetch', fetch);
+  await expect(extractTiles(new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles'))).rejects.toThrow(
+    'ETagが変わりました',
+  );
+  expect(
+    fetch.mock.calls.filter(([, options]) => new Headers(options.headers).get('range')!.startsWith('bytes=0-')),
+  ).toHaveLength(1);
+  for (const [, options] of fetch.mock.calls.slice(1)) expect(new Headers(options.headers).get('if-match')).toBe('"build-a"');
 });
 
 it('buildを省くと記録から同じファイルを再生成し、出力のハッシュとサイズを記録する', async () => {

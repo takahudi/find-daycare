@@ -41,7 +41,9 @@ export async function withRetry<T>(
     try {
       return await operation();
     } catch (error) {
-      const retryable = isNetworkFailure(error) || (error instanceof StorageError && error.status >= 500 && error.status <= 599);
+      const retryable =
+        isNetworkFailure(error) ||
+        (error instanceof StorageError && (error.status === 429 || (error.status >= 500 && error.status <= 599)));
       if (!retryable || attempt >= 3) throw error;
       await wait(250 * 2 ** attempt);
     }

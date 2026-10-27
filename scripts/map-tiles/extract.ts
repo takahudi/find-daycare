@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { Compression, FetchSource, PMTiles, TileType, zxyToTileId } from 'pmtiles';
+import { Compression, PMTiles, TileType, zxyToTileId } from 'pmtiles';
 import type { Source } from 'pmtiles';
 import * as v from 'valibot';
 import { parseJson, writeJson } from '../json.ts';
@@ -14,21 +14,41 @@ import type { Tile } from './pmtiles-writer.ts';
 import { BuildSchema } from './schema.ts';
 import type { TilesManifest } from './schema.ts';
 
-export class RetryFetchSource extends FetchSource {
-  override getBytes(offset: number, length: number, signal?: AbortSignal, etag?: string) {
+export class ProtomapsSource implements Source {
+  readonly url: string;
+  private etag: string | null | undefined;
+
+  constructor(url: string) {
+    this.url = url;
+  }
+
+  getKey() {
+    return this.url;
+  }
+
+  getBytes(offset: number, length: number, signal?: AbortSignal) {
     return withRetry(async () => {
-      try {
-        return await super.getBytes(
-          offset,
-          length,
-          signal ? AbortSignal.any([signal, AbortSignal.timeout(120_000)]) : AbortSignal.timeout(120_000),
-          etag,
-        );
-      } catch (error) {
-        const status = error instanceof Error && /^Bad response code: (5\d\d)$/.exec(error.message);
-        if (status) throw new StorageError(Number(status[1]), error.message);
-        throw error;
+      const headers = new Headers({ Range: `bytes=${offset}-${offset + length - 1}` });
+      if (this.etag) headers.set('If-Match', this.etag);
+      const timeout = AbortSignal.timeout(120_000);
+      const response = await fetch(this.url, {
+        headers,
+        signal: signal ? AbortSignal.any([signal, timeout]) : timeout,
+      });
+      if (response.status !== 206) {
+        await response.body?.cancel();
+        if (response.status === 404 && offset === 0 && this.etag === undefined)
+          throw new Error('そのbuildはbuild.protomaps.comにもうありません。--build YYYYMMDDで新しいbuildを指定してください');
+        if (response.status === 412) throw new Error('取得中に元ファイルのETagが変わりました。抽出を中止します');
+        throw new StorageError(response.status, `Range ${this.url}: ${response.status}`);
       }
+      const etag = response.headers.get('etag');
+      if (this.etag !== undefined && this.etag !== etag) {
+        await response.body?.cancel();
+        throw new Error('取得中に元ファイルのETagが変わりました。抽出を中止します');
+      }
+      this.etag = etag;
+      return { data: await response.arrayBuffer(), etag: etag ?? undefined };
     });
   }
 }
@@ -108,7 +128,7 @@ export async function extractMapTiles(build?: string, { root = process.cwd(), lo
   }
   v.parse(BuildSchema, build);
   const url = `https://build.protomaps.com/${build}.pmtiles`;
-  const { bytes, tiles, tilesVersion } = await extractTiles(new RetryFetchSource(url));
+  const { bytes, tiles, tilesVersion } = await extractTiles(new ProtomapsSource(url));
   const manifest: TilesManifest = {
     source: { build, url, tilesVersion },
     bbox: [...MAP_AREA.bbox],
