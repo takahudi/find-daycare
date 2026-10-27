@@ -7,6 +7,7 @@ interface Props {
   facilities: Facility[];
   distanceOf: (facility: Facility) => number | null;
   vacancyOf: (facility: Facility) => number;
+  vacancyExpiredOf: (facility: Facility) => boolean;
   ages: number[];
   showRank: boolean;
   selectedId: string | null;
@@ -14,7 +15,17 @@ interface Props {
   onShowOnMap: (id: string) => void;
 }
 
-export function FacilityList({ facilities, distanceOf, vacancyOf, ages, showRank, selectedId, onSelect, onShowOnMap }: Props) {
+export function FacilityList({
+  facilities,
+  distanceOf,
+  vacancyOf,
+  vacancyExpiredOf,
+  ages,
+  showRank,
+  selectedId,
+  onSelect,
+  onShowOnMap,
+}: Props) {
   const openCount = facilities.filter((f) => vacancyOf(f) > 0).length;
   return (
     <>
@@ -27,6 +38,7 @@ export function FacilityList({ facilities, distanceOf, vacancyOf, ages, showRank
           <FacilityCard
             key={f.id}
             facility={f}
+            vacancyExpired={vacancyExpiredOf(f)}
             rank={showRank ? i + 1 : null}
             distance={distanceOf(f)}
             highlightAges={ages}

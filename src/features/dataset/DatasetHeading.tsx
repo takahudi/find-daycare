@@ -1,9 +1,18 @@
-import type { Dataset } from '../../schema';
+import type { Dataset, Ward } from '../../schema';
 import type { DatasetSummary } from '../../lib/dataset-summary';
+import { VacancyExpiryWarning } from './VacancyExpiry';
 import { SiteTitle } from './SiteTitle';
 import styles from './DatasetHeading.module.css';
 
-export function DatasetHeading({ data, summary }: { data: Dataset; summary: DatasetSummary }) {
+export function DatasetHeading({
+  data,
+  summary,
+  expiredWards,
+}: {
+  data: Dataset;
+  summary: DatasetSummary;
+  expiredWards: Ward[];
+}) {
   const { wardNames, title, asOfLabels, kigyoAsOfText } = summary;
   const wardTitle = `対象: ${wardNames.join('・')}`;
   return (
@@ -22,6 +31,7 @@ export function DatasetHeading({ data, summary }: { data: Dataset; summary: Data
         )}
         {kigyoAsOfText && <>・企業主導型（地域枠）は{kigyoAsOfText}</>}・出典 大阪市・各区役所
       </p>
+      <VacancyExpiryWarning expiredWards={expiredWards} wardCount={data.wards.length} />
     </div>
   );
 }

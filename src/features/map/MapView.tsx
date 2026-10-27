@@ -5,6 +5,7 @@ import type { Facility, Home } from '../../schema';
 import { formatDistance } from '../../lib/geo';
 import { AGE_LABELS } from '../../lib/vacancy';
 import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../../lib/facility-labels';
+import { VacancyExpiryBadge } from '../dataset/VacancyExpiry';
 import { MapController } from './MapController';
 import styles from './MapView.module.css';
 import 'leaflet/dist/leaflet.css';
@@ -14,6 +15,7 @@ interface Props {
   facilities: Facility[];
   allFacilities: Facility[];
   vacancyOf: (f: Facility) => number;
+  vacancyExpiredOf: (f: Facility) => boolean;
   distanceOf: (f: Facility) => number | null;
   home: Home | null;
   selectedId: string | null;
@@ -52,7 +54,16 @@ function SelectedPopup({ selectedId, markerRefs }: { selectedId: string | null; 
   return null;
 }
 
-export function MapView({ facilities, allFacilities, vacancyOf, distanceOf, home, selectedId, onSelect }: Props) {
+export function MapView({
+  facilities,
+  allFacilities,
+  vacancyOf,
+  vacancyExpiredOf,
+  distanceOf,
+  home,
+  selectedId,
+  onSelect,
+}: Props) {
   const markerRefs = useRef(new Map<string, L.Marker>());
   const selected = facilities.find((f) => f.id === selectedId);
   // URL の初期絞り込みにかかわらず全施設を収め、以後の絞り込みでは範囲を変えない。
@@ -122,6 +133,7 @@ export function MapView({ facilities, allFacilities, vacancyOf, distanceOf, home
                     );
                   })}
                 </div>
+                {vacancyExpiredOf(f) && <VacancyExpiryBadge />}
               </div>
             </Popup>
           </Marker>
