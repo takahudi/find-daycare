@@ -1,0 +1,9 @@
+.heading {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.heading span {
+  color: var(--accent);
+}

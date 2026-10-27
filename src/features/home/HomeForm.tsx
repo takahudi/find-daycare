@@ -3,9 +3,10 @@ import type { HomeChoice, useHome } from './useHome';
 interface Props {
   state: ReturnType<typeof useHome>;
   onHomeChosen: (source: HomeChoice) => void;
+  statusClassName?: string;
 }
 
-export function HomeForm({ state, onHomeChosen }: Props) {
+export function HomeForm({ state, onHomeChosen, statusClassName }: Props) {
   const { home, address, setAddress, searching, error, search, locateMe, clearHome } = state;
   return (
     <>
@@ -35,7 +36,7 @@ export function HomeForm({ state, onHomeChosen }: Props) {
         </button>
       </form>
       {(home || error) && (
-        <p className={`search__status${error ? ' search__status--error' : ''}`} role="status">
+        <p className={`search__status ${statusClassName ?? ''}${error ? ' search__status--error' : ''}`} role="status">
           {error ?? (
             <>
               🏠 <strong>{home!.label}</strong> からの直線距離で表示中

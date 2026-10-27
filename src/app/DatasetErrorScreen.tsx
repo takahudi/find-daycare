@@ -1,12 +1,13 @@
-export default function DatasetError({ error }: { error: Error }) {
+import { SiteTitle } from '../features/dataset/SiteTitle';
+import styles from './App.module.css';
+
+export default function DatasetErrorScreen({ error }: { error: Error }) {
   return (
-    <div className="app">
-      <header className="topbar">
-        <h1>
-          大阪市の保育施設 <span>空き状況マップ</span>
-        </h1>
+    <div className={styles.app}>
+      <header className={styles.topbar}>
+        <SiteTitle area="大阪市" />
       </header>
-      <main className="list">
+      <main className={styles.list}>
         <div role="alert">
           <p>施設データを読み込めませんでした。</p>
           <p>{error.message}</p>
