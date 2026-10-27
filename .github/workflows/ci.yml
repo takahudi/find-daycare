@@ -36,7 +36,7 @@ jobs:
         with:
           name: workers-build
           path: dist/
-          # .assetsignore prevents the generated Wrangler config from being served
+          # Keep the Vite plugin's .assetsignore in the client assets
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
