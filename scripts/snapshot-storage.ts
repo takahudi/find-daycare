@@ -51,10 +51,13 @@ export async function withRetry<T>(
 }
 
 export interface R2Environment {
-  accountId: string;
-  accessKeyId: string;
-  secretAccessKey: string;
-  bucket: string;
+  variables: {
+    accountId: string;
+    accessKeyId: string;
+    secretAccessKey: string;
+    bucket: string;
+  };
+  readmeSection: string;
 }
 
 interface R2RequestTimeouts {
@@ -64,10 +67,13 @@ interface R2RequestTimeouts {
 }
 
 const snapshotEnvironment: R2Environment = {
-  accountId: 'R2_ACCOUNT_ID',
-  accessKeyId: 'R2_ACCESS_KEY_ID',
-  secretAccessKey: 'R2_SECRET_ACCESS_KEY',
-  bucket: 'R2_BUCKET',
+  variables: {
+    accountId: 'R2_ACCOUNT_ID',
+    accessKeyId: 'R2_ACCESS_KEY_ID',
+    secretAccessKey: 'R2_SECRET_ACCESS_KEY',
+    bucket: 'R2_BUCKET',
+  },
+  readmeSection: '一次情報を保管・復元する',
 };
 
 function loadEnvironment() {
@@ -76,7 +82,7 @@ function loadEnvironment() {
 
 export function createR2StorageIfConfigured() {
   loadEnvironment();
-  return Object.values(snapshotEnvironment).every((name) => process.env[name]?.trim()) ? createR2Storage() : undefined;
+  return Object.values(snapshotEnvironment.variables).every((name) => process.env[name]?.trim()) ? createR2Storage() : undefined;
 }
 
 export function createR2Storage(
@@ -84,15 +90,19 @@ export function createR2Storage(
   requestTimeouts: R2RequestTimeouts = {},
 ): SnapshotStorage {
   loadEnvironment();
-  const missing = Object.values(environment).filter((name) => !process.env[name]?.trim());
-  if (missing.length) throw new Error(`R2環境変数がありません: ${missing.join(', ')}。READMEを確認してください`);
-  const account = process.env[environment.accountId] ?? '';
-  const bucket = process.env[environment.bucket] ?? '';
+  const { variables, readmeSection } = environment;
+  const missing = Object.values(variables).filter((name) => !process.env[name]?.trim());
+  if (missing.length)
+    throw new Error(`R2環境変数がありません: ${missing.join(', ')}。READMEの「${readmeSection}」を確認してください`);
+  const account = process.env[variables.accountId] ?? '';
+  const bucket = process.env[variables.bucket] ?? '';
   if (!/^[a-f0-9]{32}$/.test(account) || !/^[a-z0-9][a-z0-9.-]*[a-z0-9]$/.test(bucket))
-    throw new Error(`${environment.accountId} または ${environment.bucket} が不正です。READMEを確認してください`);
+    throw new Error(
+      `${variables.accountId} または ${variables.bucket} が不正です。READMEの「${readmeSection}」を確認してください`,
+    );
   const client = new AwsClient({
-    accessKeyId: process.env[environment.accessKeyId] ?? '',
-    secretAccessKey: process.env[environment.secretAccessKey] ?? '',
+    accessKeyId: process.env[variables.accessKeyId] ?? '',
+    secretAccessKey: process.env[variables.secretAccessKey] ?? '',
     region: 'auto',
     service: 's3',
     retries: 0,

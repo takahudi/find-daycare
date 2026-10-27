@@ -5,10 +5,13 @@ export const MAP_AREA = {
 } as const;
 
 export const MAP_R2_ENVIRONMENT = {
-  accountId: 'R2_ACCOUNT_ID',
-  accessKeyId: 'R2_MAP_ACCESS_KEY_ID',
-  secretAccessKey: 'R2_MAP_SECRET_ACCESS_KEY',
-  bucket: 'R2_MAP_BUCKET',
+  variables: {
+    accountId: 'R2_ACCOUNT_ID',
+    accessKeyId: 'R2_MAP_ACCESS_KEY_ID',
+    secretAccessKey: 'R2_MAP_SECRET_ACCESS_KEY',
+    bucket: 'R2_MAP_BUCKET',
+  },
+  readmeSection: '地図タイルを作る・保管する',
 } as const;
 
 export const MAP_R2_REQUEST_TIMEOUTS = { PUT: 15 * 60_000 } as const;

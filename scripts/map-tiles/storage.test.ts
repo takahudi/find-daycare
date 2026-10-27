@@ -78,4 +78,11 @@ it('引数がなければ一次情報の認証情報とバケットを使う', a
 it('地図の認証情報が欠けた場合に一次情報の認証情報へフォールバックしない', () => {
   vi.stubEnv('R2_MAP_SECRET_ACCESS_KEY', '');
   expect(() => createR2Storage(MAP_R2_ENVIRONMENT)).toThrow('R2_MAP_SECRET_ACCESS_KEY');
+  expect(() => createR2Storage(MAP_R2_ENVIRONMENT)).toThrow('READMEの「地図タイルを作る・保管する」を確認してください');
+});
+
+it('一次情報の認証情報が欠けた場合は元のREADMEの節を案内する', () => {
+  vi.stubEnv('R2_SECRET_ACCESS_KEY', '');
+  expect(() => createR2Storage()).toThrow('R2_SECRET_ACCESS_KEY');
+  expect(() => createR2Storage()).toThrow('READMEの「一次情報を保管・復元する」を確認してください');
 });
