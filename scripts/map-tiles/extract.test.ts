@@ -27,6 +27,16 @@ function sourceFor(bytes: Uint8Array): Source {
     getBytes: async (offset, length) => ({ data: Uint8Array.from(bytes.subarray(offset, offset + length)).buffer }),
   };
 }
+function rangeResponse(file: Uint8Array, options?: RequestInit, { status = 206, etag = '"build-a"' } = {}) {
+  const [, start, to] = new Headers(options?.headers).get('range')!.match(/^bytes=(\d+)-(\d+)$/)!;
+  const from = Number(start);
+  const end = Math.min(Number(to), file.length - 1);
+  return new Response(Buffer.from(file.subarray(from, end + 1)), {
+    status,
+    headers: { ETag: etag, 'Content-Range': `bytes ${from}-${end}/${file.length}` },
+  });
+}
+const remote = Buffer.alloc(1000, 'o');
 
 it('大阪市のbboxにかかるタイルは各ズームの期待枚数となり、全体で877枚になる', () => {
   const counts = Array.from({ length: 16 }, (_, z) => tileCoordinates(z).length);
@@ -102,11 +112,11 @@ it('Range取得の5xx・429・ネットワーク障害を再試行して復旧�
     .mockResolvedValueOnce(new Response(null, { status: 503 }))
     .mockResolvedValueOnce(new Response(null, { status: 429 }))
     .mockRejectedValueOnce(new TypeError('fetch failed'))
-    .mockResolvedValueOnce(new Response('ok', { status: 206 }));
+    .mockImplementationOnce(async (_url: string, options: RequestInit) => rangeResponse(remote, options));
   vi.stubGlobal('fetch', fetch);
   const result = new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles').getBytes(100, 2);
   await vi.runAllTimersAsync();
-  expect(Buffer.from((await result).data).toString()).toBe('ok');
+  expect(Buffer.from((await result).data).toString()).toBe('oo');
   expect(fetch).toHaveBeenCalledTimes(4);
   for (const [, options] of fetch.mock.calls) expect(options.headers.get('range')).toBe('bytes=100-101');
 });
@@ -136,45 +146,85 @@ it('最初のヘッダ取得が404なら新しいbuildの指定方法を案内�
 });
 
 it('最初のETagを以後のIf-Matchに付け、Range要求ごとに120秒の上限を使う', async () => {
-  const fetch = vi.fn<typeof globalThis.fetch>(async () => new Response('ok', { status: 206, headers: { ETag: '"build-a"' } }));
+  const fetch = vi.fn<typeof globalThis.fetch>(async (_url, options) => rangeResponse(remote, options));
   vi.stubGlobal('fetch', fetch);
   const timeout = vi.spyOn(AbortSignal, 'timeout');
   const source = new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles');
   await source.getBytes(0, 2);
   const result = await source.getBytes(100, 2);
   expect(result.etag).toBe('"build-a"');
-  expect(Buffer.from(result.data).toString()).toBe('ok');
+  expect(Buffer.from(result.data).toString()).toBe('oo');
   expect(new Headers(fetch.mock.calls[0][1]?.headers).get('if-match')).toBeNull();
   expect(new Headers(fetch.mock.calls[1][1]?.headers).get('if-match')).toBe('"build-a"');
   expect(new Headers(fetch.mock.calls[1][1]?.headers).get('range')).toBe('bytes=100-101');
   expect(timeout.mock.calls.map(([ms]) => ms)).toEqual([120_000, 120_000]);
 });
 
-it.each(['"build-b"', null])('取得途中のETagが%sに変わればボディをcancelし、再試行しない', async (etag) => {
+it.each([
+  ['"build-b"', 'ETagが変わりました'],
+  [null, '強いETagがない'],
+])('取得途中のETagが%sに変わればボディをcancelし、再試行しない', async (etag, message) => {
   const cancel = vi.fn();
   const fetch = vi
     .fn()
-    .mockResolvedValueOnce(new Response('ok', { status: 206, headers: { ETag: '"build-a"' } }))
+    .mockImplementationOnce(async (_url: string, options: RequestInit) => rangeResponse(remote, options))
     .mockResolvedValueOnce(new Response(new ReadableStream({ cancel }), { status: 206, headers: etag ? { ETag: etag } : {} }));
   vi.stubGlobal('fetch', fetch);
   const source = new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles');
   await source.getBytes(0, 2);
-  await expect(source.getBytes(100, 2)).rejects.toThrow('ETagが変わりました');
+  await expect(source.getBytes(100, 2)).rejects.toThrow(message);
   expect(fetch).toHaveBeenCalledTimes(2);
   expect(cancel).toHaveBeenCalledTimes(1);
+});
+
+it.each([null, 'W/"build-a"'])('最初の応答のETagが%sなら版を固定できないので、再試行せず止める', async (etag) => {
+  const cancel = vi.fn();
+  const fetch = vi.fn(
+    async () => new Response(new ReadableStream({ cancel }), { status: 206, headers: etag ? { ETag: etag } : {} }),
+  );
+  vi.stubGlobal('fetch', fetch);
+  await expect(new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles').getBytes(0, 2)).rejects.toThrow(
+    '強いETagがない',
+  );
+  expect(fetch).toHaveBeenCalledTimes(1);
+  expect(cancel).toHaveBeenCalledTimes(1);
+});
+
+it.each([
+  ['bytes 101-102/1000', 2],
+  ['bytes 100-100/1000', 1],
+  [null, 2],
+])('Content-Rangeが%sで本文が%i バイトの応答は、要求と違うので再試行せず止める', async (contentRange, size) => {
+  const fetch = vi.fn(
+    async () =>
+      new Response(Buffer.alloc(size), {
+        status: 206,
+        headers: { ETag: '"build-a"', ...(contentRange ? { 'Content-Range': contentRange } : {}) },
+      }),
+  );
+  vi.stubGlobal('fetch', fetch);
+  await expect(new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles').getBytes(100, 2)).rejects.toThrow(
+    '要求した範囲と異なる応答です',
+  );
+  expect(fetch).toHaveBeenCalledTimes(1);
+});
+
+it('ファイルの末尾で要求より短い応答は、Content-Rangeが末尾を指すときだけ受け付ける', async () => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async (_url: string, options: RequestInit) => rangeResponse(remote, options)),
+  );
+  const result = await new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles').getBytes(990, 100);
+  expect(result.data.byteLength).toBe(10);
 });
 
 it.each([206, 412])('タイル取得中に版の変更を%sで受け取ったらヘッダを再取得せず抽出全体を失敗させる', async (status) => {
   const original = writePMTiles(tiles, header, metadata);
   let requests = 0;
   const fetch = vi.fn(async (_url: string, options: RequestInit) => {
-    const range = new Headers(options.headers).get('range')!.match(/^bytes=(\d+)-(\d+)$/)!;
     requests++;
     const changed = requests > 2;
-    return new Response(Buffer.from(original.subarray(Number(range[1]), Number(range[2]) + 1)), {
-      status: changed ? status : 206,
-      headers: { ETag: changed ? '"build-b"' : '"build-a"' },
-    });
+    return rangeResponse(original, options, changed ? { status, etag: '"build-b"' } : {});
   });
   vi.stubGlobal('fetch', fetch);
   await expect(extractTiles(new ProtomapsSource('https://build.protomaps.com/20261027.pmtiles'))).rejects.toThrow(
@@ -190,10 +240,7 @@ it('buildを省くと記録から同じファイルを再生成し、出力の�
   const original = writePMTiles(tiles, header, metadata);
   vi.stubGlobal(
     'fetch',
-    vi.fn(async (_url: string, options: RequestInit) => {
-      const range = new Headers(options.headers).get('range')!.match(/^bytes=(\d+)-(\d+)$/)!;
-      return new Response(Buffer.from(original.subarray(Number(range[1]), Number(range[2]) + 1)), { status: 206 });
-    }),
+    vi.fn(async (_url: string, options: RequestInit) => rangeResponse(original, options)),
   );
   const root = await mkdtemp(path.join(tmpdir(), 'map-extract-'));
   roots.push(root);

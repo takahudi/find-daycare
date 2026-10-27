@@ -16,7 +16,7 @@ import type { TilesManifest } from './schema.ts';
 
 export class ProtomapsSource implements Source {
   readonly url: string;
-  private etag: string | null | undefined;
+  private etag: string | undefined;
 
   constructor(url: string) {
     this.url = url;
@@ -44,12 +44,24 @@ export class ProtomapsSource implements Source {
           throw new StorageError(response.status, `Range ${this.url}: ${response.status}`);
         }
         const etag = response.headers.get('etag');
+        // 版を固定できないと、取得中の差し替えで別の版のタイルが混ざっても気づけない。
+        if (!etag || etag.startsWith('W/')) {
+          await response.body?.cancel();
+          throw new Error('元ファイルに強いETagがないため版を固定できません。抽出を中止します');
+        }
         if (this.etag !== undefined && this.etag !== etag) {
           await response.body?.cancel();
           throw new Error('取得中に元ファイルのETagが変わりました。抽出を中止します');
         }
         this.etag = etag;
-        return { data: await response.arrayBuffer(), etag: etag ?? undefined };
+        const contentRange = response.headers.get('content-range') ?? '';
+        const data = await response.arrayBuffer();
+        const match = /^bytes (\d+)-(\d+)\/(\d+)$/.exec(contentRange);
+        const [start, end, total] = match ? [Number(match[1]), Number(match[2]), Number(match[3])] : [NaN, NaN, NaN];
+        const endOfFile = data.byteLength < length && end + 1 === total;
+        if (start !== offset || end - start + 1 !== data.byteLength || (data.byteLength !== length && !endOfFile))
+          throw new Error(`Range ${this.url}: 要求した範囲と異なる応答です（${contentRange || 'Content-Rangeなし'}）`);
+        return { data, etag };
       },
       undefined,
       [429],
@@ -95,16 +107,16 @@ export async function extractTiles(source: Source) {
     tileCoordinates(MAP_AREA.minZoom + i),
   ).flat();
   const tiles: Tile[] = [];
-  const missing: string[] = [];
   await concurrently(
     coordinates,
     async ({ z, x, y, tileId }) => {
       const tile = await rawReader.getZxy(z, x, y);
       if (tile) tiles.push({ tileId, bytes: new Uint8Array(tile.data) });
-      else missing.push(`${z}/${x}/${y}`);
     },
     8,
   );
+  const found = new Set(tiles.map(({ tileId }) => tileId));
+  const missing = coordinates.filter(({ tileId }) => !found.has(tileId)).map(({ z, x, y }) => `${z}/${x}/${y}`);
   if (missing.length) throw new Error(`範囲内のタイルが${missing.length}枚欠けています: ${missing.slice(0, 5).join(', ')}`);
   const bytes = writePMTiles(
     tiles,
