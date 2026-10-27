@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { loadDataset } from './lib/dataset';
 import DatasetError from './features/dataset/DatasetError.tsx';
-import App from './App.tsx';
+import App from './app/App.tsx';
 import './index.css';
 
 const root = createRoot(document.getElementById('root')!);

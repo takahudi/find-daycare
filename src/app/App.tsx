@@ -1,17 +1,17 @@
 import { useMemo, useState } from 'react';
-import type { Dataset } from './schema';
-import { summarizeDataset } from './lib/dataset-summary';
-import { listFacilities } from './lib/list-facilities';
-import { DatasetHeading } from './features/dataset/DatasetHeading';
-import { Sources } from './features/dataset/Sources';
-import { FacilityList } from './features/facilities/FacilityList';
-import { scrollToFacility } from './features/facilities/scroll-to-facility';
-import { useFilters } from './features/filters/useFilters';
-import { Filters } from './features/filters/Filters';
-import { useHome, type HomeChoice } from './features/home/useHome';
-import { HomeForm } from './features/home/HomeForm';
-import { MapView } from './features/map/MapView';
-import { MapLegend } from './features/map/MapLegend';
+import type { Dataset } from '../schema';
+import { summarizeDataset } from '../lib/dataset-summary';
+import { listFacilities } from '../lib/list-facilities';
+import { DatasetHeading } from '../features/dataset/DatasetHeading';
+import { Sources } from '../features/dataset/Sources';
+import { FacilityList } from '../features/facilities/FacilityList';
+import { scrollToFacility } from '../features/facilities/scroll-to-facility';
+import { useFilters } from '../features/filters/useFilters';
+import { Filters } from '../features/filters/Filters';
+import { useHome, type HomeChoice } from '../features/home/useHome';
+import { HomeForm } from '../features/home/HomeForm';
+import { MapView } from '../features/map/MapView';
+import { MapLegend } from '../features/map/MapLegend';
 
 export default function App({ data }: { data: Dataset }) {
   const summary = summarizeDataset(data);
