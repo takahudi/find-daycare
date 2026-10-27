@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "find-daycare",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-10-12",
   "workers_dev": true,
   "preview_urls": true,
@@ -8,6 +9,9 @@
     "enabled": true,
   },
   "assets": {
+    "binding": "ASSETS",
+    "run_worker_first": ["/map/tiles/*"],
     "not_found_handling": "none",
   },
+  "r2_buckets": [{ "binding": "MAP_TILES", "bucket_name": "find-daycare-map" }],
 }

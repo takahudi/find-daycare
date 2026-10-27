@@ -26,6 +26,7 @@ dist-ssr
 
 # Cloudflare
 .wrangler
+worker-configuration.d.ts
 
 # Test output
 coverage

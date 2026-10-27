@@ -14,12 +14,18 @@ it('施設データだけの更新ではJSONのURLだけが変わり、JSのURL�
     await fs.cp(path.join(root, 'src'), path.join(fixture, 'src'), { recursive: true });
     await fs.copyFile(path.join(root, 'index.html'), path.join(fixture, 'index.html'));
     const compile = async () => {
-      await build({ root: fixture, configFile: false, plugins: [react()], logLevel: 'silent' });
-      const html = await fs.readFile(path.join(fixture, 'dist/index.html'), 'utf8');
+      await build({
+        root: fixture,
+        configFile: false,
+        plugins: [react()],
+        build: { outDir: 'dist/client' },
+        logLevel: 'silent',
+      });
+      const html = await fs.readFile(path.join(fixture, 'dist/client/index.html'), 'utf8');
       const js = html.match(/src="([^" ]+\.js)"/)![1];
       const json = html.match(/id="facilities-data"[^>]*href="([^" ]+)"/)![1];
       expect(json).toMatch(/^\/assets\/facilities-.*\.json$/);
-      return { js, json, bytes: await fs.readFile(path.join(fixture, 'dist', js)) };
+      return { js, json, bytes: await fs.readFile(path.join(fixture, 'dist/client', js)) };
     };
     const before = await compile();
     const dataPath = path.join(fixture, 'src/data/facilities.json');
