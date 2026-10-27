@@ -1,4 +1,4 @@
-import { Compression, PMTiles, ResolvedValueCache } from 'pmtiles';
+import { Compression, PMTiles, ResolvedValueCache, TileType } from 'pmtiles';
 import manifest from '../data/map/tiles.json' with { type: 'json' };
 
 export interface TileBucket {
@@ -10,15 +10,8 @@ export interface TileBucket {
 
 const archives = new WeakMap<TileBucket, PMTiles>();
 
-async function uncompressedDirectory(data: ArrayBuffer, compression: Compression) {
-  if (compression !== Compression.None) throw new Error('地図タイルのディレクトリは非圧縮が必要です');
-  return data;
-}
-
-async function gzipTile(data: ArrayBuffer, compression: Compression) {
-  if (compression !== Compression.Gzip) throw new Error('地図タイルはgzip圧縮が必要です');
-  return data;
-}
+// タイルは gzip のまま返すので展開しない。形式は serveTile でヘッダを見て確かめる。
+const passThrough = async (data: ArrayBuffer) => data;
 
 function archiveFor(bucket: TileBucket): PMTiles {
   let archive = archives.get(bucket);
@@ -35,8 +28,8 @@ function archiveFor(bucket: TileBucket): PMTiles {
           return { data };
         },
       },
-      new ResolvedValueCache(100, true, uncompressedDirectory),
-      gzipTile,
+      new ResolvedValueCache(100, true, passThrough),
+      passThrough,
     );
     archives.set(bucket, archive);
   }
@@ -67,12 +60,16 @@ export async function serveTile(request: Request, bucket: TileBucket): Promise<R
     request.headers
       .get('If-None-Match')
       ?.split(',')
-      .some((value) => value.trim() === '*' || value.trim().replace(/^W\//, '') === etag)
+      .some((value) => value.trim().replace(/^W\//, '') === etag)
   )
     return new Response(null, { status: 304, headers });
 
   try {
-    const tile = await archiveFor(bucket).getZxy(z, x, y);
+    const archive = archiveFor(bucket);
+    const { internalCompression, tileCompression, tileType } = await archive.getHeader();
+    if (internalCompression !== Compression.None || tileCompression !== Compression.Gzip || tileType !== TileType.Mvt)
+      throw new Error('地図タイルのPMTilesは非圧縮のディレクトリとgzipのMVTが必要です');
+    const tile = await archive.getZxy(z, x, y);
     if (!tile) return new Response(null, { status: 204, headers });
     const init = {
       status: 200,

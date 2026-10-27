@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
 import { gunzipSync } from 'node:zlib';
-import { bytesToHeader, Compression } from 'pmtiles';
+import { bytesToHeader, Compression, TileType } from 'pmtiles';
 import { afterEach, expect, it, vi } from 'vitest';
 import { unstable_readConfig } from 'wrangler';
 import manifest from '../data/map/tiles.json' with { type: 'json' };
@@ -50,18 +50,18 @@ it('HEADはGETと同じヘッダとステータスで本文を返さない', asy
   expect(await head.text()).toBe('');
 });
 
-it.each(['exact', 'list', 'weak', 'wildcard'])('If-None-Matchの%sの一致では304と空の本文を返す', async (kind) => {
+it.each(['exact', 'list', 'weak'])('If-None-Matchの%sの一致では304と空の本文を返す', async (kind) => {
   const bucket = fakeBucket();
   const etag = (await serveTile(request(), bucket)).headers.get('etag')!;
-  const values: Record<string, string> = { exact: etag, list: `"other", ${etag}`, weak: `W/${etag}`, wildcard: '*' };
+  const values: Record<string, string> = { exact: etag, list: `"other", ${etag}`, weak: `W/${etag}` };
   const response = await serveTile(request(tilePath(), { headers: { 'If-None-Match': values[kind] } }), bucket);
   expect(response.status).toBe(304);
   expect(Object.fromEntries(response.headers)).toMatchObject({ ...cacheHeaders, etag });
   expect(await response.text()).toBe('');
 });
 
-it('一致しないIf-None-Matchには200を返す', async () => {
-  expect((await serveTile(request(tilePath(), { headers: { 'If-None-Match': '"other"' } }), fakeBucket())).status).toBe(200);
+it.each(['"other"', '*'])('If-None-Matchが%sなら304にせず200を返す', async (value) => {
+  expect((await serveTile(request(tilePath(), { headers: { 'If-None-Match': value } }), fakeBucket())).status).toBe(200);
 });
 
 it.each(['GET', 'HEAD'])('範囲内のないタイルは%sで204とキャッシュヘッダと空の本文を返す', async (method) => {
@@ -146,11 +146,12 @@ it.each([
   { part: 'ディレクトリ', offset: 97, compression: Compression.Unknown },
   { part: 'タイル', offset: 98, compression: Compression.None },
   { part: 'タイル', offset: 98, compression: Compression.Brotli },
-])('未対応の圧縮形式（$part、$compression）は503を記録しキャッシュしない', async ({ offset, compression }) => {
+  { part: 'タイルの種類', offset: 99, compression: TileType.Png },
+])('未対応の形式（$part、$compression）は、ないタイルでも503を記録しキャッシュしない', async ({ offset, compression }) => {
   const bytes = createTileFixture();
   bytes[offset] = compression;
   const error = vi.spyOn(console, 'error').mockImplementation(() => {});
-  const response = await serveTile(request(), fakeBucket(bytes));
+  const response = await serveTile(request(tilePath(1, 0, 1)), fakeBucket(bytes));
   expect(response.status).toBe(503);
   expect(response.headers.get('cache-control')).toBe('no-store');
   expect(await response.text()).toBe('');
