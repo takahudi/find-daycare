@@ -27,29 +27,33 @@ export class ProtomapsSource implements Source {
   }
 
   getBytes(offset: number, length: number, signal?: AbortSignal) {
-    return withRetry(async () => {
-      const headers = new Headers({ Range: `bytes=${offset}-${offset + length - 1}` });
-      if (this.etag) headers.set('If-Match', this.etag);
-      const timeout = AbortSignal.timeout(120_000);
-      const response = await fetch(this.url, {
-        headers,
-        signal: signal ? AbortSignal.any([signal, timeout]) : timeout,
-      });
-      if (response.status !== 206) {
-        await response.body?.cancel();
-        if (response.status === 404 && offset === 0 && this.etag === undefined)
-          throw new Error('そのbuildはbuild.protomaps.comにもうありません。--build YYYYMMDDで新しいbuildを指定してください');
-        if (response.status === 412) throw new Error('取得中に元ファイルのETagが変わりました。抽出を中止します');
-        throw new StorageError(response.status, `Range ${this.url}: ${response.status}`);
-      }
-      const etag = response.headers.get('etag');
-      if (this.etag !== undefined && this.etag !== etag) {
-        await response.body?.cancel();
-        throw new Error('取得中に元ファイルのETagが変わりました。抽出を中止します');
-      }
-      this.etag = etag;
-      return { data: await response.arrayBuffer(), etag: etag ?? undefined };
-    });
+    return withRetry(
+      async () => {
+        const headers = new Headers({ Range: `bytes=${offset}-${offset + length - 1}` });
+        if (this.etag) headers.set('If-Match', this.etag);
+        const timeout = AbortSignal.timeout(120_000);
+        const response = await fetch(this.url, {
+          headers,
+          signal: signal ? AbortSignal.any([signal, timeout]) : timeout,
+        });
+        if (response.status !== 206) {
+          await response.body?.cancel();
+          if (response.status === 404 && offset === 0 && this.etag === undefined)
+            throw new Error('そのbuildはbuild.protomaps.comにもうありません。--build YYYYMMDDで新しいbuildを指定してください');
+          if (response.status === 412) throw new Error('取得中に元ファイルのETagが変わりました。抽出を中止します');
+          throw new StorageError(response.status, `Range ${this.url}: ${response.status}`);
+        }
+        const etag = response.headers.get('etag');
+        if (this.etag !== undefined && this.etag !== etag) {
+          await response.body?.cancel();
+          throw new Error('取得中に元ファイルのETagが変わりました。抽出を中止します');
+        }
+        this.etag = etag;
+        return { data: await response.arrayBuffer(), etag: etag ?? undefined };
+      },
+      undefined,
+      [429],
+    );
   }
 }
 

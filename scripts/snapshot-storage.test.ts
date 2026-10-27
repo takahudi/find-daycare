@@ -36,7 +36,7 @@ it('HEADはsha256メタデータを読む', async () => {
   expect(fetch).toHaveBeenCalledTimes(1);
 });
 
-it.each([400, 403, 404])('GETの%sは失敗し、再試行しない', async (status) => {
+it.each([400, 403, 404, 429])('GETの%sは失敗し、再試行しない', async (status) => {
   const fetch = vi.fn(async () => new Response('denied', { status }));
   vi.stubGlobal('fetch', fetch);
   await expect(createR2Storage().get('key')).rejects.toThrow(`GET key: ${status}`);

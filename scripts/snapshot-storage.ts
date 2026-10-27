@@ -36,6 +36,7 @@ function isNetworkFailure(error: unknown): boolean {
 export async function withRetry<T>(
   operation: () => Promise<T>,
   wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)),
+  retryStatuses: readonly number[] = [],
 ) {
   for (let attempt = 0; ; attempt++) {
     try {
@@ -43,7 +44,7 @@ export async function withRetry<T>(
     } catch (error) {
       const retryable =
         isNetworkFailure(error) ||
-        (error instanceof StorageError && (error.status === 429 || (error.status >= 500 && error.status <= 599)));
+        (error instanceof StorageError && ((error.status >= 500 && error.status <= 599) || retryStatuses.includes(error.status)));
       if (!retryable || attempt >= 3) throw error;
       await wait(250 * 2 ** attempt);
     }
