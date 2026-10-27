@@ -56,13 +56,13 @@ export async function serveTile(request: Request, bucket: TileBucket): Promise<R
     'X-Content-Type-Options': 'nosniff',
     'Cross-Origin-Resource-Policy': 'same-origin',
   };
-  if (
+  const ifNoneMatch =
     request.headers
       .get('If-None-Match')
       ?.split(',')
-      .some((value) => value.trim().replace(/^W\//, '') === etag)
-  )
-    return new Response(null, { status: 304, headers });
+      .map((value) => value.trim()) ?? [];
+  // ETag は記録だけで決まるので、R2 を読まずに答えられる。* はタイルがあるときだけ一致する。
+  if (ifNoneMatch.some((value) => value.replace(/^W\//, '') === etag)) return new Response(null, { status: 304, headers });
 
   try {
     const archive = archiveFor(bucket);
@@ -71,6 +71,7 @@ export async function serveTile(request: Request, bucket: TileBucket): Promise<R
       throw new Error('地図タイルのPMTilesは非圧縮のディレクトリとgzipのMVTが必要です');
     const tile = await archive.getZxy(z, x, y);
     if (!tile) return new Response(null, { status: 204, headers });
+    if (ifNoneMatch.includes('*')) return new Response(null, { status: 304, headers });
     const init = {
       status: 200,
       headers: { ...headers, 'Content-Encoding': 'gzip' },
@@ -78,7 +79,9 @@ export async function serveTile(request: Request, bucket: TileBucket): Promise<R
     } as const;
     return new Response(request.method === 'HEAD' ? null : tile.data, init);
   } catch (error) {
-    console.error('地図タイルをR2から読み取れませんでした', error);
+    // 失敗したときのヘッダやディレクトリを使い回さず、次の要求で読み直す。
+    archives.delete(bucket);
+    console.error('地図タイルを配信できませんでした', error);
     return uncached(503);
   }
 }

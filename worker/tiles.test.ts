@@ -60,8 +60,18 @@ it.each(['exact', 'list', 'weak'])('If-None-Matchの%sの一致では304と空�
   expect(await response.text()).toBe('');
 });
 
-it.each(['"other"', '*'])('If-None-Matchが%sなら304にせず200を返す', async (value) => {
-  expect((await serveTile(request(tilePath(), { headers: { 'If-None-Match': value } }), fakeBucket())).status).toBe(200);
+it('一致しないIf-None-Matchには200を返す', async () => {
+  expect((await serveTile(request(tilePath(), { headers: { 'If-None-Match': '"other"' } }), fakeBucket())).status).toBe(200);
+});
+
+it.each([
+  { method: 'GET', path: tilePath(), status: 304 },
+  { method: 'HEAD', path: tilePath(), status: 304 },
+  { method: 'GET', path: tilePath(1, 0, 1), status: 204 },
+])('If-None-Match: * はタイルがあるときだけ304にする（$method $path → $status）', async ({ method, path, status }) => {
+  const response = await serveTile(request(path, { method, headers: { 'If-None-Match': '*' } }), fakeBucket());
+  expect(response.status).toBe(status);
+  expect(await response.text()).toBe('');
 });
 
 it.each(['GET', 'HEAD'])('範囲内のないタイルは%sで204とキャッシュヘッダと空の本文を返す', async (method) => {
@@ -137,25 +147,28 @@ it.each(['missing', 'unreadable', 'truncated'])('R2が%sのとき503を記録し
   const response = await serveTile(request(), bucket);
   expect(response.status).toBe(503);
   expect(response.headers.get('cache-control')).toBe('no-store');
-  expect(error).toHaveBeenCalledWith('地図タイルをR2から読み取れませんでした', expect.any(Error));
+  expect(error).toHaveBeenCalledWith('地図タイルを配信できませんでした', expect.any(Error));
   expect((await serveTile(request(), bucket)).status).toBe(200);
 });
 
 it.each([
-  { part: 'ディレクトリ', offset: 97, compression: Compression.Gzip },
-  { part: 'ディレクトリ', offset: 97, compression: Compression.Unknown },
-  { part: 'タイル', offset: 98, compression: Compression.None },
-  { part: 'タイル', offset: 98, compression: Compression.Brotli },
-  { part: 'タイルの種類', offset: 99, compression: TileType.Png },
-])('未対応の形式（$part、$compression）は、ないタイルでも503を記録しキャッシュしない', async ({ offset, compression }) => {
-  const bytes = createTileFixture();
-  bytes[offset] = compression;
+  { label: 'ディレクトリがgzip', offset: 97, value: Compression.Gzip },
+  { label: 'ディレクトリの圧縮が不明', offset: 97, value: Compression.Unknown },
+  { label: 'タイルが非圧縮', offset: 98, value: Compression.None },
+  { label: 'タイルがBrotli', offset: 98, value: Compression.Brotli },
+  { label: 'タイルがPNG', offset: 99, value: TileType.Png },
+])('未対応の形式（$label）は、ないタイルでも503を記録しキャッシュせず、直れば読み直す', async ({ offset, value }) => {
+  const bucket = fakeBucket();
+  const original = bucket.bytes[offset];
+  bucket.bytes[offset] = value;
   const error = vi.spyOn(console, 'error').mockImplementation(() => {});
-  const response = await serveTile(request(tilePath(1, 0, 1)), fakeBucket(bytes));
+  const response = await serveTile(request(tilePath(1, 0, 1)), bucket);
   expect(response.status).toBe(503);
   expect(response.headers.get('cache-control')).toBe('no-store');
   expect(await response.text()).toBe('');
-  expect(error).toHaveBeenCalledWith('地図タイルをR2から読み取れませんでした', expect.any(Error));
+  expect(error).toHaveBeenCalledWith('地図タイルを配信できませんでした', expect.any(Error));
+  bucket.bytes[offset] = original;
+  expect((await serveTile(request(), bucket)).status).toBe(200);
 });
 
 it('R2からPMTilesの指定位置だけを読み、2回目にはヘッダとディレクトリを読み直さない', async () => {
