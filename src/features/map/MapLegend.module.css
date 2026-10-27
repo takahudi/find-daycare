@@ -1,0 +1,26 @@
+.legend {
+  position: absolute;
+  z-index: 500;
+  left: 12px;
+  bottom: 18px;
+  display: flex;
+  gap: 12px;
+  padding: 6px 10px;
+  background: rgb(255 255 255 / 0.92);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  font-size: 0.78rem;
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend :global(.pin) {
+  width: 20px;
+  height: 20px;
+  font-size: 0.65rem;
+  border-width: 1.5px;
+}

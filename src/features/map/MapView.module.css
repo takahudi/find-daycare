@@ -1,0 +1,37 @@
+.map {
+  height: 100%;
+  width: 100%;
+}
+
+.popupMeta {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.popupVacancy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 6px;
+}
+
+.popupVacancy span {
+  padding: 0 6px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.popupVacancy .open {
+  background: var(--open-bg);
+  color: var(--open);
+}
+
+.popupVacancy .full {
+  background: var(--full-bg);
+  color: var(--full);
+}
+
+.popupVacancy .na {
+  color: var(--full);
+}

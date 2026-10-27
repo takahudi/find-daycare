@@ -64,87 +64,9 @@ select {
   cursor: pointer;
 }
 
-.list__count {
-  margin: 0 0 10px;
-  font-size: 0.88rem;
-  color: var(--muted);
-}
-
-.list__count strong {
-  color: var(--open);
-}
-
-.map {
-  height: 100%;
-  width: 100%;
-}
-
-.empty {
-  color: var(--muted);
-}
-
-.legend {
-  position: absolute;
-  z-index: 500;
-  left: 12px;
-  bottom: 18px;
-  display: flex;
-  gap: 12px;
-  padding: 6px 10px;
-  background: rgb(255 255 255 / 0.92);
-  border-radius: 10px;
-  box-shadow: var(--shadow);
-  font-size: 0.78rem;
-}
-
-.legend span {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.legend .pin {
-  width: 20px;
-  height: 20px;
-  font-size: 0.65rem;
-  border-width: 1.5px;
-}
-
-.popup-meta {
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
-.popup-vacancy {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-  margin-top: 6px;
-}
-
-.popup-vacancy span {
-  padding: 0 6px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.popup-vacancy .open {
-  background: var(--open-bg);
-  color: var(--open);
-}
-
-.popup-vacancy .full {
-  background: var(--full-bg);
-  color: var(--full);
-}
-
-.popup-vacancy .na {
-  color: var(--full);
-}
-
 /* JavaScript 実行前の読み込み表示には CSS Modules のハッシュを使えない。 */
-/* app/App.module.css の .app を写す。 */
+
+/* app/App.module.css の .app を写す。JS 実行前はハッシュ付きクラスを使えない。 */
 .loading-app {
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr);
@@ -152,6 +74,7 @@ select {
   height: 100dvh;
 }
 
+/* app/App.module.css の .topbar を写す。 */
 .loading-topbar {
   padding: 16px 24px 12px;
   background: var(--surface);
@@ -174,6 +97,7 @@ select {
   color: var(--accent);
 }
 
+/* app/App.module.css の .list を写す。 */
 .loading-list {
   height: 100%;
   overflow-y: auto;

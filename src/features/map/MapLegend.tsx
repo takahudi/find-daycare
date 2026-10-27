@@ -1,9 +1,10 @@
 import { LICENSING_LABELS } from '../../lib/facility-labels';
+import styles from './MapLegend.module.css';
 import './pins.css';
 
 export function MapLegend({ hasHome: home }: { hasHome: boolean }) {
   return (
-    <div className="legend" role="group" aria-label="地図の凡例">
+    <div className={styles.legend} role="group" aria-label="地図の凡例">
       <span>
         <i className="pin pin--open" aria-hidden="true">
           2
