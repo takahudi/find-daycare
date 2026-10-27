@@ -2,7 +2,8 @@ import type { Facility, FacilityType, Home } from '../schema';
 import { distanceMeters } from './geo';
 import { acceptsAny, vacancyCount } from './vacancy';
 
-export type SortKey = 'distance' | 'vacancy' | 'name';
+export const SORT_KEYS = ['distance', 'vacancy', 'name'] as const;
+export type SortKey = (typeof SORT_KEYS)[number];
 
 export interface ListingOptions {
   ages: number[];
