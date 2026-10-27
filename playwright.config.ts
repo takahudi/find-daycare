@@ -6,6 +6,8 @@ export default defineConfig({
   testDir: 'e2e',
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
+  // 遅い CI の runner では全施設（1109件）の描画が既定の5秒を超えることがある
+  expect: { timeout: process.env.CI ? 15_000 : 5_000 },
   reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'list',
   use: {
     baseURL: `http://localhost:${port}`,
