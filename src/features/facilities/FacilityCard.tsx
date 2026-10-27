@@ -1,8 +1,9 @@
 import { useId } from 'react';
-import type { Facility } from '../schema';
-import { formatDistance, walkMinutes } from '../lib/geo';
-import { AGE_LABELS, vacancyCount } from '../lib/vacancy';
-import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../lib/facility-labels';
+import type { Facility } from '../../schema';
+import { formatDistance, walkMinutes } from '../../lib/geo';
+import { AGE_LABELS, vacancyCount } from '../../lib/vacancy';
+import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../../lib/facility-labels';
+import { FACILITY_ID_ATTRIBUTE } from './scroll-to-facility';
 
 interface Props {
   facility: Facility;
@@ -25,7 +26,7 @@ export function FacilityCard({ facility: f, rank, distance, highlightAges, selec
     <article
       className={`card${selected ? ' card--selected' : ''}`}
       aria-labelledby={nameId}
-      data-facility-id={f.id}
+      {...{ [FACILITY_ID_ATTRIBUTE]: f.id }}
       aria-current={selected || undefined}
       onClick={onSelect}
     >
