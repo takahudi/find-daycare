@@ -50,11 +50,6 @@ export function MapController({
   }, [map]);
 
   useEffect(() => {
-    if (!selected) return;
-    moveWhenVisible(() => map.flyTo([selected.lat, selected.lng], Math.max(map.getZoom(), 16), { duration: 0.6 }));
-  }, [map, selected, moveWhenVisible]);
-
-  useEffect(() => {
     if (!home) return;
     const origin = L.latLng(home.lat, home.lng);
     const nearest = facilitiesRef.current
@@ -63,6 +58,11 @@ export function MapController({
       .slice(0, 5);
     moveWhenVisible(() => map.flyToBounds(L.latLngBounds([origin, ...nearest]).pad(0.2), { duration: 0.6, maxZoom: 16 }));
   }, [map, home, moveWhenVisible]);
+
+  useEffect(() => {
+    if (!selected) return;
+    moveWhenVisible(() => map.flyTo([selected.lat, selected.lng], Math.max(map.getZoom(), 16), { duration: 0.6 }));
+  }, [map, selected, moveWhenVisible]);
 
   return null;
 }
