@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip } from 'react-leaflet';
 import type { Facility, Home } from '../../schema';
 import { formatDistance } from '../../lib/geo';
 import { AGE_LABELS } from '../../lib/vacancy';
 import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../../lib/facility-labels';
 import { MapController } from './MapController';
+import styles from './MapView.module.css';
+import 'leaflet/dist/leaflet.css';
+import './pins.css';
 
 interface Props {
   facilities: Facility[];
@@ -53,7 +55,7 @@ export function MapView({ facilities, vacancyOf, distanceOf, home, selectedId, o
   }, [selectedId]);
 
   return (
-    <MapContainer bounds={initialBounds} className="map" scrollWheelZoom>
+    <MapContainer bounds={initialBounds} className={styles.map} scrollWheelZoom>
       <TileLayer
         url="https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png"
         attribution='<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noreferrer">国土地理院</a>'
@@ -100,17 +102,17 @@ export function MapView({ facilities, vacancyOf, distanceOf, home, selectedId, o
             <Popup>
               <div role="group" aria-label="施設の詳細">
                 <strong>{f.name}</strong>
-                <div className="popup-meta">
+                <div className={styles.popupMeta}>
                   {f.wardName} ・ {FACILITY_TYPE_LABELS[f.facilityType].label}
                   {f.licensing === 'unlicensed' && ` ・ ${LICENSING_LABELS[f.licensing]}`}
                   {distance !== null && ` ・ 自宅から${formatDistance(distance)}`}
                 </div>
-                <div className="popup-vacancy">
+                <div className={styles.popupVacancy}>
                   {f.vacancies.map((v, age) => {
                     const group = f.sharedVacancy?.ages.includes(age) ? f.sharedVacancy.ages : [age];
                     if (group[0] !== age) return null;
                     return (
-                      <span key={age} className={v === null ? 'na' : v > 0 ? 'open' : 'full'}>
+                      <span key={age} className={v === null ? styles.na : v > 0 ? styles.open : styles.full}>
                         {group.length > 1 ? `${group.join('・')}歳` : AGE_LABELS[age]} {v === null ? '—' : v}
                       </span>
                     );

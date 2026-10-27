@@ -1,9 +1,17 @@
 import * as v from 'valibot';
-import type { Ward } from '../../schema';
+import type { FacilityType, Ward } from '../../schema';
 import { AGE_LABELS, AGES } from '../../lib/vacancy';
 import { FACILITY_TYPES, FACILITY_TYPE_LABELS } from '../../lib/facility-labels';
 import { SORT_KEYS } from '../../lib/list-facilities';
 import type { useFilters } from './useFilters';
+import styles from './Filters.module.css';
+
+const chipByFacilityType: Record<FacilityType, string> = {
+  nursery: styles.nursery,
+  kodomoen: styles.kodomoen,
+  community: styles.community,
+  kigyo: styles.kigyo,
+};
 
 const SortKeySchema = v.picklist(SORT_KEYS);
 
@@ -16,17 +24,17 @@ interface Props {
 export function Filters({ wards, hasHome, state }: Props) {
   const { ages, wardIds, facilityTypes, onlyOpen, sort, toggleWard, toggleAge, toggleFacilityType, setOnlyOpen, setSort } = state;
   return (
-    <section className="filters" aria-label="絞り込み">
+    <section className={styles.filters} aria-label="絞り込み">
       {wards.length > 1 && (
-        <div className="filters__group" role="group" aria-labelledby="filter-ward">
-          <span id="filter-ward" className="filters__label">
+        <div className={styles.group} role="group" aria-labelledby="filter-ward">
+          <span id="filter-ward" className={styles.label}>
             区
           </span>
           {wards.map((w) => (
             <button
               key={w.id}
               type="button"
-              className={`chip${wardIds.includes(w.id) ? ' chip--on' : ''}`}
+              className={`${styles.chip}${wardIds.includes(w.id) ? ` ${styles.on}` : ''}`}
               aria-pressed={wardIds.includes(w.id)}
               onClick={() => toggleWard(w.id)}
             >
@@ -35,15 +43,15 @@ export function Filters({ wards, hasHome, state }: Props) {
           ))}
         </div>
       )}
-      <div className="filters__group" role="group" aria-labelledby="filter-age">
-        <span id="filter-age" className="filters__label">
+      <div className={styles.group} role="group" aria-labelledby="filter-age">
+        <span id="filter-age" className={styles.label}>
           クラス年齢
         </span>
         {AGES.map((a) => (
           <button
             key={a}
             type="button"
-            className={`chip${ages.includes(a) ? ' chip--on' : ''}`}
+            className={`${styles.chip}${ages.includes(a) ? ` ${styles.on}` : ''}`}
             aria-pressed={ages.includes(a)}
             onClick={() => toggleAge(a)}
           >
@@ -51,15 +59,15 @@ export function Filters({ wards, hasHome, state }: Props) {
           </button>
         ))}
       </div>
-      <div className="filters__group" role="group" aria-labelledby="filter-type">
-        <span id="filter-type" className="filters__label">
+      <div className={styles.group} role="group" aria-labelledby="filter-type">
+        <span id="filter-type" className={styles.label}>
           種別
         </span>
         {FACILITY_TYPES.map((facilityType) => (
           <button
             key={facilityType}
             type="button"
-            className={`chip chip--${facilityType}${facilityTypes.includes(facilityType) ? ' chip--on' : ''}`}
+            className={`${styles.chip} ${chipByFacilityType[facilityType]}${facilityTypes.includes(facilityType) ? ` ${styles.on}` : ''}`}
             aria-pressed={facilityTypes.includes(facilityType)}
             onClick={() => toggleFacilityType(facilityType)}
           >
@@ -67,12 +75,12 @@ export function Filters({ wards, hasHome, state }: Props) {
           </button>
         ))}
       </div>
-      <div className="filters__group">
-        <label className="toggle">
+      <div className={styles.group}>
+        <label className={styles.toggle}>
           <input type="checkbox" checked={onlyOpen} onChange={(e) => setOnlyOpen(e.target.checked)} />
           空きがある施設のみ
         </label>
-        <label className="sort">
+        <label className={styles.sort}>
           並び順
           <select
             value={sort}

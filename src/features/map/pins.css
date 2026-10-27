@@ -1,0 +1,48 @@
+/* Leaflet の HTML ピン用。凡例は Leaflet 以外の利用者なので、⑤ で凡例を移してから削除する。 */
+
+.route-line {
+  stroke: var(--accent);
+}
+
+.pin {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.pin--open {
+  background: var(--open);
+}
+
+.pin--full {
+  background: var(--full-bg);
+  color: var(--full);
+  border-color: var(--full);
+}
+
+/* 認可外は四角いピンで区別する */
+.pin--unlicensed {
+  border-radius: 7px;
+  border-color: var(--unlicensed);
+}
+
+.pin--selected {
+  outline: 3px solid var(--accent);
+  transform: scale(1.2);
+}
+
+.pin--home {
+  width: 34px;
+  height: 34px;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 0.85rem;
+}

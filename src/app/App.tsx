@@ -12,6 +12,7 @@ import { useHome, type HomeChoice } from '../features/home/useHome';
 import { HomeForm } from '../features/home/HomeForm';
 import { MapView } from '../features/map/MapView';
 import { MapLegend } from '../features/map/MapLegend';
+import styles from './App.module.css';
 
 export default function App({ data }: { data: Dataset }) {
   const summary = summarizeDataset(data);
@@ -41,16 +42,16 @@ export default function App({ data }: { data: Dataset }) {
   };
 
   return (
-    <div className={`app app--${mobileView}`}>
-      <header className="topbar">
+    <div className={`${styles.app} ${mobileView === 'list' ? styles.listView : styles.mapView}`}>
+      <header className={styles.topbar}>
         <DatasetHeading data={data} summary={summary} />
 
-        <HomeForm state={homeState} onHomeChosen={onHomeChosen} />
+        <HomeForm state={homeState} onHomeChosen={onHomeChosen} statusClassName={styles.homeStatus} />
       </header>
 
       <Filters wards={data.wards} hasHome={!!home} state={filters} />
 
-      <nav className="mobile-tabs" aria-label="表示切替">
+      <nav className={styles.mobileTabs} aria-label="表示切替">
         <button type="button" aria-pressed={mobileView === 'list'} onClick={() => setMobileView('list')}>
           リスト
         </button>
@@ -59,8 +60,8 @@ export default function App({ data }: { data: Dataset }) {
         </button>
       </nav>
 
-      <main className="layout">
-        <section className="list" aria-label="施設一覧">
+      <main className={styles.layout}>
+        <section className={styles.list} aria-label="施設一覧">
           <FacilityList
             facilities={visible}
             distanceOf={distanceOf}
@@ -77,7 +78,7 @@ export default function App({ data }: { data: Dataset }) {
           <Sources data={data} summary={summary} />
         </section>
 
-        <section className="map-pane" aria-label="地図">
+        <section className={styles.mapPane} aria-label="地図">
           <MapView
             facilities={visible}
             vacancyOf={vacancyOf}

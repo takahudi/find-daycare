@@ -1,0 +1,105 @@
+.app {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  height: 100vh;
+  height: 100dvh;
+}
+
+.topbar {
+  padding: 16px 24px 12px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 560px);
+  gap: 8px 24px;
+  align-items: center;
+}
+
+/* HomeForm の状態表示もヘッダー直下のグリッド項目なので、配置を App から渡す。 */
+.homeStatus {
+  grid-column: 2;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(380px, 1fr) minmax(0, 1.15fr);
+  min-height: 0;
+}
+
+.list {
+  height: 100%;
+  overflow-y: auto;
+  padding: 14px 20px 32px;
+}
+
+.mapPane {
+  position: relative;
+  height: 100%;
+  border-left: 1px solid var(--line);
+}
+
+.mobileTabs {
+  display: none;
+}
+
+/* 860px は index.css の静的ローダー、HomeForm.module.css、Filters.module.css と共通。 */
+@media (max-width: 860px) {
+  .homeStatus {
+    grid-column: 1;
+  }
+
+  .app {
+    display: block;
+    height: auto;
+  }
+
+  .topbar {
+    grid-template-columns: 1fr;
+    padding: 12px 14px;
+  }
+
+  .mobileTabs {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobileTabs button {
+    padding: 10px;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    background: none;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  .mobileTabs button[aria-pressed='true'] {
+    color: var(--accent-ink);
+    border-bottom-color: var(--accent);
+  }
+
+  .layout {
+    display: block;
+  }
+
+  .list {
+    height: auto;
+    overflow: visible;
+    padding: 12px 14px 24px;
+  }
+
+  .mapPane {
+    position: relative;
+    height: calc(100vh - 46px);
+    border-left: 0;
+  }
+
+  .listView .mapPane,
+  .mapView .list {
+    display: none;
+  }
+}

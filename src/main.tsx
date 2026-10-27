@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { loadDataset } from './lib/dataset';
-import DatasetError from './features/dataset/DatasetError.tsx';
+import DatasetErrorScreen from './app/DatasetErrorScreen.tsx';
 import App from './app/App.tsx';
 import './index.css';
 
@@ -19,7 +19,7 @@ loadDataset(document.querySelector<HTMLLinkElement>('#facilities-data')?.href ??
     const error = reason instanceof Error ? reason : new Error(String(reason));
     root.render(
       <StrictMode>
-        <DatasetError error={error} />
+        <DatasetErrorScreen error={error} />
       </StrictMode>,
     );
   },

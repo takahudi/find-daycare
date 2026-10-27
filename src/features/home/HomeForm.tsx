@@ -1,16 +1,18 @@
 import type { HomeChoice, useHome } from './useHome';
+import styles from './HomeForm.module.css';
 
 interface Props {
   state: ReturnType<typeof useHome>;
   onHomeChosen: (source: HomeChoice) => void;
+  statusClassName?: string;
 }
 
-export function HomeForm({ state, onHomeChosen }: Props) {
+export function HomeForm({ state, onHomeChosen, statusClassName }: Props) {
   const { home, address, setAddress, searching, error, search, locateMe, clearHome } = state;
   return (
     <>
       <form
-        className="search"
+        className={styles.search}
         onSubmit={(e) => {
           e.preventDefault();
           search(onHomeChosen);
@@ -30,16 +32,16 @@ export function HomeForm({ state, onHomeChosen }: Props) {
         <button type="submit" disabled={searching}>
           {searching ? '検索中…' : '近い順に並べる'}
         </button>
-        <button type="button" className="ghost" onClick={() => locateMe(onHomeChosen)}>
+        <button type="button" className={styles.ghost} onClick={() => locateMe(onHomeChosen)}>
           現在地
         </button>
       </form>
       {(home || error) && (
-        <p className={`search__status${error ? ' search__status--error' : ''}`} role="status">
+        <p className={`${styles.status} ${statusClassName ?? ''}${error ? ` ${styles.error}` : ''}`} role="status">
           {error ?? (
             <>
               🏠 <strong>{home!.label}</strong> からの直線距離で表示中
-              <button type="button" className="link" onClick={clearHome}>
+              <button type="button" className="link-button" onClick={clearHome}>
                 解除
               </button>
             </>
