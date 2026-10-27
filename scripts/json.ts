@@ -2,11 +2,12 @@ import { writeFile } from 'node:fs/promises';
 import * as v from 'valibot';
 import { DatasetSchema } from '../src/schema.ts';
 import { WardDataSchemas } from './data-schema.ts';
+import { TilesSchema } from './map-tiles/schema.ts';
 
 /** 手で書くファイル。_ で始まるキーは出典や補正理由のメモで、読み込み時に除く */
 const ANNOTATED_FILES = ['manual-details.json', 'ward-details.json', 'websites.json'] as const;
 
-const JsonSchemas = { ...WardDataSchemas, 'facilities.json': DatasetSchema };
+const JsonSchemas = { ...WardDataSchemas, 'facilities.json': DatasetSchema, 'tiles.json': TilesSchema };
 
 export function parseJson<K extends keyof typeof JsonSchemas>(text: string, document: K): v.InferOutput<(typeof JsonSchemas)[K]> {
   let data: unknown = JSON.parse(text);
