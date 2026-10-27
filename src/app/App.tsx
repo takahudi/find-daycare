@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import type { Dataset } from '../schema';
 import { summarizeDataset } from '../lib/dataset-summary';
 import { listFacilities } from '../lib/list-facilities';
@@ -27,10 +27,11 @@ export default function App({ data }: { data: Dataset }) {
   };
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
 
-  // 一覧の計算と JSX の可変スコープが結合するため、分割まではキャッシュ境界を明示する
-  const { visible, distanceOf, vacancyOf } = useMemo(() => {
-    return listFacilities(data.facilities, { ages, wardIds, facilityTypes, onlyOpen, sort }, home);
-  }, [data.facilities, home, wardIds, facilityTypes, ages, onlyOpen, sort]);
+  const { visible, distanceOf, vacancyOf } = listFacilities(
+    data.facilities,
+    { ages, wardIds, facilityTypes, onlyOpen, sort },
+    home,
+  );
 
   const select = (id: string, from: 'list' | 'map') => {
     setSelectedId(id);
