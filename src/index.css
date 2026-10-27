@@ -68,86 +68,6 @@ select {
   color: var(--muted);
 }
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 28px;
-  align-items: center;
-  padding: 10px 24px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-}
-
-.filters__group {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-}
-
-.filters__label {
-  margin-right: 4px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--muted);
-}
-
-.chip {
-  padding: 4px 12px;
-  border: 1.5px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--ink);
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.chip--on {
-  border-color: var(--accent);
-  background: #fdeee5;
-  color: var(--accent-ink);
-  font-weight: 700;
-}
-
-.chip--nursery.chip--on {
-  border-color: var(--nursery);
-  background: #e7effb;
-  color: var(--nursery);
-}
-
-.chip--kodomoen.chip--on {
-  border-color: var(--kodomoen);
-  background: #f8e8f1;
-  color: var(--kodomoen);
-}
-
-.chip--community.chip--on {
-  border-color: var(--community);
-  background: #efeafa;
-  color: var(--community);
-}
-
-.chip--kigyo.chip--on {
-  border-color: var(--kigyo);
-  background: #fbf1df;
-  color: var(--kigyo);
-}
-
-.toggle,
-.sort {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.88rem;
-}
-
-.sort select {
-  padding: 4px 8px;
-  border: 1.5px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-}
-
 .list__count {
   margin: 0 0 10px;
   font-size: 0.88rem;
@@ -483,14 +403,6 @@ select {
   color: var(--full);
 }
 
-/* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
-@media (max-width: 860px) {
-  .filters {
-    padding: 8px 14px;
-    gap: 8px;
-  }
-}
-
 /* JavaScript 実行前の読み込み表示には CSS Modules のハッシュを使えない。 */
 /* app/App.module.css の .app を写す。 */
 .loading-app {
@@ -528,6 +440,7 @@ select {
   padding: 14px 20px 32px;
 }
 
+/* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
 @media (max-width: 860px) {
   .loading-app {
     display: block;
