@@ -52,12 +52,13 @@ export async function extractTiles(source: Source) {
   const header = await reader.getHeader();
   if (header.tileType !== TileType.Mvt || header.tileCompression !== Compression.Gzip || header.maxZoom < MAP_AREA.maxZoom)
     throw new Error('元ファイルにはMVT・gzip・maxZoom 15以上が必要です');
-  const metadata = v.parse(
+  const metadata = await reader.getMetadata();
+  v.assert(
     v.looseObject({
       version: v.pipe(v.string('元メタデータにversionがありません'), v.nonEmpty()),
       vector_layers: v.array(v.unknown()),
     }),
-    await reader.getMetadata(),
+    metadata,
   );
   // 再圧縮によって元のバイト列が変わらないよう、タイル本文だけは展開しない。
   const rawReader = new PMTiles(source, reader.cache, async (bytes) => bytes);

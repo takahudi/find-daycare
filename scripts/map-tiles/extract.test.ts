@@ -69,6 +69,13 @@ it.each([{ tileType: TileType.Png }, { tileCompression: Compression.None }, { ma
   },
 );
 
+it('元メタデータのキーの並びを書き出したファイルでも保つ', async () => {
+  const sourceMetadata = { attribution: 'test attribution', name: 'test map', vector_layers: [], version: '4.15.2' };
+  const result = await extractTiles(sourceFor(writePMTiles(tiles, header, sourceMetadata)));
+  const reader = new PMTiles(sourceFor(result.bytes));
+  expect(JSON.stringify(await reader.getMetadata())).toBe(JSON.stringify(sourceMetadata));
+});
+
 it('元メタデータにversionがなければ推測せず停止する', async () => {
   const source = sourceFor(writePMTiles(tiles, header, { vector_layers: [] }));
   await expect(extractTiles(source)).rejects.toThrow('version');
