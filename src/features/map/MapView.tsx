@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
-import type { Facility, Home } from '../schema';
-import { formatDistance } from '../lib/geo';
-import { AGE_LABELS } from '../lib/vacancy';
-import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../lib/facility-labels';
+import type { Facility, Home } from '../../schema';
+import { formatDistance } from '../../lib/geo';
+import { AGE_LABELS } from '../../lib/vacancy';
+import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../../lib/facility-labels';
 
 interface Props {
   facilities: Facility[];

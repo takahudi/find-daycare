@@ -8,8 +8,9 @@ import { useFilters } from './features/filters/useFilters';
 import { Filters } from './features/filters/Filters';
 import { useHome, type HomeChoice } from './features/home/useHome';
 import { HomeForm } from './features/home/HomeForm';
-import { FacilityCard } from './components/FacilityCard';
-import { MapView } from './components/MapView';
+import { scrollToFacility } from './features/facilities/scroll-to-facility';
+import { FacilityCard } from './features/facilities/FacilityCard';
+import { MapView } from './features/map/MapView';
 
 export default function App({ data }: { data: Dataset }) {
   const summary = summarizeDataset(data);
@@ -37,9 +38,7 @@ export default function App({ data }: { data: Dataset }) {
   const select = (id: string, from: 'list' | 'map') => {
     setSelectedId(id);
     if (from === 'map') {
-      document
-        .querySelector<HTMLElement>(`[data-facility-id="${CSS.escape(id)}"]`)
-        ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      scrollToFacility(id);
     }
   };
 
