@@ -1,9 +1,3 @@
-/* Leaflet の HTML ピン用。凡例は Leaflet 以外の利用者なので、⑤ で凡例を移してから削除する。 */
-
-.route-line {
-  stroke: var(--accent);
-}
-
 .pin {
   display: grid;
   place-items: center;

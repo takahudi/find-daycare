@@ -1,45 +1,53 @@
 import { useCallback, useEffect, useRef } from 'react';
-import L from 'leaflet';
-import { useMap } from 'react-leaflet';
+import { useMap } from 'react-map-gl/maplibre';
+import type { LngLatBoundsLike } from 'maplibre-gl';
 import type { Facility, Home } from '../../schema';
+import { distanceMeters } from '../../lib/geo';
+import { boundsFor } from './map-bounds';
 
-/** 選択された施設・自宅の変化に合わせて地図を動かす */
 export function MapController({
   facilities,
   home,
   selectedId,
+  initialBounds,
 }: {
   facilities: Facility[];
   home: Home | null;
   selectedId: string | null;
+  initialBounds: LngLatBoundsLike;
 }) {
-  const map = useMap();
-  const selected = facilities.find((f) => f.id === selectedId);
-  // 自宅が変わったときだけ寄せたい（並べ替え・絞り込みのたびには動かさない）ので、一覧は ref で参照する
+  const { current: map } = useMap();
+  const selected = facilities.find((facility) => facility.id === selectedId);
+  // 自宅が変わったときだけ寄せるため、絞り込みの変更では移動しない。
   const facilitiesRef = useRef(facilities);
   useEffect(() => {
     facilitiesRef.current = facilities;
   }, [facilities]);
-
-  // スマホ幅でリストタブを表示中は地図が非表示（サイズ0）で、その状態で移動すると座標計算が NaN になり落ちる。
-  // 非表示の間に来た移動は覚えておき、地図が表示されてから実行する
+  const initialized = useRef(false);
   const pendingMove = useRef<(() => void) | null>(null);
-  // コンパイラは map だけでキャッシュするが、exhaustive-deps が明示的な同一性を要求するため残す
   const moveWhenVisible = useCallback(
     (move: () => void) => {
+      if (!map) return;
       const { clientWidth, clientHeight } = map.getContainer();
-      if (clientWidth && clientHeight) move();
+      if (initialized.current && clientWidth && clientHeight) move();
       else pendingMove.current = move;
     },
     [map],
   );
 
   useEffect(() => {
-    // サイドバー開閉・タブ切替などでコンテナサイズが変わったときにタイルを描き直す
+    if (!map) return undefined;
+    initialized.current = false;
     const observer = new ResizeObserver(() => {
-      map.invalidateSize();
       const { clientWidth, clientHeight } = map.getContainer();
-      if (pendingMove.current && clientWidth && clientHeight) {
+      if (!clientWidth || !clientHeight) return;
+      map.resize();
+      // 非表示で作られた地図の仮のサイズでは全施設の範囲が決まらない。
+      if (!initialized.current) {
+        initialized.current = true;
+        map.fitBounds(initialBounds, { duration: 0 });
+      }
+      if (pendingMove.current) {
         const move = pendingMove.current;
         pendingMove.current = null;
         move();
@@ -47,22 +55,17 @@ export function MapController({
     });
     observer.observe(map.getContainer());
     return () => observer.disconnect();
-  }, [map]);
+  }, [map, initialBounds]);
 
   useEffect(() => {
-    if (!home) return;
-    const origin = L.latLng(home.lat, home.lng);
-    const nearest = facilitiesRef.current
-      .map((f) => L.latLng(f.lat, f.lng))
-      .sort((a, b) => origin.distanceTo(a) - origin.distanceTo(b))
-      .slice(0, 5);
-    moveWhenVisible(() => map.flyToBounds(L.latLngBounds([origin, ...nearest]).pad(0.2), { duration: 0.6, maxZoom: 16 }));
+    if (!map || !home) return;
+    const nearest = [...facilitiesRef.current].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5);
+    moveWhenVisible(() => map.fitBounds(boundsFor([home, ...nearest], 0.2), { duration: 600, maxZoom: 16 }));
   }, [map, home, moveWhenVisible]);
 
   useEffect(() => {
-    if (!selected) return;
-    moveWhenVisible(() => map.flyTo([selected.lat, selected.lng], Math.max(map.getZoom(), 16), { duration: 0.6 }));
+    if (!map || !selected) return;
+    moveWhenVisible(() => map.flyTo({ center: [selected.lng, selected.lat], zoom: Math.max(map.getZoom(), 16), duration: 600 }));
   }, [map, selected, moveWhenVisible]);
-
   return null;
 }

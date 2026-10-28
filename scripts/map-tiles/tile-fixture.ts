@@ -1,4 +1,5 @@
 import { gzipSync } from 'node:zlib';
+import { readFileSync } from 'node:fs';
 import { Compression, TileType, zxyToTileId } from 'pmtiles';
 import manifest from '../../data/map/tiles.json' with { type: 'json' };
 import { MAP_AREA } from './config.ts';
@@ -7,6 +8,7 @@ import { writePMTiles } from './pmtiles-writer.ts';
 export const fixtureTiles = [
   { z: 0, x: 0, y: 0, mvt: Uint8Array.from([26, 11, 10, 7, ...Buffer.from('fixture'), 120, 2]) },
   { z: 1, x: 0, y: 0, mvt: Uint8Array.from([26, 10, 10, 6, ...Buffer.from('second'), 120, 2]) },
+  { z: 10, x: 897, y: 406, mvt: new Uint8Array(readFileSync(new URL('../../e2e/fixtures/map-label.mvt', import.meta.url))) },
 ].map((tile) => ({ ...tile, bytes: gzipSync(tile.mvt) }));
 
 export function createTileFixture() {

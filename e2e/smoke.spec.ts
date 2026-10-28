@@ -3,9 +3,9 @@ import {
   openVisibleUnlicensedPopup,
   expectUnlicensedPinShape,
   expectLicensedPinShape,
-  leafletAxe,
-  leafletContrastSummary,
-} from './leaflet.ts';
+  mapAxe,
+  mapContrastSummary,
+} from './map.ts';
 import data from '../src/data/facilities.json' with { type: 'json' };
 
 function parseCsp(header: string) {
@@ -24,7 +24,8 @@ const expectedCsp = {
   'script-src': ["'self'"],
   'style-src': ["'self'"],
   'connect-src': ["'self'", 'https://msearch.gsi.go.jp'],
-  'img-src': ["'self'", 'data:', 'https://cyberjapandata.gsi.go.jp'],
+  'img-src': ["'self'", 'data:'],
+  'worker-src': ["'self'"],
   'font-src': ["'self'"],
   'object-src': ["'none'"],
   'base-uri': ["'none'"],
@@ -45,7 +46,7 @@ test.beforeEach(async ({ page }) => {
       console.error(`CSP violation: ${event.effectiveDirective} ${event.blockedURI}`);
     });
   });
-  // 地図タイルと住所検索は外部サービスなので、テストの結果をそれらの応答に左右させない
+  // 住所検索以外に外部への通信が紛れ込まないように遮断する
   await page.route(/^https?:\/\/(?!localhost[:/])/, (route) => route.abort());
   await page.goto('/');
 });
@@ -451,9 +452,9 @@ for (const state of accessibilityStates) {
     const reps = accessibilityRepresentatives();
     await page.setViewportSize(state.viewport);
     await state.setup(page, reps);
-    const results = await leafletAxe(page, state.fullPage ? [] : await state.scope(page, reps));
+    const results = await mapAxe(page, state.fullPage ? [] : await state.scope(page, reps));
     const violations = results.flatMap((result) => result.violations);
-    const incomplete = await leafletContrastSummary(page, results);
+    const incomplete = await mapContrastSummary(page, results);
     await testInfo.attach('axe-color-contrast-incomplete', {
       body: JSON.stringify(incomplete, null, 2),
       contentType: 'application/json',
