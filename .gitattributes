@@ -13,3 +13,6 @@
 *.xlsx binary
 *.pmtiles binary
 *.zip binary
+
+*.pbf binary
+*.mvt binary
