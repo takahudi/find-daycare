@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { mapAxe } from './map.ts';
 import data from '../src/data/facilities.json' with { type: 'json' };
 
 for (const pixelRatio of [1, 2]) {
@@ -48,3 +49,45 @@ for (const pixelRatio of [1, 2]) {
     });
   });
 }
+
+test('詳細の外にある施設ピンと自宅ピンもaxeで検査する', async ({ page, context }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ latitude: 34.6937, longitude: 135.5023 });
+  await page.goto('/?facility=kita-13311');
+  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  const ready = page.locator('[aria-busy]:has(> .maplibregl-map)');
+  await expect(ready).toHaveAttribute('aria-busy', 'false');
+  await page.getByRole('button', { name: '現在地', exact: true }).click();
+  await expect(page.locator('.maplibregl-marker .pin--home')).toBeVisible();
+  await expect(ready).toHaveAttribute('aria-busy', 'false');
+  const outside = await page.evaluate(() => {
+    const map = document.querySelector('.maplibregl-map')!.getBoundingClientRect();
+    const popup = document.querySelector('.maplibregl-popup')!.getBoundingClientRect();
+    const facility = document.querySelector<HTMLElement>('.facility-marker')!;
+    const home = document.querySelector<HTMLElement>('.maplibregl-marker:has(.pin--home)')!;
+    const markers = [facility, home];
+    return markers.map((marker, index) => {
+      marker.dataset.axeProbe = 'true';
+      marker.style.transform = 'translate(' + (map.width - 45 - index * 70) + 'px, 45px)';
+      const label = marker.querySelector<HTMLElement>(index === 0 ? 'button' : '.pin--home')!;
+      label.setAttribute('role', 'button');
+      label.removeAttribute('aria-label');
+      label.removeAttribute('title');
+      label.textContent = '';
+      label.style.width = '30px';
+      label.style.height = '30px';
+      const bounds = marker.getBoundingClientRect();
+      return bounds.right <= popup.left || bounds.left >= popup.right || bounds.bottom <= popup.top || bounds.top >= popup.bottom;
+    });
+  });
+  expect(outside).toEqual([true, true]);
+  const results = await mapAxe(page, ['[data-axe-probe]']);
+  const unnamedButtons = results[0].violations
+    .filter((rule) => rule.id === 'button-name' || rule.id === 'aria-command-name')
+    .flatMap((rule) => rule.nodes);
+  expect(unnamedButtons).toHaveLength(2);
+  for (const marker of [page.locator('.facility-marker').first(), page.locator('.maplibregl-marker:has(.pin--home)')]) {
+    await expect(marker).toHaveCSS('visibility', 'visible');
+  }
+});

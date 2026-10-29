@@ -8,18 +8,26 @@ export async function mapAxe(page: Page, selectors: string[] = []) {
     return builder;
   };
   const hiddenMarkers = (await page.locator('.maplibregl-popup').isVisible())
-    ? await page.evaluateHandle(() =>
-        [...document.querySelectorAll<HTMLElement>('.maplibregl-marker')].map((element) => {
-          const previous = {
-            element,
-            value: element.style.getPropertyValue('visibility'),
-            priority: element.style.getPropertyPriority('visibility'),
-          };
-          // style要素の追加はCSPで拒否されるため、ピンの属性で背後の重なりだけを除く。
-          element.style.setProperty('visibility', 'hidden', 'important');
-          return previous;
-        }),
-      )
+    ? await page.evaluateHandle(() => {
+        const popup = document.querySelector('.maplibregl-popup')!.getBoundingClientRect();
+        return [...document.querySelectorAll<HTMLElement>('.maplibregl-marker')]
+          .filter((element) => {
+            const bounds = element.getBoundingClientRect();
+            return (
+              bounds.left < popup.right && bounds.right > popup.left && bounds.top < popup.bottom && bounds.bottom > popup.top
+            );
+          })
+          .map((element) => {
+            const previous = {
+              element,
+              value: element.style.getPropertyValue('visibility'),
+              priority: element.style.getPropertyPriority('visibility'),
+            };
+            // style要素の追加はCSPで拒否されるため、ピンの属性で背後の重なりだけを除く。
+            element.style.setProperty('visibility', 'hidden', 'important');
+            return previous;
+          });
+      })
     : null;
   const general = await scan()
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'])
