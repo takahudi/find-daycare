@@ -17,9 +17,9 @@ import './pins.css';
 
 maplibregl.setWorkerUrl(workerUrl);
 const mapStyle = createMapStyle(window.location.origin);
-// Static Assets の正規URLへ直接要求し、2x sprite の307リダイレクトを避ける。
+// Static Assets は @ を正規化するが、Vite は %40 を解決しないため、本番配信だけ書き換える。
 const transformRequest: maplibregl.RequestTransformFunction = (url) => ({
-  url: url.replace('@2x.', '%402x.'),
+  url: import.meta.env.DEV ? url : url.replace('@2x.', '%402x.'),
 });
 
 interface Props {
