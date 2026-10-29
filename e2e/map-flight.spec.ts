@@ -1,3 +1,4 @@
+import { setTimeout as delayResponse } from 'node:timers/promises';
 import { waitForLocation } from './location.ts';
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
@@ -128,7 +129,7 @@ test('同じ施設の詳細を開き直すと画面外にずらしたポップ�
 });
 
 for (const last of ['facility', 'home']) {
-  test(`自宅と施設を続けて選ぶと最後の${last === 'home' ? '自宅の範囲合わせ' : '施設選択'}が優先される`, async ({
+  test(`タイルが遅れても自宅と施設を続けて選ぶと最後の${last === 'home' ? '自宅の範囲合わせ' : '施設選択'}が優先される`, async ({
     page,
     context,
   }) => {
@@ -137,6 +138,10 @@ for (const last of ['facility', 'home']) {
     await context.setGeolocation({ latitude: home.lat, longitude: home.lng });
     await page.setViewportSize({ width: 1280, height: 500 });
     await openMap(page);
+    await page.route('**/map/tiles/**', async (route) => {
+      await delayResponse(2000);
+      await route.continue();
+    });
     await freeze(page);
     const farthest = [...data.facilities].sort((a, b) => distanceMeters(home, b) - distanceMeters(home, a))[0];
     const select = () =>
