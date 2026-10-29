@@ -107,7 +107,7 @@ test('同じ施設の詳細を開き直すと画面外にずらしたポップ�
   await expectInside(page);
   const { map } = await geometry(page);
   const x = map.right - 25,
-    y = map.bottom - 20;
+    y = map.top + map.height / 2;
   await page.mouse.move(x, y);
   await page.mouse.down();
   await page.mouse.move(x, y - 60, { steps: 10 });
@@ -149,7 +149,7 @@ for (const last of ['facility', 'home']) {
       await page.getByRole('button', { name: '現在地', exact: true }).evaluate((el) => {
         if (el instanceof HTMLElement) el.click();
       });
-      await expect(page.locator('.pin--home')).toHaveCount(1);
+      await expect(page.locator('.maplibregl-marker .pin--home')).toHaveCount(1);
     };
     if (last === 'facility') {
       await locate();
