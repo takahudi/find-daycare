@@ -55,6 +55,7 @@ export function MapController({
   useEffect(() => {
     if (!map) return undefined;
     initialized.current = false;
+    // MapLibre の自動リサイズは非表示時に仮寸法へ戻すため、MapGL の trackResize を切り、実寸だけを監視する。
     const observer = new ResizeObserver(() => {
       const { clientWidth, clientHeight } = map.getContainer();
       if (!clientWidth || !clientHeight) return;

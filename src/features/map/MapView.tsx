@@ -111,6 +111,7 @@ export function MapView({
         mapStyle={mapStyle}
         transformRequest={transformRequest}
         maxZoom={18}
+        trackResize={false}
         scrollZoom
         localIdeographFontFamily="sans-serif"
         attributionControl={false}
