@@ -190,3 +190,18 @@ test('地図より高い詳細は上端の余白を優先する', async ({ page 
   expect(popup.height).toBeGreaterThan(map.height);
   expect(Math.abs(popup.top - map.top - 8)).toBeLessThan(1);
 });
+
+test('非表示だった地図へ移ると実際の高さに合わせた位置へ飛行する', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openMap(page, true);
+  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await page.locator('article[data-facility-id="kita-13311"]').getByRole('button', { name: '地図で見る' }).click();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect
+    .poll(async () => {
+      const { map, marker } = await geometry(page);
+      return Math.abs(marker.top + marker.height / 2 - map.top - map.height / 2);
+    })
+    .toBeLessThan(1);
+  await expectInside(page);
+});
