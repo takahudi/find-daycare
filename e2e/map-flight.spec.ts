@@ -262,13 +262,40 @@ test('保留中の自宅の範囲合わせは選択施設を絞り込みで隠�
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await page.getByRole('navigation', { name: '表示切替' }).evaluate((element) => element.scrollIntoView({ block: 'start' }));
   await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toBeInViewport();
-  for (const facility of [...data.facilities]
+  // 範囲は絞り込む前の近い5施設で決まる。0歳の絞り込みで消えたピンは確かめられない。
+  const nearest = [...data.facilities]
     .sort((a, b) => distanceMeters(homeForPending, a) - distanceMeters(homeForPending, b))
-    .slice(0, 5)) {
+    .slice(0, 5)
+    .filter((facility) => facility.vacancies[0] !== null);
+  expect(nearest.length, '近い5施設に0歳を受け入れる施設がある').toBeGreaterThan(0);
+  for (const facility of nearest) {
     await expect(
       page.locator('.facility-marker').filter({ has: page.getByRole('button', { name: facility.name + '（', exact: false }) }),
     ).toBeInViewport();
   }
+});
+
+test('保留中の自宅の範囲合わせは自宅を解除すると破棄される', async ({ page, context }) => {
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ latitude: homeForPending.lat, longitude: homeForPending.lng });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openMap(page, true);
+  const viewport = () =>
+    page.evaluate(() => {
+      const map = document.querySelector('.maplibregl-map')!.getBoundingClientRect();
+      return [...document.querySelectorAll('.facility-marker')].filter((element) => {
+        const bounds = element.getBoundingClientRect();
+        return bounds.right > map.left && bounds.left < map.right && bounds.bottom > map.top && bounds.top < map.bottom;
+      }).length;
+    });
+  const before = await viewport();
+  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await locateWhileHidden(page);
+  await page.getByRole('button', { name: '解除', exact: true }).click();
+  await page.getByRole('button', { name: '地図', exact: true }).click();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toHaveCount(0);
+  expect(await viewport()).toBe(before);
 });
 
 test('保留中の施設を絞り込みで隠すとその施設への移動は破棄される', async ({ page }) => {
