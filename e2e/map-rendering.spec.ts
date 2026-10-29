@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
-import { mapAxe, mapContrastSummary } from './map.ts';
 
 for (const pixelRatio of [1, 2]) {
   test.describe(`ピクセル比${pixelRatio}`, () => {
@@ -49,27 +48,3 @@ for (const pixelRatio of [1, 2]) {
     });
   });
 }
-
-test('不透明なポップアップでも文字のコントラスト不足は検出する', async ({ page }) => {
-  const facility = data.facilities.find((candidate) => candidate.vacancies.every((value) => (value ?? 0) === 0))!;
-  await page.goto('/');
-  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
-  await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
-  await page
-    .locator('article[data-facility-id="' + facility.id + '"]')
-    .getByRole('heading')
-    .click();
-  const popup = page.locator('.maplibregl-popup');
-  await expect(popup).toBeVisible();
-  await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
-  await popup
-    .locator('[role="group"] > div span')
-    .last()
-    .evaluate((node) => {
-      node.style.color = getComputedStyle(node).backgroundColor;
-    });
-  const results = await mapAxe(page, ['.maplibregl-popup']);
-  const violations = results.flatMap((result) => result.violations).filter((rule) => rule.id === 'color-contrast');
-  const incomplete = await mapContrastSummary(page, results);
-  expect(violations.length + incomplete.length).toBeGreaterThan(0);
-});

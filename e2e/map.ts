@@ -7,10 +7,28 @@ export async function mapAxe(page: Page, selectors: string[] = []) {
     for (const selector of selectors) builder.include(selector);
     return builder;
   };
+  const hiddenMarkers = (await page.locator('.maplibregl-popup').isVisible())
+    ? await page.evaluateHandle(() =>
+        [...document.querySelectorAll<HTMLElement>('.maplibregl-marker')].map((element) => {
+          const previous = {
+            element,
+            value: element.style.getPropertyValue('visibility'),
+            priority: element.style.getPropertyPriority('visibility'),
+          };
+          // style要素の追加はCSPで拒否されるため、ピンの属性で背後の重なりだけを除く。
+          element.style.setProperty('visibility', 'hidden', 'important');
+          return previous;
+        }),
+      )
+    : null;
   const general = await scan()
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'])
     .disableRules(['target-size'])
     .analyze();
+  await hiddenMarkers?.evaluate((markers) =>
+    markers.forEach(({ element, value, priority }) => element.style.setProperty('visibility', value, priority)),
+  );
+  await hiddenMarkers?.dispose();
   // SC 2.5.8 の Essential 例外は、位置が意味を持つ MapLibre ピンのサイズだけに適用する。
   const targets = await scan().withRules(['target-size']).exclude('.maplibregl-marker:has(.pin)').analyze();
   return [general, targets];
@@ -23,49 +41,10 @@ export async function mapContrastSummary(page: Page, results: Awaited<ReturnType
       .flatMap((rule) => rule.nodes.map((node) => ({ target: node.target, reason: node.failureSummary }))),
   );
   return page.evaluate((nodes) => {
-    const popupContrastIsKnown = (node: Element | null) => {
-      if (!(node instanceof HTMLElement) || !node.closest('.maplibregl-popup')) return false;
-      const style = getComputedStyle(node);
-      const rgb = (color: string) => (/^rgba?\(/.test(color) ? color.match(/[\d.]+/g)?.map(Number) : undefined);
-      const foreground = rgb(style.color);
-      const background = rgb(style.backgroundColor);
-      if (!foreground || !background || (foreground[3] ?? 1) !== 1 || (background[3] ?? 1) !== 1 || style.textShadow !== 'none')
-        return false;
-      for (let ancestor: Element | null = node; ancestor; ancestor = ancestor.parentElement) {
-        const computed = getComputedStyle(ancestor);
-        if (computed.opacity !== '1' || computed.filter !== 'none' || computed.mixBlendMode !== 'normal') return false;
-      }
-      const range = document.createRange();
-      range.selectNodeContents(node);
-      const rectangles = [...range.getClientRects()];
-      if (
-        !rectangles.length ||
-        rectangles.some((rect) => !node.contains(document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2)))
-      )
-        return false;
-      const luminance = (color: number[]) =>
-        color
-          .slice(0, 3)
-          .map((channel) => {
-            const value = channel / 255;
-            return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
-          })
-          .reduce((sum, value, index) => sum + value * [0.2126, 0.7152, 0.0722][index], 0);
-      const light = luminance(foreground);
-      const dark = luminance(background);
-      const ratio = (Math.max(light, dark) + 0.05) / (Math.min(light, dark) + 0.05);
-      const size = parseFloat(style.fontSize);
-      const threshold = size >= 24 || (size >= 18.6667 && Number(style.fontWeight) >= 700) ? 3 : 4.5;
-      return ratio >= threshold;
-    };
-    // axe は不透明なセルの背後にあるピンも比較するため、前面の色と文字の可視性を直接確かめる。
     return nodes.filter(
       (node) =>
         !node.target.some(
-          (selector) =>
-            typeof selector === 'string' &&
-            (document.querySelector(selector)?.closest('.maplibregl-marker') ||
-              popupContrastIsKnown(document.querySelector(selector))),
+          (selector) => typeof selector === 'string' && document.querySelector(selector)?.closest('.maplibregl-marker'),
         ),
     );
   }, summary);
