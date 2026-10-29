@@ -34,11 +34,8 @@ export function MapController({
   });
   const initialized = useRef(false);
   const pendingMove = useRef<MapMove | null>(null);
-  const appliedSize = useRef({ width: 0, height: 0 });
   const resizeToContainer = useCallback(() => {
     if (!map) return;
-    const { clientWidth: width, clientHeight: height } = map.getContainer();
-    appliedSize.current = { width, height };
     map.resize();
     map.redraw();
   }, [map]);
@@ -60,9 +57,9 @@ export function MapController({
       const { clientWidth, clientHeight } = map.getContainer();
       if (initialized.current && clientWidth && clientHeight) {
         pendingMove.current = null;
-        // 移動のたびに描き直さないよう、前回合わせた寸法と違うときだけ合わせる。WebGL の復元で MapLibre が非表示中に
-        // 仮寸法へ戻した場合も、表示されたときの ResizeObserver が無条件に合わせ直す。
-        if (clientWidth !== appliedSize.current.width || clientHeight !== appliedSize.current.height) resizeToContainer();
+        // WebGL の復元が非表示の間に起きると、MapLibre は仮の 400×300 に合わせる。表示と同時の移動は
+        // ResizeObserver より先に走るので、移動の前に必ず実寸へ合わせる。
+        resizeToContainer();
         move.run();
       } else pendingMove.current = move;
     },
