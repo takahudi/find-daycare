@@ -50,3 +50,29 @@ test('ポップアップを開いたまま現在地を選ぶと自宅と近い5�
   await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
 });
 
+test('同じ段の重なったピンでは南の施設が手前になる', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/');
+  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const sameTier = data.facilities.filter((facility) => facility.vacancies.some((value) => (value ?? 0) > 0));
+  const [south, north] = [...sameTier]
+    .sort((a, b) => a.lat - b.lat)
+    .filter((_, index, all) => index === 0 || index === all.length - 1);
+  const front = await page.locator('.facility-marker').evaluateAll(
+    (markers, names) => {
+      const pair = names.map((name) =>
+        markers.find((marker) => marker.querySelector('button')!.ariaLabel!.startsWith(name + '（'))!,
+      );
+      for (const marker of pair) {
+        if (!(marker instanceof HTMLElement)) throw new Error('ピンがHTML要素ではありません');
+        marker.style.transform = 'translate(150px, 150px)';
+        marker.parentElement!.append(marker);
+      }
+      const rect = pair[0].getBoundingClientRect();
+      return document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2)?.closest('button')?.ariaLabel;
+    },
+    [south.name, north.name],
+  );
+  expect(front).toContain(south.name);
+});

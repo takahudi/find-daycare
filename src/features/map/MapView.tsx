@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
-import Map, { AttributionControl, Layer, Marker, NavigationControl, Source } from 'react-map-gl/maplibre';
+import MapGL, { AttributionControl, Layer, Marker, NavigationControl, Source } from 'react-map-gl/maplibre';
 import type { Facility, Home } from '../../schema';
 import { formatDistance } from '../../lib/geo';
 import { AGE_LABELS } from '../../lib/vacancy';
@@ -37,11 +37,13 @@ function FacilityMarker({
   facility,
   count,
   selected,
+  southRank,
   onSelect,
 }: {
   facility: Facility;
   count: number;
   selected: boolean;
+  southRank: number;
   onSelect: (id: string) => void;
 }) {
   const label = `${facility.name}（${LICENSING_LABELS[facility.licensing]}）${count > 0 ? `空き${count}人` : '空きなし'}`;
@@ -50,7 +52,7 @@ function FacilityMarker({
       longitude={facility.lng}
       latitude={facility.lat}
       className="facility-marker"
-      style={{ zIndex: selected ? 900 : count > 0 ? 100 : 0 }}
+      style={{ zIndex: (selected ? 2 : count > 0 ? 1 : 0) * 10000 + southRank }}
     >
       <button
         type="button"
@@ -87,6 +89,7 @@ export function MapView({
   const selected = facilities.find((facility) => facility.id === selectedId);
   const [popup, setPopup] = useState({ selected, open: true });
   if (popup.selected !== selected) setPopup({ selected, open: true });
+  const southRanks = new Map([...allFacilities].sort((a, b) => b.lat - a.lat).map((facility, rank) => [facility.id, rank]));
   const [initialBounds] = useState(() => boundsFor(allFacilities, 0.05));
   const distance = selected ? distanceOf(selected) : null;
   const selectMarker = (id: string) => {
@@ -95,7 +98,7 @@ export function MapView({
   };
   return (
     <div className={styles.map} aria-busy={busy}>
-      <Map
+      <MapGL
         onMoveStart={() => setBusy(true)}
         onIdle={() => setBusy(false)}
         mapLib={maplibregl}
@@ -113,7 +116,7 @@ export function MapView({
         <AttributionControl compact={false} />
         <MapController facilities={facilities} home={home} selectedId={selectedId} initialBounds={initialBounds} />
         {home && (
-          <Marker longitude={home.lng} latitude={home.lat} style={{ zIndex: 1000 }}>
+          <Marker longitude={home.lng} latitude={home.lat} style={{ zIndex: 30000 }}>
             <div className="pin pin--home" aria-label="自宅" title={home.label}>
               家
             </div>
@@ -144,6 +147,7 @@ export function MapView({
             facility={facility}
             count={vacancyOf(facility)}
             selected={facility.id === selectedId}
+            southRank={southRanks.get(facility.id)!}
             onSelect={selectMarker}
           />
         ))}
@@ -176,7 +180,7 @@ export function MapView({
             </div>
           </FacilityPopup>
         )}
-      </Map>
+      </MapGL>
     </div>
   );
 }

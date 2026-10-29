@@ -40,7 +40,7 @@ export function FacilityPopup({
       latitude={latitude}
       anchor="bottom"
       offset={18}
-      style={{ zIndex: 1100 }}
+      style={{ zIndex: 40000 }}
       maxWidth="320px"
       focusAfterOpen={false}
       onClose={onClose}
