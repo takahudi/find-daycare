@@ -34,6 +34,16 @@ export function MapController({
   });
   const initialized = useRef(false);
   const pendingMove = useRef<MapMove | null>(null);
+  // trackResize を切っているので、地図の寸法を変えるのはこのコンポーネントだけになる。
+  const appliedSize = useRef({ width: 0, height: 0 });
+  const resizeToContainer = useCallback(() => {
+    if (!map) return;
+    const { clientWidth: width, clientHeight: height } = map.getContainer();
+    if (width === appliedSize.current.width && height === appliedSize.current.height) return;
+    appliedSize.current = { width, height };
+    map.resize();
+    map.redraw();
+  }, [map]);
   const fitPopup = useCallback(() => {
     if (!map || !popupRef.current) return;
     const container = map.getContainer().getBoundingClientRect();
@@ -52,13 +62,11 @@ export function MapController({
       const { clientWidth, clientHeight } = map.getContainer();
       if (initialized.current && clientWidth && clientHeight) {
         pendingMove.current = null;
-        // oxlint-disable-next-line no-underscore-dangle -- transform の寸法を取得する公開 API がないため、6.15 の保持先を参照する。
-        const { transform } = map.getMap()._camera;
-        if (clientWidth !== transform.width || clientHeight !== transform.height) map.resize();
+        resizeToContainer();
         move.run();
       } else pendingMove.current = move;
     },
-    [map],
+    [map, resizeToContainer],
   );
 
   useEffect(() => {
@@ -68,8 +76,7 @@ export function MapController({
     const observer = new ResizeObserver(() => {
       const { clientWidth, clientHeight } = map.getContainer();
       if (!clientWidth || !clientHeight) return;
-      map.resize();
-      map.redraw();
+      resizeToContainer();
       // 非表示で作られた地図の仮のサイズでは全施設の範囲が決まらない。
       if (!initialized.current) {
         initialized.current = true;
@@ -83,7 +90,7 @@ export function MapController({
     });
     observer.observe(map.getContainer());
     return () => observer.disconnect();
-  }, [map, initialBounds]);
+  }, [map, initialBounds, resizeToContainer]);
 
   useEffect(() => {
     if (!map) return undefined;
@@ -91,7 +98,9 @@ export function MapController({
     const selectionChanged = previous.selected !== selected;
     const homeChanged = previous.home !== home;
     previousView.current = { home, selected, popupOpen };
-    if (selectionChanged && !selected && pendingMove.current?.kind !== 'home') pendingMove.current = null;
+    // 行き先が消えた保留中の移動だけを捨てる。
+    const pendingKind = pendingMove.current?.kind;
+    if (pendingKind === 'home' ? homeChanged && !home : selectionChanged && !selected) pendingMove.current = null;
 
     let move: MapMove;
     if (selectionChanged && selected) {
