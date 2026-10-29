@@ -277,7 +277,7 @@ pnpm build
 pnpm exec wrangler dev --config wrangler.jsonc --assets dist/client --local --persist-to .wrangler/state
 ```
 
-`@cloudflare/vite-plugin` 1.64.0 と 1.65.0 の開発経路では、gzip 応答を展開した本文と圧縮時の Content-Length が混在し、タイルの取得が失敗します。`pnpm dev` は同じローカル R2 を読みますが、タイルの確認には上のコマンドを使ってください。
+`pnpm dev` も同じローカル R2 を使い、タイルを表示できます。`@cloudflare/vite-plugin` 1.64.0 は Miniflare が展開した応答にも圧縮時の Content-Length を送るため、`mf-content-encoding` がある応答では Content-Length を省く pnpm パッチを適用しています。プラグイン更新でパッチが当たらない場合はインストールが失敗します。
 
 `map:archive` はローカルファイルのSHA-256とバイト数を記録と照合し、`tiles/osaka-<build>.pmtiles` に保管します。同じSHA-256で保管済みなら省略し、異なれば上書きせず停止します。新規のPUTには `If-None-Match: *` とSHA-256のメタデータを付け、保管後もHEADで確認します。通信障害や途中失敗のあとには同じコマンドを再実行できます。
 

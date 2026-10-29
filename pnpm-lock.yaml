@@ -162,6 +162,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@cloudflare/vite-plugin@1.64.0': 56a206160377641d7ef2a9c3726481d5bdac8d63a73717b7b844817bedb3094e
+
 importers:
 
   .:
@@ -199,7 +202,7 @@ importers:
         version: 8.0.9
       '@cloudflare/vite-plugin':
         specifier: ^1.64.0
-        version: 1.64.0(@types/node@24.19.2)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2))(wrangler@4.151.3(@types/node@24.19.2))
+        version: 1.64.0(patch_hash=56a206160377641d7ef2a9c3726481d5bdac8d63a73717b7b844817bedb3094e)(@types/node@24.19.2)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2))(wrangler@4.151.3(@types/node@24.19.2))
       '@mapbox/vector-tile':
         specifier: 3.0.0
         version: 3.0.0
@@ -2369,7 +2372,7 @@ snapshots:
     optionalDependencies:
       workerd: 1.20261019.1
 
-  '@cloudflare/vite-plugin@1.64.0(@types/node@24.19.2)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2))(wrangler@4.151.3(@types/node@24.19.2))':
+  '@cloudflare/vite-plugin@1.64.0(patch_hash=56a206160377641d7ef2a9c3726481d5bdac8d63a73717b7b844817bedb3094e)(@types/node@24.19.2)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2))(wrangler@4.151.3(@types/node@24.19.2))':
     dependencies:
       '@cloudflare/unenv-preset': 2.16.2(unenv@2.0.0-rc.24)(workerd@1.20261012.1)
       miniflare: 5.20261012.0-beta(@types/node@24.19.2)
