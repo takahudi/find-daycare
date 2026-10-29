@@ -149,6 +149,7 @@ export function MapView({
         ))}
         {selected && popup.open && (
           <FacilityPopup
+            key={selected.id}
             longitude={selected.lng}
             latitude={selected.lat}
             onClose={() => setPopup((current) => ({ ...current, open: false }))}

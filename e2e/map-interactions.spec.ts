@@ -1,0 +1,52 @@
+import { expect, test, type Page } from '@playwright/test';
+import data from '../src/data/facilities.json' with { type: 'json' };
+import { distanceMeters } from '../src/lib/geo.ts';
+
+const ready = (page: Page) => page.locator('[aria-busy]:has(> .maplibregl-map)');
+async function openFacility(page: Page, id: string) {
+  await page.goto('/?facility=' + id);
+  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  await expect(page.locator('.maplibregl-popup')).toBeVisible();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+}
+
+test('ポップアップを開いたままドラッグしても地図の位置が引き戻されない', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await openFacility(page, data.facilities[0].id);
+  const marker = page.locator('.facility-marker:has(.pin--selected)');
+  const before = (await marker.boundingBox())!;
+  const canvas = (await page.locator('.maplibregl-canvas').boundingBox())!;
+  const x = canvas.x + canvas.width - 25;
+  const y = canvas.y + canvas.height - 60;
+  await page.mouse.move(x, y);
+  await page.mouse.down();
+  await page.mouse.move(x - 400, y, { steps: 30 });
+  // マウスを止めてから離し、慣性による移動とポップアップの引き戻しを区別する。
+  await page.waitForTimeout(200);
+  await page.mouse.up();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect.poll(async () => Math.abs((await marker.boundingBox())!.x - (before.x - 400))).toBeLessThan(5);
+  await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
+});
+
+test('ポップアップを開いたまま現在地を選ぶと自宅と近い5施設が地図に収まる', async ({ page, context }) => {
+  const home = { lat: 34.6937, lng: 135.5023 };
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ latitude: home.lat, longitude: home.lng });
+  await page.setViewportSize({ width: 1280, height: 800 });
+  const farthest = [...data.facilities].sort((a, b) => distanceMeters(home, b) - distanceMeters(home, a))[0];
+  await openFacility(page, farthest.id);
+  await page.getByRole('button', { name: '現在地', exact: true }).click();
+  await expect(page.locator('.maplibregl-marker .pin--home')).toBeVisible();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toBeInViewport();
+  const nearest = [...data.facilities].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5);
+  for (const facility of nearest) {
+    const marker = page
+      .locator('.facility-marker')
+      .filter({ has: page.getByRole('button', { name: facility.name + '（', exact: false }) });
+    await expect(marker).toBeInViewport();
+  }
+  await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
+});
+

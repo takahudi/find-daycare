@@ -26,11 +26,10 @@ export function FacilityPopup({
       const dy = Math.min(0, bounds.top - container.top - 8) + Math.max(0, bounds.bottom - container.bottom + 8);
       if (Math.abs(dx) > 1 || Math.abs(dy) > 1) map.panBy([dx, dy], { duration: 0 });
     };
-    const observer = new ResizeObserver(keepVisible);
-    observer.observe(element);
-    map.on('moveend', keepVisible);
+    // 選択時の flyTo を待つ。常設すると、その後のドラッグや現在地への移動まで引き戻してしまう。
+    if (map.isMoving()) map.once('moveend', keepVisible);
+    else keepVisible();
     return () => {
-      observer.disconnect();
       map.off('moveend', keepVisible);
     };
   }, [map]);
