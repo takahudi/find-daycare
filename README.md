@@ -240,7 +240,7 @@ Windowsで使用中のファイルによるrename失敗は、合計約9秒を上
 
 ## 地図タイルを作る・保管する
 
-Protomapsの日次ビルドから、大阪市の範囲 `[135.36, 34.56, 135.62, 34.77]`（西・南・東・北）にかかるz0〜15のタイルを切り出します。範囲とズームは `scripts/map-tiles/config.ts` で定義します。Worker は `data/map/tiles.json` の build と保管先を使い、gzip の MVT を配信します。画面は MapLibre GL JS と react-map-gl/maplibre で表示し、@protomaps/basemaps の light スタイルを日本語で使います。元タイルの最大ズーム15を超える部分は、18まで拡大して描画します。
+Protomapsの日次ビルドから、大阪市の範囲 `[135.36, 34.56, 135.62, 34.77]`（西・南・東・北）にかかるz0〜15のタイルを切り出します。範囲とズームは `scripts/map-tiles/config.ts` で定義します。Worker は `data/map/tiles.json` の build と保管先を使い、gzip の MVT を配信します。画面は MapLibre GL JS と react-map-gl/maplibre で表示し、@protomaps/basemaps の light スタイルを日本語で使います。元タイルの最大ズーム15を超える部分は、17まで拡大して描画します。MapLibre のズームは512pxのタイルが基準なので、以前の Leaflet（256px）の18と同じ縮尺です。
 
 Leaflet から変わった点として、施設のポップアップは凡例より手前に表示します。施設名や空き人数が凡例で隠れないようにするためです。施設を選ぶと、ポップアップの実寸と上端8pxの余白を含めて地図内に収まる位置へ移動します。地図より高いポップアップでは上端の余白を優先します。
 

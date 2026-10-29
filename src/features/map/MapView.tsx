@@ -110,7 +110,7 @@ export function MapView({
         mapLib={maplibregl}
         mapStyle={mapStyle}
         transformRequest={transformRequest}
-        maxZoom={18}
+        maxZoom={17}
         trackResize={false}
         scrollZoom
         localIdeographFontFamily="sans-serif"

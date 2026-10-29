@@ -7,6 +7,8 @@ import { boundsFor } from './map-bounds';
 import { POPUP_OFFSET } from './FacilityPopup';
 
 const POPUP_MARGIN = 8;
+// MapLibre のズームは 512px のタイルが基準なので、以前の Leaflet（256px）の16と同じ縮尺は15になる。
+const DETAIL_ZOOM = 15;
 
 type MapMove = { kind: 'selection' | 'home' | 'popup'; run: () => void };
 
@@ -108,7 +110,7 @@ export function MapController({
           const offsetY = height ? Math.max(0, height + POPUP_OFFSET + POPUP_MARGIN - map.getContainer().clientHeight / 2) : 0;
           map.flyTo({
             center: [selected.lng, selected.lat],
-            zoom: Math.max(map.getZoom(), 16),
+            zoom: Math.max(map.getZoom(), DETAIL_ZOOM),
             duration: 600,
             offset: [0, offsetY],
           });
@@ -116,7 +118,10 @@ export function MapController({
       };
     } else if (homeChanged && home) {
       const nearest = [...facilities].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5);
-      move = { kind: 'home', run: () => map.fitBounds(boundsFor([home, ...nearest], 0.2), { duration: 600, maxZoom: 16 }) };
+      move = {
+        kind: 'home',
+        run: () => map.fitBounds(boundsFor([home, ...nearest], 0.2), { duration: 600, maxZoom: DETAIL_ZOOM }),
+      };
     } else if (popupOpen && !previous.popupOpen) {
       move = { kind: 'popup', run: fitPopup };
     } else return undefined;
