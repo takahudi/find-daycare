@@ -31,6 +31,7 @@
     "map:archive": "node scripts/map-tiles/archive.ts",
     "map:local": "node scripts/map-tiles/local.ts",
     "map:fixture": "node scripts/map-tiles/seed-e2e.ts",
+    "map:glyphs": "node scripts/map-assets/scan-glyphs.ts",
     "map:assets": "node scripts/map-assets/sync.ts"
   },
   "dependencies": {
@@ -47,6 +48,8 @@
     "@axe-core/playwright": "^4.14.0",
     "@babel/core": "^8.0.9",
     "@cloudflare/vite-plugin": "^1.64.0",
+    "@mapbox/vector-tile": "3.0.0",
+    "@maplibre/maplibre-gl-style-spec": "26.4.4",
     "@playwright/test": "^1.64.1",
     "@rolldown/plugin-babel": "^0.2.4",
     "@types/node": "^24.19.2",
@@ -59,6 +62,7 @@
     "oxfmt": "^0.74.0",
     "oxlint": "^1.88.0",
     "oxlint-tsgolint": "^7.0.2004",
+    "pbf": "5.1.2",
     "pdfjs-dist": "^6.4.299",
     "typescript": "~7.0.2",
     "vite": "^8.3.4",

@@ -283,7 +283,7 @@ pnpm exec wrangler dev --config wrangler.jsonc --assets dist/client --local --pe
 
 タイルの出典は [Protomaps Basemap](https://docs.protomaps.com/basemaps/downloads) と [OpenStreetMap contributors](https://www.openstreetmap.org/copyright) です。OpenStreetMapのデータは [Open Database License（ODbL）](https://opendatacommons.org/licenses/odbl/) に従います。切り出したPMTilesにも元の出典メタデータを残します。地図を表示する際にはOpenStreetMapの出典を表示します。
 
-フォントとアイコン画像は [basemaps-assets](https://github.com/protomaps/basemaps-assets/tree/028c18f713baecad011301ff7a69acc39bcc2ae7) の固定コミットから取得し、Worker の静的アセットとして同じオリジンから配信します。取得し直すときは `pnpm map:assets` を実行してください。`data/map/assets.json` にコミット、fontstack、範囲、ファイルごとのバイト数とSHA-256を記録しています。スタイルが使う4つのfontstackの `0-255`、`256-511`、`8192-8447` だけを配信し、日本語の文字は `localIdeographFontFamily: 'sans-serif'` で端末のフォントを使います。
+フォントとアイコン画像は [basemaps-assets](https://github.com/protomaps/basemaps-assets/tree/028c18f713baecad011301ff7a69acc39bcc2ae7) の固定コミットから取得し、Worker の静的アセットとして同じオリジンから配信します。取得し直すときは `pnpm map:assets` を実行してください。`data/map/assets.json` にコミット、fontstack、範囲、ファイルごとのバイト数とSHA-256を記録しています。必要な範囲は `pnpm map:glyphs` でローカルの実PMTilesの全ラベルを走査し、`data/map/glyph-coverage.json` にfontstackごとに記録します。タイルを更新するときは走査後に `pnpm map:assets` を実行してください。基礎ラテン文字と一般句読点に加え、記録した範囲を配信します。上流にない補助異体字セレクタの範囲は空のfontstackを持つPBFを生成し、基底文字を表示します。日本語の文字は `localIdeographFontFamily: 'sans-serif'` で端末のフォントを使います。
 
 Noto Sans の glyphs は [SIL Open Font License 1.1](public/map/assets/fonts/OFL.txt)、v4 light の sprite は [MIT License](https://github.com/tangrams/icons/blob/master/LICENSE.md) に従います。sprite は1xと2xを同梱します。MapLibre 6 のESM workerをViteのアセットとして出力し、`setWorkerUrl` で指定するため、CSPの `worker-src 'self'` で動作します。
 
