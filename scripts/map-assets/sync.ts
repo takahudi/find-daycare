@@ -4,23 +4,29 @@ import { dirname } from 'node:path';
 import coverage from '../../data/map/glyph-coverage.json' with { type: 'json' };
 
 const commit = '028c18f713baecad011301ff7a69acc39bcc2ae7';
+const missingUpstreamRanges = new Map([
+  ['917760-918015', '上流にない補助異体字セレクタの範囲。glyphを持たないfontstackを生成する。'],
+]);
 const fontstacks = Object.keys(coverage.requiredRanges);
 const ranges = ['0-255', '256-511', '8192-8447'];
 const paths = [
   ...Object.entries(coverage.requiredRanges).flatMap(([font, required]) =>
-    [...new Set([...ranges, ...required])].map((range) => `fonts/${font}/${range}.pbf`),
+    [...new Set([...ranges, ...required])].map((range) => ({ path: `fonts/${font}/${range}.pbf`, range })),
   ),
-  'fonts/OFL.txt',
-  ...['.json', '.png', '@2x.json', '@2x.png'].map((suffix) => `sprites/v4/light${suffix}`),
+  ...['fonts/OFL.txt', ...['.json', '.png', '@2x.json', '@2x.png'].map((suffix) => `sprites/v4/light${suffix}`)].map((path) => ({
+    path,
+    range: null,
+  })),
 ];
 const files = [];
 const generated = [];
-for (const path of paths) {
+for (const { path, range } of paths) {
   let bytes: Uint8Array;
-  if (path.endsWith('/917760-918015.pbf')) {
+  const reason = range === null ? undefined : missingUpstreamRanges.get(range);
+  if (reason) {
     // 上流は補助異体字セレクタを持たない。空の fontstack を返し、基底文字は通常どおり描く。
     bytes = Uint8Array.of(0x0a, 0x00);
-    generated.push({ path, reason: '上流にない補助異体字セレクタの範囲。glyphを持たないfontstackを生成する。' });
+    generated.push({ path, reason });
   } else {
     const response = await fetch(`https://raw.githubusercontent.com/protomaps/basemaps-assets/${commit}/${path}`);
     if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
