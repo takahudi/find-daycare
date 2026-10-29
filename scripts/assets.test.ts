@@ -12,6 +12,7 @@ it('施設データだけの更新ではJSONのURLだけが変わり、JSのURL�
   const fixture = await fs.mkdtemp(path.join(audit, 'assets-test-'));
   try {
     await fs.cp(path.join(root, 'src'), path.join(fixture, 'src'), { recursive: true });
+    await fs.cp(path.join(root, 'data/map'), path.join(fixture, 'data/map'), { recursive: true });
     await fs.copyFile(path.join(root, 'index.html'), path.join(fixture, 'index.html'));
     const compile = async () => {
       await build({

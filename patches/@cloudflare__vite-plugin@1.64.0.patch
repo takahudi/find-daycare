@@ -1,0 +1,12 @@
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 4db449979904e136249dbd5a4a4d82a9d66376c8..a4fc12576973bc2a01c5eb329d9d40acf95465b3 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -54099,6 +54099,7 @@ async function sendResponse(res, response) {
+ 	for (let [key, value] of response.headers) if (key in headers) if (Array.isArray(headers[key])) headers[key].push(value);
+ 	else headers[key] = [headers[key], value];
+ 	else headers[key] = value;
++	if (response.headers.has("mf-content-encoding")) delete headers["content-length"];
+ 	res.writeHead(response.status, headers);
+ 	if (response.body != null && res.req.method !== "HEAD") {
+ 		for await (let chunk of readStream(response.body)) if (res.write(chunk) === false) await new Promise((resolve$4) => {

@@ -237,7 +237,7 @@ test('初期地図は URL の絞り込みや0件にかかわらず全施設の�
   const abeno = data.facilities.find((f) => f.ward === 'abeno')!;
   const kita = data.facilities.find((f) => f.ward === 'kita')!;
   const transform = async (name: string) =>
-    page.locator('.leaflet-marker-icon').evaluateAll(
+    page.locator('.maplibregl-marker').evaluateAll(
       (nodes, facilityName) =>
         nodes
           .find((node) =>

@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
-import { leafletAxe, leafletContrastSummary } from './leaflet.ts';
+import { mapAxe, mapContrastSummary } from './map.ts';
 
 const badge = '入所日を過ぎた空き情報';
 const warning = (page: Page) => page.getByRole('note', { name: '入所日を過ぎた空き情報' });
@@ -12,26 +12,27 @@ async function expectAccessible(
   page: Page,
   selectors: string[] = ['header:has(h1)', 'article[data-facility-id="' + licensed.id + '"]'],
 ) {
-  const results = await leafletAxe(page, selectors);
+  const results = await mapAxe(page, selectors);
   expect(results.flatMap((result) => result.violations)).toEqual([]);
-  expect(await leafletContrastSummary(page, results)).toEqual([]);
+  expect(await mapContrastSummary(page, results)).toEqual([]);
 }
 
 async function showPopup(page: Page, mobile: boolean) {
   if (mobile) await page.getByRole('button', { name: '地図', exact: true }).click();
+  await expect(page.locator('.maplibregl-marker:has(.pin--selected)')).toHaveCount(1);
   const popup = page.getByRole('group', { name: '施設の詳細' });
-  await expect(popup).toBeVisible();
   await page.getByRole('region', { name: '地図', exact: true }).scrollIntoViewIfNeeded();
-  // Leaflet の flyTo は Date.now を使うため、停止した時計でも地図移動を完了させる。
-  await page.clock.runFor(1_000);
-  await page.locator('.leaflet-marker-icon:has(.pin--selected)').click();
-  await page.clock.runFor(300);
-  await expect(page.locator('.leaflet-popup')).toHaveCount(0);
-  await page.locator('.leaflet-marker-icon:has(.pin--selected)').click();
+  // 停止した時計でも地図の移動とポップアップの配置を完了させる。
   await page.clock.runFor(1_000);
   await expect(popup).toBeVisible();
-  await expect(page.locator('.leaflet-popup')).toHaveCSS('opacity', '1');
-  await expect(page.locator('.leaflet-popup')).toBeInViewport({ ratio: 1 });
+  await page.locator('.maplibregl-marker:has(.pin--selected)').click();
+  await page.clock.runFor(300);
+  await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
+  await page.locator('.maplibregl-marker:has(.pin--selected)').click();
+  await page.clock.runFor(1_000);
+  await expect(popup).toBeVisible();
+  await expect(page.locator('.maplibregl-popup')).toHaveCSS('opacity', '1');
+  await expect(page.locator('.maplibregl-popup')).toBeInViewport({ ratio: 1 });
   return popup;
 }
 
@@ -97,7 +98,7 @@ for (const [device, viewport, mobile] of [
     const popup = await showPopup(page, mobile);
     await expect(popup).toContainText(licensed.name);
     await expect(popup.getByText(badge, { exact: true })).toBeVisible();
-    await expectAccessible(page, ['.leaflet-popup']);
+    await expectAccessible(page, ['.maplibregl-popup']);
     await page.goto('/?facility=' + corporate.id);
     const corporatePopup = await showPopup(page, mobile);
     await expect(corporatePopup).toContainText(corporate.name);
@@ -129,7 +130,7 @@ for (const [device, viewport, mobile] of [
     await expectAccessible(page);
     const popup = await showPopup(page, mobile);
     await expect(popup.getByText(badge, { exact: true })).toBeVisible();
-    await expectAccessible(page, ['.leaflet-popup']);
+    await expectAccessible(page, ['.maplibregl-popup']);
     await page.goto('/?facility=' + fresh.id);
     const freshPopup = await showPopup(page, mobile);
     await expect(freshPopup).toContainText(fresh.name);
@@ -153,7 +154,7 @@ for (const [device, viewport, mobile] of [
     await expectAccessible(page);
     const popup = await showPopup(page, mobile);
     await expect(popup.getByText(badge, { exact: true })).toBeVisible();
-    await expectAccessible(page, ['.leaflet-popup']);
+    await expectAccessible(page, ['.maplibregl-popup']);
   });
 }
 
@@ -195,9 +196,9 @@ for (const event of ['visibilitychange', 'pageshow', 'focus'] as const) {
     await page.clock.pauseAt(before);
     await page.goto('/');
     await expectLoaded(page);
-    await expect(page.locator('.leaflet-marker-icon .pin')).toHaveCount(data.facilities.length);
+    await expect(page.locator('.maplibregl-marker .pin')).toHaveCount(data.facilities.length);
     const elements = await page.evaluateHandle(() => ({
-      markers: [...document.querySelectorAll('.leaflet-marker-icon .pin')],
+      markers: [...document.querySelectorAll('.maplibregl-marker .pin')],
       cards: [...document.querySelectorAll('article, article *')],
     }));
     try {
@@ -220,7 +221,7 @@ for (const event of ['visibilitychange', 'pageshow', 'focus'] as const) {
             );
           };
           return {
-            markers: sameElements('.leaflet-marker-icon .pin', previous.markers),
+            markers: sameElements('.maplibregl-marker .pin', previous.markers),
             cards: sameElements('article, article *', previous.cards),
           };
         }, elements),

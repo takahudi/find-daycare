@@ -9,3 +9,6 @@ allowBuilds:
   esbuild: false
   # workerd resolves its optional platform binary without the install-time optimization
   workerd: false
+
+patchedDependencies:
+  '@cloudflare/vite-plugin@1.64.0': patches/@cloudflare__vite-plugin@1.64.0.patch

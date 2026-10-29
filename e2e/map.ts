@@ -1,37 +1,61 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, type Locator, type Page } from '@playwright/test';
 
-export async function leafletAxe(page: Page, selectors: string[] = []) {
+export async function mapAxe(page: Page, selectors: string[] = []) {
   const scan = () => {
     const builder = new AxeBuilder({ page });
     for (const selector of selectors) builder.include(selector);
     return builder;
   };
+  const hiddenMarkers = (await page.locator('.maplibregl-popup').isVisible())
+    ? await page.evaluateHandle(() => {
+        const popup = document.querySelector('.maplibregl-popup')!.getBoundingClientRect();
+        return [...document.querySelectorAll<HTMLElement>('.maplibregl-marker')]
+          .filter((element) => {
+            const bounds = element.getBoundingClientRect();
+            return (
+              bounds.left < popup.right && bounds.right > popup.left && bounds.top < popup.bottom && bounds.bottom > popup.top
+            );
+          })
+          .map((element) => {
+            const previous = {
+              element,
+              value: element.style.getPropertyValue('visibility'),
+              priority: element.style.getPropertyPriority('visibility'),
+            };
+            // style要素の追加はCSPで拒否されるため、ピンの属性で背後の重なりだけを除く。
+            element.style.setProperty('visibility', 'hidden', 'important');
+            return previous;
+          });
+      })
+    : null;
   const general = await scan()
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'])
     .disableRules(['target-size'])
     .analyze();
-  // SC 2.5.8 の Essential 例外は、位置が意味を持つ Leaflet ピンのサイズだけに適用する。
-  const targets = await scan().withRules(['target-size']).exclude('.leaflet-marker-icon').analyze();
+  await hiddenMarkers?.evaluate((markers) =>
+    markers.forEach(({ element, value, priority }) => element.style.setProperty('visibility', value, priority)),
+  );
+  await hiddenMarkers?.dispose();
+  // SC 2.5.8 の Essential 例外は、位置が意味を持つ MapLibre ピンのサイズだけに適用する。
+  const targets = await scan().withRules(['target-size']).exclude('.maplibregl-marker:has(.pin)').analyze();
   return [general, targets];
 }
 
-export async function leafletContrastSummary(page: Page, results: Awaited<ReturnType<typeof leafletAxe>>) {
+export async function mapContrastSummary(page: Page, results: Awaited<ReturnType<typeof mapAxe>>) {
   const summary = results.flatMap((result) =>
     result.incomplete
       .filter((rule) => rule.id === 'color-contrast')
       .flatMap((rule) => rule.nodes.map((node) => ({ target: node.target, reason: node.failureSummary }))),
   );
-  return page.evaluate(
-    (nodes) =>
-      nodes.filter(
-        (node) =>
-          !node.target.some(
-            (selector) => typeof selector === 'string' && document.querySelector(selector)?.closest('.leaflet-marker-icon'),
-          ),
-      ),
-    summary,
-  );
+  return page.evaluate((nodes) => {
+    return nodes.filter(
+      (node) =>
+        !node.target.some(
+          (selector) => typeof selector === 'string' && document.querySelector(selector)?.closest('.maplibregl-marker'),
+        ),
+    );
+  }, summary);
 }
 
 export async function expectUnlicensedPinShape(map: Locator) {
@@ -73,5 +97,5 @@ export async function openVisibleUnlicensedPopup(map: Locator) {
   );
   expect(index, '地図内に操作できる認可外ピンがある').toBeGreaterThanOrEqual(0);
   await pins.nth(index).click();
-  await expect(map.locator('.leaflet-popup')).toHaveCSS('opacity', '1');
+  await expect(map.locator('.maplibregl-popup')).toHaveCSS('opacity', '1');
 }

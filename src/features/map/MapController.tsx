@@ -1,68 +1,142 @@
-import { useCallback, useEffect, useRef } from 'react';
-import L from 'leaflet';
-import { useMap } from 'react-leaflet';
+import { useCallback, useEffect, useRef, type RefObject } from 'react';
+import { useMap } from 'react-map-gl/maplibre';
+import type { LngLatBoundsLike, Popup } from 'maplibre-gl';
 import type { Facility, Home } from '../../schema';
+import { distanceMeters } from '../../lib/geo';
+import { boundsFor } from './map-bounds';
+import { POPUP_OFFSET } from './FacilityPopup';
 
-/** 選択された施設・自宅の変化に合わせて地図を動かす */
+const POPUP_MARGIN = 8;
+// MapLibre のズームは 512px のタイルが基準なので、以前の Leaflet（256px）の16と同じ縮尺は15になる。
+const DETAIL_ZOOM = 15;
+
+type MapMove = { kind: 'selection' | 'home' | 'popup'; run: () => void };
+
 export function MapController({
   facilities,
   home,
   selectedId,
+  initialBounds,
+  popupRef,
+  popupOpen,
 }: {
   facilities: Facility[];
   home: Home | null;
   selectedId: string | null;
+  initialBounds: LngLatBoundsLike;
+  popupRef: RefObject<Popup | null>;
+  popupOpen: boolean;
 }) {
-  const map = useMap();
-  const selected = facilities.find((f) => f.id === selectedId);
-  // 自宅が変わったときだけ寄せたい（並べ替え・絞り込みのたびには動かさない）ので、一覧は ref で参照する
-  const facilitiesRef = useRef(facilities);
-  useEffect(() => {
-    facilitiesRef.current = facilities;
-  }, [facilities]);
-
-  // スマホ幅でリストタブを表示中は地図が非表示（サイズ0）で、その状態で移動すると座標計算が NaN になり落ちる。
-  // 非表示の間に来た移動は覚えておき、地図が表示されてから実行する
-  const pendingMove = useRef<(() => void) | null>(null);
-  // コンパイラは map だけでキャッシュするが、exhaustive-deps が明示的な同一性を要求するため残す
+  const { current: map } = useMap();
+  const selected = facilities.find((facility) => facility.id === selectedId);
+  const previousView = useRef<{ home: Home | null; selected: Facility | undefined; popupOpen: boolean }>({
+    home: null,
+    selected: undefined,
+    popupOpen: false,
+  });
+  const initialized = useRef(false);
+  const pendingMove = useRef<MapMove | null>(null);
+  const resizeToContainer = useCallback(() => {
+    if (!map) return;
+    map.resize();
+    map.redraw();
+  }, [map]);
+  const fitPopup = useCallback(() => {
+    if (!map || !popupRef.current) return;
+    const container = map.getContainer().getBoundingClientRect();
+    const bounds = popupRef.current.getElement().getBoundingClientRect();
+    const dx =
+      Math.min(0, bounds.left - container.left - POPUP_MARGIN) + Math.max(0, bounds.right - container.right + POPUP_MARGIN);
+    const dy =
+      bounds.height > container.height - POPUP_MARGIN * 2
+        ? bounds.top - container.top - POPUP_MARGIN
+        : Math.min(0, bounds.top - container.top - POPUP_MARGIN) + Math.max(0, bounds.bottom - container.bottom + POPUP_MARGIN);
+    if (Math.abs(dx) > 1 || Math.abs(dy) > 1) map.panBy([dx, dy], { duration: 0 });
+  }, [map, popupRef]);
   const moveWhenVisible = useCallback(
-    (move: () => void) => {
+    (move: MapMove) => {
+      if (!map) return;
       const { clientWidth, clientHeight } = map.getContainer();
-      if (clientWidth && clientHeight) move();
-      else pendingMove.current = move;
+      if (initialized.current && clientWidth && clientHeight) {
+        pendingMove.current = null;
+        // WebGL の復元が非表示の間に起きると、MapLibre は仮の 400×300 に合わせる。表示と同時の移動は
+        // ResizeObserver より先に走るので、移動の前に必ず実寸へ合わせる。
+        resizeToContainer();
+        move.run();
+      } else pendingMove.current = move;
     },
-    [map],
+    [map, resizeToContainer],
   );
 
   useEffect(() => {
-    // サイドバー開閉・タブ切替などでコンテナサイズが変わったときにタイルを描き直す
+    if (!map) return undefined;
+    initialized.current = false;
+    // MapLibre の自動リサイズは非表示時に仮寸法へ戻すため、MapGL の trackResize を切り、実寸だけを監視する。
     const observer = new ResizeObserver(() => {
-      map.invalidateSize();
       const { clientWidth, clientHeight } = map.getContainer();
-      if (pendingMove.current && clientWidth && clientHeight) {
+      if (!clientWidth || !clientHeight) return;
+      resizeToContainer();
+      // 非表示で作られた地図の仮のサイズでは全施設の範囲が決まらない。
+      if (!initialized.current) {
+        initialized.current = true;
+        map.fitBounds(initialBounds, { duration: 0 });
+      }
+      if (pendingMove.current) {
         const move = pendingMove.current;
         pendingMove.current = null;
-        move();
+        move.run();
       }
     });
     observer.observe(map.getContainer());
     return () => observer.disconnect();
-  }, [map]);
+  }, [map, initialBounds, resizeToContainer]);
 
   useEffect(() => {
-    if (!home) return;
-    const origin = L.latLng(home.lat, home.lng);
-    const nearest = facilitiesRef.current
-      .map((f) => L.latLng(f.lat, f.lng))
-      .sort((a, b) => origin.distanceTo(a) - origin.distanceTo(b))
-      .slice(0, 5);
-    moveWhenVisible(() => map.flyToBounds(L.latLngBounds([origin, ...nearest]).pad(0.2), { duration: 0.6, maxZoom: 16 }));
-  }, [map, home, moveWhenVisible]);
+    if (!map) return undefined;
+    const previous = previousView.current;
+    const selectionChanged = previous.selected !== selected;
+    const homeChanged = previous.home !== home;
+    previousView.current = { home, selected, popupOpen };
+    // 行き先が消えた保留中の移動だけを捨てる。
+    const pendingKind = pendingMove.current?.kind;
+    if (pendingKind === 'home' ? homeChanged && !home : selectionChanged && !selected) pendingMove.current = null;
 
-  useEffect(() => {
-    if (!selected) return;
-    moveWhenVisible(() => map.flyTo([selected.lat, selected.lng], Math.max(map.getZoom(), 16), { duration: 0.6 }));
-  }, [map, selected, moveWhenVisible]);
+    let move: MapMove;
+    if (selectionChanged && selected) {
+      move = {
+        kind: 'selection',
+        run: () => {
+          const height = popupRef.current?.getElement().offsetHeight ?? 0;
+          const offsetY = height ? Math.max(0, height + POPUP_OFFSET + POPUP_MARGIN - map.getContainer().clientHeight / 2) : 0;
+          map.flyTo({
+            center: [selected.lng, selected.lat],
+            zoom: Math.max(map.getZoom(), DETAIL_ZOOM),
+            duration: 600,
+            offset: [0, offsetY],
+          });
+        },
+      };
+    } else if (homeChanged && home) {
+      const nearest = [...facilities].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5);
+      move = {
+        kind: 'home',
+        run: () => map.fitBounds(boundsFor([home, ...nearest], 0.2), { duration: 600, maxZoom: DETAIL_ZOOM }),
+      };
+    } else if (popupOpen && !previous.popupOpen) {
+      move = { kind: 'popup', run: fitPopup };
+    } else return undefined;
 
+    const run = () => moveWhenVisible(move);
+    const popup = popupRef.current;
+    // react-map-gl は passive effect で DOM を付けるため、兄弟の JSX 順では準備完了を保証できない。
+    if (popupOpen && popup && !popup.isOpen()) {
+      popup.once('open', run);
+      return () => {
+        popup.off('open', run);
+      };
+    }
+    run();
+    return undefined;
+  }, [map, home, selected, popupOpen, facilities, popupRef, moveWhenVisible, fitPopup]);
   return null;
 }

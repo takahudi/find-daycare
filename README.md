@@ -41,7 +41,7 @@ pnpm dev
 
 Cloudflare Vite プラグインを使い、Workers の実行環境（workerd）で動かします。`pnpm build && pnpm preview` で、セキュリティヘッダーを含む本番ビルドをローカルで確認できます。
 
-地図タイルと住所検索はインターネット経由（国土地理院）で取得するため、オンライン環境で使ってください。
+地図は同じオリジンのタイル・フォント・アイコン画像で描画します。ローカルで地図を確認するときは、下の「地図タイルを作る・保管する」の手順でPMTilesを用意してください。住所検索だけは国土地理院のAPIを使います。
 
 ## デプロイ
 
@@ -92,7 +92,7 @@ pnpm format     # oxfmt で整形
 | 認可施設の緯度経度・年齢別空き人数 | 大阪市「[保育施設等 空き情報マップ](https://www.city.osaka.lg.jp/contents/wdu110/sukusuku/map.html)」のデータ `sukusukudata.csv` |
 | 企業主導型の開所時間・定員・設置者・事業開始日 | 大阪市「[地域の児童が利用できる認可外保育施設一覧](https://www.city.osaka.lg.jp/kodomo/page/0000585842.html)」詳細PDF |
 | 住所→緯度経度 | [国土地理院 住所検索API](https://msearch.gsi.go.jp/address-search/AddressSearch) |
-| 地図 | [国土地理院 地理院タイル（淡色地図）](https://maps.gsi.go.jp/development/ichiran.html) |
+| 地図 | [Protomaps Basemap](https://docs.protomaps.com/basemaps/downloads)、[OpenStreetMap contributors](https://www.openstreetmap.org/copyright) |
 
 ### 区ごと
 
@@ -240,7 +240,9 @@ Windowsで使用中のファイルによるrename失敗は、合計約9秒を上
 
 ## 地図タイルを作る・保管する
 
-Protomapsの日次ビルドから、大阪市の範囲 `[135.36, 34.56, 135.62, 34.77]`（西・南・東・北）にかかるz0〜15のタイルを切り出します。範囲とズームは `scripts/map-tiles/config.ts` で定義します。Worker は `data/map/tiles.json` の build と保管先を使い、gzip の MVT を配信します。画面への組み込みは後続の変更で行います。
+Protomapsの日次ビルドから、大阪市の範囲 `[135.36, 34.56, 135.62, 34.77]`（西・南・東・北）にかかるz0〜15のタイルを切り出します。範囲とズームは `scripts/map-tiles/config.ts` で定義します。Worker は `data/map/tiles.json` の build と保管先を使い、gzip の MVT を配信します。画面は MapLibre GL JS と react-map-gl/maplibre で表示し、@protomaps/basemaps の light スタイルを日本語で使います。元タイルの最大ズーム15を超える部分は、17まで拡大して描画します。MapLibre のズームは512pxのタイルが基準なので、以前の Leaflet（256px）の18と同じ縮尺です。
+
+Leaflet から変わった点として、施設のポップアップは凡例より手前に表示します。施設名や空き人数が凡例で隠れないようにするためです。施設を選ぶと、ポップアップの実寸と上端8pxの余白を含めて地図内に収まる位置へ移動します。地図より高いポップアップでは上端の余白を優先します。
 
 地図専用の非公開R2バケットを作ります。`<name>` を作成するバケット名に置き換えてください。
 
@@ -277,21 +279,25 @@ pnpm build
 pnpm exec wrangler dev --config wrangler.jsonc --assets dist/client --local --persist-to .wrangler/state
 ```
 
-使用中の `@cloudflare/vite-plugin` 1.64.0 の開発経路では、gzip 応答を展開した本文と元の Content-Length が混在し、タイルの取得が失敗します。`pnpm dev` は同じローカル R2 を読みますが、タイルの確認には上のコマンドを使ってください。
+`pnpm dev` も同じローカル R2 を使い、タイルを表示できます。`@cloudflare/vite-plugin` 1.64.0 は Miniflare が展開した応答にも圧縮時の Content-Length を送るため、`mf-content-encoding` がある応答では Content-Length を省く pnpm パッチを適用しています。プラグイン更新でパッチが当たらない場合はインストールが失敗します。
 
 `map:archive` はローカルファイルのSHA-256とバイト数を記録と照合し、`tiles/osaka-<build>.pmtiles` に保管します。同じSHA-256で保管済みなら省略し、異なれば上書きせず停止します。新規のPUTには `If-None-Match: *` とSHA-256のメタデータを付け、保管後もHEADで確認します。通信障害や途中失敗のあとには同じコマンドを再実行できます。
 
 タイルの出典は [Protomaps Basemap](https://docs.protomaps.com/basemaps/downloads) と [OpenStreetMap contributors](https://www.openstreetmap.org/copyright) です。OpenStreetMapのデータは [Open Database License（ODbL）](https://opendatacommons.org/licenses/odbl/) に従います。切り出したPMTilesにも元の出典メタデータを残します。地図を表示する際にはOpenStreetMapの出典を表示します。
 
+フォントとアイコン画像は [basemaps-assets](https://github.com/protomaps/basemaps-assets/tree/028c18f713baecad011301ff7a69acc39bcc2ae7) の固定コミットから取得し、Worker の静的アセットとして同じオリジンから配信します。取得し直すときは `pnpm map:assets` を実行してください。`data/map/assets.json` にコミット、fontstack、範囲、ファイルごとのバイト数とSHA-256を記録しています。必要な範囲は `pnpm map:glyphs` でローカルの実PMTilesの全ラベルを走査し、`data/map/glyph-coverage.json` にfontstackごとに記録します。タイルを更新するときは走査後に `pnpm map:assets` を実行してください。基礎ラテン文字と一般句読点に加え、記録した範囲を配信します。上流にない補助異体字セレクタの範囲は空のfontstackを持つPBFを生成し、基底文字を表示します。日本語の文字は `localIdeographFontFamily: 'sans-serif'` で端末のフォントを使います。
+
+Noto Sans の glyphs は [SIL Open Font License 1.1](public/map/assets/fonts/OFL.txt)、v4 light の sprite は [MIT License](https://github.com/tangrams/icons/blob/master/LICENSE.md) に従います。sprite は1xと2xを同梱します。MapLibre 6 のESM workerをViteのアセットとして出力し、`setWorkerUrl` で指定するため、CSPの `worker-src 'self'` で動作します。
+
 ## 構成
 
-Vite + React + TypeScript、地図は Leaflet（react-leaflet）。
+Vite + React + TypeScript、地図は MapLibre GL JS（react-map-gl/maplibre）。
 
 ```
 src/
-  App.tsx                      画面全体（検索・絞り込み・並び替え）
-  components/FacilityCard.tsx  施設カード
-  components/MapView.tsx       地図
+  app/App.tsx                           画面全体（検索・絞り込み・並び替え）
+  features/facilities/FacilityCard.tsx    施設カード
+  features/map/MapView.tsx               地図
   lib/geo.ts                   距離計算・住所検索（国土地理院API）
   lib/vacancy.ts               空き人数の集計
   data/facilities.json         生成データ

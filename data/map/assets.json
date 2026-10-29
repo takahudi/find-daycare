@@ -1,0 +1,217 @@
+{
+  "repository": "https://github.com/protomaps/basemaps-assets",
+  "commit": "028c18f713baecad011301ff7a69acc39bcc2ae7",
+  "fontstacks": [
+    "Noto Sans Devanagari Regular v1",
+    "Noto Sans Italic",
+    "Noto Sans Medium",
+    "Noto Sans Regular"
+  ],
+  "ranges": [
+    "0-255",
+    "256-511",
+    "8192-8447"
+  ],
+  "requiredRanges": {
+    "Noto Sans Devanagari Regular v1": [
+      "63488-63743"
+    ],
+    "Noto Sans Italic": [
+      "0-255",
+      "256-511",
+      "8704-8959"
+    ],
+    "Noto Sans Medium": [
+      "0-255",
+      "256-511"
+    ],
+    "Noto Sans Regular": [
+      "0-255",
+      "256-511",
+      "512-767",
+      "768-1023",
+      "1024-1279",
+      "1536-1791",
+      "7680-7935",
+      "8192-8447",
+      "8448-8703",
+      "8704-8959",
+      "9216-9471",
+      "9472-9727",
+      "9728-9983",
+      "9984-10239",
+      "65024-65279",
+      "917760-918015"
+    ]
+  },
+  "generated": [
+    {
+      "path": "fonts/Noto Sans Regular/917760-918015.pbf",
+      "reason": "上流にない補助異体字セレクタの範囲。glyphを持たないfontstackを生成する。"
+    }
+  ],
+  "glyphs": "/map/assets/fonts/{fontstack}/{range}.pbf",
+  "sprite": "/map/assets/sprites/v4/light",
+  "files": [
+    {
+      "path": "fonts/Noto Sans Devanagari Regular v1/0-255.pbf",
+      "size": 30,
+      "sha256": "dad5713ac55123d799bf83fbb603a8c79217efc5fc9d2958de6d343e239f86e9"
+    },
+    {
+      "path": "fonts/Noto Sans Devanagari Regular v1/256-511.pbf",
+      "size": 32,
+      "sha256": "cdc60c4a5a720d957c45c10d34d21c4bbf31b4272861336144f795c07347bf46"
+    },
+    {
+      "path": "fonts/Noto Sans Devanagari Regular v1/8192-8447.pbf",
+      "size": 34,
+      "sha256": "67acba72f5d38af27f64757f16dcb556be13716b74c1d52b509c45572a9bcdc1"
+    },
+    {
+      "path": "fonts/Noto Sans Devanagari Regular v1/63488-63743.pbf",
+      "size": 115454,
+      "sha256": "2f3c6b937839e3e46b3e024f1a8680683db67dd4ff62cd83347635e0f8947a9f"
+    },
+    {
+      "path": "fonts/Noto Sans Italic/0-255.pbf",
+      "size": 79344,
+      "sha256": "43edfca91c285ba1226f09d5e74d68e1473a088c517f02a5212ff6ccb10037dc"
+    },
+    {
+      "path": "fonts/Noto Sans Italic/256-511.pbf",
+      "size": 132976,
+      "sha256": "a6f9f6574c86a4a28aba630ca1017857ceadd2370ed32a1293c35f819ab9bd60"
+    },
+    {
+      "path": "fonts/Noto Sans Italic/8192-8447.pbf",
+      "size": 52891,
+      "sha256": "5dc4e6680116fef01be024e272859d130262613c7e634409a590e5d50ad124ae"
+    },
+    {
+      "path": "fonts/Noto Sans Italic/8704-8959.pbf",
+      "size": 140,
+      "sha256": "75cc4874fa546304c4fe5cd0eff9e3c0d9e0bfad2686a5a5d9c3a3b49acde739"
+    },
+    {
+      "path": "fonts/Noto Sans Medium/0-255.pbf",
+      "size": 77628,
+      "sha256": "ba2f0118dd024e3041b158e5f9eb49bc0a658019f53f458e9f5c0b8efcd79b91"
+    },
+    {
+      "path": "fonts/Noto Sans Medium/256-511.pbf",
+      "size": 129635,
+      "sha256": "d5e801a1a5b1d409d3298c3a1e1ca76328e2314a751078833a618620e8e66e4d"
+    },
+    {
+      "path": "fonts/Noto Sans Medium/8192-8447.pbf",
+      "size": 65101,
+      "sha256": "cc38e4956207f0edba1aaf749b61e8f6f1678ef1ad443d32ee285b21d0eb67aa"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/0-255.pbf",
+      "size": 76044,
+      "sha256": "62c6d49b15fa836eb6aa45e259c7ca6762f44b011b09e47776efbe4a6db1b397"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/256-511.pbf",
+      "size": 127726,
+      "sha256": "2eca7561f9f566bcacfda5dd04fb5880baec1328ec0f5484678289a13994de8a"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/8192-8447.pbf",
+      "size": 64220,
+      "sha256": "8ea977a587352fe31b4159ffdbc9a40be79056f2472017c742ea1e4a931864b9"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/512-767.pbf",
+      "size": 94728,
+      "sha256": "6abc80badad0e823e228ab739515be257c8b33bc68bb077dd873030e9b2d143a"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/768-1023.pbf",
+      "size": 77034,
+      "sha256": "537ccbee79180f4f8b3f6d2bdd27df979260ce1a0358c40d7aa7db505d9b03aa"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/1024-1279.pbf",
+      "size": 125320,
+      "sha256": "302231023f7048d9694a7b3f3b737c8bc378f5af0175aed5bb4f2f3b6188919a"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/1536-1791.pbf",
+      "size": 110716,
+      "sha256": "f46850e6574d817d58d96b91196739c77c1b570a7b4f992ff1380d2b4d5d631f"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/7680-7935.pbf",
+      "size": 135449,
+      "sha256": "b9100ec886dff647198802c41d1ca6df9e6f82325179d8d71e3d377b5fe8682e"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/8448-8703.pbf",
+      "size": 82014,
+      "sha256": "125b49cccfe95ac2f64b6bc2661871fba0081ff1b24f34c20bd29260b9351b57"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/8704-8959.pbf",
+      "size": 1596,
+      "sha256": "53a1af0471262493d6f37fb9942787f517b3bfe65327c05fe07235e423740afa"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/9216-9471.pbf",
+      "size": 124845,
+      "sha256": "55810b3114332aad1e333fe12c52955c44fb0ad8b11ea03ece6a2ea521edb531"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/9472-9727.pbf",
+      "size": 44509,
+      "sha256": "f1400e476affd4186e12b38c8f8af3110098c74c58c57ddf3751b0c2d1aaa38d"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/9728-9983.pbf",
+      "size": 142108,
+      "sha256": "91f79cd7f4d83f1937741cd1f1d157bb603da353a327d5ec3c34a96beb55f942"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/9984-10239.pbf",
+      "size": 101495,
+      "sha256": "bdb6b5deb10499a1778b4d1192bc16d59cd7fc8880ca0445b54c1747058883dc"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/65024-65279.pbf",
+      "size": 68701,
+      "sha256": "79839b70b48fa9c4cae32f946571481c167adc35eae404044d1ca74514f731b1"
+    },
+    {
+      "path": "fonts/Noto Sans Regular/917760-918015.pbf",
+      "size": 2,
+      "sha256": "102b51b9765a56a3e899f7cf0ee38e5251f9c503b357b330a49183eb7b155604"
+    },
+    {
+      "path": "fonts/OFL.txt",
+      "size": 4374,
+      "sha256": "7713cfc8e3c36d5ec4aa3d6cffe7500a1b3310f8a86d914b8ea09c2a9dee7c2d"
+    },
+    {
+      "path": "sprites/v4/light.json",
+      "size": 3549,
+      "sha256": "bfac76cf7ed5c2aa2992695904056a1c6b07785b7fd20e6c640cb44fd6244a2e"
+    },
+    {
+      "path": "sprites/v4/light.png",
+      "size": 16174,
+      "sha256": "b6a34640917bdc57d0bd080836db33376371a3312ebe7b849045268015de3481"
+    },
+    {
+      "path": "sprites/v4/light@2x.json",
+      "size": 3579,
+      "sha256": "1fb5b123fbe35d2e1f6ac171513ce01df89e671273a417ee89c44886a4c132f0"
+    },
+    {
+      "path": "sprites/v4/light@2x.png",
+      "size": 28852,
+      "sha256": "23f6e9df27c2e9a14385763980a24e3608966bfc8192a106058bc2ca959ab563"
+    }
+  ]
+}

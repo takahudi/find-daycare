@@ -1,12 +1,12 @@
 import { expect, test, type Page } from '@playwright/test';
-import { leafletAxe, leafletContrastSummary } from './leaflet.ts';
+import { mapAxe, mapContrastSummary } from './map.ts';
 
 const datasetRoute = '**/assets/facilities-*.json';
 
 async function expectAccessible(page: Page) {
-  const results = await leafletAxe(page);
+  const results = await mapAxe(page);
   expect(results.flatMap((result) => result.violations)).toEqual([]);
-  expect(await leafletContrastSummary(page, results)).toEqual([]);
+  expect(await mapContrastSummary(page, results)).toEqual([]);
 }
 
 test.beforeEach(async ({ page }) => {
