@@ -59,6 +59,7 @@ test('詳細の外にある施設ピンと自宅ピンもaxeで検査する', as
   const ready = page.locator('[aria-busy]:has(> .maplibregl-map)');
   await expect(ready).toHaveAttribute('aria-busy', 'false');
   await page.getByRole('button', { name: '現在地', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('現在地', { timeout: 10_000 });
   await expect(page.locator('.maplibregl-marker .pin--home')).toBeVisible();
   await expect(ready).toHaveAttribute('aria-busy', 'false');
   const outside = await page.evaluate(() => {
