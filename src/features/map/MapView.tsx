@@ -117,6 +117,14 @@ export function MapView({
         dragRotate={false}
         touchPitch={false}
       >
+        <MapController
+          facilities={facilities}
+          home={home}
+          selectedId={selectedId}
+          initialBounds={initialBounds}
+          popupRef={popupRef}
+          popupOpen={popupOpen}
+        />
         <NavigationControl position="top-left" showCompass={false} />
         <AttributionControl compact={false} />
         {home && (
@@ -185,15 +193,6 @@ export function MapView({
             </div>
           </FacilityPopup>
         )}
-        {/* 開き直した Popup の DOM ができる前に補正しないよう、制御は最後に置く。 */}
-        <MapController
-          facilities={facilities}
-          home={home}
-          selectedId={selectedId}
-          initialBounds={initialBounds}
-          popupRef={popupRef}
-          popupOpen={popupOpen}
-        />
       </MapGL>
     </div>
   );
