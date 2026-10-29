@@ -87,13 +87,12 @@ export function MapView({
 }: Props) {
   const [busy, setBusy] = useState(true);
   const selected = facilities.find((facility) => facility.id === selectedId);
-  const [popup, setPopup] = useState({ selected, open: true });
-  if (popup.selected !== selected) setPopup({ selected, open: true });
+  const [closedId, setClosedId] = useState<string | null>(null);
   const southRanks = new Map([...allFacilities].sort((a, b) => b.lat - a.lat).map((facility, rank) => [facility.id, rank]));
   const [initialBounds] = useState(() => boundsFor(allFacilities, 0.05));
   const distance = selected ? distanceOf(selected) : null;
   const selectMarker = (id: string) => {
-    setPopup((current) => ({ ...current, open: !current.open }));
+    setClosedId((current) => (id === selectedId && current !== id ? id : null));
     onSelect(id);
   };
   return (
@@ -151,12 +150,12 @@ export function MapView({
             onSelect={selectMarker}
           />
         ))}
-        {selected && popup.open && (
+        {selected && closedId !== selected.id && (
           <FacilityPopup
             key={selected.id}
             longitude={selected.lng}
             latitude={selected.lat}
-            onClose={() => setPopup((current) => ({ ...current, open: false }))}
+            onClose={() => setClosedId(selected.id)}
           >
             <div role="group" aria-label="施設の詳細">
               <strong>{selected.name}</strong>

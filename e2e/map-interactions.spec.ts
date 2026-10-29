@@ -50,6 +50,23 @@ test('ポップアップを開いたまま現在地を選ぶと自宅と近い5�
   await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
 });
 
+test('閉じた詳細は年齢条件で施設を隠して戻しても閉じたままで、ピンで再度開ける', async ({ page }) => {
+  const facility = data.facilities.find((candidate) => candidate.vacancies[0] === null)!;
+  await openFacility(page, facility.id);
+  await page.getByRole('button', { name: 'Close popup' }).click();
+  await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
+  await page.getByRole('button', { name: '0歳', exact: true }).click();
+  await expect(page.locator('.pin--selected')).toHaveCount(0);
+  await page.getByRole('button', { name: '0歳', exact: true }).click();
+  await expect(page.locator('.pin--selected')).toHaveCount(1);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
+  await page.locator('.facility-marker:has(.pin--selected) button').click();
+  await expect(page.locator('.maplibregl-popup')).toBeVisible();
+  await page.locator('.facility-marker:has(.pin--selected) button').click();
+  await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
+});
+
 test('同じ段の重なったピンでは南の施設が手前になる', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/');
