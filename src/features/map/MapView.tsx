@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
 import MapGL, { AttributionControl, Layer, Marker, NavigationControl, Source } from 'react-map-gl/maplibre';
@@ -85,6 +85,7 @@ export function MapView({
   selectedId,
   onSelect,
 }: Props) {
+  const popupRef = useRef<maplibregl.Popup>(null);
   const [busy, setBusy] = useState(true);
   const selected = facilities.find((facility) => facility.id === selectedId);
   const [closedId, setClosedId] = useState<string | null>(null);
@@ -95,6 +96,7 @@ export function MapView({
   }
   const southRanks = new Map([...allFacilities].sort((a, b) => b.lat - a.lat).map((facility, rank) => [facility.id, rank]));
   const [initialBounds] = useState(() => boundsFor(allFacilities, 0.05));
+  const popupOpen = !!selected && closedId !== selected.id;
   const distance = selected ? distanceOf(selected) : null;
   const selectMarker = (id: string) => {
     setClosedId((current) => (id === selectedId && current !== id ? id : null));
@@ -117,7 +119,6 @@ export function MapView({
       >
         <NavigationControl position="top-left" showCompass={false} />
         <AttributionControl compact={false} />
-        <MapController facilities={facilities} home={home} selectedId={selectedId} initialBounds={initialBounds} />
         {home && (
           <Marker longitude={home.lng} latitude={home.lat} style={{ zIndex: 30000 }}>
             <div className="pin pin--home" aria-label="自宅" title={home.label}>
@@ -154,9 +155,10 @@ export function MapView({
             onSelect={selectMarker}
           />
         ))}
-        {selected && closedId !== selected.id && (
+        {selected && popupOpen && (
           <FacilityPopup
             key={selected.id}
+            popupRef={popupRef}
             longitude={selected.lng}
             latitude={selected.lat}
             onClose={() => setClosedId(selected.id)}
@@ -183,6 +185,15 @@ export function MapView({
             </div>
           </FacilityPopup>
         )}
+        {/* 開き直した Popup の DOM ができる前に補正しないよう、制御は最後に置く。 */}
+        <MapController
+          facilities={facilities}
+          home={home}
+          selectedId={selectedId}
+          initialBounds={initialBounds}
+          popupRef={popupRef}
+          popupOpen={popupOpen}
+        />
       </MapGL>
     </div>
   );

@@ -108,3 +108,28 @@ test('閉じた詳細は別のカードを選んでから選び直すと再び�
   await card(first.id).getByRole('heading').click();
   await expect(page.getByRole('group', { name: '施設の詳細' })).toContainText(first.name);
 });
+
+for (const viewport of [
+  { width: 1280, height: 500 },
+  { width: 390, height: 250 },
+]) {
+  test('初期URL選択の詳細が地図内に収まる ' + viewport.width + '×' + viewport.height, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/?facility=taisho-82305');
+    await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+    if (viewport.width === 390) await page.getByRole('button', { name: '地図', exact: true }).click();
+    await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+    const map = (await page.locator('.maplibregl-map').boundingBox())!;
+    await expect
+      .poll(async () => {
+        const popup = (await page.locator('.maplibregl-popup').boundingBox())!;
+        return (
+          popup.x >= map.x &&
+          popup.y >= map.y &&
+          popup.x + popup.width <= map.x + map.width &&
+          popup.y + popup.height <= map.y + map.height
+        );
+      })
+      .toBe(true);
+  });
+}
