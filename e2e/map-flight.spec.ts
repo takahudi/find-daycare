@@ -208,3 +208,83 @@ test('非表示だった地図へ移ると実際の高さに合わせた位置�
     .toBeLessThan(1);
   await expectInside(page);
 });
+const homeForPending = { lat: 34.6937, lng: 135.5023 };
+const hiddenFacility = [...data.facilities]
+  .filter((facility) => facility.vacancies[0] === null)
+  .sort((a, b) => distanceMeters(homeForPending, b) - distanceMeters(homeForPending, a))[0];
+
+async function locateWhileHidden(page: Page) {
+  await page.getByRole('button', { name: '現在地', exact: true }).click();
+  await waitForLocation(page);
+}
+
+test('保留中の施設選択は自宅を解除しても地図の表示時に実行される', async ({ page, context }) => {
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ latitude: homeForPending.lat, longitude: homeForPending.lng });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openMap(page, true);
+  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await locateWhileHidden(page);
+  await page.locator(`article[data-facility-id="${hiddenFacility.id}"]`).getByRole('heading').click();
+  await page.getByRole('button', { name: '解除', exact: true }).click();
+  await page.getByRole('button', { name: '地図', exact: true }).click();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect
+    .poll(async () => {
+      const { map, marker } = await geometry(page);
+      return Math.hypot(
+        marker.x + marker.width / 2 - map.x - map.width / 2,
+        marker.y + marker.height / 2 - map.y - map.height / 2,
+      );
+    })
+    .toBeLessThan(1);
+  await expectInside(page);
+});
+
+test('保留中の自宅の範囲合わせは選択施設を絞り込みで隠しても地図の表示時に実行される', async ({ page, context }) => {
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ latitude: homeForPending.lat, longitude: homeForPending.lng });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openMap(page, true);
+  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await page.locator(`article[data-facility-id="${hiddenFacility.id}"]`).getByRole('button', { name: '地図で見る' }).click();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await locateWhileHidden(page);
+  await page.getByRole('button', { name: '0歳', exact: true }).click();
+  await expect(page.locator('.pin--selected')).toHaveCount(0);
+  await page.getByRole('button', { name: '地図', exact: true }).click();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toBeInViewport();
+  for (const facility of [...data.facilities]
+    .sort((a, b) => distanceMeters(homeForPending, a) - distanceMeters(homeForPending, b))
+    .slice(0, 5)) {
+    await expect(
+      page.locator('.facility-marker').filter({ has: page.getByRole('button', { name: facility.name + '（', exact: false }) }),
+    ).toBeInViewport();
+  }
+});
+
+test('保留中の施設を絞り込みで隠すとその施設への移動は破棄される', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openMap(page, true);
+  const probe = data.facilities.find((facility) => facility.vacancies[0] !== null)!;
+  const marker = page
+    .locator('.facility-marker')
+    .filter({ has: page.getByRole('button', { name: probe.name + '（', exact: false }) });
+  const position = () =>
+    marker.evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      const map = document.querySelector('.maplibregl-map')!.getBoundingClientRect();
+      return { x: bounds.x - map.x, y: bounds.y - map.y };
+    });
+  const before = await position();
+  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await page.locator(`article[data-facility-id="${hiddenFacility.id}"]`).getByRole('heading').click();
+  await page.getByRole('button', { name: '0歳', exact: true }).click();
+  await expect(page.locator('.pin--selected')).toHaveCount(0);
+  await page.getByRole('button', { name: '地図', exact: true }).click();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const after = await position();
+  expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeLessThan(1);
+});
