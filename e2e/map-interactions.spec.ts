@@ -93,3 +93,18 @@ test('同じ段の重なったピンでは南の施設が手前になる', async
   );
   expect(front).toContain(south.name);
 });
+
+test('閉じた詳細は別のカードを選んでから選び直すと再び開く', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/');
+  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  const [first, second] = data.facilities;
+  const card = (id: string) => page.locator('article[data-facility-id="' + id + '"]');
+  await card(first.id).getByRole('heading').click();
+  await expect(page.getByRole('group', { name: '施設の詳細' })).toContainText(first.name);
+  await page.getByRole('button', { name: 'Close popup' }).click();
+  await card(second.id).getByRole('heading').click();
+  await expect(page.getByRole('group', { name: '施設の詳細' })).toContainText(second.name);
+  await card(first.id).getByRole('heading').click();
+  await expect(page.getByRole('group', { name: '施設の詳細' })).toContainText(first.name);
+});

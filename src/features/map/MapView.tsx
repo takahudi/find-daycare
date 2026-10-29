@@ -88,6 +88,11 @@ export function MapView({
   const [busy, setBusy] = useState(true);
   const selected = facilities.find((facility) => facility.id === selectedId);
   const [closedId, setClosedId] = useState<string | null>(null);
+  const [previousSelectedId, setPreviousSelectedId] = useState(selectedId);
+  if (previousSelectedId !== selectedId) {
+    setPreviousSelectedId(selectedId);
+    setClosedId(null);
+  }
   const southRanks = new Map([...allFacilities].sort((a, b) => b.lat - a.lat).map((facility, rank) => [facility.id, rank]));
   const [initialBounds] = useState(() => boundsFor(allFacilities, 0.05));
   const distance = selected ? distanceOf(selected) : null;
