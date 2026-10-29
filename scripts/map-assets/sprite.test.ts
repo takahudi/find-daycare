@@ -37,14 +37,7 @@ for (const layer of layers('basemap', namedFlavor('light'), { lang: 'ja' })) {
 
 describe('使用スタイルとlight spriteの互換性', () => {
   for (const suffix of ['', '@2x']) {
-    // 上流の全v4履歴に townhall がないため、互換コミットが得られるまで欠落を明示する。
-    it.fails(`${suffix || '1x'} はスタイルの全アイコンを提供する（上流の townhall が欠落）`, () => {
-      const sprite: unknown = JSON.parse(
-        readFileSync(new URL(`../../public/map/assets/sprites/v4/light${suffix}.json`, import.meta.url), 'utf8'),
-      );
-      if (!sprite || typeof sprite !== 'object') throw new Error('spriteがオブジェクトではありません');
-      expect([...required].filter((name) => !(name in sprite)).sort()).toEqual([]);
-    });
+    // 上流の v4 の sprite はどのコミットにも townhall を持たない。区役所などのアイコンだけが出ないことは受け入れ、ほかの欠落は許さない。
     it(`${suffix || '1x'} の不足は上流にない townhall だけである`, () => {
       const sprite: unknown = JSON.parse(
         readFileSync(new URL(`../../public/map/assets/sprites/v4/light${suffix}.json`, import.meta.url), 'utf8'),
