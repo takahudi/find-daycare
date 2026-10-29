@@ -321,3 +321,30 @@ test('保留中の施設を絞り込みで隠すとその施設への移動は�
   const after = await position();
   expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeLessThan(1);
 });
+
+test('非表示の間に WebGL が復元されても地図で見る施設が中央に来る', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openMap(page, true);
+  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  const extension = await page.evaluateHandle(() => {
+    const canvas = document.querySelector<HTMLCanvasElement>('.maplibregl-canvas')!;
+    canvas.addEventListener('webglcontextlost', () => Object.assign(window, { contextLost: true }), { once: true });
+    canvas.addEventListener('webglcontextrestored', () => Object.assign(window, { contextRestored: true }), { once: true });
+    return canvas.getContext('webgl2')!.getExtension('WEBGL_lose_context')!;
+  });
+  await extension.evaluate((lose) => lose.loseContext());
+  await page.waitForFunction(() => 'contextLost' in window);
+  // すぐに戻すと、Chromium は非表示のキャンバスの復元を表示まで遅らせる。
+  await page.waitForTimeout(1000);
+  await extension.evaluate((lose) => lose.restoreContext());
+  await page.waitForFunction(() => 'contextRestored' in window, null, { timeout: 20_000 });
+  await page.locator(`article[data-facility-id="${facilityId}"]`).getByRole('button', { name: '地図で見る' }).click();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect
+    .poll(async () => {
+      const { map, marker } = await geometry(page);
+      return Math.abs(marker.x + marker.width / 2 - map.x - map.width / 2);
+    })
+    .toBeLessThan(1);
+  await expectInside(page);
+});
