@@ -1,3 +1,4 @@
+import { waitForLocation } from './location.ts';
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
 import { distanceMeters } from '../src/lib/geo.ts';
@@ -149,6 +150,7 @@ for (const last of ['facility', 'home']) {
       await page.getByRole('button', { name: '現在地', exact: true }).evaluate((el) => {
         if (el instanceof HTMLElement) el.click();
       });
+      await waitForLocation(page);
       await expect(page.locator('.maplibregl-marker .pin--home')).toHaveCount(1);
     };
     if (last === 'facility') {
@@ -161,6 +163,7 @@ for (const last of ['facility', 'home']) {
       await locate();
     }
     await page.clock.runFor(1500);
+    await page.clock.resume();
     await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
     if (last === 'facility') {
       await expectInside(page);

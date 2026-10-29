@@ -1,3 +1,4 @@
+import { waitForLocation } from './location.ts';
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
 import { distanceMeters } from '../src/lib/geo.ts';
@@ -37,7 +38,7 @@ test('ポップアップを開いたまま現在地を選ぶと自宅と近い5�
   const farthest = [...data.facilities].sort((a, b) => distanceMeters(home, b) - distanceMeters(home, a))[0];
   await openFacility(page, farthest.id);
   await page.getByRole('button', { name: '現在地', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('現在地', { timeout: 10_000 });
+  await waitForLocation(page);
   await expect(page.locator('.maplibregl-marker .pin--home')).toBeVisible();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toBeInViewport();
