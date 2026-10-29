@@ -44,8 +44,10 @@ export function MapController({
     (move: () => void) => {
       if (!map) return;
       const { clientWidth, clientHeight } = map.getContainer();
-      if (initialized.current && clientWidth && clientHeight) move();
-      else pendingMove.current = move;
+      if (initialized.current && clientWidth && clientHeight) {
+        map.resize();
+        move();
+      } else pendingMove.current = move;
     },
     [map],
   );
