@@ -7,7 +7,7 @@
   },
   "maplibreVersion": "6.15.0",
   "basemapsVersion": "5.7.2",
-  "method": "全タイルのラベルを使用スタイルの text-field / text-font / format で評価。フィルタ・衝突判定は除外し、全ズーム0〜18を保守的に走査。localIdeographFontFamily の対象は使用中の MapLibre の判定で除外。",
+  "method": "全タイルのラベルを使用スタイルの text-field / text-font / format で評価。フィルタ・衝突判定は除外し、全ズーム0〜18を保守的に走査。localIdeographFontFamily と複雑な字形形成の対象は使用中の MapLibre の判定で除外。クラスタ内の各文字も要求されるため保守的に含める。",
   "requiredRanges": {
     "Noto Sans Devanagari Regular v1": [
       "63488-63743"
@@ -28,11 +28,6 @@
       "768-1023",
       "1024-1279",
       "1536-1791",
-      "2304-2559",
-      "2816-3071",
-      "3328-3583",
-      "3584-3839",
-      "4096-4351",
       "7680-7935",
       "8192-8447",
       "8448-8703",

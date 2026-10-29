@@ -14,8 +14,13 @@ import { tileCoordinates } from '../map-tiles/extract.ts';
 // Unicode 範囲を複製すると MapLibre 更新でずれるため、使用中の版の判定を直接使う。
 const unicodePath = new URL('../src/util/unicode_properties.g.ts', import.meta.resolve('maplibre-gl'));
 const unicodeSource = stripTypeScriptTypes(await readFile(unicodePath, 'utf8'));
-const { codePointUsesLocalIdeographFontFamily }: { codePointUsesLocalIdeographFontFamily: (id: number) => boolean } =
-  await import('data:text/javascript;base64,' + Buffer.from(unicodeSource).toString('base64'));
+const {
+  codePointUsesLocalIdeographFontFamily,
+  codePointIsInComplexShapingScript,
+}: {
+  codePointUsesLocalIdeographFontFamily: (id: number) => boolean;
+  codePointIsInComplexShapingScript: (id: number) => boolean;
+} = await import('data:text/javascript;base64,' + Buffer.from(unicodeSource).toString('base64'));
 const archivePath = process.argv[2] ?? `map-tiles/osaka-${tiles.source.build}.pmtiles`;
 const bytes = await readFile(archivePath);
 if (createHash('sha256').update(bytes).digest('hex') !== tiles.object.sha256)
@@ -89,7 +94,9 @@ for (let z = tiles.minZoom; z <= tiles.maxZoom; z++) {
               ranges.set(stack, required);
               for (const character of label) {
                 const id = character.codePointAt(0)!;
-                if (!codePointUsesLocalIdeographFontFamily(id)) required.add(Math.floor(id / 256) * 256);
+                // クラスタ内の各文字も symbol_bucket が別途要求するため、クラスタ全体で除外しない。
+                if (!codePointUsesLocalIdeographFontFamily(id) && !codePointIsInComplexShapingScript(id))
+                  required.add(Math.floor(id / 256) * 256);
               }
             }
           }
@@ -108,7 +115,7 @@ const report = {
   maplibreVersion: maplibrePackage.version,
   basemapsVersion: basemapsPackage.version,
   method:
-    '全タイルのラベルを使用スタイルの text-field / text-font / format で評価。フィルタ・衝突判定は除外し、全ズーム0〜18を保守的に走査。localIdeographFontFamily の対象は使用中の MapLibre の判定で除外。',
+    '全タイルのラベルを使用スタイルの text-field / text-font / format で評価。フィルタ・衝突判定は除外し、全ズーム0〜18を保守的に走査。localIdeographFontFamily と複雑な字形形成の対象は使用中の MapLibre の判定で除外。クラスタ内の各文字も要求されるため保守的に含める。',
   requiredRanges,
 };
 await writeFile(new URL('../../data/map/glyph-coverage.json', import.meta.url), JSON.stringify(report, null, 2) + '\n');

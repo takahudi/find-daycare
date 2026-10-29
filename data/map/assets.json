@@ -32,11 +32,6 @@
       "768-1023",
       "1024-1279",
       "1536-1791",
-      "2304-2559",
-      "2816-3071",
-      "3328-3583",
-      "3584-3839",
-      "4096-4351",
       "7680-7935",
       "8192-8447",
       "8448-8703",
@@ -147,31 +142,6 @@
       "path": "fonts/Noto Sans Regular/1536-1791.pbf",
       "size": 110716,
       "sha256": "f46850e6574d817d58d96b91196739c77c1b570a7b4f992ff1380d2b4d5d631f"
-    },
-    {
-      "path": "fonts/Noto Sans Regular/2304-2559.pbf",
-      "size": 99704,
-      "sha256": "bb028d993a03231296d984d38b8627975d8b97768231c5a811305a98b37181d6"
-    },
-    {
-      "path": "fonts/Noto Sans Regular/2816-3071.pbf",
-      "size": 92064,
-      "sha256": "5c4b252599d37abc6a96e4bec97492857aadb0371397a8d2ed58e920fedb719a"
-    },
-    {
-      "path": "fonts/Noto Sans Regular/3328-3583.pbf",
-      "size": 128820,
-      "sha256": "15a543a488990a16bcad41321d4d360d013f825f836d8b6d2864ec2a86b0da6b"
-    },
-    {
-      "path": "fonts/Noto Sans Regular/3584-3839.pbf",
-      "size": 57363,
-      "sha256": "6ddbd10873186e1bdd270232b64819587edc06e1d8432baa2a163ace2331bd61"
-    },
-    {
-      "path": "fonts/Noto Sans Regular/4096-4351.pbf",
-      "size": 121596,
-      "sha256": "f08764a2e60f5d2e5b1d072668aee1be18a04fe542af38dcee419f529c13433c"
     },
     {
       "path": "fonts/Noto Sans Regular/7680-7935.pbf",
