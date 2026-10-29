@@ -5,6 +5,8 @@ import type { Facility, Home } from '../../schema';
 import { distanceMeters } from '../../lib/geo';
 import { boundsFor } from './map-bounds';
 
+type MapMove = { kind: 'selection' | 'home' | 'popup'; run: () => void };
+
 export function MapController({
   facilities,
   home,
@@ -28,7 +30,7 @@ export function MapController({
     popupOpen: false,
   });
   const initialized = useRef(false);
-  const pendingMove = useRef<(() => void) | null>(null);
+  const pendingMove = useRef<MapMove | null>(null);
   const fitPopup = useCallback(() => {
     if (!map || !popupRef.current) return;
     const container = map.getContainer().getBoundingClientRect();
@@ -41,12 +43,13 @@ export function MapController({
     if (Math.abs(dx) > 1 || Math.abs(dy) > 1) map.panBy([dx, dy], { duration: 0 });
   }, [map, popupRef]);
   const moveWhenVisible = useCallback(
-    (move: () => void) => {
+    (move: MapMove) => {
       if (!map) return;
       const { clientWidth, clientHeight } = map.getContainer();
       if (initialized.current && clientWidth && clientHeight) {
+        pendingMove.current = null;
         map.resize();
-        move();
+        move.run();
       } else pendingMove.current = move;
     },
     [map],
@@ -68,7 +71,7 @@ export function MapController({
       if (pendingMove.current) {
         const move = pendingMove.current;
         pendingMove.current = null;
-        move();
+        move.run();
       }
     });
     observer.observe(map.getContainer());
@@ -81,25 +84,28 @@ export function MapController({
     const selectionChanged = previous.selected !== selected;
     const homeChanged = previous.home !== home;
     previousView.current = { home, selected, popupOpen };
-    if (selectionChanged || homeChanged) pendingMove.current = null;
+    if (selectionChanged && !selected && pendingMove.current?.kind !== 'home') pendingMove.current = null;
 
-    let move: () => void;
+    let move: MapMove;
     if (selectionChanged && selected) {
-      move = () => {
-        const height = popupRef.current?.getElement().offsetHeight ?? 0;
-        const offsetY = height ? Math.max(0, height + 18 + 8 - map.getContainer().clientHeight / 2) : 0;
-        map.flyTo({
-          center: [selected.lng, selected.lat],
-          zoom: Math.max(map.getZoom(), 16),
-          duration: 600,
-          offset: [0, offsetY],
-        });
+      move = {
+        kind: 'selection',
+        run: () => {
+          const height = popupRef.current?.getElement().offsetHeight ?? 0;
+          const offsetY = height ? Math.max(0, height + 18 + 8 - map.getContainer().clientHeight / 2) : 0;
+          map.flyTo({
+            center: [selected.lng, selected.lat],
+            zoom: Math.max(map.getZoom(), 16),
+            duration: 600,
+            offset: [0, offsetY],
+          });
+        },
       };
     } else if (homeChanged && home) {
       const nearest = [...facilities].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5);
-      move = () => map.fitBounds(boundsFor([home, ...nearest], 0.2), { duration: 600, maxZoom: 16 });
+      move = { kind: 'home', run: () => map.fitBounds(boundsFor([home, ...nearest], 0.2), { duration: 600, maxZoom: 16 }) };
     } else if (popupOpen && !previous.popupOpen) {
-      move = fitPopup;
+      move = { kind: 'popup', run: fitPopup };
     } else return undefined;
 
     const run = () => moveWhenVisible(move);

@@ -255,6 +255,7 @@ test('保留中の自宅の範囲合わせは選択施設を絞り込みで隠�
   await expect(page.locator('.pin--selected')).toHaveCount(0);
   await page.getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await page.getByRole('navigation', { name: '表示切替' }).evaluate((element) => element.scrollIntoView({ block: 'start' }));
   await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toBeInViewport();
   for (const facility of [...data.facilities]
     .sort((a, b) => distanceMeters(homeForPending, a) - distanceMeters(homeForPending, b))
