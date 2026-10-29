@@ -3,6 +3,8 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import maplibrePackage from 'maplibre-gl/package.json' with { type: 'json' };
+import basemapsPackage from '@protomaps/basemaps/package.json' with { type: 'json' };
 import manifest from '../../data/map/assets.json' with { type: 'json' };
 import coverage from '../../data/map/glyph-coverage.json' with { type: 'json' };
 import tiles from '../../data/map/tiles.json' with { type: 'json' };
@@ -16,6 +18,13 @@ function filesIn(directory: string): string[] {
 }
 
 describe('固定コミットから配信する地図アセット', () => {
+  it.each([
+    { name: 'maplibre-gl', recorded: coverage.maplibreVersion, installed: maplibrePackage.version },
+    { name: '@protomaps/basemaps', recorded: coverage.basemapsVersion, installed: basemapsPackage.version },
+  ])('$name の走査時の版がインストール済みの版と一致する', ({ name, recorded, installed }) => {
+    expect(recorded, name + ' の版を変更した場合は pnpm map:glyphs を再実行してください').toBe(installed);
+  });
+
   it('記録と実際の全ファイルのsha256とバイト数が一致する', () => {
     expect(manifest.commit).toMatch(/^[a-f0-9]{40}$/);
     const actual = filesIn(root)
