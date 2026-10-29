@@ -101,7 +101,6 @@ export function MapView({
         onMoveStart={() => setBusy(true)}
         onIdle={() => setBusy(false)}
         mapLib={maplibregl}
-        initialViewState={{ bounds: initialBounds }}
         mapStyle={mapStyle}
         transformRequest={transformRequest}
         maxZoom={18}
