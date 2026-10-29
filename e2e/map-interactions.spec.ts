@@ -133,3 +133,22 @@ for (const viewport of [
       .toBe(true);
   });
 }
+
+test('凡例は重なるすべての施設ピンより手前に表示される', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/');
+  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const coveredPoints = await page.getByRole('group', { name: '地図の凡例' }).evaluate((legend) => {
+    const bounds = legend.getBoundingClientRect();
+    const inset = parseFloat(getComputedStyle(legend).borderRadius);
+    let covered = 0;
+    for (let y = bounds.top + inset; y < bounds.bottom - inset; y += 2) {
+      for (let x = bounds.left + inset; x < bounds.right - inset; x += 2) {
+        if (document.elementFromPoint(x, y)?.closest('.maplibregl-marker')) covered++;
+      }
+    }
+    return covered;
+  });
+  expect(coveredPoints).toBe(0);
+});
