@@ -4,6 +4,9 @@ import type { LngLatBoundsLike, Popup } from 'maplibre-gl';
 import type { Facility, Home } from '../../schema';
 import { distanceMeters } from '../../lib/geo';
 import { boundsFor } from './map-bounds';
+import { POPUP_OFFSET } from './FacilityPopup';
+
+const POPUP_MARGIN = 8;
 
 type MapMove = { kind: 'selection' | 'home' | 'popup'; run: () => void };
 
@@ -35,11 +38,12 @@ export function MapController({
     if (!map || !popupRef.current) return;
     const container = map.getContainer().getBoundingClientRect();
     const bounds = popupRef.current.getElement().getBoundingClientRect();
-    const dx = Math.min(0, bounds.left - container.left - 8) + Math.max(0, bounds.right - container.right + 8);
+    const dx =
+      Math.min(0, bounds.left - container.left - POPUP_MARGIN) + Math.max(0, bounds.right - container.right + POPUP_MARGIN);
     const dy =
-      bounds.height > container.height - 16
-        ? bounds.top - container.top - 8
-        : Math.min(0, bounds.top - container.top - 8) + Math.max(0, bounds.bottom - container.bottom + 8);
+      bounds.height > container.height - POPUP_MARGIN * 2
+        ? bounds.top - container.top - POPUP_MARGIN
+        : Math.min(0, bounds.top - container.top - POPUP_MARGIN) + Math.max(0, bounds.bottom - container.bottom + POPUP_MARGIN);
     if (Math.abs(dx) > 1 || Math.abs(dy) > 1) map.panBy([dx, dy], { duration: 0 });
   }, [map, popupRef]);
   const moveWhenVisible = useCallback(
@@ -48,7 +52,9 @@ export function MapController({
       const { clientWidth, clientHeight } = map.getContainer();
       if (initialized.current && clientWidth && clientHeight) {
         pendingMove.current = null;
-        map.resize();
+        // oxlint-disable-next-line no-underscore-dangle -- transform の寸法を取得する公開 API がないため、6.15 の保持先を参照する。
+        const { transform } = map.getMap()._camera;
+        if (clientWidth !== transform.width || clientHeight !== transform.height) map.resize();
         move.run();
       } else pendingMove.current = move;
     },
@@ -63,6 +69,7 @@ export function MapController({
       const { clientWidth, clientHeight } = map.getContainer();
       if (!clientWidth || !clientHeight) return;
       map.resize();
+      map.redraw();
       // 非表示で作られた地図の仮のサイズでは全施設の範囲が決まらない。
       if (!initialized.current) {
         initialized.current = true;
@@ -92,7 +99,7 @@ export function MapController({
         kind: 'selection',
         run: () => {
           const height = popupRef.current?.getElement().offsetHeight ?? 0;
-          const offsetY = height ? Math.max(0, height + 18 + 8 - map.getContainer().clientHeight / 2) : 0;
+          const offsetY = height ? Math.max(0, height + POPUP_OFFSET + POPUP_MARGIN - map.getContainer().clientHeight / 2) : 0;
           map.flyTo({
             center: [selected.lng, selected.lat],
             zoom: Math.max(map.getZoom(), 16),

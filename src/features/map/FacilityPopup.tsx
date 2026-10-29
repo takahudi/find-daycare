@@ -2,6 +2,8 @@ import type { ReactNode, RefObject } from 'react';
 import { Popup } from 'react-map-gl/maplibre';
 import type { Popup as PopupInstance } from 'maplibre-gl';
 
+export const POPUP_OFFSET = 18;
+
 export function FacilityPopup({
   popupRef,
   longitude,
@@ -21,7 +23,7 @@ export function FacilityPopup({
       longitude={longitude}
       latitude={latitude}
       anchor="bottom"
-      offset={18}
+      offset={POPUP_OFFSET}
       style={{ zIndex: 40000 }}
       maxWidth="320px"
       focusAfterOpen={false}
