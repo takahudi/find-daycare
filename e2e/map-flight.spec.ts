@@ -343,7 +343,10 @@ test('非表示の間に WebGL が復元されても地図で見る施設が中�
   await expect
     .poll(async () => {
       const { map, marker } = await geometry(page);
-      return Math.abs(marker.x + marker.width / 2 - map.x - map.width / 2);
+      return Math.hypot(
+        marker.x + marker.width / 2 - map.x - map.width / 2,
+        marker.y + marker.height / 2 - map.y - map.height / 2,
+      );
     })
     .toBeLessThan(1);
   await expectInside(page);
