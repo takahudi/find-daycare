@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
-import { mapAxe, mapContrastSummary } from './map.ts';
+import { viewToggle, mapAxe, mapContrastSummary } from './map.ts';
 
 const badge = '入所日を過ぎた空き情報';
 const warning = (page: Page) => page.getByRole('note', { name: '入所日を過ぎた空き情報' });
@@ -18,7 +18,7 @@ async function expectAccessible(
 }
 
 async function showPopup(page: Page, mobile: boolean) {
-  if (mobile) await page.getByRole('button', { name: '地図', exact: true }).click();
+  if (mobile) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(page.locator('.maplibregl-marker:has(.pin--selected)')).toHaveCount(1);
   const popup = page.getByRole('group', { name: '施設の詳細' });
   await page.getByRole('region', { name: '地図', exact: true }).scrollIntoViewIfNeeded();

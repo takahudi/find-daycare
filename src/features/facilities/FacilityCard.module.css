@@ -3,6 +3,9 @@
 }
 
 .card {
+  content-visibility: auto;
+  /* 内容領域の実測中央値はスマホで370px。1列のデスクトップではやや大きめに見積もる。 */
+  contain-intrinsic-height: auto 370px;
   display: flex;
   flex-direction: column;
   gap: 10px;

@@ -38,8 +38,10 @@ for (const [name, viewport] of [
     } finally {
       release();
     }
-    await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible();
+    // 未出現時の可視性診断が全カードの描画を強制しないよう、先に件数で待つ。
     await expect(page.getByRole('status')).toHaveCount(0);
+    await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toHaveCount(1);
+    await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible();
   });
 
   test(`${name}で施設データの取得失敗と再読み込みを表示する`, async ({ page }) => {
@@ -56,6 +58,7 @@ for (const [name, viewport] of [
     await expectAccessible(page);
     await page.unroute(datasetRoute);
     await page.getByRole('button', { name: '再読み込み', exact: true }).click();
+    await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toHaveCount(1);
     await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible();
   });
 }
@@ -69,6 +72,7 @@ test('施設データのハッシュ付きJSONは長期キャッシュと共通�
   expect(response.headers()['x-content-type-options']).toBe('nosniff');
   expect(response.headers()['content-security-policy']).toBeTruthy();
   expect(response.headers()['content-security-policy']).toBe(documentResponse?.headers()['content-security-policy']);
+  await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toHaveCount(1);
   await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible();
 });
 
@@ -78,6 +82,7 @@ test('施設データはビルドHTMLのpreloadと同じURLを一度だけ取得
     if (/\/assets\/facilities-[^/]+\.json$/.test(request.url())) requests.push(request.url());
   });
   const documentResponse = await page.goto('/');
+  await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toHaveCount(1);
   await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible();
   const preload = page.locator('link#facilities-data[rel="preload"][as="fetch"]');
   await expect(preload).toHaveCount(1);

@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import {
+  viewToggle,
   openVisibleUnlicensedPopup,
   expectUnlicensedPinShape,
   expectLicensedPinShape,
@@ -59,6 +60,8 @@ test('トップページを開ける', async ({ page }) => {
 
 test('施設のカードが表示される', async ({ page }) => {
   const cards = page.getByRole('region', { name: '施設一覧' }).getByRole('article');
+  // 未出現時の可視性診断が全カードの描画を強制しないよう、先に件数で待つ。
+  await expect(cards.first()).toHaveCount(1);
   await expect(cards.first()).toBeVisible();
   expect(await cards.count()).toBeGreaterThan(0);
 });
@@ -68,7 +71,7 @@ test('クラス年齢を選ぶと、その年齢を受け入れる施設と空�
   const hasOpening = (f: { vacancies: (number | null)[] }, ages: number[]) => ages.some((a) => (f.vacancies[a] ?? 0) > 0);
   const acceptingZero = facilities.filter((f) => f.vacancies[0] !== null);
   const summary = page.getByText(/件中.*に空きあり/);
-  const chip = page.getByRole('button', { name: '0歳', exact: true });
+  const chip = page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true });
 
   await expect(summary).toHaveText(
     `${facilities.length}件中 ${facilities.filter((f) => hasOpening(f, [0, 1, 2, 3, 4, 5])).length}件に空きあり`,
@@ -85,7 +88,10 @@ test('クラス年齢を選ぶと、その年齢を受け入れる施設と空�
 test('地図と施設のピンが表示される', async ({ page }) => {
   const map = page.getByRole('region', { name: '地図' });
   await expect(map).toBeVisible();
-  await expect(map.getByRole('button', { name: /（認可(?:外)?）/ }).first()).toBeVisible();
+  const pin = map.getByRole('button', { name: /（認可(?:外)?）/ }).first();
+  // 可視性の待機中に失敗診断の ARIA snapshot が全カードの描画を強制しないよう、先に存在を確かめる。
+  await expect(pin).toHaveCount(1);
+  await expect(pin).toBeVisible();
 });
 
 test('デスクトップで地図のピンを選ぶと画面外の対応カードまで一覧がスクロールする', async ({ page }) => {
@@ -134,10 +140,10 @@ test('住所を検索すると、その住所からの距離で施設を表示�
   );
 
   await page.getByRole('searchbox', { name: '自宅の住所' }).fill(address);
-  await page.getByRole('button', { name: '近い順に並べる' }).click();
+  await page.getByRole('banner').getByRole('button', { name: '近い順に並べる' }).click();
 
-  await expect(page.getByRole('status')).toContainText(address);
-  await expect(page.getByRole('status')).toContainText('からの直線距離で表示中');
+  await expect(page.getByRole('status')).toHaveText([new RegExp(address)]);
+  await expect(page.getByRole('status')).toHaveText([/からの直線距離で表示中/]);
   await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toContainText('自宅から');
 });
 
@@ -163,6 +169,7 @@ for (const path of ['/', '/?a=b']) {
     expect(permissionsPolicy).toBeDefined();
     expect(permissionsPolicy).toContain('geolocation=(self)');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('空き状況マップ');
+    await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toHaveCount(1);
     await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible();
   });
 }
@@ -193,7 +200,7 @@ test('施設種別の選択肢を保ち、企業主導型と認可外を別の�
     ).toHaveCSS('background-color', color);
   }
   for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
-    await page.getByRole('button', { name: label, exact: true }).click();
+    await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: label, exact: true }).click();
   }
   const kigyoCount = data.facilities.filter((facility) => facility.facilityType === 'kigyo').length;
   await expect(cards).toHaveCount(kigyoCount);
@@ -212,8 +219,8 @@ test('施設種別の選択肢を保ち、企業主導型と認可外を別の�
     kigyoCount,
   );
   await expect(page.getByRole('group', { name: '地図の凡例' })).toContainText('認可外');
-  await page.getByRole('button', { name: '企業主導型', exact: true }).click();
-  await page.getByRole('button', { name: '保育所', exact: true }).click();
+  await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '企業主導型', exact: true }).click();
+  await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '保育所', exact: true }).click();
   await expect(cards).toHaveCount(data.facilities.filter((facility) => facility.facilityType === 'nursery').length);
   await expect(
     cards
@@ -239,13 +246,13 @@ test('施設種別の選択肢を保ち、企業主導型と認可外を別の�
 test('モバイルの地図タブで企業主導型のポップアップに認可外と表示する', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
-    await page.getByRole('button', { name: label, exact: true }).click();
+    await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: label, exact: true }).click();
   }
-  await page.getByRole('button', { name: '地図', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   const map = page.getByRole('region', { name: '地図' });
   await map.scrollIntoViewIfNeeded();
   await openVisibleUnlicensedPopup(map);
-  await expect(page.getByRole('button', { name: '地図', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(viewToggle(page).getByRole('button', { name: '地図', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByRole('region', { name: '施設一覧' })).toBeHidden();
   await expect(map.getByRole('group', { name: '施設の詳細' })).toBeVisible();
   await expect(map.getByRole('group', { name: '施設の詳細' }).getByText(/.+区 ・ 企業主導型 ・ 認可外/)).toBeVisible();
@@ -375,7 +382,7 @@ const accessibilityStates: {
     fullPage: false,
     setup: async (page) => {
       await expect(page.getByRole('article')).toHaveCount(data.facilities.length);
-      await expect(page.getByRole('button', { name: 'リスト', exact: true })).toHaveAttribute('aria-pressed', 'true');
+      await expect(viewToggle(page).getByRole('button', { name: 'リスト', exact: true })).toHaveAttribute('aria-pressed', 'true');
     },
     scope: representativeCardScope,
   },
@@ -387,7 +394,7 @@ const accessibilityStates: {
       for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
         await page.getByRole('group', { name: '種別', exact: true }).getByRole('button', { name: label, exact: true }).click();
       }
-      await page.getByRole('button', { name: '地図', exact: true }).click();
+      await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
       const map = page.getByRole('region', { name: '地図', exact: true });
       await map.scrollIntoViewIfNeeded();
       await openVisibleUnlicensedPopup(map);
@@ -406,8 +413,8 @@ const accessibilityStates: {
         route.fulfill({ json: [{ geometry: { coordinates: [135.5023, 34.6937] }, properties: { title: address } }] }),
       );
       await page.getByRole('searchbox', { name: '自宅の住所' }).fill(address);
-      await page.getByRole('button', { name: '近い順に並べる' }).click();
-      await expect(page.getByRole('status')).toContainText(address);
+      await page.getByRole('banner').getByRole('button', { name: '近い順に並べる' }).click();
+      await expect(page.getByRole('status')).toHaveText([new RegExp(address)]);
       await expect(page.getByRole('article').first()).toContainText('自宅から');
     },
     scope: representativeCardScope,

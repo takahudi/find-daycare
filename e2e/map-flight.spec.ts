@@ -1,3 +1,4 @@
+import { viewToggle } from './map.ts';
 import { setTimeout as delayResponse } from 'node:timers/promises';
 import { waitForLocation } from './location.ts';
 import { expect, test, type Page } from '@playwright/test';
@@ -13,7 +14,7 @@ async function freeze(page: Page) {
 async function openMap(page: Page, mobile = false) {
   await page.goto('/');
   await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
-  if (mobile) await page.getByRole('button', { name: '地図', exact: true }).click();
+  if (mobile) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
 }
 const geometry = (page: Page) =>
@@ -64,7 +65,7 @@ for (const delay of [100, 250, 400]) {
   test(`飛行${delay}msでリストに切り替えて戻しても詳細が地図内に収まる`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 250 });
     await openMap(page, true);
-    await page.getByRole('button', { name: 'リスト', exact: true }).click();
+    await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
     await freeze(page);
     await page
       .locator(`article[data-facility-id="${facilityId}"]`)
@@ -74,13 +75,17 @@ for (const delay of [100, 250, 400]) {
       });
     await expect(page.locator('.maplibregl-popup')).toBeVisible();
     await page.clock.runFor(delay);
-    await page.getByRole('button', { name: 'リスト', exact: true }).evaluate((el) => {
-      if (el instanceof HTMLElement) el.click();
-    });
+    await viewToggle(page)
+      .getByRole('button', { name: 'リスト', exact: true })
+      .evaluate((el) => {
+        if (el instanceof HTMLElement) el.click();
+      });
     await page.clock.runFor(1000);
-    await page.getByRole('button', { name: '地図', exact: true }).evaluate((el) => {
-      if (el instanceof HTMLElement) el.click();
-    });
+    await viewToggle(page)
+      .getByRole('button', { name: '地図', exact: true })
+      .evaluate((el) => {
+        if (el instanceof HTMLElement) el.click();
+      });
     await page.clock.runFor(1000);
     await expectInside(page);
   });
@@ -95,7 +100,7 @@ for (const viewport of [
     await page.setViewportSize(viewport);
     await page.goto('/?facility=' + facilityId);
     await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
-    if (viewport.width === 390) await page.getByRole('button', { name: '地図', exact: true }).click();
+    if (viewport.width === 390) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
     await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
     await expectInside(page);
   });
@@ -152,9 +157,12 @@ for (const last of ['facility', 'home']) {
           if (el instanceof HTMLElement) el.click();
         });
     const locate = async () => {
-      await page.getByRole('button', { name: '現在地', exact: true }).evaluate((el) => {
-        if (el instanceof HTMLElement) el.click();
-      });
+      await page
+        .getByRole('banner')
+        .getByRole('button', { name: '現在地', exact: true })
+        .evaluate((el) => {
+          if (el instanceof HTMLElement) el.click();
+        });
       await waitForLocation(page);
       await expect(page.locator('.maplibregl-marker .pin--home')).toHaveCount(1);
     };
@@ -192,7 +200,7 @@ test('地図より高い詳細は上端の余白を優先する', async ({ page 
   await page.setViewportSize({ width: 390, height: 130 });
   await page.goto('/?facility=' + facilityId);
   await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
-  await page.getByRole('button', { name: '地図', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   const { map, popup } = await geometry(page);
   expect(popup.height).toBeGreaterThan(map.height);
@@ -202,7 +210,7 @@ test('地図より高い詳細は上端の余白を優先する', async ({ page 
 test('非表示だった地図へ移ると実際の高さに合わせた位置へ飛行する', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await openMap(page, true);
-  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await page.locator('article[data-facility-id="kita-13311"]').getByRole('button', { name: '地図で見る' }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expect
@@ -219,7 +227,7 @@ const hiddenFacility = [...data.facilities]
   .sort((a, b) => distanceMeters(homeForPending, b) - distanceMeters(homeForPending, a))[0];
 
 async function locateWhileHidden(page: Page) {
-  await page.getByRole('button', { name: '現在地', exact: true }).click();
+  await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
   await waitForLocation(page);
 }
 
@@ -228,11 +236,11 @@ test('保留中の施設選択は自宅を解除しても地図の表示時に�
   await context.setGeolocation({ latitude: homeForPending.lat, longitude: homeForPending.lng });
   await page.setViewportSize({ width: 390, height: 844 });
   await openMap(page, true);
-  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await locateWhileHidden(page);
   await page.locator(`article[data-facility-id="${hiddenFacility.id}"]`).getByRole('heading').click();
-  await page.getByRole('button', { name: '解除', exact: true }).click();
-  await page.getByRole('button', { name: '地図', exact: true }).click();
+  await page.getByRole('banner').getByRole('button', { name: '解除', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expect
     .poll(async () => {
@@ -251,16 +259,16 @@ test('保留中の自宅の範囲合わせは選択施設を絞り込みで隠�
   await context.setGeolocation({ latitude: homeForPending.lat, longitude: homeForPending.lng });
   await page.setViewportSize({ width: 390, height: 844 });
   await openMap(page, true);
-  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await page.locator(`article[data-facility-id="${hiddenFacility.id}"]`).getByRole('button', { name: '地図で見る' }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await locateWhileHidden(page);
-  await page.getByRole('button', { name: '0歳', exact: true }).click();
+  await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }).click();
   await expect(page.locator('.pin--selected')).toHaveCount(0);
-  await page.getByRole('button', { name: '地図', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  await page.getByRole('navigation', { name: '表示切替' }).evaluate((element) => element.scrollIntoView({ block: 'start' }));
+  await viewToggle(page).evaluate((element) => element.scrollIntoView({ block: 'start' }));
   await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toBeInViewport();
   // 範囲は絞り込む前の近い5施設で決まる。0歳の絞り込みで消えたピンは確かめられない。
   const nearest = [...data.facilities]
@@ -289,10 +297,10 @@ test('保留中の自宅の範囲合わせは自宅を解除すると破棄さ�
       }).length;
     });
   const before = await viewport();
-  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await locateWhileHidden(page);
-  await page.getByRole('button', { name: '解除', exact: true }).click();
-  await page.getByRole('button', { name: '地図', exact: true }).click();
+  await page.getByRole('banner').getByRole('button', { name: '解除', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toHaveCount(0);
   expect(await viewport()).toBe(before);
@@ -312,11 +320,11 @@ test('保留中の施設を絞り込みで隠すとその施設への移動は�
       return { x: bounds.x - map.x, y: bounds.y - map.y };
     });
   const before = await position();
-  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await page.locator(`article[data-facility-id="${hiddenFacility.id}"]`).getByRole('heading').click();
-  await page.getByRole('button', { name: '0歳', exact: true }).click();
+  await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }).click();
   await expect(page.locator('.pin--selected')).toHaveCount(0);
-  await page.getByRole('button', { name: '地図', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   const after = await position();
   expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeLessThan(1);
@@ -325,7 +333,7 @@ test('保留中の施設を絞り込みで隠すとその施設への移動は�
 test('非表示の間に WebGL が復元されても地図で見る施設が中央に来る', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await openMap(page, true);
-  await page.getByRole('button', { name: 'リスト', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   const extension = await page.evaluateHandle(() => {
     const canvas = document.querySelector<HTMLCanvasElement>('.maplibregl-canvas')!;
     canvas.addEventListener('webglcontextlost', () => Object.assign(window, { contextLost: true }), { once: true });
