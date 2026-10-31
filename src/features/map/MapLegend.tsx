@@ -1,34 +1,25 @@
 import { LICENSING_LABELS } from '../../lib/facility-labels';
+import { facilityFace, HOME_FACE } from './pin-face';
+import { PinSwatch } from './PinSwatch';
 import styles from './MapLegend.module.css';
-import './pins.css';
+
+const ENTRIES = [
+  { face: facilityFace({ licensing: 'licensed' }, 2, false), label: '空きあり（人数）' },
+  { face: facilityFace({ licensing: 'licensed' }, 0, false), label: '空きなし' },
+  { face: facilityFace({ licensing: 'unlicensed' }, 1, false), label: LICENSING_LABELS.unlicensed },
+] as const;
 
 export function MapLegend({ hasHome: home }: { hasHome: boolean }) {
   return (
     <div className={styles.legend} role="group" aria-label="地図の凡例">
-      <span>
-        <i className="pin pin--open" aria-hidden="true">
-          2
-        </i>{' '}
-        空きあり（人数）
-      </span>
-      <span>
-        <i className="pin pin--full" aria-hidden="true">
-          ×
-        </i>{' '}
-        空きなし
-      </span>
-      <span>
-        <i className="pin pin--open pin--unlicensed" aria-hidden="true">
-          1
-        </i>{' '}
-        {LICENSING_LABELS.unlicensed}
-      </span>
+      {ENTRIES.map(({ face, label }) => (
+        <span key={label}>
+          <PinSwatch face={face} /> {label}
+        </span>
+      ))}
       {home && (
         <span>
-          <i className="pin pin--home" aria-hidden="true">
-            家
-          </i>{' '}
-          自宅
+          <PinSwatch face={HOME_FACE} /> 自宅
         </span>
       )}
     </div>
