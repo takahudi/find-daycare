@@ -10,6 +10,7 @@ export interface RenderedPin {
   readonly clientY: number;
 }
 export interface PinProbe {
+  // 登録済み画像のある描画対象を返す。文字や輪の画素はスクリーンショットで検証する。
   rendered(): RenderedPin[];
   pick(clientX: number, clientY: number): string | null;
 }

@@ -19,6 +19,7 @@ export interface FacilityPin {
   readonly face: FacilityFace;
 }
 export interface HomePin {
+  readonly id: 'home';
   readonly lng: number;
   readonly lat: number;
   readonly face: HomeFace;
@@ -49,16 +50,36 @@ export function selectedPin(pins: readonly FacilityPin[], selectedId: string | n
   return pin ? { ...pin, face: { ...pin.face, selected: true } } : null;
 }
 export function homePin(home: Home | null): HomePin | null {
-  return home && { lng: home.lng, lat: home.lat, face: HOME_FACE };
+  return home && { id: 'home', lng: home.lng, lat: home.lat, face: HOME_FACE };
 }
 
 type PinSourceId = 'facility-pins' | 'facility-pin-selected' | 'home-pin';
 export const PIN_LAYERS = [
-  { id: 'facility-pins-full', source: 'facility-pins', tier: 'full' },
-  { id: 'facility-pins-open', source: 'facility-pins', tier: 'open' },
-  { id: 'facility-pin-selected', source: 'facility-pin-selected', tier: null },
-  { id: 'home-pin', source: 'home-pin', tier: null },
-] as const satisfies readonly { id: string; source: PinSourceId; tier: PinTier | null }[];
+  {
+    id: 'facility-pins-full',
+    source: 'facility-pins',
+    tier: 'full',
+    pins: (scene: PinScene) => scene.facilities.filter((pin) => pinTier(pin.face) === 'full'),
+  },
+  {
+    id: 'facility-pins-open',
+    source: 'facility-pins',
+    tier: 'open',
+    pins: (scene: PinScene) => scene.facilities.filter((pin) => pinTier(pin.face) === 'open'),
+  },
+  {
+    id: 'facility-pin-selected',
+    source: 'facility-pin-selected',
+    tier: null,
+    pins: (scene: PinScene) => (scene.selected ? [scene.selected] : []),
+  },
+  { id: 'home-pin', source: 'home-pin', tier: null, pins: (scene: PinScene) => (scene.home ? [scene.home] : []) },
+] as const satisfies readonly {
+  id: string;
+  source: PinSourceId;
+  tier: PinTier | null;
+  pins: (scene: PinScene) => readonly (FacilityPin | HomePin)[];
+}[];
 export type PinLayer = (typeof PIN_LAYERS)[number];
 export type PinLayerId = PinLayer['id'];
 export const PIN_LAYER_IDS: readonly PinLayerId[] = PIN_LAYERS.map((layer) => layer.id);
@@ -77,7 +98,7 @@ export function pinCollection(pins: readonly (FacilityPin | HomePin)[]): PinColl
     features: pins.map((pin) => ({
       type: 'Feature',
       properties: {
-        key: 'id' in pin ? pin.id : 'home',
+        key: pin.id,
         image: pinImageId(pin.face),
         ...(pin.face.kind === 'facility' ? { tier: pinTier(pin.face) } : {}),
       },
@@ -121,7 +142,7 @@ export function pinSources(): Record<PinSourceId | typeof ROUTE_SOURCE, GeoJSONS
 export function pinLayerFilter(layer: PinLayer): FilterSpecification | undefined {
   return layer.tier ? ['==', ['get', 'tier'], layer.tier] : undefined;
 }
-export function pinLayers(): LayerSpecification[] {
+export function pinLayers(routeColor: string): LayerSpecification[] {
   const symbol = (layer: PinLayer): SymbolLayerSpecification => ({
     id: layer.id,
     type: 'symbol',
@@ -139,7 +160,7 @@ export function pinLayers(): LayerSpecification[] {
       id: ROUTE_SOURCE,
       type: 'line',
       source: ROUTE_SOURCE,
-      paint: { 'line-color': '#e8743b', 'line-width': 3, 'line-dasharray': [2, 2] },
+      paint: { 'line-color': routeColor, 'line-width': 3, 'line-dasharray': [2, 2] },
     },
     ...PIN_LAYERS.map(symbol),
   ];
@@ -148,16 +169,21 @@ export interface ScreenPoint {
   readonly x: number;
   readonly y: number;
 }
-function pinsOf(scene: PinScene, layer: PinLayer): readonly (FacilityPin | HomePin)[] {
-  if (layer.source === 'home-pin') return scene.home ? [scene.home] : [];
-  if (layer.source === 'facility-pin-selected') return scene.selected ? [scene.selected] : [];
-  return scene.facilities.filter((pin) => pinTier(pin.face) === layer.tier);
+// MapLibre の geojson-vt は Mercator 座標を extent 8192 の整数へ丸める。
+// 元座標を投影すると、z17 では描画位置から最大4pxずつ外れる。
+export function facilityPinPosition(pin: FacilityPin | HomePin): [number, number] {
+  if (pin.face.kind === 'home' || pin.face.selected) return [pin.lng, pin.lat];
+  const units = 8192 * 2 ** FACILITY_PINS_MAXZOOM;
+  const x = Math.round((pin.lng / 360 + 0.5) * units) / units;
+  const sin = Math.sin((pin.lat * Math.PI) / 180);
+  const y = Math.round((0.5 - (0.25 * Math.log((1 + sin) / (1 - sin))) / Math.PI) * units) / units;
+  return [(x - 0.5) * 360, (360 * Math.atan(Math.exp(((180 - y * 360) * Math.PI) / 180))) / Math.PI - 90];
 }
 export function pickPin(scene: PinScene, point: ScreenPoint, project: (lngLat: [number, number]) => ScreenPoint): string | null {
   for (const layer of PIN_LAYERS.toReversed()) {
-    for (const pin of pinsOf(scene, layer).toReversed()) {
-      const position = project([pin.lng, pin.lat]);
-      if (pinContains(pin.face, point.x - position.x, point.y - position.y)) return 'id' in pin ? pin.id : null;
+    for (const pin of layer.pins(scene).toReversed()) {
+      const position = project(facilityPinPosition(pin));
+      if (pinContains(pin.face, point.x - position.x, point.y - position.y)) return pin.face.kind === 'facility' ? pin.id : null;
     }
   }
   return null;

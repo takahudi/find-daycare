@@ -63,16 +63,10 @@ export function MapView({
   return (
     <div className={styles.map} aria-busy={busy}>
       <p id={hintId} className="visually-hidden">
-        地図のピンはクリックかタップで選べます。キーボードや読み上げでは、施設一覧から施設を選んでください。
+        地図のピンはクリックかタップで選べます。キーボードや読み上げでは、表示切替でリストを開き、施設一覧から施設を選んでください。
       </p>
       <MapGL
         locale={{ 'Map.Title': '地図' }}
-        onLoad={(event) => {
-          const canvas = event.target.getCanvas();
-          canvas.setAttribute('aria-describedby', hintId);
-          // 外側の地図 region と同名のランドマークを重ねない。
-          canvas.setAttribute('role', 'group');
-        }}
         onMoveStart={() => setBusy(true)}
         onIdle={() => setBusy(false)}
         mapLib={maplibregl}
@@ -97,6 +91,7 @@ export function MapView({
         <NavigationControl position="top-left" showCompass={false} />
         <AttributionControl compact={false} />
         <PinOverlay
+          hintId={hintId}
           facilities={facilities}
           allFacilities={allFacilities}
           vacancyOf={vacancyOf}

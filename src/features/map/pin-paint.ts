@@ -6,7 +6,7 @@ export function readPinTheme(element: Element): PinTheme {
 }
 
 export function paintPin(
-  context: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+  context: CanvasRenderingContext2D,
   face: PinFace,
   size: PinSize,
   theme: PinTheme,
@@ -48,7 +48,9 @@ export function paintPin(
 
 export function pinImage(face: PinFace, theme: PinTheme, pixelRatio: number): ImageData {
   const side = Math.ceil(2 * pinGeometry(face, 'map').extent * pixelRatio);
-  const context = new OffscreenCanvas(side, side).getContext('2d')!;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = side;
+  const context = canvas.getContext('2d')!;
   paintPin(context, face, 'map', theme, pixelRatio);
   return context.getImageData(0, 0, side, side);
 }
