@@ -1,12 +1,6 @@
+import { expectFacilityPinCount, renderedPins } from './map.ts';
 import { expect, test, type Page } from '@playwright/test';
-import {
-  viewToggle,
-  openVisibleUnlicensedPopup,
-  expectUnlicensedPinShape,
-  expectLicensedPinShape,
-  mapAxe,
-  mapContrastSummary,
-} from './map.ts';
+import { viewToggle, openVisibleUnlicensedPopup, expectPinShapes, mapAxe, mapContrastSummary } from './map.ts';
 import data from '../src/data/facilities.json' with { type: 'json' };
 
 function parseCsp(header: string) {
@@ -86,12 +80,11 @@ test('クラス年齢を選ぶと、その年齢を受け入れる施設と空�
 });
 
 test('地図と施設のピンが表示される', async ({ page }) => {
-  const map = page.getByRole('region', { name: '地図' });
+  const map = page.locator('section[aria-label="地図"]');
   await expect(map).toBeVisible();
-  const pin = map.getByRole('button', { name: /（認可(?:外)?）/ }).first();
-  // 可視性の待機中に失敗診断の ARIA snapshot が全カードの描画を強制しないよう、先に存在を確かめる。
-  await expect(pin).toHaveCount(1);
-  await expect(pin).toBeVisible();
+  await expectFacilityPinCount(page, data.facilities.length);
+  await expect(map.locator('canvas.maplibregl-canvas')).toBeVisible();
+  await expect(map.locator('canvas.maplibregl-canvas')).toHaveAccessibleDescription(/施設一覧から施設を選んでください/);
 });
 
 test('デスクトップで地図のピンを選ぶと画面外の対応カードまで一覧がスクロールする', async ({ page }) => {
@@ -119,7 +112,7 @@ test('デスクトップで地図のピンを選ぶと画面外の対応カー�
     before,
   );
 
-  await openVisibleUnlicensedPopup(page.getByRole('region', { name: '地図', exact: true }));
+  await openVisibleUnlicensedPopup(page);
 
   const selected = list.locator('article[aria-current="true"]');
   await expect(selected).toHaveCount(1);
@@ -214,10 +207,10 @@ test('施設種別の選択肢を保ち、企業主導型と認可外を別の�
       .first()
       .getByText('認可外保育施設です。申込みは区役所ではなく施設との直接契約です（空き人数は地域枠）。', { exact: true }),
   ).toBeVisible();
-  await expectUnlicensedPinShape(page.getByRole('region', { name: '地図', exact: true }));
-  await expect(page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: /（認可外）/ })).toHaveCount(
-    kigyoCount,
-  );
+  await expectPinShapes(page, 'unlicensed');
+  await expect
+    .poll(async () => (await renderedPins(page)).filter((p) => p.face.kind === 'facility' && p.face.shape === 'square').length)
+    .toBe(kigyoCount);
   await expect(page.getByRole('group', { name: '地図の凡例' })).toContainText('認可外');
   await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '企業主導型', exact: true }).click();
   await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '保育所', exact: true }).click();
@@ -237,10 +230,10 @@ test('施設種別の選択肢を保ち、企業主導型と認可外を別の�
       .filter({ hasText: /^認可外$/ }),
   ).toHaveCount(0);
   await expect(cards.first().getByText(/^認可外保育施設です。/)).toHaveCount(0);
-  await expectLicensedPinShape(page.getByRole('region', { name: '地図', exact: true }));
-  await expect(page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: /（認可外）/ })).toHaveCount(
-    0,
-  );
+  await expectPinShapes(page, 'licensed');
+  await expect
+    .poll(async () => (await renderedPins(page)).filter((p) => p.face.kind === 'facility' && p.face.shape === 'square').length)
+    .toBe(0);
 });
 
 test('モバイルの地図タブで企業主導型のポップアップに認可外と表示する', async ({ page }) => {
@@ -249,9 +242,9 @@ test('モバイルの地図タブで企業主導型のポップアップに認�
     await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: label, exact: true }).click();
   }
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
-  const map = page.getByRole('region', { name: '地図' });
+  const map = page.locator('section[aria-label="地図"]');
   await map.scrollIntoViewIfNeeded();
-  await openVisibleUnlicensedPopup(map);
+  await openVisibleUnlicensedPopup(page);
   await expect(viewToggle(page).getByRole('button', { name: '地図', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByRole('region', { name: '施設一覧' })).toBeHidden();
   await expect(map.getByRole('group', { name: '施設の詳細' })).toBeVisible();
@@ -321,7 +314,7 @@ async function representativeScope(page: Page, facilities: TestFacility[]) {
     '[aria-label="表示切替"]',
     '[aria-label="施設一覧"] > p',
     '[aria-label="施設一覧"] > footer',
-    '[aria-label="地図"]',
+    'section[aria-label="地図"]',
   ];
   for (const facility of facilities) {
     await expect(facilityCard(page, facility)).toHaveAttribute('data-facility-id', facility.id);
@@ -339,7 +332,7 @@ async function filterToRepresentativeWards(page: Page, facilities: TestFacility[
   }
 }
 
-test('地図ピンの名前で空き人数と空きなしを区別できる', async ({ page }) => {
+test('地図ピンが空き人数と空きなしの見た目を持つ', async ({ page }) => {
   const open = representativeFacility(
     '認可施設の空きありピン',
     (f) => f.licensing === 'licensed' && f.vacancies.some((v) => (v ?? 0) > 0),
@@ -351,9 +344,10 @@ test('地図ピンの名前で空き人数と空きなしを区別できる', as
   const count =
     open.vacancies.reduce<number>((sum, value, age) => sum + (open.sharedVacancy?.ages.includes(age) ? 0 : (value ?? 0)), 0) +
     (open.sharedVacancy?.count ?? 0);
-  const map = page.getByRole('region', { name: '地図', exact: true });
-  await expect(map.getByRole('button', { name: `${open.name}（認可）空き${count}人`, exact: true })).toHaveCount(1);
-  await expect(map.getByRole('button', { name: `${full.name}（認可）空きなし`, exact: true })).toHaveCount(1);
+  await expectFacilityPinCount(page, data.facilities.length);
+  const pins = await renderedPins(page);
+  expect(pins.find((pin) => pin.key === open.id)!.face).toMatchObject({ vacancy: count, shape: 'circle' });
+  expect(pins.find((pin) => pin.key === full.id)!.face).toMatchObject({ vacancy: 0, shape: 'circle' });
 });
 
 type AccessibilityRepresentatives = ReturnType<typeof accessibilityRepresentatives>;
@@ -395,9 +389,9 @@ const accessibilityStates: {
         await page.getByRole('group', { name: '種別', exact: true }).getByRole('button', { name: label, exact: true }).click();
       }
       await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
-      const map = page.getByRole('region', { name: '地図', exact: true });
+      const map = page.locator('section[aria-label="地図"]');
       await map.scrollIntoViewIfNeeded();
-      await openVisibleUnlicensedPopup(map);
+      await openVisibleUnlicensedPopup(page);
       await expect(map.getByRole('group', { name: '施設の詳細' })).toBeVisible();
     },
     scope: async () => [],
@@ -461,7 +455,7 @@ for (const state of accessibilityStates) {
     await state.setup(page, reps);
     const results = await mapAxe(page, state.fullPage ? [] : await state.scope(page, reps));
     const violations = results.flatMap((result) => result.violations);
-    const incomplete = await mapContrastSummary(page, results);
+    const incomplete = mapContrastSummary(page, results);
     await testInfo.attach('axe-color-contrast-incomplete', {
       body: JSON.stringify(incomplete, null, 2),
       contentType: 'application/json',

@@ -1,106 +1,124 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, type Locator, type Page } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
+import data from '../src/data/facilities.json' with { type: 'json' };
+import type { RenderedPin } from '../src/features/map/pin-probe.ts';
 
 export function viewToggle(page: Page) {
-  // 全カードの名前計算で描画を強制しないよう、表示切替の中から探す。
   return page.getByRole('navigation', { name: '表示切替' });
 }
-
-export async function mapAxe(page: Page, selectors: string[] = []) {
-  const scan = () => {
-    const builder = new AxeBuilder({ page });
-    for (const selector of selectors) builder.include(selector);
-    return builder;
-  };
-  const hiddenMarkers = (await page.locator('.maplibregl-popup').isVisible())
-    ? await page.evaluateHandle(() => {
-        const popup = document.querySelector('.maplibregl-popup')!.getBoundingClientRect();
-        return [...document.querySelectorAll<HTMLElement>('.maplibregl-marker')]
-          .filter((element) => {
-            const bounds = element.getBoundingClientRect();
-            return (
-              bounds.left < popup.right && bounds.right > popup.left && bounds.top < popup.bottom && bounds.bottom > popup.top
-            );
-          })
-          .map((element) => {
-            const previous = {
-              element,
-              value: element.style.getPropertyValue('visibility'),
-              priority: element.style.getPropertyPriority('visibility'),
-            };
-            // style要素の追加はCSPで拒否されるため、ピンの属性で背後の重なりだけを除く。
-            element.style.setProperty('visibility', 'hidden', 'important');
-            return previous;
-          });
-      })
-    : null;
-  const general = await scan()
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'])
-    .disableRules(['target-size'])
-    .analyze();
-  await hiddenMarkers?.evaluate((markers) =>
-    markers.forEach(({ element, value, priority }) => element.style.setProperty('visibility', value, priority)),
-  );
-  await hiddenMarkers?.dispose();
-  // SC 2.5.8 の Essential 例外は、位置が意味を持つ MapLibre ピンのサイズだけに適用する。
-  const targets = await scan().withRules(['target-size']).exclude('.maplibregl-marker:has(.pin)').analyze();
-  return [general, targets];
+export async function expectPinProbe(page: Page) {
+  await page.waitForFunction(() => window.__findDaycarePins !== undefined);
 }
-
-export async function mapContrastSummary(page: Page, results: Awaited<ReturnType<typeof mapAxe>>) {
-  const summary = results.flatMap((result) =>
+export async function renderedPins(page: Page): Promise<RenderedPin[]> {
+  await expectPinProbe(page);
+  return page.evaluate(() => window.__findDaycarePins!.rendered());
+}
+export async function expectFacilityPinCount(page: Page, count: number) {
+  await expect
+    .poll(
+      async () =>
+        (await renderedPins(page)).filter((pin) => pin.layer === 'facility-pins-full' || pin.layer === 'facility-pins-open')
+          .length,
+    )
+    .toBe(count);
+}
+export async function expectSelectedPinCount(page: Page, count: 0 | 1) {
+  await expect
+    .poll(async () => (await renderedPins(page)).filter((pin) => pin.layer === 'facility-pin-selected').length)
+    .toBe(count);
+}
+export async function homePinShown(page: Page): Promise<boolean> {
+  return (await renderedPins(page)).some((pin) => pin.layer === 'home-pin');
+}
+export async function pinCentre(page: Page, id: string): Promise<{ x: number; y: number } | null> {
+  const pins = await renderedPins(page);
+  const pin =
+    pins.find((candidate) => candidate.key === id && candidate.layer === 'facility-pin-selected') ??
+    pins.find((candidate) => candidate.key === id);
+  return pin ? { x: pin.clientX, y: pin.clientY } : null;
+}
+export async function pinClickPoint(page: Page, id: string) {
+  return page.evaluate((facilityId) => {
+    const probe = window.__findDaycarePins!;
+    const pins = probe.rendered();
+    const pin =
+      pins.find((p) => p.key === facilityId && p.layer === 'facility-pin-selected') ?? pins.find((p) => p.key === facilityId);
+    if (!pin) return null;
+    const canvas = document.querySelector('canvas.maplibregl-canvas');
+    for (const radius of [0, 4, 8, 12, 16]) {
+      for (let angle = 0; angle < 360; angle += 45) {
+        const x = pin.clientX + radius * Math.cos((angle * Math.PI) / 180);
+        const y = pin.clientY + radius * Math.sin((angle * Math.PI) / 180);
+        if (document.elementFromPoint(x, y) === canvas && probe.pick(x, y) === facilityId) return { x, y };
+      }
+    }
+    return null;
+  }, id);
+}
+export async function clickPin(page: Page, id: string) {
+  await expectPinProbe(page);
+  const point = await pinClickPoint(page, id);
+  if (!point) throw new Error(`施設 ${id} のピンが地図に描かれていないか、他のピンや部品に隠れている`);
+  await page.mouse.click(point.x, point.y);
+}
+export async function zoomToPin(page: Page, id: string) {
+  await expect.poll(() => pinCentre(page, id)).not.toBeNull();
+  for (let step = 0; step < 12 && !(await pinClickPoint(page, id)); step++) {
+    const point = (await pinCentre(page, id))!;
+    await page.mouse.move(point.x, point.y);
+    await page.mouse.wheel(0, -1200);
+    await page.waitForTimeout(350);
+    await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
+  }
+  await expect.poll(() => pinClickPoint(page, id)).not.toBeNull();
+}
+export async function pixelAt(page: Page, x: number, y: number): Promise<[number, number, number]> {
+  const png = await page.screenshot({ clip: { x: Math.floor(x), y: Math.floor(y), width: 1, height: 1 }, scale: 'css' });
+  return page.evaluate(async (base64) => {
+    const image = new Image();
+    image.src = `data:image/png;base64,${base64}`;
+    await image.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 1;
+    const context = canvas.getContext('2d')!;
+    context.drawImage(image, 0, 0);
+    const rgba = context.getImageData(0, 0, 1, 1).data;
+    return [rgba[0], rgba[1], rgba[2]];
+  }, png.toString('base64'));
+}
+export async function mapAxe(page: Page, selectors: string[] = []) {
+  const builder = new AxeBuilder({ page });
+  for (const selector of selectors) builder.include(selector);
+  return [await builder.withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice']).analyze()];
+}
+export function mapContrastSummary(_page: Page, results: Awaited<ReturnType<typeof mapAxe>>) {
+  return results.flatMap((result) =>
     result.incomplete
       .filter((rule) => rule.id === 'color-contrast')
       .flatMap((rule) => rule.nodes.map((node) => ({ target: node.target, reason: node.failureSummary }))),
   );
-  return page.evaluate((nodes) => {
-    return nodes.filter(
-      (node) =>
-        !node.target.some(
-          (selector) => typeof selector === 'string' && document.querySelector(selector)?.closest('.maplibregl-marker'),
-        ),
-    );
-  }, summary);
 }
-
-export async function expectUnlicensedPinShape(map: Locator) {
-  const pins = map.getByRole('button', { name: /（認可外）/ }).getByRole('img');
-  const styles = await pins.evaluateAll((nodes) =>
-    nodes.map((node) => {
-      const style = getComputedStyle(node);
-      return { radius: style.borderRadius, border: style.borderColor, width: style.width, height: style.height };
-    }),
-  );
-  expect(styles.length, '認可外のピンがある').toBeGreaterThan(0);
-  for (const style of styles) {
-    expect(style).toEqual({ radius: '7px', border: 'rgb(138, 90, 18)', width: '30px', height: '30px' });
+export async function expectPinShapes(page: Page, licensing: 'licensed' | 'unlicensed') {
+  await expect
+    .poll(async () =>
+      (await renderedPins(page)).some(
+        (pin) => pin.face.kind === 'facility' && pin.face.shape === (licensing === 'licensed' ? 'circle' : 'square'),
+      ),
+    )
+    .toBe(true);
+  const pins = (await renderedPins(page)).filter((pin) => pin.layer.startsWith('facility-pins-'));
+  const matching = pins.filter((pin) => data.facilities.find((facility) => facility.id === pin.key)!.licensing === licensing);
+  expect(matching.length).toBeGreaterThan(0);
+  for (const pin of matching) expect(pin.face).toMatchObject({ shape: licensing === 'licensed' ? 'circle' : 'square' });
+}
+export async function openVisibleUnlicensedPopup(page: Page) {
+  const pins = (await renderedPins(page)).filter((pin) => pin.face.kind === 'facility' && pin.face.shape === 'square');
+  for (const pin of pins) {
+    if (!(await pinClickPoint(page, pin.key))) continue;
+    await clickPin(page, pin.key);
+    await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
+    await expect(page.locator('.maplibregl-popup')).toHaveCSS('opacity', '1');
+    return;
   }
-}
-
-export async function expectLicensedPinShape(map: Locator) {
-  const pins = map.getByRole('button', { name: /（認可）/ }).getByRole('img');
-  const styles = await pins.evaluateAll((nodes) =>
-    nodes.map((node) => {
-      const style = getComputedStyle(node);
-      return { radius: style.borderRadius, border: style.borderColor };
-    }),
-  );
-  expect(styles.length, '認可のピンがある').toBeGreaterThan(0);
-  for (const style of styles) {
-    expect(style.radius, '認可のピンは丸い').toBe('50%');
-    expect(style.border, '認可のピンの縁は認可外の茶色ではない').not.toBe('rgb(138, 90, 18)');
-  }
-}
-
-export async function openVisibleUnlicensedPopup(map: Locator) {
-  const pins = map.getByRole('button', { name: /（認可外）/ });
-  const index = await pins.evaluateAll((nodes) =>
-    nodes.findIndex((node) => {
-      const box = node.getBoundingClientRect();
-      return node.contains(document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2));
-    }),
-  );
-  expect(index, '地図内に操作できる認可外ピンがある').toBeGreaterThanOrEqual(0);
-  await pins.nth(index).click();
-  await expect(map.locator('.maplibregl-popup')).toHaveCSS('opacity', '1');
+  throw new Error('地図内に操作できる認可外ピンがない');
 }

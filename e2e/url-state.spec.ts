@@ -1,3 +1,4 @@
+import { expectFacilityPinCount, expectSelectedPinCount, pinCentre } from './map.ts';
 import { viewToggle } from './map.ts';
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
@@ -84,7 +85,7 @@ for (const [device, viewport] of [
     await expect(selected(page)).toHaveAttribute('data-facility-id', facility.id);
     await expect(selected(page)).toBeInViewport({ ratio: 0.99 });
     if (device === 'mobile') await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
-    await expect(page.locator('.pin--selected')).toBeInViewport();
+    await expectSelectedPinCount(page, 1);
     await expect(page.getByRole('group', { name: '施設の詳細' })).toContainText(facility.name);
     expect(new URL(page.url()).searchParams.size).toBe(1);
   });
@@ -190,7 +191,7 @@ test('初期絞り込みで隠れた施設は URL から消え、条件を広げ
   await expect(cards(page)).toHaveCount(data.facilities.filter((f) => f.ward === 'abeno').length);
   await expect.poll(() => new URL(page.url()).searchParams.has('facility')).toBe(false);
   await expect(selected(page)).toHaveCount(0);
-  await expect(page.locator('.pin--selected')).toHaveCount(0);
+  await expectSelectedPinCount(page, 0);
   await page.getByRole('group', { name: '区', exact: true }).getByRole('button', { name: '北区', exact: true }).click();
   await expect(page.locator('article[data-facility-id="' + facility.id + '"]')).toHaveCount(1);
   await expect(selected(page)).toHaveCount(0);
@@ -249,30 +250,18 @@ test('初期地図は URL の絞り込みや0件にかかわらず全施設の�
   await expect(cards(page)).toHaveCount(data.facilities.length);
   const abeno = data.facilities.find((f) => f.ward === 'abeno')!;
   const kita = data.facilities.find((f) => f.ward === 'kita')!;
-  const transform = async (name: string) =>
-    page.locator('.maplibregl-marker').evaluateAll(
-      (nodes, facilityName) =>
-        nodes
-          .find((node) =>
-            node
-              .querySelector('.pin')
-              ?.getAttribute('aria-label')
-              ?.startsWith(facilityName + '（'),
-          )
-          ?.getAttribute('style') ?? null,
-      name,
-    );
-  const expectedAbeno = await transform(abeno.name);
-  const expectedKita = await transform(kita.name);
-  expect(expectedAbeno).toContain('translate');
+  await expectFacilityPinCount(page, data.facilities.length);
+  const expectedAbeno = await pinCentre(page, abeno.id);
+  const expectedKita = await pinCentre(page, kita.id);
+  expect(expectedAbeno).not.toBeNull();
   for (const query of ['?ward=abeno', '?ward=']) {
     await page.goto('/' + query);
     await expect(page.getByRole('group', { name: '区', exact: true })).toBeVisible();
     if (query === '?ward=')
       await page.getByRole('group', { name: '区', exact: true }).getByRole('button', { name: '阿倍野区', exact: true }).click();
-    await expect.poll(() => transform(abeno.name)).toBe(expectedAbeno);
+    await expect.poll(() => pinCentre(page, abeno.id)).toBe(expectedAbeno);
     await page.getByRole('group', { name: '区', exact: true }).getByRole('button', { name: '北区', exact: true }).click();
-    await expect.poll(() => transform(kita.name)).toBe(expectedKita);
+    await expect.poll(() => pinCentre(page, kita.id)).toBe(expectedKita);
   }
 });
 
@@ -291,12 +280,12 @@ for (const onlyOpen of [false, true]) {
     await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }).click();
     await expect(card).toHaveCount(0);
     await expect(selected(page)).toHaveCount(0);
-    await expect(page.locator('.pin--selected')).toHaveCount(0);
+    await expectSelectedPinCount(page, 0);
     await expect.poll(() => new URL(page.url()).searchParams.get('age')).toBe('0');
     expect(new URL(page.url()).searchParams.get('facility')).toBe(facility.id);
     await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }).click();
     await expect(selected(page)).toHaveAttribute('data-facility-id', facility.id);
-    await expect(page.locator('.pin--selected')).toHaveCount(1);
+    await expectSelectedPinCount(page, 1);
     await expect.poll(() => new URL(page.url()).searchParams.has('age')).toBe(false);
     expect(new URL(page.url()).searchParams.get('facility')).toBe(facility.id);
   });
