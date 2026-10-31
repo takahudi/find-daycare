@@ -1,3 +1,4 @@
+import { viewToggle } from './map.ts';
 import { waitForLocation } from './location.ts';
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
@@ -37,7 +38,7 @@ test('ポップアップを開いたまま現在地を選ぶと自宅と近い5�
   await page.setViewportSize({ width: 1280, height: 800 });
   const farthest = [...data.facilities].sort((a, b) => distanceMeters(home, b) - distanceMeters(home, a))[0];
   await openFacility(page, farthest.id);
-  await page.getByRole('button', { name: '現在地', exact: true }).click();
+  await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
   await waitForLocation(page);
   await expect(page.locator('.maplibregl-marker .pin--home')).toBeVisible();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
@@ -55,11 +56,11 @@ test('ポップアップを開いたまま現在地を選ぶと自宅と近い5�
 test('閉じた詳細は年齢条件で施設を隠して戻しても閉じたままで、ピンで再度開ける', async ({ page }) => {
   const facility = data.facilities.find((candidate) => candidate.vacancies[0] === null)!;
   await openFacility(page, facility.id);
-  await page.getByRole('button', { name: 'Close popup' }).click();
+  await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
   await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
-  await page.getByRole('button', { name: '0歳', exact: true }).click();
+  await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }).click();
   await expect(page.locator('.pin--selected')).toHaveCount(0);
-  await page.getByRole('button', { name: '0歳', exact: true }).click();
+  await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }).click();
   await expect(page.locator('.pin--selected')).toHaveCount(1);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
@@ -104,7 +105,7 @@ test('閉じた詳細は別のカードを選んでから選び直すと再び�
   const card = (id: string) => page.locator('article[data-facility-id="' + id + '"]');
   await card(first.id).getByRole('heading').click();
   await expect(page.getByRole('group', { name: '施設の詳細' })).toContainText(first.name);
-  await page.getByRole('button', { name: 'Close popup' }).click();
+  await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
   await card(second.id).getByRole('heading').click();
   await expect(page.getByRole('group', { name: '施設の詳細' })).toContainText(second.name);
   await card(first.id).getByRole('heading').click();
@@ -119,7 +120,7 @@ for (const viewport of [
     await page.setViewportSize(viewport);
     await page.goto('/?facility=taisho-82305');
     await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
-    if (viewport.width === 390) await page.getByRole('button', { name: '地図', exact: true }).click();
+    if (viewport.width === 390) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
     await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
     const map = (await page.locator('.maplibregl-map').boundingBox())!;
     await expect

@@ -38,7 +38,10 @@ for (const pixelRatio of [1, 2]) {
       await expect.poll(() => assets.filter((asset) => asset.path.endsWith('.json')).length).toBeGreaterThan(0);
       await expect.poll(() => assets.filter((asset) => asset.path.endsWith('.png')).length).toBeGreaterThan(0);
       await expect.poll(() => assets.filter((asset) => asset.path.endsWith('.pbf')).length).toBeGreaterThan(0);
-      await expect(page.getByRole('link', { name: 'OpenStreetMap contributors' })).toBeVisible();
+      await expect(
+        page.getByRole('region', { name: '地図', exact: true }).getByRole('link', { name: 'OpenStreetMap contributors' }),
+      ).toBeVisible();
+      await expect(page.locator('[aria-busy="false"]:has(> .maplibregl-map)')).toHaveCount(1);
       await expect(page.locator('[aria-busy="false"]:has(> .maplibregl-map)')).toBeVisible();
       await page.waitForLoadState('networkidle');
       expect(tiles.every((status) => status === 200 || status === 204)).toBe(true);
@@ -59,7 +62,7 @@ test('詳細の外にある施設ピンと自宅ピンもaxeで検査する', as
   await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
   const ready = page.locator('[aria-busy]:has(> .maplibregl-map)');
   await expect(ready).toHaveAttribute('aria-busy', 'false');
-  await page.getByRole('button', { name: '現在地', exact: true }).click();
+  await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
   await waitForLocation(page);
   await expect(page.locator('.maplibregl-marker .pin--home')).toBeVisible();
   await expect(ready).toHaveAttribute('aria-busy', 'false');

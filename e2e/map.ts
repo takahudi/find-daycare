@@ -1,6 +1,11 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, type Locator, type Page } from '@playwright/test';
 
+export function viewToggle(page: Page) {
+  // 全カードの名前計算で描画を強制しないよう、表示切替の中から探す。
+  return page.getByRole('navigation', { name: '表示切替' });
+}
+
 export async function mapAxe(page: Page, selectors: string[] = []) {
   const scan = () => {
     const builder = new AxeBuilder({ page });
