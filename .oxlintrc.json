@@ -10,6 +10,7 @@
     "typeAware": true
   },
   "rules": {
+    "no-underscore-dangle": ["error", { "allow": ["__findDaycarePins"] }],
     "react/rules-of-hooks": "error",
     "react/only-export-components": ["error", { "allowConstantExport": true }],
     "react/react-in-jsx-scope": "off"
