@@ -259,9 +259,9 @@ test('初期地図は URL の絞り込みや0件にかかわらず全施設の�
     await expect(page.getByRole('group', { name: '区', exact: true })).toBeVisible();
     if (query === '?ward=')
       await page.getByRole('group', { name: '区', exact: true }).getByRole('button', { name: '阿倍野区', exact: true }).click();
-    await expect.poll(() => pinCentre(page, abeno.id)).toBe(expectedAbeno);
+    await expect.poll(() => pinCentre(page, abeno.id)).toEqual(expectedAbeno);
     await page.getByRole('group', { name: '区', exact: true }).getByRole('button', { name: '北区', exact: true }).click();
-    await expect.poll(() => pinCentre(page, kita.id)).toBe(expectedKita);
+    await expect.poll(() => pinCentre(page, kita.id)).toEqual(expectedKita);
   }
 });
 

@@ -91,7 +91,7 @@ export async function mapAxe(page: Page, selectors: string[] = []) {
   for (const selector of selectors) builder.include(selector);
   return [await builder.withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice']).analyze()];
 }
-export function mapContrastSummary(_page: Page, results: Awaited<ReturnType<typeof mapAxe>>) {
+export function mapContrastSummary(results: Awaited<ReturnType<typeof mapAxe>>) {
   return results.flatMap((result) =>
     result.incomplete
       .filter((rule) => rule.id === 'color-contrast')

@@ -6,7 +6,7 @@ const datasetRoute = '**/assets/facilities-*.json';
 async function expectAccessible(page: Page) {
   const results = await mapAxe(page);
   expect(results.flatMap((result) => result.violations)).toEqual([]);
-  expect(mapContrastSummary(page, results)).toEqual([]);
+  expect(mapContrastSummary(results)).toEqual([]);
 }
 
 test.beforeEach(async ({ page }) => {

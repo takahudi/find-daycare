@@ -455,7 +455,7 @@ for (const state of accessibilityStates) {
     await state.setup(page, reps);
     const results = await mapAxe(page, state.fullPage ? [] : await state.scope(page, reps));
     const violations = results.flatMap((result) => result.violations);
-    const incomplete = mapContrastSummary(page, results);
+    const incomplete = mapContrastSummary(results);
     await testInfo.attach('axe-color-contrast-incomplete', {
       body: JSON.stringify(incomplete, null, 2),
       contentType: 'application/json',

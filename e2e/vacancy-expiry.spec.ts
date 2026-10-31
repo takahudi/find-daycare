@@ -15,7 +15,7 @@ async function expectAccessible(
 ) {
   const results = await mapAxe(page, selectors);
   expect(results.flatMap((result) => result.violations)).toEqual([]);
-  expect(mapContrastSummary(page, results)).toEqual([]);
+  expect(mapContrastSummary(results)).toEqual([]);
 }
 
 async function showPopup(page: Page, mobile: boolean) {
