@@ -2,6 +2,27 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
 import type { RenderedPin } from '../src/features/map/pin-probe.ts';
+import type { Facility } from '../src/schema.ts';
+
+export function vacancyTotal(facility: Pick<Facility, 'vacancies' | 'sharedVacancy'>): number {
+  return (
+    facility.vacancies.reduce<number>(
+      (sum, count, age) => sum + (facility.sharedVacancy?.ages.includes(age) ? 0 : (count ?? 0)),
+      0,
+    ) + (facility.sharedVacancy?.count ?? 0)
+  );
+}
+
+export async function cssColor(page: Page, name: string): Promise<number[]> {
+  return page.locator('canvas.maplibregl-canvas').evaluate((canvas, variable) => {
+    const sample = document.createElement('canvas');
+    sample.width = sample.height = 1;
+    const context = sample.getContext('2d')!;
+    context.fillStyle = getComputedStyle(canvas).getPropertyValue(variable).trim();
+    context.fillRect(0, 0, 1, 1);
+    return Array.from(context.getImageData(0, 0, 1, 1).data.slice(0, 3));
+  }, name);
+}
 
 export function viewToggle(page: Page) {
   return page.getByRole('navigation', { name: '表示切替' });
@@ -113,6 +134,10 @@ export async function expectPinShapes(page: Page, licensing: 'licensed' | 'unlic
   for (const pin of matching) expect(pin.face).toMatchObject({ shape: licensing === 'licensed' ? 'circle' : 'square' });
 }
 export async function openVisibleUnlicensedPopup(page: Page) {
+  await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
+  await expect
+    .poll(async () => (await renderedPins(page)).some((pin) => pin.face.kind === 'facility' && pin.face.shape === 'square'))
+    .toBe(true);
   const pins = (await renderedPins(page)).filter((pin) => pin.face.kind === 'facility' && pin.face.shape === 'square');
   for (const pin of pins) {
     if (!(await pinClickPoint(page, pin.key))) continue;

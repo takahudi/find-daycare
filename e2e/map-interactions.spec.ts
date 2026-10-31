@@ -1,4 +1,13 @@
-import { expectPinProbe, expectSelectedPinCount, homePinShown, pinCentre, clickPin, pixelColors } from './map.ts';
+import {
+  expectPinProbe,
+  expectSelectedPinCount,
+  homePinShown,
+  pinCentre,
+  clickPin,
+  pixelColors,
+  cssColor,
+  vacancyTotal,
+} from './map.ts';
 import { viewToggle } from './map.ts';
 import { waitForLocation } from './location.ts';
 import { expect, test, type Page } from '@playwright/test';
@@ -70,12 +79,24 @@ test('閉じた詳細は年齢条件で施設を隠して戻しても閉じた�
 });
 
 test('同じ段でラベルが違うピンは南を手前に描き、画素で選んだ点からその施設を選べる', async ({ page }, testInfo) => {
-  const pair = data.facilities.filter((f) => ['nishi-63336', 'nishi-64304'].includes(f.id)).sort((a, b) => b.lat - a.lat);
-  const [north, south] = pair;
+  const candidates = data.facilities.filter((facility) => facility.licensing === 'licensed' && vacancyTotal(facility) > 0);
+  const pair = candidates
+    .flatMap((north) =>
+      candidates
+        .filter(
+          (south) =>
+            north.lat > south.lat &&
+            north.facilityType !== south.facilityType &&
+            vacancyTotal(north) !== vacancyTotal(south) &&
+            distanceMeters(north, south) < 15,
+        )
+        .map((south) => ({ north, south, distance: distanceMeters(north, south) })),
+    )
+    .sort((a, b) => a.distance - b.distance)[0];
+  expect(pair, '同じ空きありの段でラベルが違い、近接して重なる施設の組').toBeDefined();
+  const { north, south } = pair;
   expect(north.lat).toBeGreaterThan(south.lat);
-  expect(north.vacancies.reduce<number>((n, v) => n + (v ?? 0), 0)).not.toBe(
-    south.vacancies.reduce<number>((n, v) => n + (v ?? 0), 0),
-  );
+  expect(vacancyTotal(north)).not.toBe(vacancyTotal(south));
   await page.setViewportSize({ width: 1280, height: 800 });
   await openFacility(page, south.id);
   await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
@@ -85,24 +106,36 @@ test('同じ段でラベルが違うピンは南を手前に描き、画素で�
   });
   await expectSelectedPinCount(page, 0);
   const centre = (await pinCentre(page, south.id))!;
+  const northCentre = (await pinCentre(page, north.id))!;
+  expect(Math.hypot(centre.x - northCentre.x, centre.y - northCentre.y)).toBeLessThan(9);
   const capture = () => pixelColors(page, centre.x - 5, centre.y - 5, 10, 10);
   const both = await capture();
   const filters = page.getByRole('region', { name: '絞り込み' });
-  await filters.getByRole('button', { name: '保育所', exact: true }).click();
+  const typeLabels: Record<string, string> = {
+    nursery: '保育所',
+    kodomoen: '認定こども園',
+    community: '地域型保育（0〜2歳）',
+    kigyo: '企業主導型',
+  };
+  const northFilter = filters.getByRole('button', { name: typeLabels[north.facilityType], exact: true });
+  const southFilter = filters.getByRole('button', { name: typeLabels[south.facilityType], exact: true });
+  await northFilter.click();
   await expect.poll(() => pinCentre(page, north.id)).toBeNull();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   const southOnly = await capture();
   expect(both).toEqual(southOnly);
-  await filters.getByRole('button', { name: '保育所', exact: true }).click();
-  await filters.getByRole('button', { name: '地域型保育（0〜2歳）', exact: true }).click();
+  await northFilter.click();
+  await southFilter.click();
   await expect.poll(() => pinCentre(page, south.id)).toBeNull();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   const northOnly = await capture();
+  const labelColor = await cssColor(page, '--surface');
   const labelPixel = southOnly.findIndex(
-    (color, index) => color.every((c) => c > 240) && northOnly[index].some((c, i) => Math.abs(c - color[i]) > 100),
+    (color, index) =>
+      color.every((c, i) => Math.abs(c - labelColor[i]) < 12) && northOnly[index].some((c, i) => Math.abs(c - color[i]) > 100),
   );
   expect(labelPixel).toBeGreaterThanOrEqual(0);
-  await filters.getByRole('button', { name: '地域型保育（0〜2歳）', exact: true }).click();
+  await southFilter.click();
   await expect.poll(() => pinCentre(page, south.id)).not.toBeNull();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   const point = {

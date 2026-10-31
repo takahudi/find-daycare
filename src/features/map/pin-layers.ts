@@ -60,25 +60,35 @@ export const PIN_LAYERS = [
     source: 'facility-pins',
     tier: 'full',
     pins: (scene: PinScene) => scene.facilities.filter((pin) => pinTier(pin.face) === 'full'),
+    position: tiledFacilityPosition,
   },
   {
     id: 'facility-pins-open',
     source: 'facility-pins',
     tier: 'open',
     pins: (scene: PinScene) => scene.facilities.filter((pin) => pinTier(pin.face) === 'open'),
+    position: tiledFacilityPosition,
   },
   {
     id: 'facility-pin-selected',
     source: 'facility-pin-selected',
     tier: null,
     pins: (scene: PinScene) => (scene.selected ? [scene.selected] : []),
+    position: exactPinPosition,
   },
-  { id: 'home-pin', source: 'home-pin', tier: null, pins: (scene: PinScene) => (scene.home ? [scene.home] : []) },
+  {
+    id: 'home-pin',
+    source: 'home-pin',
+    tier: null,
+    pins: (scene: PinScene) => (scene.home ? [scene.home] : []),
+    position: exactPinPosition,
+  },
 ] as const satisfies readonly {
   id: string;
   source: PinSourceId;
   tier: PinTier | null;
   pins: (scene: PinScene) => readonly (FacilityPin | HomePin)[];
+  position: (pin: FacilityPin | HomePin) => [number, number];
 }[];
 export type PinLayer = (typeof PIN_LAYERS)[number];
 export type PinLayerId = PinLayer['id'];
@@ -142,7 +152,7 @@ export function pinSources(): Record<PinSourceId | typeof ROUTE_SOURCE, GeoJSONS
 export function pinLayerFilter(layer: PinLayer): FilterSpecification | undefined {
   return layer.tier ? ['==', ['get', 'tier'], layer.tier] : undefined;
 }
-export function pinLayers(routeColor: string): LayerSpecification[] {
+export function pinLayers(): LayerSpecification[] {
   const symbol = (layer: PinLayer): SymbolLayerSpecification => ({
     id: layer.id,
     type: 'symbol',
@@ -160,7 +170,7 @@ export function pinLayers(routeColor: string): LayerSpecification[] {
       id: ROUTE_SOURCE,
       type: 'line',
       source: ROUTE_SOURCE,
-      paint: { 'line-color': routeColor, 'line-width': 3, 'line-dasharray': [2, 2] },
+      paint: { 'line-width': 3, 'line-dasharray': [2, 2] },
     },
     ...PIN_LAYERS.map(symbol),
   ];
@@ -169,10 +179,12 @@ export interface ScreenPoint {
   readonly x: number;
   readonly y: number;
 }
+function exactPinPosition(pin: FacilityPin | HomePin): [number, number] {
+  return [pin.lng, pin.lat];
+}
 // MapLibre の geojson-vt は Mercator 座標を extent 8192 の整数へ丸める。
 // 元座標を投影すると、z17 では描画位置から最大4pxずつ外れる。
-export function facilityPinPosition(pin: FacilityPin | HomePin): [number, number] {
-  if (pin.face.kind === 'home' || pin.face.selected) return [pin.lng, pin.lat];
+export function tiledFacilityPosition(pin: FacilityPin | HomePin): [number, number] {
   const units = 8192 * 2 ** FACILITY_PINS_MAXZOOM;
   const x = Math.round((pin.lng / 360 + 0.5) * units) / units;
   const sin = Math.sin((pin.lat * Math.PI) / 180);
@@ -182,7 +194,7 @@ export function facilityPinPosition(pin: FacilityPin | HomePin): [number, number
 export function pickPin(scene: PinScene, point: ScreenPoint, project: (lngLat: [number, number]) => ScreenPoint): string | null {
   for (const layer of PIN_LAYERS.toReversed()) {
     for (const pin of layer.pins(scene).toReversed()) {
-      const position = project(facilityPinPosition(pin));
+      const position = project(layer.position(pin));
       if (pinContains(pin.face, point.x - position.x, point.y - position.y)) return pin.face.kind === 'facility' ? pin.id : null;
     }
   }

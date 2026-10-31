@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { expectSelectedPinCount, pixelAt } from './map.ts';
+import { expectSelectedPinCount, pixelAt, cssColor } from './map.ts';
 
 for (const id of ['higashiyodogawa-133106', 'kita-13311', 'nishi-kigyo-01']) {
   for (const zoom of [15, 17]) {
@@ -49,7 +49,8 @@ for (const id of ['higashiyodogawa-133106', 'kita-13311', 'nishi-kigyo-01']) {
       for (const pin of samples) expect(Math.hypot(pin.dx, pin.dy), pin.id).toBeLessThanOrEqual(0.5);
       const pin = samples[0];
       const color = await pixelAt(page, pin.x + 7, pin.y);
-      expect(color.every((c, i) => Math.abs(c - (pin.vacancy > 0 ? [37, 123, 86] : [240, 240, 238])[i]) < 20)).toBe(true);
+      const fill = await cssColor(page, pin.vacancy > 0 ? '--open' : '--full-bg');
+      expect(color.every((c, i) => Math.abs(c - fill[i]) < 20)).toBe(true);
       await page.mouse.click(pin.x + 7, pin.y);
       await expect(page.locator('article[aria-current="true"]')).toHaveAttribute('data-facility-id', pin.id);
       await expectSelectedPinCount(page, 1);

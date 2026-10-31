@@ -86,7 +86,7 @@ export const PIN_THEME_VARS = {
   unlicensed: '--unlicensed',
   accent: '--accent',
   ink: '--ink',
-  white: '--surface',
+  surface: '--surface',
 } as const;
 export type PinTheme = { readonly [K in keyof typeof PIN_THEME_VARS]: string } & { readonly font: string };
 export function pinTheme(read: (cssVar: (typeof PIN_THEME_VARS)[keyof typeof PIN_THEME_VARS]) => string, font: string): PinTheme {
@@ -97,7 +97,7 @@ export function pinTheme(read: (cssVar: (typeof PIN_THEME_VARS)[keyof typeof PIN
     unlicensed: read(PIN_THEME_VARS.unlicensed),
     accent: read(PIN_THEME_VARS.accent),
     ink: read(PIN_THEME_VARS.ink),
-    white: read(PIN_THEME_VARS.white),
+    surface: read(PIN_THEME_VARS.surface),
     font,
   };
 }
@@ -108,12 +108,12 @@ export interface PinColors {
   readonly ring: string | null;
 }
 export function pinColors(face: PinFace, theme: PinTheme): PinColors {
-  if (face.kind === 'home') return { fill: theme.accent, border: theme.white, text: theme.ink, ring: null };
+  if (face.kind === 'home') return { fill: theme.accent, border: theme.surface, text: theme.ink, ring: null };
   const open = face.vacancy > 0;
   return {
     fill: open ? theme.open : theme.fullBg,
-    border: face.shape === 'square' ? theme.unlicensed : open ? theme.white : theme.full,
-    text: open ? theme.white : theme.full,
+    border: face.shape === 'square' ? theme.unlicensed : open ? theme.surface : theme.full,
+    text: open ? theme.surface : theme.full,
     ring: face.selected ? theme.accent : null,
   };
 }

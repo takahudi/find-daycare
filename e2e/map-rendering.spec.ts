@@ -1,6 +1,16 @@
-import { expectFacilityPinCount, expectSelectedPinCount, renderedPins, pixelAt, clickPin, pixelColors } from './map.ts';
+import {
+  expectFacilityPinCount,
+  expectSelectedPinCount,
+  renderedPins,
+  pixelAt,
+  clickPin,
+  pixelColors,
+  cssColor,
+  vacancyTotal,
+} from './map.ts';
 import { expect, test } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
+import { pinGeometry } from '../src/features/map/pin-face.ts';
 
 declare global {
   interface Window {
@@ -126,7 +136,8 @@ test('空きありのピンは重なる空きなしのピンより上の色で�
   });
   expect(overlap).not.toBeNull();
   const color = await pixelAt(page, overlap!.x, overlap!.y);
-  expect(color.every((channel, index) => Math.abs(channel - [37, 123, 86][index]) < 20)).toBe(true);
+  const openColor = await cssColor(page, '--open');
+  expect(color.every((channel, index) => Math.abs(channel - openColor[index]) < 20)).toBe(true);
   await testInfo.attach('open-over-full-pixel', { body: JSON.stringify({ ...overlap, color }), contentType: 'application/json' });
   await page.mouse.click(overlap!.x, overlap!.y);
   await expect(page.locator('article[aria-current="true"]')).toHaveCount(1);
@@ -140,8 +151,10 @@ test('選択したピンはアクセントの輪で強調し、閉じた詳細�
   await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
   await page.locator('section[aria-label="地図"]').getByRole('button', { name: 'Close popup' }).click();
   const pin = (await renderedPins(page)).find((candidate) => candidate.layer === 'facility-pin-selected')!;
-  const color = await pixelAt(page, pin.clientX, pin.clientY + 20);
-  expect(color.every((channel, index) => Math.abs(channel - [232, 116, 59][index]) < 20)).toBe(true);
+  const g = pinGeometry(pin.face, 'map');
+  const color = await pixelAt(page, pin.clientX, pin.clientY + g.scale * (g.box / 2 + g.ring / 2));
+  const accentColor = await cssColor(page, '--accent');
+  expect(color.every((channel, index) => Math.abs(channel - accentColor[index]) < 20)).toBe(true);
   await testInfo.attach('selected-ring-pixel', { body: JSON.stringify({ color }), contentType: 'application/json' });
   await clickPin(page, id);
   await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
@@ -159,7 +172,8 @@ for (const [id, shape] of [
     const pin = (await renderedPins(page)).find((candidate) => candidate.layer === 'facility-pin-selected')!;
     expect(pin.face).toMatchObject({ shape });
     const corner = await pixelAt(page, pin.clientX + 16, pin.clientY + 16);
-    const accent = corner.every((channel, index) => Math.abs(channel - [232, 116, 59][index]) < 25);
+    const accentColor = await cssColor(page, '--accent');
+    const accent = corner.every((channel, index) => Math.abs(channel - accentColor[index]) < 25);
     expect(accent).toBe(shape === 'square');
     await testInfo.attach('pin-face', {
       body: await page.screenshot({ clip: { x: pin.clientX - 24, y: pin.clientY - 24, width: 48, height: 48 } }),
@@ -169,27 +183,20 @@ for (const [id, shape] of [
 }
 
 test('ピンの中心に空きありは白い数字、空きなしはfull色の×を描く', async ({ page }, testInfo) => {
-  for (const [id, vacancy] of [
-    ['kita-13311', 7],
-    ['nishi-kigyo-01', 0],
-  ] as const) {
+  const open = data.facilities.find((facility) => facility.licensing === 'licensed' && vacancyTotal(facility) > 0);
+  const full = data.facilities.find((facility) => vacancyTotal(facility) === 0);
+  expect(open, '空きありの認可施設').toBeDefined();
+  expect(full, '空きなしの施設').toBeDefined();
+  for (const facility of [open!, full!]) {
+    const id = facility.id;
+    const vacancy = vacancyTotal(facility);
     await page.goto('/?facility=' + id);
     await expectSelectedPinCount(page, 1);
     await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
     await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
     const pin = (await renderedPins(page)).find((candidate) => candidate.layer === 'facility-pin-selected')!;
     expect(pin.face).toMatchObject({ vacancy });
-    const rgb = await page.locator('canvas.maplibregl-canvas').evaluate(
-      (canvas, name) => {
-        const sample = document.createElement('canvas');
-        sample.width = sample.height = 1;
-        const context = sample.getContext('2d')!;
-        context.fillStyle = getComputedStyle(canvas).getPropertyValue(name).trim();
-        context.fillRect(0, 0, 1, 1);
-        return Array.from(context.getImageData(0, 0, 1, 1).data.slice(0, 3));
-      },
-      vacancy > 0 ? '--surface' : '--full',
-    );
+    const rgb = await cssColor(page, vacancy > 0 ? '--surface' : '--full');
     const pixels = await pixelColors(page, pin.clientX - 7, pin.clientY - 7, 14, 14);
     expect(pixels.filter((pixel) => pixel.every((channel, i) => Math.abs(channel - rgb[i]) < 12)).length).toBeGreaterThan(8);
     await testInfo.attach(id + '-label', {
@@ -229,5 +236,47 @@ test('ポインターを動かさず絞り込みや地図移動をしてもカ�
   await canvas.focus();
   await page.keyboard.press('ArrowRight');
   await expect(ready).toHaveAttribute('aria-busy', 'false');
+  await expect(canvas).not.toHaveCSS('cursor', 'pointer');
+});
+
+test('空いた地図をドラッグするとき、開始点へピンが来てもカーソルはpointerにならない', async ({ page }, testInfo) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/?facility=higashiyodogawa-133106');
+  await expectSelectedPinCount(page, 1);
+  const region = page.getByRole('region', { name: '地図', exact: true });
+  const ready = page.locator('[aria-busy]:has(> .maplibregl-map)');
+  await expect(ready).toHaveAttribute('aria-busy', 'false');
+  await region.getByRole('button', { name: 'Close popup' }).click();
+  for (let step = 0; step < 2; step++) {
+    await region.getByRole('button', { name: 'Zoom in' }).click();
+    await expect(ready).toHaveAttribute('aria-busy', 'false');
+  }
+  await expect(region.getByRole('button', { name: 'Zoom in' })).toBeDisabled();
+  const pin = (await renderedPins(page)).find((candidate) => candidate.layer === 'facility-pin-selected')!;
+  const start = { x: pin.clientX - 120, y: pin.clientY };
+  const end = { x: start.x - 120, y: start.y };
+  const pickAt = (point: { x: number; y: number }) => page.evaluate((p) => window.__findDaycarePins!.pick(p.x, p.y), point);
+  expect(await pickAt(start)).toBeNull();
+  expect(await pickAt(end)).toBeNull();
+  const canvas = page.locator('canvas.maplibregl-canvas');
+  await page.mouse.move(start.x, start.y);
+  await expect(canvas).not.toHaveCSS('cursor', 'pointer');
+  await page.mouse.down();
+  await page.mouse.move(end.x, end.y, { steps: 30 });
+  // 慣性でピンが通り過ぎないよう、ポインターを止めてから離す。
+  await page.waitForTimeout(200);
+  await page.mouse.up();
+  await expect(ready).toHaveAttribute('aria-busy', 'false');
+  await expect.poll(() => pickAt(start)).toBe(pin.key);
+  expect(await pickAt(end)).toBeNull();
+  await testInfo.attach('drag-cursor', {
+    body: JSON.stringify({
+      start,
+      end,
+      pin: pin.key,
+      cursor: await canvas.evaluate((element) => getComputedStyle(element).cursor),
+    }),
+    contentType: 'application/json',
+  });
   await expect(canvas).not.toHaveCSS('cursor', 'pointer');
 });

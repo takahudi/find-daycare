@@ -1,4 +1,3 @@
-import indexCss from '../../index.css?raw';
 import { layers, namedFlavor } from '@protomaps/basemaps';
 import type { StyleSpecification } from 'maplibre-gl';
 import tiles from '../../../data/map/tiles.json';
@@ -21,9 +20,6 @@ export function createMapStyle(origin: string): StyleSpecification {
           '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors</a> · <a href="https://protomaps.com" target="_blank" rel="noreferrer">Protomaps</a>',
       },
     },
-    layers: [
-      ...layers('basemap', namedFlavor('light'), { lang: 'ja' }),
-      ...pinLayers(/--accent:\s*([^;]+);/.exec(indexCss)![1].trim()),
-    ],
+    layers: [...layers('basemap', namedFlavor('light'), { lang: 'ja' }), ...pinLayers()],
   };
 }

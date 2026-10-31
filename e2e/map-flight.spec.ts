@@ -7,6 +7,7 @@ import {
   renderedPins,
   expectFacilityPinCount,
   pixelAt,
+  cssColor,
 } from './map.ts';
 import { viewToggle } from './map.ts';
 import { setTimeout as delayResponse } from 'node:timers/promises';
@@ -15,6 +16,7 @@ import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
 import { POPUP_OFFSET } from '../src/features/map/FacilityPopup.tsx';
 import { distanceMeters } from '../src/lib/geo.ts';
+import { pinGeometry } from '../src/features/map/pin-face.ts';
 
 const ready = (page: Page) => page.locator('[aria-busy]:has(> .maplibregl-map)');
 const facilityId = 'taisho-82305';
@@ -365,8 +367,11 @@ test('非表示の間に WebGL が復元されても地図で見る施設が中�
   await expectSelectedPinCount(page, 1);
   const { marker } = await geometry(page);
   await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
-  const color = await pixelAt(page, marker.x, marker.y + 20);
-  expect(color.every((channel, index) => Math.abs(channel - [232, 116, 59][index]) < 20)).toBe(true);
+  const selected = (await renderedPins(page)).find((pin) => pin.layer === 'facility-pin-selected')!;
+  const g = pinGeometry(selected.face, 'map');
+  const color = await pixelAt(page, marker.x, marker.y + g.scale * (g.box / 2 + g.ring / 2));
+  const accent = await cssColor(page, '--accent');
+  expect(color.every((channel, index) => Math.abs(channel - accent[index]) < 20)).toBe(true);
   const zoomOut = page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Zoom out' });
   for (let step = 0; step < 5; step++) {
     await zoomOut.click();

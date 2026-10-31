@@ -38,11 +38,13 @@ export function PinOverlay({
 }) {
   const map = useMap().current?.getMap();
   // Compiler は effect event が読む scene の計算をキャッシュしないため、source の同一性をここで保つ。
-  const facilityKey = JSON.stringify(
-    facilities.map((facility) => [facility.id, vacancyOf(facility)]).sort(([a], [b]) => String(a).localeCompare(String(b))),
-  );
+  const visibleIds = new Set(facilities.map((facility) => facility.id));
+  const facilityKey = allFacilities.map((facility) => (visibleIds.has(facility.id) ? vacancyOf(facility) : '')).join(',');
   const base = useMemo(() => {
-    const vacancies = new Map<string, number>(JSON.parse(facilityKey));
+    const vacancies = new Map<string, number>();
+    facilityKey.split(',').forEach((count, index) => {
+      if (count !== '') vacancies.set(allFacilities[index].id, Number(count));
+    });
     const pins = facilityPins(
       allFacilities,
       allFacilities.filter((facility) => vacancies.has(facility.id)),
@@ -77,6 +79,13 @@ export function PinOverlay({
     canvas.setAttribute('aria-describedby', hintId);
     // 外側の地図 region と同名のランドマークを重ねない。
     canvas.setAttribute('role', 'group');
+    const applyTheme = () => {
+      if (!map.getLayer(ROUTE_SOURCE)) return;
+      map.setPaintProperty(ROUTE_SOURCE, 'line-color', readPinTheme(map.getContainer()).accent);
+      map.off('styledata', applyTheme);
+    };
+    map.on('styledata', applyTheme);
+    applyTheme();
     const addMissingPin = (id: string) => {
       const face = parsePinImageId(id);
       if (!face || map.hasImage(id)) return;
@@ -121,19 +130,21 @@ export function PinOverlay({
     map.on('click', click);
     map.on('mousemove', hover);
     map.on('mouseout', resetCursor);
-    map.on('dragstart', clearCursor);
+    map.on('dragstart', resetCursor);
     const removeProbe = installPinProbe(map, pick);
     return () => {
       resetCursor();
       map.setMissingStyleImageResolver(null);
       canvas.removeAttribute('aria-describedby');
+      canvas.removeAttribute('role');
+      map.off('styledata', applyTheme);
       map.off('sourcedataloading', sourceChanged);
       map.off('sourcedata', sourceChanged);
       map.off('moveend', refreshCursor);
       map.off('click', click);
       map.off('mousemove', hover);
       map.off('mouseout', resetCursor);
-      map.off('dragstart', clearCursor);
+      map.off('dragstart', resetCursor);
       removeProbe();
     };
   }, [map, hintId]);
