@@ -1,5 +1,5 @@
 import type { FilterSpecification, GeoJSONSourceSpecification, LayerSpecification, SymbolLayerSpecification } from 'maplibre-gl';
-import type { Facility, Home } from '../../schema';
+import type { Facility, Home } from '../../schema.ts';
 import type * as GeoJSON from 'geojson';
 import {
   facilityFace,
@@ -10,7 +10,7 @@ import {
   type FacilityFace,
   type HomeFace,
   type PinTier,
-} from './pin-face';
+} from './pin-face.ts';
 
 export interface FacilityPin {
   readonly id: string;

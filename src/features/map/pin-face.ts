@@ -1,4 +1,4 @@
-import type { Facility } from '../../schema';
+import type { Facility } from '../../schema.ts';
 
 export type PinShape = 'circle' | 'square';
 export type PinTier = 'open' | 'full';

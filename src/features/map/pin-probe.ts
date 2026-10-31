@@ -1,6 +1,6 @@
 import type { Map as MapLibreMap } from 'maplibre-gl';
-import { parsePinImageId, type PinFace } from './pin-face';
-import { PIN_LAYER_IDS, type PinLayerId, type ScreenPoint } from './pin-layers';
+import { parsePinImageId, type PinFace } from './pin-face.ts';
+import { PIN_LAYER_IDS, type PinLayerId, type ScreenPoint } from './pin-layers.ts';
 
 export interface RenderedPin {
   readonly layer: PinLayerId;

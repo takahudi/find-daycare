@@ -1,6 +1,6 @@
-import { useEffect, useEffectEvent } from 'react';
+import { useEffect, useEffectEvent, useMemo } from 'react';
 import { useMap } from 'react-map-gl/maplibre';
-import type { GeoJSONSource, Map as MapLibreMap, MapMouseEvent, MapStyleImageMissingEvent } from 'maplibre-gl';
+import type { GeoJSONSource, Map as MapLibreMap, MapMouseEvent } from 'maplibre-gl';
 import type { GeoJSON } from 'geojson';
 import type { Facility, Home } from '../../schema';
 import { parsePinImageId } from './pin-face';
@@ -34,20 +34,31 @@ export function PinOverlay({
   onSelect: (id: string) => void;
 }) {
   const map = useMap().current?.getMap();
-  const pins = facilityPins(allFacilities, facilities, vacancyOf);
-  const selected = selectedPin(pins, selectedId);
-  const homeAt = homePin(home);
-  const scene: PinScene = { facilities: pins, selected, home: homeAt };
-  useSourceData(map, 'facility-pins', pinCollection(pins));
-  useSourceData(map, 'facility-pin-selected', pinCollection(selected ? [selected] : []));
-  useSourceData(map, 'home-pin', pinCollection(homeAt ? [homeAt] : []));
-  useSourceData(map, ROUTE_SOURCE, routeCollection(homeAt, selected));
+  // Compiler は effect event が読む scene の計算をキャッシュしないため、source の同一性をここで保つ。
+  const base = useMemo(() => {
+    const pins = facilityPins(allFacilities, facilities, vacancyOf);
+    return { pins, data: pinCollection(pins) };
+  }, [allFacilities, facilities, vacancyOf]);
+  const selected = useMemo(() => {
+    const pin = selectedPin(base.pins, selectedId);
+    return { pin, data: pinCollection(pin ? [pin] : []) };
+  }, [base.pins, selectedId]);
+  const homeAt = useMemo(() => {
+    const pin = homePin(home);
+    return { pin, data: pinCollection(pin ? [pin] : []) };
+  }, [home]);
+  const route = useMemo(() => routeCollection(homeAt.pin, selected.pin), [homeAt.pin, selected.pin]);
+  const scene: PinScene = { facilities: base.pins, selected: selected.pin, home: homeAt.pin };
+  useSourceData(map, 'facility-pins', base.data);
+  useSourceData(map, 'facility-pin-selected', selected.data);
+  useSourceData(map, 'home-pin', homeAt.data);
+  useSourceData(map, ROUTE_SOURCE, route);
 
   const pick = useEffectEvent((point: ScreenPoint) => (map ? pickPin(scene, point, (lngLat) => map.project(lngLat)) : null));
   const select = useEffectEvent((id: string) => onSelect(id));
   useEffect(() => {
     if (!map) return undefined;
-    const addMissingPin = ({ id }: MapStyleImageMissingEvent) => {
+    const addMissingPin = (id: string) => {
       const face = parsePinImageId(id);
       if (!face || map.hasImage(id)) return;
       map.addImage(id, pinImage(face, readPinTheme(map.getContainer()), map.getPixelRatio()), {
@@ -78,7 +89,8 @@ export function PinOverlay({
         map.getCanvas().style.cursor = hoverPoint && pick(hoverPoint) ? 'pointer' : '';
       });
     };
-    map.on('styleimagemissing', addMissingPin);
+    // v6 の styleimagemissing は応答後の通知なので、生成は応答前に呼ばれる resolver に登録する。
+    map.setMissingStyleImageResolver(addMissingPin);
     map.on('click', click);
     map.on('mousemove', hover);
     map.on('mouseout', resetCursor);
@@ -86,7 +98,7 @@ export function PinOverlay({
     const removeProbe = installPinProbe(map, pick);
     return () => {
       resetCursor();
-      map.off('styleimagemissing', addMissingPin);
+      map.setMissingStyleImageResolver(null);
       map.off('click', click);
       map.off('mousemove', hover);
       map.off('mouseout', resetCursor);

@@ -67,7 +67,12 @@ export function MapView({
       </p>
       <MapGL
         locale={{ 'Map.Title': '地図' }}
-        onLoad={(event) => event.target.getCanvas().setAttribute('aria-describedby', hintId)}
+        onLoad={(event) => {
+          const canvas = event.target.getCanvas();
+          canvas.setAttribute('aria-describedby', hintId);
+          // 外側の地図 region と同名のランドマークを重ねない。
+          canvas.setAttribute('role', 'group');
+        }}
         onMoveStart={() => setBusy(true)}
         onIdle={() => setBusy(false)}
         mapLib={maplibregl}
