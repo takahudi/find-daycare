@@ -1,9 +1,19 @@
-import { expectPinProbe, expectSelectedPinCount, homePinShown, pinCentre, clickPin, renderedPins } from './map.ts';
+import {
+  expectPinProbe,
+  expectSelectedPinCount,
+  homePinShown,
+  pinCentre,
+  clickPin,
+  renderedPins,
+  expectFacilityPinCount,
+  pixelAt,
+} from './map.ts';
 import { viewToggle } from './map.ts';
 import { setTimeout as delayResponse } from 'node:timers/promises';
 import { waitForLocation } from './location.ts';
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
+import { POPUP_OFFSET } from '../src/features/map/FacilityPopup.tsx';
 import { distanceMeters } from '../src/lib/geo.ts';
 
 const ready = (page: Page) => page.locator('[aria-busy]:has(> .maplibregl-map)');
@@ -19,13 +29,16 @@ async function openMap(page: Page, mobile = false) {
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
 }
 const geometry = (page: Page) =>
-  page.evaluate(() => {
+  page.evaluate((offset) => {
     const map = document.querySelector('.maplibregl-map')!.getBoundingClientRect();
     const popup = document.querySelector('.maplibregl-popup')!.getBoundingClientRect();
     const tip = document.querySelector('.maplibregl-popup-tip')!.getBoundingClientRect();
-    const marker = { x: tip.x + tip.width / 2, y: tip.bottom + 18, top: tip.bottom + 18, width: 0, height: 0 };
-    return { map: map.toJSON(), popup: popup.toJSON(), marker };
-  });
+    const pin = window.__findDaycarePins!.rendered().find((candidate) => candidate.layer === 'facility-pin-selected');
+    if (!pin) throw new Error('選択ピンが描画されていない');
+    const marker = { x: pin.clientX, y: pin.clientY, top: pin.clientY, width: 0, height: 0 };
+    const popupAnchor = { x: tip.x + tip.width / 2, y: tip.bottom + offset };
+    return { map: map.toJSON(), popup: popup.toJSON(), marker, popupAnchor };
+  }, POPUP_OFFSET);
 async function expectInside(page: Page) {
   await expect
     .poll(async () => {
@@ -33,6 +46,8 @@ async function expectInside(page: Page) {
       return popup.top >= map.top && popup.bottom <= map.bottom && popup.left >= map.left && popup.right <= map.right;
     })
     .toBe(true);
+  const { marker, popupAnchor } = await geometry(page);
+  expect(Math.hypot(marker.x - popupAnchor.x, marker.y - popupAnchor.y)).toBeLessThan(1);
 }
 
 for (const delay of [100, 250, 400]) {
@@ -161,6 +176,12 @@ for (const last of ['facility', 'home']) {
           if (el instanceof HTMLElement) el.click();
         });
       await waitForLocation(page);
+      await expect
+        .poll(async () => {
+          await page.clock.runFor(200);
+          return homePinShown(page);
+        })
+        .toBe(true);
     };
     if (last === 'facility') {
       await locate();
@@ -194,7 +215,8 @@ test('地図より高い詳細は上端の余白を優先する', async ({ page 
   await expectPinProbe(page);
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  const { map, popup } = await geometry(page);
+  const map = await page.locator('.maplibregl-map').evaluate((element) => element.getBoundingClientRect().toJSON());
+  const popup = await page.locator('.maplibregl-popup').evaluate((element) => element.getBoundingClientRect().toJSON());
   expect(popup.height).toBeGreaterThan(map.height);
   expect(Math.abs(popup.top - map.top - 8)).toBeLessThan(1);
 });
@@ -314,6 +336,7 @@ test('保留中の施設を絞り込みで隠すとその施設への移動は�
 test('非表示の間に WebGL が復元されても地図で見る施設が中央に来る', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await openMap(page, true);
+  await expectFacilityPinCount(page, data.facilities.length);
   await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   const extension = await page.evaluateHandle(() => {
     const canvas = document.querySelector<HTMLCanvasElement>('.maplibregl-canvas')!;
@@ -339,4 +362,16 @@ test('非表示の間に WebGL が復元されても地図で見る施設が中�
     })
     .toBeLessThan(1);
   await expectInside(page);
+  await expectSelectedPinCount(page, 1);
+  const { marker } = await geometry(page);
+  await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
+  const color = await pixelAt(page, marker.x, marker.y + 20);
+  expect(color.every((channel, index) => Math.abs(channel - [232, 116, 59][index]) < 20)).toBe(true);
+  const zoomOut = page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Zoom out' });
+  for (let step = 0; step < 5; step++) {
+    await zoomOut.click();
+    await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  }
+  await expectFacilityPinCount(page, data.facilities.length);
+  await expectSelectedPinCount(page, 1);
 });

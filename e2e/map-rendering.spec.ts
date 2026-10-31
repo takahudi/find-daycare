@@ -1,4 +1,4 @@
-import { expectFacilityPinCount, expectSelectedPinCount, renderedPins, pixelAt, clickPin } from './map.ts';
+import { expectFacilityPinCount, expectSelectedPinCount, renderedPins, pixelAt, clickPin, pixelColors } from './map.ts';
 import { expect, test } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
 
@@ -44,7 +44,7 @@ for (const pixelRatio of [1, 2]) {
       await expect.poll(() => assets.filter((asset) => asset.path.endsWith('.png')).length).toBeGreaterThan(0);
       await expect.poll(() => assets.filter((asset) => asset.path.endsWith('.pbf')).length).toBeGreaterThan(0);
       await expect(
-        page.locator('section[aria-label="地図"]').getByRole('link', { name: 'OpenStreetMap contributors' }),
+        page.getByRole('region', { name: '地図', exact: true }).getByRole('link', { name: 'OpenStreetMap contributors' }),
       ).toBeVisible();
       await expect(page.locator('[aria-busy="false"]:has(> .maplibregl-map)')).toHaveCount(1);
       await expect(page.locator('[aria-busy="false"]:has(> .maplibregl-map)')).toBeVisible();
@@ -59,7 +59,7 @@ for (const pixelRatio of [1, 2]) {
   });
 }
 
-test('施設の選択では全施設のデータを再送せず、選択ピンだけを更新する', async ({ page }) => {
+test('選択・並べ替え・自宅の変更では全施設のデータを再送しない', async ({ page, context }) => {
   await page.addInitScript(() => {
     window.pinSourceLoads = {};
     const BrowserWorker = window.Worker;
@@ -77,13 +77,14 @@ test('施設の選択では全施設のデータを再送せず、選択ピン�
             window.pinSourceLoads[payload.source] = (window.pinSourceLoads[payload.source] ?? 0) + 1;
           }
         }
-        if (Array.isArray(options)) super.postMessage(message, options);
-        else super.postMessage(message, options);
+        super.postMessage(message, Array.isArray(options) ? { transfer: options } : options);
       }
     };
   });
   await page.goto('/');
   await expectFacilityPinCount(page, data.facilities.length);
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ latitude: 34.6937, longitude: 135.5023 });
   const before = await page.evaluate(() => ({ ...window.pinSourceLoads }));
   expect(before['facility-pins']).toBeGreaterThan(0);
   await page.locator(`article[data-facility-id="${data.facilities[0].id}"]`).getByRole('heading').click();
@@ -91,6 +92,11 @@ test('施設の選択では全施設のデータを再送せず、選択ピン�
   const after = await page.evaluate(() => ({ ...window.pinSourceLoads }));
   expect(after['facility-pins']).toBe(before['facility-pins']);
   expect(after['facility-pin-selected']).toBeGreaterThan(before['facility-pin-selected']);
+  await page.getByRole('region', { name: '絞り込み' }).getByRole('combobox', { name: '並び順' }).selectOption('name');
+  await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
+  await expect.poll(async () => (await renderedPins(page)).filter((pin) => pin.layer === 'home-pin').length).toBe(1);
+  await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
+  expect(await page.evaluate(() => window.pinSourceLoads['facility-pins'])).toBe(before['facility-pins']);
 });
 
 test('空きありのピンは重なる空きなしのピンより上の色で描かれる', async ({ page }, testInfo) => {
@@ -161,3 +167,67 @@ for (const [id, shape] of [
     });
   });
 }
+
+test('ピンの中心に空きありは白い数字、空きなしはfull色の×を描く', async ({ page }, testInfo) => {
+  for (const [id, vacancy] of [
+    ['kita-13311', 7],
+    ['nishi-kigyo-01', 0],
+  ] as const) {
+    await page.goto('/?facility=' + id);
+    await expectSelectedPinCount(page, 1);
+    await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
+    await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
+    const pin = (await renderedPins(page)).find((candidate) => candidate.layer === 'facility-pin-selected')!;
+    expect(pin.face).toMatchObject({ vacancy });
+    const rgb = await page.locator('canvas.maplibregl-canvas').evaluate(
+      (canvas, name) => {
+        const sample = document.createElement('canvas');
+        sample.width = sample.height = 1;
+        const context = sample.getContext('2d')!;
+        context.fillStyle = getComputedStyle(canvas).getPropertyValue(name).trim();
+        context.fillRect(0, 0, 1, 1);
+        return Array.from(context.getImageData(0, 0, 1, 1).data.slice(0, 3));
+      },
+      vacancy > 0 ? '--surface' : '--full',
+    );
+    const pixels = await pixelColors(page, pin.clientX - 7, pin.clientY - 7, 14, 14);
+    expect(pixels.filter((pixel) => pixel.every((channel, i) => Math.abs(channel - rgb[i]) < 12)).length).toBeGreaterThan(8);
+    await testInfo.attach(id + '-label', {
+      body: await page.screenshot({
+        clip: { x: Math.floor(pin.clientX - 24), y: Math.floor(pin.clientY - 24), width: 48, height: 48 },
+      }),
+      contentType: 'image/png',
+    });
+  }
+});
+
+test('ポインターを動かさず絞り込みや地図移動をしてもカーソルを更新する', async ({ page }) => {
+  await page.goto('/?facility=higashiyodogawa-133106');
+  await expectSelectedPinCount(page, 1);
+  const region = page.getByRole('region', { name: '地図', exact: true });
+  const ready = page.locator('[aria-busy]:has(> .maplibregl-map)');
+  await expect(ready).toHaveAttribute('aria-busy', 'false');
+  await region.getByRole('button', { name: 'Close popup' }).click();
+  for (let step = 0; step < 2; step++) {
+    await region.getByRole('button', { name: 'Zoom in' }).click();
+    await expect(ready).toHaveAttribute('aria-busy', 'false');
+  }
+  await expect(region.getByRole('button', { name: 'Zoom in' })).toBeDisabled();
+  await expect(ready).toHaveAttribute('aria-busy', 'false');
+  const pin = (await renderedPins(page)).find((candidate) => candidate.layer === 'facility-pin-selected')!;
+  const canvas = page.locator('canvas.maplibregl-canvas');
+  await page.mouse.move(pin.clientX, pin.clientY);
+  await expect(canvas).toHaveCSS('cursor', 'pointer');
+  const nursery = page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '保育所', exact: true });
+  await nursery.evaluate((button: HTMLButtonElement) => button.click());
+  await expectSelectedPinCount(page, 0);
+  await expect(canvas).not.toHaveCSS('cursor', 'pointer');
+  await nursery.evaluate((button: HTMLButtonElement) => button.click());
+  await expectSelectedPinCount(page, 1);
+  await expect(ready).toHaveAttribute('aria-busy', 'false');
+  await expect(canvas).toHaveCSS('cursor', 'pointer');
+  await canvas.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(ready).toHaveAttribute('aria-busy', 'false');
+  await expect(canvas).not.toHaveCSS('cursor', 'pointer');
+});

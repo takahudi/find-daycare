@@ -38,22 +38,23 @@ export async function pinCentre(page: Page, id: string): Promise<{ x: number; y:
   return pin ? { x: pin.clientX, y: pin.clientY } : null;
 }
 export async function pinClickPoint(page: Page, id: string) {
-  return page.evaluate((facilityId) => {
-    const probe = window.__findDaycarePins!;
-    const pins = probe.rendered();
-    const pin =
-      pins.find((p) => p.key === facilityId && p.layer === 'facility-pin-selected') ?? pins.find((p) => p.key === facilityId);
-    if (!pin) return null;
-    const canvas = document.querySelector('canvas.maplibregl-canvas');
-    for (const radius of [0, 4, 8, 12, 16]) {
-      for (let angle = 0; angle < 360; angle += 45) {
-        const x = pin.clientX + radius * Math.cos((angle * Math.PI) / 180);
-        const y = pin.clientY + radius * Math.sin((angle * Math.PI) / 180);
-        if (document.elementFromPoint(x, y) === canvas && probe.pick(x, y) === facilityId) return { x, y };
+  const centre = await pinCentre(page, id);
+  if (!centre) return null;
+  return page.evaluate(
+    ({ facilityId, centre: pointCentre }) => {
+      const probe = window.__findDaycarePins!;
+      const canvas = document.querySelector('canvas.maplibregl-canvas');
+      for (const radius of [0, 4, 8, 12, 16]) {
+        for (let angle = 0; angle < 360; angle += 45) {
+          const x = pointCentre.x + radius * Math.cos((angle * Math.PI) / 180);
+          const y = pointCentre.y + radius * Math.sin((angle * Math.PI) / 180);
+          if (document.elementFromPoint(x, y) === canvas && probe.pick(x, y) === facilityId) return { x, y };
+        }
       }
-    }
-    return null;
-  }, id);
+      return null;
+    },
+    { facilityId: id, centre },
+  );
 }
 export async function clickPin(page: Page, id: string) {
   await expectPinProbe(page);
@@ -121,4 +122,20 @@ export async function openVisibleUnlicensedPopup(page: Page) {
     return;
   }
   throw new Error('地図内に操作できる認可外ピンがない');
+}
+
+export async function pixelColors(page: Page, x: number, y: number, width: number, height: number): Promise<number[][]> {
+  const png = await page.screenshot({ clip: { x: Math.floor(x), y: Math.floor(y), width, height }, scale: 'css' });
+  return page.evaluate(async (base64) => {
+    const image = new Image();
+    image.src = 'data:image/png;base64,' + base64;
+    await image.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    const context = canvas.getContext('2d')!;
+    context.drawImage(image, 0, 0);
+    const rgba = context.getImageData(0, 0, image.width, image.height).data;
+    return Array.from({ length: image.width * image.height }, (_, i) => Array.from(rgba.slice(i * 4, i * 4 + 3)));
+  }, png.toString('base64'));
 }

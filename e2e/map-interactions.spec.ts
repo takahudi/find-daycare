@@ -1,4 +1,4 @@
-import { expectPinProbe, expectFacilityPinCount, expectSelectedPinCount, homePinShown, pinCentre, clickPin } from './map.ts';
+import { expectPinProbe, expectSelectedPinCount, homePinShown, pinCentre, clickPin, pixelColors } from './map.ts';
 import { viewToggle } from './map.ts';
 import { waitForLocation } from './location.ts';
 import { expect, test, type Page } from '@playwright/test';
@@ -45,7 +45,6 @@ test('ポップアップを開いたまま現在地を選ぶと自宅と近い5�
   await waitForLocation(page);
   await expect.poll(() => homePinShown(page)).toBe(true);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  await expect.poll(() => homePinShown(page)).toBe(true);
   const nearest = [...data.facilities].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5);
   for (const facility of nearest) {
     await expect.poll(() => pinCentre(page, facility.id)).not.toBeNull();
@@ -70,32 +69,52 @@ test('閉じた詳細は年齢条件で施設を隠して戻しても閉じた�
   await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
 });
 
-test('同じ段で重なるピンでは南の施設を実際のクリックで選ぶ', async ({ page }) => {
+test('同じ段でラベルが違うピンは南を手前に描き、画素で選んだ点からその施設を選べる', async ({ page }, testInfo) => {
+  const pair = data.facilities.filter((f) => ['nishi-63336', 'nishi-64304'].includes(f.id)).sort((a, b) => b.lat - a.lat);
+  const [north, south] = pair;
+  expect(north.lat).toBeGreaterThan(south.lat);
+  expect(north.vacancies.reduce<number>((n, v) => n + (v ?? 0), 0)).not.toBe(
+    south.vacancies.reduce<number>((n, v) => n + (v ?? 0), 0),
+  );
   await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('/');
-  await expectFacilityPinCount(page, data.facilities.length);
-  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  const overlap = await page.evaluate(() => {
-    const probe = window.__findDaycarePins!;
-    const pins = probe.rendered().filter((p) => p.layer === 'facility-pins-open');
-    for (const a of pins)
-      for (const b of pins) {
-        if (a.key === b.key || Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) > 20) continue;
-        const x = (a.clientX + b.clientX) / 2,
-          y = (a.clientY + b.clientY) / 2;
-        const top = probe.pick(x, y);
-        if ((top === a.key || top === b.key) && document.elementFromPoint(x, y)?.matches('canvas.maplibregl-canvas'))
-          return { a: a.key, b: b.key, top, x, y };
-      }
-    return null;
+  await openFacility(page, south.id);
+  await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
+  await page.evaluate(() => {
+    history.pushState({}, '', '/');
+    window.dispatchEvent(new PopStateEvent('popstate'));
   });
-  expect(overlap).not.toBeNull();
-  const a = data.facilities.find((f) => f.id === overlap!.a)!;
-  const b = data.facilities.find((f) => f.id === overlap!.b)!;
-  expect(overlap!.top).toBe(a.lat < b.lat ? a.id : b.id);
-  await page.mouse.click(overlap!.x, overlap!.y);
-  await expect(page.locator('article[aria-current="true"]')).toHaveCount(1);
-  await expect(page.locator('article[aria-current="true"]')).toHaveAttribute('data-facility-id', overlap!.top);
+  await expectSelectedPinCount(page, 0);
+  const centre = (await pinCentre(page, south.id))!;
+  const capture = () => pixelColors(page, centre.x - 5, centre.y - 5, 10, 10);
+  const both = await capture();
+  const filters = page.getByRole('region', { name: '絞り込み' });
+  await filters.getByRole('button', { name: '保育所', exact: true }).click();
+  await expect.poll(() => pinCentre(page, north.id)).toBeNull();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const southOnly = await capture();
+  expect(both).toEqual(southOnly);
+  await filters.getByRole('button', { name: '保育所', exact: true }).click();
+  await filters.getByRole('button', { name: '地域型保育（0〜2歳）', exact: true }).click();
+  await expect.poll(() => pinCentre(page, south.id)).toBeNull();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const northOnly = await capture();
+  const labelPixel = southOnly.findIndex(
+    (color, index) => color.every((c) => c > 240) && northOnly[index].some((c, i) => Math.abs(c - color[i]) > 100),
+  );
+  expect(labelPixel).toBeGreaterThanOrEqual(0);
+  await filters.getByRole('button', { name: '地域型保育（0〜2歳）', exact: true }).click();
+  await expect.poll(() => pinCentre(page, south.id)).not.toBeNull();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const point = {
+    x: Math.floor(centre.x - 5) + (labelPixel % 10) + 0.5,
+    y: Math.floor(centre.y - 5) + Math.floor(labelPixel / 10) + 0.5,
+  };
+  await testInfo.attach('south-over-north-label', {
+    body: JSON.stringify({ north: north.id, south: south.id, both, southOnly, northOnly, point }),
+    contentType: 'application/json',
+  });
+  await page.mouse.click(point.x, point.y);
+  await expect(page.locator('article[aria-current="true"]')).toHaveAttribute('data-facility-id', south.id);
 });
 
 test('閉じた詳細は別のカードを選んでから選び直すと再び開く', async ({ page }) => {

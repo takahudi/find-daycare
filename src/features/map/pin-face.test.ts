@@ -127,3 +127,9 @@ describe('ピンの色の対比', () => {
       expect(pinColors(face, theme).border === theme.unlicensed, pinImageId(face)).toBe(face.shape === 'square');
   });
 });
+
+it('観測した自宅の見た目を書き換えても共有の見た目を変えられない', () => {
+  const face = parsePinImageId('pin:home')!;
+  Reflect.set(face, 'kind', 'facility');
+  expect(parsePinImageId('pin:home')).toEqual({ kind: 'home' });
+});
