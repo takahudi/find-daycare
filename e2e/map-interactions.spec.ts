@@ -6,6 +6,7 @@ import {
   clickPin,
   pixelColors,
   cssColor,
+  renderedPins,
   vacancyTotal,
 } from './map.ts';
 import { viewToggle } from './map.ts';
@@ -59,6 +60,29 @@ test('ポップアップを開いたまま現在地を選ぶと自宅と近い5�
     await expect.poll(() => pinCentre(page, facility.id)).not.toBeNull();
   }
   await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
+  const homePin = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin')!;
+  const east = (farthest.lng - home.lng) * Math.cos((home.lat * Math.PI) / 180);
+  const north = farthest.lat - home.lat;
+  const length = Math.hypot(east, north);
+  // 自宅のピンの外側で、選んだ施設へ向かう破線の一部を切り出す。
+  const ends = [30, 70].map((distance) => ({
+    x: homePin.clientX + (east / length) * distance,
+    y: homePin.clientY - (north / length) * distance,
+  }));
+  const left = Math.min(ends[0].x, ends[1].x) - 4;
+  const top = Math.min(ends[0].y, ends[1].y) - 4;
+  const pixels = await pixelColors(
+    page,
+    left,
+    top,
+    Math.ceil(Math.abs(ends[0].x - ends[1].x)) + 8,
+    Math.ceil(Math.abs(ends[0].y - ends[1].y)) + 8,
+  );
+  const accent = await cssColor(page, '--accent');
+  expect(
+    pixels.some((pixel) => pixel.every((value, i) => Math.abs(value - accent[i]) <= 12)),
+    '自宅から選んだ施設への破線が --accent で描かれる',
+  ).toBe(true);
 });
 
 test('閉じた詳細は年齢条件で施設を隠して戻しても閉じたままで、ピンで再度開ける', async ({ page }) => {

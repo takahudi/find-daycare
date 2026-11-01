@@ -131,6 +131,7 @@ export function PinOverlay({
     map.on('mousemove', hover);
     map.on('mouseout', resetCursor);
     map.on('dragstart', resetCursor);
+    map.on('boxzoomstart', resetCursor);
     const removeProbe = installPinProbe(map, pick);
     return () => {
       resetCursor();
@@ -145,6 +146,7 @@ export function PinOverlay({
       map.off('mousemove', hover);
       map.off('mouseout', resetCursor);
       map.off('dragstart', resetCursor);
+      map.off('boxzoomstart', resetCursor);
       removeProbe();
     };
   }, [map, hintId]);
