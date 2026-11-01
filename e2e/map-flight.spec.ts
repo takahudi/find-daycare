@@ -155,7 +155,7 @@ for (const last of ['facility', 'home']) {
     const home = { lat: 34.6937, lng: 135.5023 };
     await context.grantPermissions(['geolocation']);
     await context.setGeolocation({ latitude: home.lat, longitude: home.lng });
-    await page.setViewportSize({ width: 1280, height: 500 });
+    await page.setViewportSize({ width: 1280, height: 800 });
     await openMap(page);
     await page.route('**/map/tiles/**', async (route) => {
       await delayResponse(2000);
@@ -198,8 +198,9 @@ for (const last of ['facility', 'home']) {
     await page.clock.resume();
     await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
     if (last === 'facility') {
+      const { map, popup, marker } = await geometry(page);
+      expect(map.height, '現在地付きの詳細とピンが収まる地図の高さ').toBeGreaterThan(popup.height + POPUP_OFFSET);
       await expectInside(page);
-      const { map, marker } = await geometry(page);
       expect(Math.abs(marker.x + marker.width / 2 - (map.x + map.width / 2))).toBeLessThan(1);
       await expect.poll(() => homePinShown(page)).toBe(false);
     } else {
