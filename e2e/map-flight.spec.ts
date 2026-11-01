@@ -18,11 +18,15 @@ import { POPUP_OFFSET } from '../src/features/map/FacilityPopup.tsx';
 import { distanceMeters } from '../src/lib/geo.ts';
 import { pinGeometry } from '../src/features/map/pin-face.ts';
 
+// 描画後に時計を入れると performance.now() が巻き戻り、MapLibre のシンボル配置が止まる。
+test.beforeEach(async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
+});
+
 const ready = (page: Page) => page.locator('[aria-busy]:has(> .maplibregl-map)');
 const facilityId = 'taisho-82305';
 async function freeze(page: Page) {
-  await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
-  await page.clock.pauseAt(new Date('2026-01-01T00:00:01Z'));
+  await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
 }
 async function openMap(page: Page, mobile = false) {
   await page.goto('/');
@@ -30,17 +34,21 @@ async function openMap(page: Page, mobile = false) {
   if (mobile) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
 }
-const geometry = (page: Page) =>
+const flightGeometry = (page: Page) =>
   page.evaluate((offset) => {
     const map = document.querySelector('.maplibregl-map')!.getBoundingClientRect();
     const popup = document.querySelector('.maplibregl-popup')!.getBoundingClientRect();
     const tip = document.querySelector('.maplibregl-popup-tip')!.getBoundingClientRect();
     const pin = window.__findDaycarePins!.rendered().find((candidate) => candidate.layer === 'facility-pin-selected');
-    if (!pin) throw new Error('選択ピンが描画されていない');
-    const marker = { x: pin.clientX, y: pin.clientY, top: pin.clientY, width: 0, height: 0 };
+    const marker = pin ? { x: pin.clientX, y: pin.clientY, top: pin.clientY, width: 0, height: 0 } : null;
     const popupAnchor = { x: tip.x + tip.width / 2, y: tip.bottom + offset };
     return { map: map.toJSON(), popup: popup.toJSON(), marker, popupAnchor };
   }, POPUP_OFFSET);
+async function geometry(page: Page) {
+  const scene = await flightGeometry(page);
+  if (!scene.marker) throw new Error('選択ピンが描画されていない');
+  return { ...scene, marker: scene.marker };
+}
 async function expectInside(page: Page) {
   await expect
     .poll(async () => {
@@ -57,6 +65,8 @@ for (const delay of [100, 250, 400]) {
     await page.setViewportSize({ width: 1280, height: 500 });
     await openMap(page);
     await freeze(page);
+    const initial = await pinCentre(page, facilityId);
+    expect(initial).not.toBeNull();
     await page
       .locator(`article[data-facility-id="${facilityId}"]`)
       .getByRole('heading')
@@ -65,20 +75,28 @@ for (const delay of [100, 250, 400]) {
       });
     await expect(page.locator('.maplibregl-popup')).toBeVisible();
     await page.clock.runFor(delay);
-    const before = await geometry(page);
+    const before = await flightGeometry(page);
+    expect(Math.hypot(before.popupAnchor.x - initial!.x, before.popupAnchor.y - initial!.y)).toBeGreaterThan(1);
     const x = before.map.right - 25,
       y = before.map.bottom - 60;
     await page.mouse.move(x, y);
     await page.mouse.down();
-    const down = await geometry(page);
+    const down = await flightGeometry(page);
     expect(Math.hypot(down.popup.x - before.popup.x, down.popup.y - before.popup.y)).toBeLessThan(1);
-    expect(Math.hypot(down.marker.x - before.marker.x, down.marker.y - before.marker.y)).toBeLessThan(1);
+    if (before.marker) {
+      expect(down.marker).not.toBeNull();
+      expect(Math.hypot(down.marker!.x - before.marker.x, down.marker!.y - before.marker.y)).toBeLessThan(1);
+    }
     await page.mouse.move(x - 80, y, { steps: 8 });
     await page.clock.runFor(200);
     await page.mouse.up();
     await page.clock.runFor(1000);
+    // GeoJSON の反映は worker から届くので、時計を再開して実際の選択ピンの描画を待つ。
+    await page.clock.resume();
+    await expectSelectedPinCount(page, 1);
     const after = await geometry(page);
-    expect(Math.abs(after.marker.x - (down.marker.x - 80))).toBeLessThan(1);
+    expect(Math.abs(after.marker.x - ((down.marker?.x ?? down.popupAnchor.x) - 80))).toBeLessThan(1);
+    expect(Math.abs(after.popup.x - (down.popup.x - 80))).toBeLessThan(1);
   });
 
   test(`飛行${delay}msでリストに切り替えて戻しても詳細が地図内に収まる`, async ({ page }) => {
