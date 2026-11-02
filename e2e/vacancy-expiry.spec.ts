@@ -1,3 +1,4 @@
+import { expectPinProbe, clickPin } from './map.ts';
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
 import { viewToggle, mapAxe, mapContrastSummary } from './map.ts';
@@ -14,21 +15,30 @@ async function expectAccessible(
 ) {
   const results = await mapAxe(page, selectors);
   expect(results.flatMap((result) => result.violations)).toEqual([]);
-  expect(await mapContrastSummary(page, results)).toEqual([]);
+  expect(mapContrastSummary(results)).toEqual([]);
 }
 
 async function showPopup(page: Page, mobile: boolean) {
+  const id = new URL(page.url()).searchParams.get('facility')!;
   if (mobile) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
-  await expect(page.locator('.maplibregl-marker:has(.pin--selected)')).toHaveCount(1);
+  await expectPinProbe(page);
   const popup = page.getByRole('group', { name: '施設の詳細' });
-  await page.getByRole('region', { name: '地図', exact: true }).scrollIntoViewIfNeeded();
+  await page.locator('section[aria-label="地図"]').scrollIntoViewIfNeeded();
   // 停止した時計でも地図の移動とポップアップの配置を完了させる。
   await page.clock.runFor(1_000);
+  await expect
+    .poll(async () => {
+      await page.clock.runFor(16);
+      return page.evaluate(
+        () => window.__findDaycarePins!.rendered().filter((pin) => pin.layer === 'facility-pin-selected').length,
+      );
+    })
+    .toBe(1);
   await expect(popup).toBeVisible();
-  await page.locator('.maplibregl-marker:has(.pin--selected)').click();
+  await clickPin(page, id);
   await page.clock.runFor(300);
   await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
-  await page.locator('.maplibregl-marker:has(.pin--selected)').click();
+  await clickPin(page, id);
   await page.clock.runFor(1_000);
   await expect(popup).toBeVisible();
   await expect(page.locator('.maplibregl-popup')).toHaveCSS('opacity', '1');
@@ -190,15 +200,13 @@ test('入所日まで25日以上ある画面でも月初まで警告を出さな
 });
 
 for (const event of ['visibilitychange', 'pageshow', 'focus'] as const) {
-  test(event + 'で復帰しても期限切れの区が変わらなければマーカーとカードのDOMを保つ', async ({ page }) => {
+  test(event + 'で復帰しても期限切れの区が変わらなければカードのDOMを保つ', async ({ page }) => {
     const before = new Date('2026-10-31T23:59:00+09:00');
     await page.clock.install({ time: before });
     await page.clock.pauseAt(before);
     await page.goto('/');
     await expectLoaded(page);
-    await expect(page.locator('.maplibregl-marker .pin')).toHaveCount(data.facilities.length);
     const elements = await page.evaluateHandle(() => ({
-      markers: [...document.querySelectorAll('.maplibregl-marker .pin')],
       cards: [...document.querySelectorAll('article, article *')],
     }));
     try {
@@ -221,11 +229,10 @@ for (const event of ['visibilitychange', 'pageshow', 'focus'] as const) {
             );
           };
           return {
-            markers: sameElements('.maplibregl-marker .pin', previous.markers),
             cards: sameElements('article, article *', previous.cards),
           };
         }, elements),
-      ).toEqual({ markers: true, cards: true });
+      ).toEqual({ cards: true });
       await expect(warning(page)).toHaveCount(0);
     } finally {
       await elements.dispose();

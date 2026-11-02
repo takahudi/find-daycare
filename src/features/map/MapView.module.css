@@ -36,19 +36,6 @@
   color: var(--full);
 }
 
-.pinButton {
-  display: block;
-  padding: 0;
-  background: transparent;
-  border: 0;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.pinButton:hover {
-  background: transparent;
-}
-
 :global(.maplibregl-popup-content) {
   font-family: inherit;
   font-size: 0.9rem;

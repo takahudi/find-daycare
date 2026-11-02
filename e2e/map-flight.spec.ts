@@ -1,29 +1,54 @@
+import {
+  expectPinProbe,
+  expectSelectedPinCount,
+  homePinShown,
+  pinCentre,
+  clickPin,
+  renderedPins,
+  expectFacilityPinCount,
+  pixelAt,
+  cssColor,
+} from './map.ts';
 import { viewToggle } from './map.ts';
 import { setTimeout as delayResponse } from 'node:timers/promises';
 import { waitForLocation } from './location.ts';
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
+import { POPUP_OFFSET } from '../src/features/map/FacilityPopup.tsx';
 import { distanceMeters } from '../src/lib/geo.ts';
+import { pinGeometry } from '../src/features/map/pin-face.ts';
+
+// 描画後に時計を入れると performance.now() が巻き戻り、MapLibre のシンボル配置が止まる。
+test.beforeEach(async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
+});
 
 const ready = (page: Page) => page.locator('[aria-busy]:has(> .maplibregl-map)');
 const facilityId = 'taisho-82305';
 async function freeze(page: Page) {
-  await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
-  await page.clock.pauseAt(new Date('2026-01-01T00:00:01Z'));
+  await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
 }
 async function openMap(page: Page, mobile = false) {
   await page.goto('/');
-  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  await expectPinProbe(page);
   if (mobile) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
 }
-const geometry = (page: Page) =>
-  page.evaluate(() => {
+const flightGeometry = (page: Page) =>
+  page.evaluate((offset) => {
     const map = document.querySelector('.maplibregl-map')!.getBoundingClientRect();
     const popup = document.querySelector('.maplibregl-popup')!.getBoundingClientRect();
-    const marker = document.querySelector('.facility-marker:has(.pin--selected)')!.getBoundingClientRect();
-    return { map: map.toJSON(), popup: popup.toJSON(), marker: marker.toJSON() };
-  });
+    const tip = document.querySelector('.maplibregl-popup-tip')!.getBoundingClientRect();
+    const pin = window.__findDaycarePins!.rendered().find((candidate) => candidate.layer === 'facility-pin-selected');
+    const marker = pin ? { x: pin.clientX, y: pin.clientY, top: pin.clientY, width: 0, height: 0 } : null;
+    const popupAnchor = { x: tip.x + tip.width / 2, y: tip.bottom + offset };
+    return { map: map.toJSON(), popup: popup.toJSON(), marker, popupAnchor };
+  }, POPUP_OFFSET);
+async function geometry(page: Page) {
+  const scene = await flightGeometry(page);
+  if (!scene.marker) throw new Error('選択ピンが描画されていない');
+  return { ...scene, marker: scene.marker };
+}
 async function expectInside(page: Page) {
   await expect
     .poll(async () => {
@@ -31,6 +56,8 @@ async function expectInside(page: Page) {
       return popup.top >= map.top && popup.bottom <= map.bottom && popup.left >= map.left && popup.right <= map.right;
     })
     .toBe(true);
+  const { marker, popupAnchor } = await geometry(page);
+  expect(Math.hypot(marker.x - popupAnchor.x, marker.y - popupAnchor.y)).toBeLessThan(1);
 }
 
 for (const delay of [100, 250, 400]) {
@@ -38,6 +65,8 @@ for (const delay of [100, 250, 400]) {
     await page.setViewportSize({ width: 1280, height: 500 });
     await openMap(page);
     await freeze(page);
+    const initial = await pinCentre(page, facilityId);
+    expect(initial).not.toBeNull();
     await page
       .locator(`article[data-facility-id="${facilityId}"]`)
       .getByRole('heading')
@@ -46,20 +75,28 @@ for (const delay of [100, 250, 400]) {
       });
     await expect(page.locator('.maplibregl-popup')).toBeVisible();
     await page.clock.runFor(delay);
-    const before = await geometry(page);
+    const before = await flightGeometry(page);
+    expect(Math.hypot(before.popupAnchor.x - initial!.x, before.popupAnchor.y - initial!.y)).toBeGreaterThan(1);
     const x = before.map.right - 25,
       y = before.map.bottom - 60;
     await page.mouse.move(x, y);
     await page.mouse.down();
-    const down = await geometry(page);
+    const down = await flightGeometry(page);
     expect(Math.hypot(down.popup.x - before.popup.x, down.popup.y - before.popup.y)).toBeLessThan(1);
-    expect(Math.hypot(down.marker.x - before.marker.x, down.marker.y - before.marker.y)).toBeLessThan(1);
+    if (before.marker) {
+      expect(down.marker).not.toBeNull();
+      expect(Math.hypot(down.marker!.x - before.marker.x, down.marker!.y - before.marker.y)).toBeLessThan(1);
+    }
     await page.mouse.move(x - 80, y, { steps: 8 });
     await page.clock.runFor(200);
     await page.mouse.up();
     await page.clock.runFor(1000);
+    // GeoJSON の反映は worker から届くので、時計を再開して実際の選択ピンの描画を待つ。
+    await page.clock.resume();
+    await expectSelectedPinCount(page, 1);
     const after = await geometry(page);
-    expect(Math.abs(after.marker.x - (down.marker.x - 80))).toBeLessThan(1);
+    expect(Math.abs(after.marker.x - ((down.marker?.x ?? down.popupAnchor.x) - 80))).toBeLessThan(1);
+    expect(Math.abs(after.popup.x - (down.popup.x - 80))).toBeLessThan(1);
   });
 
   test(`飛行${delay}msでリストに切り替えて戻しても詳細が地図内に収まる`, async ({ page }) => {
@@ -99,7 +136,7 @@ for (const viewport of [
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.setViewportSize(viewport);
     await page.goto('/?facility=' + facilityId);
-    await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+    await expectPinProbe(page);
     if (viewport.width === 390) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
     await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
     await expectInside(page);
@@ -109,7 +146,7 @@ for (const viewport of [
 test('同じ施設の詳細を開き直すと画面外にずらしたポップアップが地図内に収まる', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 500 });
   await page.goto('/?facility=' + facilityId);
-  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  await expectPinProbe(page);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expectInside(page);
   const { map } = await geometry(page);
@@ -122,14 +159,9 @@ test('同じ施設の詳細を開き直すと画面外にずらしたポップ�
   await page.mouse.up();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   expect((await geometry(page)).popup.top).toBeLessThan(map.top);
-  const pin = page.locator('.facility-marker:has(.pin--selected) button');
-  await pin.evaluate((el) => {
-    if (el instanceof HTMLElement) el.click();
-  });
+  await clickPin(page, facilityId);
   await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
-  await pin.evaluate((el) => {
-    if (el instanceof HTMLElement) el.click();
-  });
+  await clickPin(page, facilityId);
   await expectInside(page);
 });
 
@@ -141,7 +173,7 @@ for (const last of ['facility', 'home']) {
     const home = { lat: 34.6937, lng: 135.5023 };
     await context.grantPermissions(['geolocation']);
     await context.setGeolocation({ latitude: home.lat, longitude: home.lng });
-    await page.setViewportSize({ width: 1280, height: 500 });
+    await page.setViewportSize({ width: 1280, height: 800 });
     await openMap(page);
     await page.route('**/map/tiles/**', async (route) => {
       await delayResponse(2000);
@@ -164,7 +196,12 @@ for (const last of ['facility', 'home']) {
           if (el instanceof HTMLElement) el.click();
         });
       await waitForLocation(page);
-      await expect(page.locator('.maplibregl-marker .pin--home')).toHaveCount(1);
+      await expect
+        .poll(async () => {
+          await page.clock.runFor(200);
+          return homePinShown(page);
+        })
+        .toBe(true);
     };
     if (last === 'facility') {
       await locate();
@@ -179,18 +216,15 @@ for (const last of ['facility', 'home']) {
     await page.clock.resume();
     await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
     if (last === 'facility') {
+      const { map, popup, marker } = await geometry(page);
+      expect(map.height, '現在地付きの詳細とピンが収まる地図の高さ').toBeGreaterThan(popup.height + POPUP_OFFSET);
       await expectInside(page);
-      const { map, marker } = await geometry(page);
       expect(Math.abs(marker.x + marker.width / 2 - (map.x + map.width / 2))).toBeLessThan(1);
-      await expect(page.locator('.maplibregl-marker:has(.pin--home)')).not.toBeInViewport();
+      await expect.poll(() => homePinShown(page)).toBe(false);
     } else {
-      await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toBeInViewport();
+      await expect.poll(() => homePinShown(page)).toBe(true);
       for (const facility of [...data.facilities].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5)) {
-        await expect(
-          page
-            .locator('.facility-marker')
-            .filter({ has: page.getByRole('button', { name: facility.name + '（', exact: false }) }),
-        ).toBeInViewport();
+        await expect.poll(() => pinCentre(page, facility.id)).not.toBeNull();
       }
     }
   });
@@ -199,10 +233,11 @@ for (const last of ['facility', 'home']) {
 test('地図より高い詳細は上端の余白を優先する', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 130 });
   await page.goto('/?facility=' + facilityId);
-  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  await expectPinProbe(page);
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  const { map, popup } = await geometry(page);
+  const map = await page.locator('.maplibregl-map').evaluate((element) => element.getBoundingClientRect().toJSON());
+  const popup = await page.locator('.maplibregl-popup').evaluate((element) => element.getBoundingClientRect().toJSON());
   expect(popup.height).toBeGreaterThan(map.height);
   expect(Math.abs(popup.top - map.top - 8)).toBeLessThan(1);
 });
@@ -265,11 +300,11 @@ test('保留中の自宅の範囲合わせは選択施設を絞り込みで隠�
   await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await locateWhileHidden(page);
   await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }).click();
-  await expect(page.locator('.pin--selected')).toHaveCount(0);
+  await expectSelectedPinCount(page, 0);
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await viewToggle(page).evaluate((element) => element.scrollIntoView({ block: 'start' }));
-  await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toBeInViewport();
+  await expect.poll(() => homePinShown(page)).toBe(true);
   // 範囲は絞り込む前の近い5施設で決まる。0歳の絞り込みで消えたピンは確かめられない。
   const nearest = [...data.facilities]
     .sort((a, b) => distanceMeters(homeForPending, a) - distanceMeters(homeForPending, b))
@@ -277,9 +312,7 @@ test('保留中の自宅の範囲合わせは選択施設を絞り込みで隠�
     .filter((facility) => facility.vacancies[0] !== null);
   expect(nearest.length, '近い5施設に0歳を受け入れる施設がある').toBeGreaterThan(0);
   for (const facility of nearest) {
-    await expect(
-      page.locator('.facility-marker').filter({ has: page.getByRole('button', { name: facility.name + '（', exact: false }) }),
-    ).toBeInViewport();
+    await expect.poll(() => pinCentre(page, facility.id)).not.toBeNull();
   }
 });
 
@@ -288,21 +321,14 @@ test('保留中の自宅の範囲合わせは自宅を解除すると破棄さ�
   await context.setGeolocation({ latitude: homeForPending.lat, longitude: homeForPending.lng });
   await page.setViewportSize({ width: 390, height: 844 });
   await openMap(page, true);
-  const viewport = () =>
-    page.evaluate(() => {
-      const map = document.querySelector('.maplibregl-map')!.getBoundingClientRect();
-      return [...document.querySelectorAll('.facility-marker')].filter((element) => {
-        const bounds = element.getBoundingClientRect();
-        return bounds.right > map.left && bounds.left < map.right && bounds.bottom > map.top && bounds.top < map.bottom;
-      }).length;
-    });
+  const viewport = async () => (await renderedPins(page)).filter((pin) => pin.layer.startsWith('facility-pins-')).length;
   const before = await viewport();
   await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await locateWhileHidden(page);
   await page.getByRole('banner').getByRole('button', { name: '解除', exact: true }).click();
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toHaveCount(0);
+  await expect.poll(() => homePinShown(page)).toBe(false);
   expect(await viewport()).toBe(before);
 });
 
@@ -310,29 +336,28 @@ test('保留中の施設を絞り込みで隠すとその施設への移動は�
   await page.setViewportSize({ width: 390, height: 844 });
   await openMap(page, true);
   const probe = data.facilities.find((facility) => facility.vacancies[0] !== null)!;
-  const marker = page
-    .locator('.facility-marker')
-    .filter({ has: page.getByRole('button', { name: probe.name + '（', exact: false }) });
-  const position = () =>
-    marker.evaluate((element) => {
-      const bounds = element.getBoundingClientRect();
-      const map = document.querySelector('.maplibregl-map')!.getBoundingClientRect();
-      return { x: bounds.x - map.x, y: bounds.y - map.y };
-    });
-  const before = await position();
+  const position = async () => {
+    const point = await pinCentre(page, probe.id);
+    const map = (await page.locator('.maplibregl-map').boundingBox())!;
+    return point ? { x: point.x - map.x, y: point.y - map.y } : null;
+  };
+  await expect.poll(position).not.toBeNull();
+  const before = (await position())!;
   await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await page.locator(`article[data-facility-id="${hiddenFacility.id}"]`).getByRole('heading').click();
   await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }).click();
-  await expect(page.locator('.pin--selected')).toHaveCount(0);
+  await expectSelectedPinCount(page, 0);
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  const after = await position();
+  await expect.poll(position).not.toBeNull();
+  const after = (await position())!;
   expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeLessThan(1);
 });
 
 test('非表示の間に WebGL が復元されても地図で見る施設が中央に来る', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await openMap(page, true);
+  await expectFacilityPinCount(page, data.facilities.length);
   await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   const extension = await page.evaluateHandle(() => {
     const canvas = document.querySelector<HTMLCanvasElement>('.maplibregl-canvas')!;
@@ -358,4 +383,19 @@ test('非表示の間に WebGL が復元されても地図で見る施設が中�
     })
     .toBeLessThan(1);
   await expectInside(page);
+  await expectSelectedPinCount(page, 1);
+  const { marker } = await geometry(page);
+  await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
+  const selected = (await renderedPins(page)).find((pin) => pin.layer === 'facility-pin-selected')!;
+  const g = pinGeometry(selected.face, 'map');
+  const color = await pixelAt(page, marker.x, marker.y + g.scale * (g.box / 2 + g.ring / 2));
+  const accent = await cssColor(page, '--accent');
+  expect(color.every((channel, index) => Math.abs(channel - accent[index]) < 20)).toBe(true);
+  const zoomOut = page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Zoom out' });
+  for (let step = 0; step < 5; step++) {
+    await zoomOut.click();
+    await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  }
+  await expectFacilityPinCount(page, data.facilities.length);
+  await expectSelectedPinCount(page, 1);
 });

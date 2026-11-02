@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
-import MapGL, { AttributionControl, Layer, Marker, NavigationControl, Source } from 'react-map-gl/maplibre';
+import MapGL, { AttributionControl, NavigationControl } from 'react-map-gl/maplibre';
 import type { Facility, Home } from '../../schema';
 import { formatDistance } from '../../lib/geo';
 import { AGE_LABELS } from '../../lib/vacancy';
@@ -13,7 +13,7 @@ import { boundsFor } from './map-bounds';
 import { createMapStyle } from './map-style';
 import styles from './MapView.module.css';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import './pins.css';
+import { PinOverlay } from './PinOverlay';
 
 maplibregl.setWorkerUrl(workerUrl);
 const mapStyle = createMapStyle(window.location.origin);
@@ -33,48 +33,6 @@ interface Props {
   onSelect: (id: string) => void;
 }
 
-function FacilityMarker({
-  facility,
-  count,
-  selected,
-  southRank,
-  onSelect,
-}: {
-  facility: Facility;
-  count: number;
-  selected: boolean;
-  southRank: number;
-  onSelect: (id: string) => void;
-}) {
-  const label = `${facility.name}（${LICENSING_LABELS[facility.licensing]}）${count > 0 ? `空き${count}人` : '空きなし'}`;
-  return (
-    <Marker
-      longitude={facility.lng}
-      latitude={facility.lat}
-      className="facility-marker"
-      style={{ zIndex: (selected ? 2 : count > 0 ? 1 : 0) * 10000 + southRank }}
-    >
-      <button
-        type="button"
-        className={styles.pinButton}
-        aria-label={label}
-        onClick={(event) => {
-          event.stopPropagation();
-          onSelect(facility.id);
-        }}
-      >
-        <span
-          role="img"
-          aria-label={label}
-          className={`pin ${count > 0 ? 'pin--open' : 'pin--full'}${facility.licensing === 'unlicensed' ? ' pin--unlicensed' : ''}${selected ? ' pin--selected' : ''}`}
-        >
-          {count > 0 ? count : '×'}
-        </span>
-      </button>
-    </Marker>
-  );
-}
-
 export function MapView({
   facilities,
   allFacilities,
@@ -85,6 +43,7 @@ export function MapView({
   selectedId,
   onSelect,
 }: Props) {
+  const hintId = useId();
   const popupRef = useRef<maplibregl.Popup>(null);
   const [busy, setBusy] = useState(true);
   const selected = facilities.find((facility) => facility.id === selectedId);
@@ -94,17 +53,20 @@ export function MapView({
     setPreviousSelectedId(selectedId);
     setClosedId(null);
   }
-  const southRanks = new Map([...allFacilities].sort((a, b) => b.lat - a.lat).map((facility, rank) => [facility.id, rank]));
   const [initialBounds] = useState(() => boundsFor(allFacilities, 0.05));
   const popupOpen = !!selected && closedId !== selected.id;
   const distance = selected ? distanceOf(selected) : null;
   const selectMarker = (id: string) => {
-    setClosedId((current) => (id === selectedId && current !== id ? id : null));
+    setClosedId(id === selectedId && popupOpen ? id : null);
     onSelect(id);
   };
   return (
     <div className={styles.map} aria-busy={busy}>
+      <p id={hintId} className="visually-hidden">
+        地図のピンはクリックかタップで選べます。キーボードや読み上げでは、表示切替でリストを開き、施設一覧から施設を選んでください。
+      </p>
       <MapGL
+        locale={{ 'Map.Title': '地図' }}
         onMoveStart={() => setBusy(true)}
         onIdle={() => setBusy(false)}
         mapLib={maplibregl}
@@ -128,42 +90,15 @@ export function MapView({
         />
         <NavigationControl position="top-left" showCompass={false} />
         <AttributionControl compact={false} />
-        {home && (
-          <Marker longitude={home.lng} latitude={home.lat} style={{ zIndex: 30000 }}>
-            <div className="pin pin--home" aria-label="自宅" title={home.label}>
-              家
-            </div>
-          </Marker>
-        )}
-        {home && selected && (
-          <Source
-            id="home-route"
-            type="geojson"
-            data={{
-              type: 'Feature',
-              properties: {},
-              geometry: {
-                type: 'LineString',
-                coordinates: [
-                  [home.lng, home.lat],
-                  [selected.lng, selected.lat],
-                ],
-              },
-            }}
-          >
-            <Layer id="home-route" type="line" paint={{ 'line-color': '#e8743b', 'line-width': 3, 'line-dasharray': [2, 2] }} />
-          </Source>
-        )}
-        {facilities.map((facility) => (
-          <FacilityMarker
-            key={facility.id}
-            facility={facility}
-            count={vacancyOf(facility)}
-            selected={facility.id === selectedId}
-            southRank={southRanks.get(facility.id)!}
-            onSelect={selectMarker}
-          />
-        ))}
+        <PinOverlay
+          hintId={hintId}
+          facilities={facilities}
+          allFacilities={allFacilities}
+          vacancyOf={vacancyOf}
+          selectedId={selectedId}
+          home={home}
+          onSelect={selectMarker}
+        />
         {selected && popupOpen && (
           <FacilityPopup
             key={selected.id}

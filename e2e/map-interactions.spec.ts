@@ -1,3 +1,14 @@
+import {
+  expectPinProbe,
+  expectSelectedPinCount,
+  homePinShown,
+  pinCentre,
+  clickPin,
+  pixelColors,
+  cssColor,
+  renderedPins,
+  vacancyTotal,
+} from './map.ts';
 import { viewToggle } from './map.ts';
 import { waitForLocation } from './location.ts';
 import { expect, test, type Page } from '@playwright/test';
@@ -7,16 +18,16 @@ import { distanceMeters } from '../src/lib/geo.ts';
 const ready = (page: Page) => page.locator('[aria-busy]:has(> .maplibregl-map)');
 async function openFacility(page: Page, id: string) {
   await page.goto('/?facility=' + id);
-  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  await expectPinProbe(page);
   await expect(page.locator('.maplibregl-popup')).toBeVisible();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expectSelectedPinCount(page, 1);
 }
 
 test('ポップアップを開いたままドラッグしても地図の位置が引き戻されない', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   await openFacility(page, data.facilities[0].id);
-  const marker = page.locator('.facility-marker:has(.pin--selected)');
-  const before = (await marker.boundingBox())!;
+  const before = (await page.locator('.maplibregl-popup').boundingBox())!;
   const canvas = (await page.locator('.maplibregl-canvas').boundingBox())!;
   const x = canvas.x + canvas.width - 25;
   const y = canvas.y + canvas.height - 60;
@@ -27,7 +38,9 @@ test('ポップアップを開いたままドラッグしても地図の位置�
   await page.waitForTimeout(200);
   await page.mouse.up();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  await expect.poll(async () => Math.abs((await marker.boundingBox())!.x - (before.x - 400))).toBeLessThan(5);
+  await expect
+    .poll(async () => Math.abs((await page.locator('.maplibregl-popup').boundingBox())!.x - (before.x - 400)))
+    .toBeLessThan(5);
   await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
 });
 
@@ -40,72 +53,136 @@ test('ポップアップを開いたまま現在地を選ぶと自宅と近い5�
   await openFacility(page, farthest.id);
   await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
   await waitForLocation(page);
-  await expect(page.locator('.maplibregl-marker .pin--home')).toBeVisible();
+  await expect.poll(() => homePinShown(page)).toBe(true);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  await expect(page.locator('.maplibregl-marker:has(.pin--home)')).toBeInViewport();
   const nearest = [...data.facilities].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5);
   for (const facility of nearest) {
-    const marker = page
-      .locator('.facility-marker')
-      .filter({ has: page.getByRole('button', { name: facility.name + '（', exact: false }) });
-    await expect(marker).toBeInViewport();
+    await expect.poll(() => pinCentre(page, facility.id)).not.toBeNull();
   }
   await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
+  const homePin = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin')!;
+  const east = (farthest.lng - home.lng) * Math.cos((home.lat * Math.PI) / 180);
+  const north = farthest.lat - home.lat;
+  const length = Math.hypot(east, north);
+  // 自宅のピンの外側で、選んだ施設へ向かう破線の一部を切り出す。
+  const ends = [30, 70].map((distance) => ({
+    x: homePin.clientX + (east / length) * distance,
+    y: homePin.clientY - (north / length) * distance,
+  }));
+  const left = Math.min(ends[0].x, ends[1].x) - 4;
+  const top = Math.min(ends[0].y, ends[1].y) - 4;
+  const pixels = await pixelColors(
+    page,
+    left,
+    top,
+    Math.ceil(Math.abs(ends[0].x - ends[1].x)) + 8,
+    Math.ceil(Math.abs(ends[0].y - ends[1].y)) + 8,
+  );
+  const accent = await cssColor(page, '--accent');
+  expect(
+    pixels.some((pixel) => pixel.every((value, i) => Math.abs(value - accent[i]) <= 12)),
+    '自宅から選んだ施設への破線が --accent で描かれる',
+  ).toBe(true);
 });
 
 test('閉じた詳細は年齢条件で施設を隠して戻しても閉じたままで、ピンで再度開ける', async ({ page }) => {
   const facility = data.facilities.find((candidate) => candidate.vacancies[0] === null)!;
   await openFacility(page, facility.id);
-  await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
+  await page.locator('section[aria-label="地図"]').getByRole('button', { name: 'Close popup' }).click();
   await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
   await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }).click();
-  await expect(page.locator('.pin--selected')).toHaveCount(0);
+  await expectSelectedPinCount(page, 0);
   await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }).click();
-  await expect(page.locator('.pin--selected')).toHaveCount(1);
+  await expectSelectedPinCount(page, 1);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
-  await page.locator('.facility-marker:has(.pin--selected) button').click();
+  await clickPin(page, facility.id);
   await expect(page.locator('.maplibregl-popup')).toBeVisible();
-  await page.locator('.facility-marker:has(.pin--selected) button').click();
+  await clickPin(page, facility.id);
   await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
 });
 
-test('同じ段の重なったピンでは南の施設が手前になる', async ({ page }) => {
+test('同じ段でラベルが違うピンは南を手前に描き、画素で選んだ点からその施設を選べる', async ({ page }, testInfo) => {
+  const candidates = data.facilities.filter((facility) => facility.licensing === 'licensed' && vacancyTotal(facility) > 0);
+  const pair = candidates
+    .flatMap((north) =>
+      candidates
+        .filter(
+          (south) =>
+            north.lat > south.lat &&
+            north.facilityType !== south.facilityType &&
+            vacancyTotal(north) !== vacancyTotal(south) &&
+            distanceMeters(north, south) < 15,
+        )
+        .map((south) => ({ north, south, distance: distanceMeters(north, south) })),
+    )
+    .sort((a, b) => a.distance - b.distance)[0];
+  expect(pair, '同じ空きありの段でラベルが違い、近接して重なる施設の組').toBeDefined();
+  const { north, south } = pair;
+  expect(north.lat).toBeGreaterThan(south.lat);
+  expect(vacancyTotal(north)).not.toBe(vacancyTotal(south));
   await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('/');
-  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  await openFacility(page, south.id);
+  await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
+  await page.evaluate(() => {
+    history.pushState({}, '', '/');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  });
+  await expectSelectedPinCount(page, 0);
+  const centre = (await pinCentre(page, south.id))!;
+  const northCentre = (await pinCentre(page, north.id))!;
+  expect(Math.hypot(centre.x - northCentre.x, centre.y - northCentre.y)).toBeLessThan(9);
+  const capture = () => pixelColors(page, centre.x - 5, centre.y - 5, 10, 10);
+  const both = await capture();
+  const filters = page.getByRole('region', { name: '絞り込み' });
+  const typeLabels: Record<string, string> = {
+    nursery: '保育所',
+    kodomoen: '認定こども園',
+    community: '地域型保育（0〜2歳）',
+    kigyo: '企業主導型',
+  };
+  const northFilter = filters.getByRole('button', { name: typeLabels[north.facilityType], exact: true });
+  const southFilter = filters.getByRole('button', { name: typeLabels[south.facilityType], exact: true });
+  await northFilter.click();
+  await expect.poll(() => pinCentre(page, north.id)).toBeNull();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  const sameTier = data.facilities.filter((facility) => facility.vacancies.some((value) => (value ?? 0) > 0));
-  const [south, north] = [...sameTier]
-    .sort((a, b) => a.lat - b.lat)
-    .filter((_, index, all) => index === 0 || index === all.length - 1);
-  const front = await page.locator('.facility-marker').evaluateAll(
-    (markers, names) => {
-      const pair = names.map((name) =>
-        markers.find((marker) => marker.querySelector('button')!.ariaLabel!.startsWith(name + '（'))!,
-      );
-      for (const marker of pair) {
-        if (!(marker instanceof HTMLElement)) throw new Error('ピンがHTML要素ではありません');
-        marker.style.transform = 'translate(150px, 150px)';
-        marker.parentElement!.append(marker);
-      }
-      const rect = pair[0].getBoundingClientRect();
-      return document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2)?.closest('button')?.ariaLabel;
-    },
-    [south.name, north.name],
+  const southOnly = await capture();
+  expect(both).toEqual(southOnly);
+  await northFilter.click();
+  await southFilter.click();
+  await expect.poll(() => pinCentre(page, south.id)).toBeNull();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const northOnly = await capture();
+  const labelColor = await cssColor(page, '--surface');
+  const labelPixel = southOnly.findIndex(
+    (color, index) =>
+      color.every((c, i) => Math.abs(c - labelColor[i]) < 12) && northOnly[index].some((c, i) => Math.abs(c - color[i]) > 100),
   );
-  expect(front).toContain(south.name);
+  expect(labelPixel).toBeGreaterThanOrEqual(0);
+  await southFilter.click();
+  await expect.poll(() => pinCentre(page, south.id)).not.toBeNull();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const point = {
+    x: Math.floor(centre.x - 5) + (labelPixel % 10) + 0.5,
+    y: Math.floor(centre.y - 5) + Math.floor(labelPixel / 10) + 0.5,
+  };
+  await testInfo.attach('south-over-north-label', {
+    body: JSON.stringify({ north: north.id, south: south.id, both, southOnly, northOnly, point }),
+    contentType: 'application/json',
+  });
+  await page.mouse.click(point.x, point.y);
+  await expect(page.locator('article[aria-current="true"]')).toHaveAttribute('data-facility-id', south.id);
 });
 
 test('閉じた詳細は別のカードを選んでから選び直すと再び開く', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/');
-  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+  await expectPinProbe(page);
   const [first, second] = data.facilities;
   const card = (id: string) => page.locator('article[data-facility-id="' + id + '"]');
   await card(first.id).getByRole('heading').click();
   await expect(page.getByRole('group', { name: '施設の詳細' })).toContainText(first.name);
-  await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
+  await page.locator('section[aria-label="地図"]').getByRole('button', { name: 'Close popup' }).click();
   await card(second.id).getByRole('heading').click();
   await expect(page.getByRole('group', { name: '施設の詳細' })).toContainText(second.name);
   await card(first.id).getByRole('heading').click();
@@ -119,7 +196,7 @@ for (const viewport of [
   test('初期URL選択の詳細が地図内に収まる ' + viewport.width + '×' + viewport.height, async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.goto('/?facility=taisho-82305');
-    await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
+    await expectPinProbe(page);
     if (viewport.width === 390) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
     await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
     const map = (await page.locator('.maplibregl-map').boundingBox())!;
@@ -136,22 +213,3 @@ for (const viewport of [
       .toBe(true);
   });
 }
-
-test('凡例は重なるすべての施設ピンより手前に表示される', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('/');
-  await expect(page.locator('.facility-marker')).toHaveCount(data.facilities.length);
-  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
-  const coveredPoints = await page.getByRole('group', { name: '地図の凡例' }).evaluate((legend) => {
-    const bounds = legend.getBoundingClientRect();
-    const inset = parseFloat(getComputedStyle(legend).borderRadius);
-    let covered = 0;
-    for (let y = bounds.top + inset; y < bounds.bottom - inset; y += 2) {
-      for (let x = bounds.left + inset; x < bounds.right - inset; x += 2) {
-        if (document.elementFromPoint(x, y)?.closest('.maplibregl-marker')) covered++;
-      }
-    }
-    return covered;
-  });
-  expect(coveredPoints).toBe(0);
-});

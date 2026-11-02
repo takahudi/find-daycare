@@ -2,6 +2,7 @@ import { layers, namedFlavor } from '@protomaps/basemaps';
 import type { StyleSpecification } from 'maplibre-gl';
 import tiles from '../../../data/map/tiles.json';
 import assets from '../../../data/map/assets.json';
+import { pinLayers, pinSources } from './pin-layers';
 
 export function createMapStyle(origin: string): StyleSpecification {
   return {
@@ -9,6 +10,7 @@ export function createMapStyle(origin: string): StyleSpecification {
     glyphs: assets.glyphs,
     sprite: new URL(assets.sprite, origin).href,
     sources: {
+      ...pinSources(),
       basemap: {
         type: 'vector',
         tiles: [`/map/tiles/${tiles.source.build}/{z}/{x}/{y}.mvt`],
@@ -18,6 +20,6 @@ export function createMapStyle(origin: string): StyleSpecification {
           '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors</a> · <a href="https://protomaps.com" target="_blank" rel="noreferrer">Protomaps</a>',
       },
     },
-    layers: layers('basemap', namedFlavor('light'), { lang: 'ja' }),
+    layers: [...layers('basemap', namedFlavor('light'), { lang: 'ja' }), ...pinLayers()],
   };
 }

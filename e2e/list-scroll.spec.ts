@@ -1,3 +1,4 @@
+import { expectFacilityPinCount, clickPin, zoomToPin } from './map.ts';
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
 
@@ -32,12 +33,9 @@ for (const { viewport, id } of [
     expect(order.indexOf(id)).toBeGreaterThanOrEqual(Math.floor(order.length / 2));
     const facility = data.facilities.find((candidate) => candidate.id === id);
     if (!facility) throw new Error('回帰検証で選ぶ施設 ' + id + ' がデータに存在しない');
-    const pin = page.locator('.facility-marker button');
-    await pin.evaluateAll((buttons, name) => {
-      const button = buttons.find((candidate) => candidate.getAttribute('aria-label')?.startsWith(name + '（'));
-      if (!(button instanceof HTMLButtonElement)) throw new Error('選択する施設のピンがない');
-      button.click();
-    }, facility.name);
+    await expectFacilityPinCount(page, data.facilities.length);
+    await zoomToPin(page, id);
+    await clickPin(page, id);
     const selected = page.locator('article[aria-current="true"]');
     await expect(selected).toHaveCount(1);
     await expect(selected).toHaveAttribute('data-facility-id', id);
@@ -82,17 +80,9 @@ for (const viewport of [
     const pane = await page.getByRole('region', { name: '施設一覧', exact: true }).boundingBox();
     if (!pane) throw new Error('施設一覧の表示領域がない');
     await page.mouse.move(pane.x + pane.width * 0.25, pane.y + pane.height * 0.8);
-    const wheelSent = new Promise<void>((resolve, reject) => {
-      page.on('console', (message) => {
-        if (!message.text().startsWith('__PIN_BEGIN__')) return;
-        const start = Number(message.text().slice('__PIN_BEGIN__'.length));
-        const wheel = new Promise<void>((done) => setTimeout(done, Math.max(0, start + 50 - Date.now()))).then(() =>
-          page.mouse.wheel(0, -600),
-        );
-        wheel.then(resolve, reject);
-      });
-    });
-    const observation = page.evaluate(async (name) => {
+    await expectFacilityPinCount(page, data.facilities.length);
+    await zoomToPin(page, facility.id);
+    const observation = page.evaluate(async () => {
       let trusted = false;
       let overCard = false;
       window.addEventListener(
@@ -103,18 +93,13 @@ for (const viewport of [
         },
         { once: true, capture: true },
       );
-      const pin = [...document.querySelectorAll<HTMLButtonElement>('.facility-marker button')].find((button) =>
-        button.getAttribute('aria-label')?.startsWith(name + '（'),
-      );
-      if (!pin) throw new Error('選択する施設のピンがない');
-      console.info('__PIN_BEGIN__' + (performance.timeOrigin + performance.now()));
-      pin.click();
-      for (let frame = 0; frame < 35; frame++) {
-        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
-      }
+      await new Promise<void>((resolve) => window.addEventListener('wheel', () => resolve(), { once: true }));
+      for (let frame = 0; frame < 35; frame++) await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
       return { trusted, overCard };
-    }, facility.name);
-    await wheelSent;
+    });
+    await clickPin(page, facility.id);
+    await page.mouse.move(pane.x + pane.width * 0.25, pane.y + pane.height * 0.8);
+    await page.mouse.wheel(0, -600);
     const result = await observation;
     await test.info().attach('wheel-scroll', { body: JSON.stringify(result), contentType: 'application/json' });
     expect(result.trusted).toBe(true);
