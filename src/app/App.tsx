@@ -13,9 +13,27 @@ import { useFilters } from '../features/filters/useFilters';
 import { Filters } from '../features/filters/Filters';
 import { useHome, type HomeChoice } from '../features/home/useHome';
 import { HomeForm } from '../features/home/HomeForm';
-import { MapView } from '../features/map/MapView';
 import { MapLegend } from '../features/map/MapLegend';
 import styles from './App.module.css';
+
+type MapViewComponent = typeof import('../features/map/MapView').MapView;
+
+let loadedMapView: MapViewComponent | null = null;
+let mapViewPromise: Promise<MapViewComponent> | null = null;
+
+function loadMapView(): Promise<MapViewComponent> {
+  if (!mapViewPromise) {
+    mapViewPromise = import('../features/map/MapView').then((module) => {
+      loadedMapView = module.MapView;
+      return loadedMapView;
+    });
+  }
+  return mapViewPromise;
+}
+
+if (!window.matchMedia('(max-width: 860px)').matches) {
+  void loadMapView();
+}
 
 export default function App({ data }: { data: Dataset }) {
   const expiredWards = useExpiredWards(data.wards);
@@ -32,6 +50,19 @@ export default function App({ data }: { data: Dataset }) {
     if (source === 'search') setSelectedId(null);
   };
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
+  const [MapView, setMapView] = useState<MapViewComponent | null>(() =>
+    window.matchMedia('(max-width: 860px)').matches ? null : loadedMapView,
+  );
+  useEffect(() => {
+    if (MapView) return undefined;
+    let active = true;
+    void loadMapView().then((component) => {
+      if (active) setMapView(() => component);
+    });
+    return () => {
+      active = false;
+    };
+  }, [MapView]);
 
   const { visible, distanceOf, vacancyOf } = listFacilities(
     data.facilities,
@@ -95,16 +126,18 @@ export default function App({ data }: { data: Dataset }) {
         </section>
 
         <section className={styles.mapPane} aria-label="地図">
-          <MapView
-            facilities={visible}
-            allFacilities={data.facilities}
-            vacancyOf={vacancyOf}
-            vacancyExpiredOf={vacancyExpiredOf}
-            distanceOf={distanceOf}
-            home={home}
-            selectedId={selectedId}
-            onSelect={(id) => select(id, 'map')}
-          />
+          {MapView && (
+            <MapView
+              facilities={visible}
+              allFacilities={data.facilities}
+              vacancyOf={vacancyOf}
+              vacancyExpiredOf={vacancyExpiredOf}
+              distanceOf={distanceOf}
+              home={home}
+              selectedId={selectedId}
+              onSelect={(id) => select(id, 'map')}
+            />
+          )}
           <MapLegend hasHome={!!home} />
         </section>
       </main>

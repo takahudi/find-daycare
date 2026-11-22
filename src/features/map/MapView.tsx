@@ -16,6 +16,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { PinOverlay } from './PinOverlay';
 
 maplibregl.setWorkerUrl(workerUrl);
+maplibregl.prewarm();
 const mapStyle = createMapStyle(window.location.origin);
 // Static Assets は @ を正規化するが、Vite は %40 を解決しないため、本番配信だけ書き換える。
 const transformRequest: maplibregl.RequestTransformFunction = (url) => ({
@@ -71,6 +72,7 @@ export function MapView({
         onIdle={() => setBusy(false)}
         mapLib={maplibregl}
         mapStyle={mapStyle}
+        initialViewState={{ bounds: initialBounds }}
         transformRequest={transformRequest}
         maxZoom={17}
         trackResize={false}
