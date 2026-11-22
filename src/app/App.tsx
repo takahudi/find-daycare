@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useSelectedFacility } from '../features/facilities/useSelectedFacility';
 import type { Dataset, Facility } from '../schema';
 import { isFacilityVacancyExpired } from '../lib/vacancy-expiry';
@@ -13,9 +13,10 @@ import { useFilters } from '../features/filters/useFilters';
 import { Filters } from '../features/filters/Filters';
 import { useHome, type HomeChoice } from '../features/home/useHome';
 import { HomeForm } from '../features/home/HomeForm';
-import { MapView } from '../features/map/MapView';
 import { MapLegend } from '../features/map/MapLegend';
 import styles from './App.module.css';
+
+const MapView = lazy(() => import('../features/map/MapView'));
 
 export default function App({ data }: { data: Dataset }) {
   const expiredWards = useExpiredWards(data.wards);
@@ -32,6 +33,12 @@ export default function App({ data }: { data: Dataset }) {
     if (source === 'search') setSelectedId(null);
   };
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
+  const [mapMounted, setMapMounted] = useState(() => !window.matchMedia('(max-width: 860px)').matches);
+  useEffect(() => {
+    if (mapMounted) return undefined;
+    const timer = window.setTimeout(() => setMapMounted(true), 0);
+    return () => window.clearTimeout(timer);
+  }, [mapMounted]);
 
   const { visible, distanceOf, vacancyOf } = listFacilities(
     data.facilities,
@@ -95,16 +102,20 @@ export default function App({ data }: { data: Dataset }) {
         </section>
 
         <section className={styles.mapPane} aria-label="地図">
-          <MapView
-            facilities={visible}
-            allFacilities={data.facilities}
-            vacancyOf={vacancyOf}
-            vacancyExpiredOf={vacancyExpiredOf}
-            distanceOf={distanceOf}
-            home={home}
-            selectedId={selectedId}
-            onSelect={(id) => select(id, 'map')}
-          />
+          {(mapMounted || mobileView === 'map') && (
+            <Suspense fallback={null}>
+              <MapView
+                facilities={visible}
+                allFacilities={data.facilities}
+                vacancyOf={vacancyOf}
+                vacancyExpiredOf={vacancyExpiredOf}
+                distanceOf={distanceOf}
+                home={home}
+                selectedId={selectedId}
+                onSelect={(id) => select(id, 'map')}
+              />
+            </Suspense>
+          )}
           <MapLegend hasHome={!!home} />
         </section>
       </main>

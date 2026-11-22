@@ -8,6 +8,10 @@ import './index.css';
 
 const root = createRoot(document.getElementById('root')!);
 
+if (!window.matchMedia('(max-width: 860px)').matches) {
+  void import('./features/map/MapView.tsx');
+}
+
 loadDataset(document.querySelector<HTMLLinkElement>('#facilities-data')?.href ?? null).then(
   (data) => {
     root.render(
