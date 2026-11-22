@@ -467,28 +467,6 @@
     "url": null,
     "approvedOn": "2018年4月1日"
   },
-  "h18-4-turumimidori.pdf": {
-    "kana": "つるみみどりほいくえん",
-    "capacity": {
-      "total": 93,
-      "byAge": [
-        0,
-        0,
-        18,
-        24,
-        25,
-        26
-      ]
-    },
-    "weekday": "07:00〜19:00",
-    "saturday": "07:00〜16:00",
-    "services": [
-      "延長保育",
-      "障がい児保育"
-    ],
-    "url": null,
-    "approvedOn": "1988年4月1日"
-  },
   "h18-5-hanaten.pdf": {
     "kana": "はなてんほいくえん",
     "capacity": {
@@ -508,7 +486,7 @@
       "延長保育",
       "障がい児保育"
     ],
-    "url": null,
+    "url": "https://www.ans.co.jp/n/hanatenhoikuen/",
     "approvedOn": "1950年9月1日"
   },
   "h18-6-syuneikandai2.pdf": {
@@ -603,24 +581,24 @@
   "k18-2-nenpou.pdf": {
     "kana": "ようちえんがたにんていこどもえんねんぽうようちえん",
     "capacity": {
-      "total": 340,
+      "total": 350,
       "byAge": [
         0,
         0,
-        10,
+        20,
         120,
         105,
         105
       ]
     },
-    "note": "認可定員は1号270人＋2号・3号70人。",
+    "note": "認可定員は1号270人＋2号・3号80人。",
     "weekday": "07:30〜18:30",
     "saturday": "07:30〜18:30",
     "services": [
       "延長保育",
       "障がい児保育"
     ],
-    "url": null,
+    "url": "https://nenpougakuen.ed.jp/",
     "approvedOn": "2019年4月1日"
   },
   "k18-3-sanaiyouchien.pdf": {
@@ -714,6 +692,29 @@
     "url": null,
     "approvedOn": "2025年4月1日"
   },
+  "k18-7-turumimidori.pdf": {
+    "kana": "ほいくしょがたにんていこどもえんつるみみどりほいくえん",
+    "capacity": {
+      "total": 104,
+      "byAge": [
+        0,
+        0,
+        18,
+        25,
+        30,
+        31
+      ]
+    },
+    "note": "認可定員は1号11人＋2号・3号93人。",
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2026年4月1日"
+  },
   "t18-1-turuminanairomoroguchi.pdf": {
     "kana": "つるみなないろほいくえんもろぐちえん",
     "capacity": {
@@ -783,9 +784,9 @@
     "capacity": {
       "total": 12,
       "byAge": [
-        1,
         2,
-        9
+        2,
+        8
       ]
     },
     "weekday": "07:30〜19:30",

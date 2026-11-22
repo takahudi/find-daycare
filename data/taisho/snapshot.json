@@ -1,5 +1,5 @@
 {
-  "fetchedOn": "2026-10-23",
+  "fetchedOn": "2026-11-23",
   "files": {
     "facility-pdfs/08-oonami.pdf": {
       "sha256": "150e1ae528ab804034f310a21a37f75afc120649965bc64cd6ca102fca4ab095",
@@ -18,56 +18,56 @@
       "size": 990223
     },
     "facility-pdfs/h8-2-familyjunior.pdf": {
-      "sha256": "c82b4e9304d0d0e3eb8de4bb8e36dba5fae76acad98221d18f9c32dda967303f",
-      "size": 985510
+      "sha256": "b46ea86796a016d75dbbbcf72956fd6f668497a7589fb405046bdc21a62f75db",
+      "size": 987542
     },
     "facility-pdfs/h8-3-megumi.pdf": {
-      "sha256": "0726905fbcbb514f33cab20337de91dab29583000e9297b87028a3b5b10d929c",
-      "size": 1004803
+      "sha256": "d1e57bf44f70240dc41ea1d2a82e61144b9e0cbbedaccb91753e201d48b7a52b",
+      "size": 1004659
     },
     "facility-pdfs/h8-4-tsurumachisweetbabygarden.pdf": {
-      "sha256": "e302ef861f1b0b685b918b15eb5af468251a67f6a1fc507c328fe2f0696970ad",
-      "size": 985051
+      "sha256": "5131e97f31df0d6a220cb60b019786206b4362866e91eb9f6183328dcb9f44d7",
+      "size": 988212
     },
     "facility-pdfs/h8-5-mominokitaishoukita.pdf": {
-      "sha256": "53174b9b4f16da5af21fca6a2cdb930524aeb78e5ec51423a10c66c2de7e50b3",
-      "size": 987409
+      "sha256": "cd015ae88efb0c1d1608903eb9fb4e97c01509811d16a59849791dfe124c49dd",
+      "size": 988954
     },
     "facility-pdfs/k8-2-syouwa.pdf": {
-      "sha256": "a715491a23b812ec84dae28228a41e474791e9ca45eb199cb55fe83f6fc6fb95",
-      "size": 1307553
+      "sha256": "41a716be4ce43aa53647e19e619602967186fcd8183f21338332d7d88d72bf2f",
+      "size": 1306885
     },
     "facility-pdfs/k8-3-familychishima.pdf": {
-      "sha256": "f089b9274eeb288512fc859641c6b9c067e9e719d28a654569bbea8453e0c83a",
-      "size": 1287824
+      "sha256": "b6cb2620676c0c8021d655d757c8a3259c1f5cfcd0a2119e3bb1a04a4e14e78b",
+      "size": 1289437
     },
     "facility-pdfs/k8-4-family.pdf": {
-      "sha256": "406efc4e622625aecbfc1d376e355faf3501cb202839ba38220aad13bc7aef96",
-      "size": 1287209
+      "sha256": "be9d15960f8fea15667ba76f19dfe82391ef40d30bd3b195e6b02ac72b63029b",
+      "size": 1287330
     },
     "facility-pdfs/k8-5-tsurumachiuminokaze.pdf": {
-      "sha256": "4d549f016c14b5d0feda10f04684c38db2f3145b72e3bef029f7751a29479ad6",
-      "size": 1280219
+      "sha256": "9b44240daca797dcd83c7215fc8ee6c1cda2a0b2dcd53e5b5d05d104dcab49b9",
+      "size": 1287653
     },
     "facility-pdfs/k8-6-taisyoyumenoki.pdf": {
-      "sha256": "119528655a903fca883a4fd41c9dea0dfd9ffec2307be6bc47e8e461c8489e26",
-      "size": 1305404
+      "sha256": "345af52050650389aacce48b11c126185dad96b7c7e2b2d0b53c1c0e83bc4296",
+      "size": 1305100
     },
     "facility-pdfs/k8-7-tsurumachi.pdf": {
-      "sha256": "e6d1dece2d67a3d009c0ed65315b5d4a756a31b78298a7e8fa08df12bfac28b3",
-      "size": 1283338
+      "sha256": "07c8424a28894fdebf58416ad4925902aa4bc08bed65f14cc3298000b6ee7f3b",
+      "size": 1283328
     },
     "facility-pdfs/t8-1-nukumorichishima.pdf": {
-      "sha256": "d1dd2914fbb0a0123e74b37de55db25c314ba06815e98451d7d48a1f6d50d751",
-      "size": 956097
+      "sha256": "4bb81e00f4dca68504815578337242578416a6aa8e8a85ff215177c03e923421",
+      "size": 958603
     },
     "facility-pdfs/t8-2-kingdomkidstaisyou.pdf": {
-      "sha256": "9c33b877010001155ba46c7978f24193ca478864e1f73c963b64273db115d102",
-      "size": 954424
+      "sha256": "99f769739660a736009ac5bf725c3d74ad4013b6142af6427de58c6b9f93a2dc",
+      "size": 954739
     },
     "facility-pdfs/t8-3-yotuba.pdf": {
-      "sha256": "e1da24be512760b1c4544574eb75742df0c946693af3deb179dac84916275bdf",
-      "size": 952920
+      "sha256": "5a59aba373887abe38a4c75c7a5c980a2e1e356a7fb3906339d0b1d2666cd56c",
+      "size": 952922
     },
     "homepage-sources/1.html": {
       "sha256": "6f8ea52efe44c40b5c5f4d512c8f1ab8f9b9b3c8f878135868fbab0e6356cf09",
@@ -190,19 +190,19 @@
       "size": 308745
     },
     "kigyo_page.html": {
-      "sha256": "f32decd63327b65cb27b209a992409f1cfd5a396bf898af7b343848c4c727a94",
+      "sha256": "c2a12ae4e49d91949686e171698bd5c93cdf8186587babf15bd7affdc1ca082d",
       "size": 31067
     },
     "list.pdf": {
-      "sha256": "3260543cc652410d70eab1277950f5d53d8c3821ff73cf6f9aa91ec1078cf55f",
-      "size": 347192
+      "sha256": "beb4a88a425a80623783f232441b00cff621282c5842184d185c421429e58ff2",
+      "size": 347037
     },
     "list.xlsx": {
       "sha256": "e1baec0dc95d6e589a05e10952eca96156028237c157585c48db2a4c406d98a3",
       "size": 11744
     },
     "vacancy_page.html": {
-      "sha256": "92221573b48066b5c79cf15408479f8d48394d44c238b9fe93ec0327c6d55adc",
+      "sha256": "c63089fe8a539d64e3e4e1db9afc9bfce23cf0a7697f7a70e50087ef3329d8fd",
       "size": 29562
     }
   }

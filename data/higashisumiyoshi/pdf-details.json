@@ -182,6 +182,28 @@
     "url": "https://koti2.jp/",
     "approvedOn": "2016年4月1日"
   },
+  "h22-15-higasisumiyosidoronnko.pdf": {
+    "kana": "ひがしすみよしどろんこほいくえん",
+    "capacity": {
+      "total": 70,
+      "byAge": [
+        3,
+        10,
+        12,
+        15,
+        15,
+        15
+      ]
+    },
+    "weekday": "07:00〜20:00",
+    "saturday": "07:00〜20:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2026年4月1日"
+  },
   "h22-2-ikuwashirasagiimabayashi.pdf": {
     "kana": "いくわしらさぎがくえんいまばやしえん",
     "capacity": {
@@ -196,7 +218,7 @@
       ]
     },
     "weekday": "07:00〜19:00",
-    "saturday": "07:00〜17:00",
+    "saturday": "07:00〜18:00",
     "services": [
       "延長保育",
       "障がい児保育",
@@ -337,7 +359,7 @@
       "体調不良児対応型",
       "地域子育て支援事業"
     ],
-    "url": "http://www.tenso-higashisumiyoshi.ed.jp/",
+    "url": "https://tenso-higashisumiyoshi.com/",
     "approvedOn": "1975年4月1日"
   },
   "h22-9-megumu.pdf": {
@@ -631,7 +653,7 @@
     "weekday": "07:30〜19:00",
     "saturday": "07:30〜18:30",
     "services": [],
-    "url": null,
+    "url": "https://hoiku.smile-company.net/facility/kumata/",
     "approvedOn": "2023年4月1日"
   },
   "t22-4-higashitanabe.pdf": {

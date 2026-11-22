@@ -172,9 +172,10 @@
     "saturday": "08:00〜17:00",
     "services": [
       "延長保育",
-      "障がい児保育"
+      "障がい児保育",
+      "地域子育て支援事業"
     ],
-    "url": null,
+    "url": "https://www.ans.co.jp/n/seishi/index.html",
     "approvedOn": "2015年4月1日"
   },
   "h4-14-shionotani.pdf": {
@@ -283,7 +284,6 @@
     "saturday": "07:00〜17:30",
     "services": [
       "延長保育",
-      "一時預かり",
       "障がい児保育",
       "休日保育",
       "体調不良児対応型",
@@ -295,14 +295,14 @@
   "h4-5-tenshinijinosono.pdf": {
     "kana": "てんしにじのその",
     "capacity": {
-      "total": 68,
+      "total": 79,
       "byAge": [
+        6,
         9,
-        11,
-        24,
-        24,
-        0,
-        0
+        16,
+        16,
+        16,
+        16
       ]
     },
     "weekday": "07:00〜19:00",

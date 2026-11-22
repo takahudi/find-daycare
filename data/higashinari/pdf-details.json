@@ -119,7 +119,7 @@
         60
       ]
     },
-    "weekday": "07:00〜19:00",
+    "weekday": "07:00〜18:30",
     "saturday": "07:00〜18:00",
     "services": [
       "延長保育",
@@ -174,29 +174,6 @@
     "url": null,
     "approvedOn": "1952年7月1日"
   },
-  "h14-5-dai2akinomoritamatu.pdf": {
-    "kana": "あきのもりたまつほいくえん",
-    "capacity": {
-      "total": 112,
-      "byAge": [
-        12,
-        20,
-        20,
-        20,
-        20,
-        20
-      ]
-    },
-    "weekday": "07:00〜19:00",
-    "saturday": "07:00〜18:00",
-    "services": [
-      "延長保育",
-      "障がい児保育",
-      "体調不良児対応型"
-    ],
-    "url": "https://akinomori.ed.jp/",
-    "approvedOn": "2009年6月1日"
-  },
   "h14-6-kidsfirst.pdf": {
     "kana": "きっずふぁーすとほいくえん",
     "capacity": {
@@ -244,14 +221,14 @@
   "h14-8-higashinarikaisei.pdf": {
     "kana": "ひがしなりかいせいほいくえん",
     "capacity": {
-      "total": 81,
+      "total": 84,
       "byAge": [
         6,
         12,
         12,
-        17,
-        17,
-        17
+        18,
+        18,
+        18
       ]
     },
     "weekday": "07:00〜19:00",
@@ -291,9 +268,9 @@
     "capacity": {
       "total": 345,
       "byAge": [
-        7,
-        18,
-        35,
+        6,
+        24,
+        30,
         75,
         105,
         105
@@ -308,6 +285,29 @@
     ],
     "url": null,
     "approvedOn": "2015年4月1日"
+  },
+  "k14-2-akenomoritamatu.pdf": {
+    "kana": "あきのもりたまつほいくえん",
+    "capacity": {
+      "total": 127,
+      "byAge": [
+        12,
+        20,
+        20,
+        25,
+        25,
+        25
+      ]
+    },
+    "note": "認可定員は1号15人＋2号・3号112人。",
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜18:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2026年4月1日"
   },
   "t14-2-higashimnakamotomirai.pdf": {
     "kana": "ひがしなかもとみらいほいくえん",

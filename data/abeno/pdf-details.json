@@ -246,6 +246,28 @@
     "url": null,
     "approvedOn": "2022年12月1日"
   },
+  "h19-20-kagayakinomoritedukayama.pdf": {
+    "kana": "かがやきのもりほいくえんてづかやま",
+    "capacity": {
+      "total": 93,
+      "byAge": [
+        9,
+        15,
+        15,
+        18,
+        18,
+        18
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2026年4月1日"
+  },
   "h19-3-ikutokuen.pdf": {
     "kana": "いくとくえんほいくしょ",
     "capacity": {
@@ -436,12 +458,12 @@
         0,
         0,
         0,
-        44,
-        48,
-        48
+        46,
+        47,
+        47
       ]
     },
-    "note": "認可定員は1号100人＋2号・3号40人。",
+    "note": "認可定員は1号90人＋2号・3号50人。",
     "weekday": "08:00〜19:00",
     "saturday": "08:00〜19:00",
     "services": [
@@ -718,7 +740,7 @@
     "weekday": "07:30〜19:00",
     "saturday": "07:30〜18:30",
     "services": [],
-    "url": "https://www.smile-company.net/smilecompany/AC0426101835/CDfacility_d.htm",
+    "url": "https://hoiku.smile-company.net/facility/sukoyaka/",
     "approvedOn": "2023年4月1日"
   },
   "t19-14-smilehohoemi.pdf": {
@@ -747,8 +769,8 @@
         5
       ]
     },
-    "weekday": "07:30〜19:30",
-    "saturday": "07:30〜18:30",
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜18:00",
     "services": [],
     "url": null,
     "approvedOn": "2019年4月1日"
@@ -791,8 +813,8 @@
       "total": 10,
       "byAge": [
         2,
-        3,
-        5
+        2,
+        6
       ]
     },
     "weekday": "07:00〜18:00",
