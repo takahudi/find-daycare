@@ -29,7 +29,6 @@ export function paintPin(
   context.shadowColor = PIN_SHADOW.color;
   context.fill();
   context.shadowColor = 'transparent';
-  context.fill();
   rect(g.border, Math.max(0, g.corner - g.border));
   context.fillStyle = colors.fill;
   context.fill();
@@ -46,11 +45,14 @@ export function paintPin(
   context.fillText(g.label, 0, 0);
 }
 
+let sharedCanvas: HTMLCanvasElement | undefined;
+let sharedContext: CanvasRenderingContext2D | undefined;
+
 export function pinImage(face: PinFace, theme: PinTheme, pixelRatio: number): ImageData {
   const side = Math.ceil(2 * pinGeometry(face, 'map').extent * pixelRatio);
-  const canvas = document.createElement('canvas');
-  canvas.width = canvas.height = side;
-  const context = canvas.getContext('2d')!;
-  paintPin(context, face, 'map', theme, pixelRatio);
-  return context.getImageData(0, 0, side, side);
+  if (!sharedCanvas) sharedCanvas = document.createElement('canvas');
+  sharedCanvas.width = sharedCanvas.height = side;
+  if (!sharedContext) sharedContext = sharedCanvas.getContext('2d', { willReadFrequently: true })!;
+  paintPin(sharedContext, face, 'map', theme, pixelRatio);
+  return sharedContext.getImageData(0, 0, side, side);
 }

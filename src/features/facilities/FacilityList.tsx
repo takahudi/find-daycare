@@ -43,8 +43,8 @@ export function FacilityList({
             distance={distanceOf(f)}
             highlightAges={ages}
             selected={f.id === selectedId}
-            onSelect={() => onSelect(f.id)}
-            onShowOnMap={() => onShowOnMap(f.id)}
+            onSelect={onSelect}
+            onShowOnMap={onShowOnMap}
           />
         ))}
         {facilities.length === 0 && <p className={styles.empty}>条件に合う施設がありません。絞り込みを変更してください。</p>}

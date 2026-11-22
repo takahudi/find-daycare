@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { memo, useId } from 'react';
 import type { Facility, FacilityType } from '../../schema';
 import { formatDistance, walkMinutes } from '../../lib/geo';
 import { AGE_LABELS, vacancyCount } from '../../lib/vacancy';
@@ -27,11 +27,11 @@ interface Props {
   distance: number | null;
   highlightAges: number[];
   selected: boolean;
-  onSelect: () => void;
-  onShowOnMap: () => void;
+  onSelect: (id: string) => void;
+  onShowOnMap: (id: string) => void;
 }
 
-export function FacilityCard({
+export const FacilityCard = memo(function FacilityCard({
   facility: f,
   vacancyExpired,
   rank,
@@ -53,7 +53,7 @@ export function FacilityCard({
       aria-labelledby={nameId}
       {...{ [FACILITY_ID_ATTRIBUTE]: f.id }}
       aria-current={selected || undefined}
-      onClick={onSelect}
+      onClick={() => onSelect(f.id)}
     >
       <header className={styles.cardHead}>
         <ul className={styles.cardBadges} role="list" aria-label="分類">
@@ -163,7 +163,7 @@ export function FacilityCard({
       {f.note && <p className={styles.cardNote}>{f.note}</p>}
 
       <footer className={styles.cardLinks} onClick={(e) => e.stopPropagation()}>
-        <button type="button" className={styles.cardMapBtn} onClick={onShowOnMap}>
+        <button type="button" className={styles.cardMapBtn} onClick={() => onShowOnMap(f.id)}>
           📍 地図で見る
         </button>
         {f.website && (
@@ -186,4 +186,4 @@ export function FacilityCard({
       </footer>
     </article>
   );
-}
+});
