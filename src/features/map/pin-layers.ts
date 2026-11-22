@@ -29,21 +29,43 @@ export interface PinScene {
   readonly selected: FacilityPin | null;
   readonly home: HomePin | null;
 }
+const sortedFacilitiesCache = new WeakMap<readonly Facility[], readonly Facility[]>();
+const facilityTiledPositionCache = new WeakMap<Facility, [number, number]>();
+const pinTiledPositionCache = new WeakMap<FacilityPin | HomePin, [number, number]>();
+const exactPositionCache = new WeakMap<FacilityPin | HomePin, [number, number]>();
+
+function sortFacilitiesNorthToSouth(all: readonly Facility[]): readonly Facility[] {
+  let sorted = sortedFacilitiesCache.get(all);
+  if (!sorted) {
+    sorted = [...all].sort((a, b) => b.lat - a.lat);
+    sortedFacilitiesCache.set(all, sorted);
+  }
+  return sorted;
+}
+
 export function facilityPins(
   all: readonly Facility[],
   visible: readonly Facility[],
   vacancyOf: (facility: Facility) => number,
 ): readonly FacilityPin[] {
   const ids = new Set(visible.map((facility) => facility.id));
-  return [...all]
-    .sort((a, b) => b.lat - a.lat)
+  return sortFacilitiesNorthToSouth(all)
     .filter((facility) => ids.has(facility.id))
-    .map((facility) => ({
-      id: facility.id,
-      lng: facility.lng,
-      lat: facility.lat,
-      face: facilityFace(facility, vacancyOf(facility), false),
-    }));
+    .map((facility) => {
+      let tiled = facilityTiledPositionCache.get(facility);
+      if (!tiled) {
+        tiled = computeTiledPosition(facility.lng, facility.lat);
+        facilityTiledPositionCache.set(facility, tiled);
+      }
+      const pin: FacilityPin = {
+        id: facility.id,
+        lng: facility.lng,
+        lat: facility.lat,
+        face: facilityFace(facility, vacancyOf(facility), false),
+      };
+      pinTiledPositionCache.set(pin, tiled);
+      return pin;
+    });
 }
 export function selectedPin(pins: readonly FacilityPin[], selectedId: string | null): FacilityPin | null {
   const pin = pins.find((candidate) => candidate.id === selectedId);
@@ -180,23 +202,52 @@ export interface ScreenPoint {
   readonly y: number;
 }
 function exactPinPosition(pin: FacilityPin | HomePin): [number, number] {
-  return [pin.lng, pin.lat];
+  let position = exactPositionCache.get(pin);
+  if (!position) {
+    position = [pin.lng, pin.lat];
+    exactPositionCache.set(pin, position);
+  }
+  return position;
+}
+function computeTiledPosition(lng: number, lat: number): [number, number] {
+  const units = 8192 * 2 ** FACILITY_PINS_MAXZOOM;
+  const x = Math.round((lng / 360 + 0.5) * units) / units;
+  const sin = Math.sin((lat * Math.PI) / 180);
+  const y = Math.round((0.5 - (0.25 * Math.log((1 + sin) / (1 - sin))) / Math.PI) * units) / units;
+  return [(x - 0.5) * 360, (360 * Math.atan(Math.exp(((180 - y * 360) * Math.PI) / 180))) / Math.PI - 90];
 }
 // MapLibre の geojson-vt は Mercator 座標を extent 8192 の整数へ丸める。
 // 元座標を投影すると、z17 では描画位置から最大4pxずつ外れる。
 export function tiledFacilityPosition(pin: FacilityPin | HomePin): [number, number] {
-  const units = 8192 * 2 ** FACILITY_PINS_MAXZOOM;
-  const x = Math.round((pin.lng / 360 + 0.5) * units) / units;
-  const sin = Math.sin((pin.lat * Math.PI) / 180);
-  const y = Math.round((0.5 - (0.25 * Math.log((1 + sin) / (1 - sin))) / Math.PI) * units) / units;
-  return [(x - 0.5) * 360, (360 * Math.atan(Math.exp(((180 - y * 360) * Math.PI) / 180))) / Math.PI - 90];
+  let position = pinTiledPositionCache.get(pin);
+  if (!position) {
+    position = computeTiledPosition(pin.lng, pin.lat);
+    pinTiledPositionCache.set(pin, position);
+  }
+  return position;
+}
+interface PickTarget {
+  readonly pin: FacilityPin | HomePin;
+  readonly position: [number, number];
+}
+const sceneTargetsCache = new WeakMap<PinScene, readonly PickTarget[]>();
+function pickTargets(scene: PinScene): readonly PickTarget[] {
+  let targets = sceneTargetsCache.get(scene);
+  if (!targets) {
+    targets = PIN_LAYERS.toReversed().flatMap((layer) =>
+      layer
+        .pins(scene)
+        .toReversed()
+        .map((pin) => ({ pin, position: layer.position(pin) })),
+    );
+    sceneTargetsCache.set(scene, targets);
+  }
+  return targets;
 }
 export function pickPin(scene: PinScene, point: ScreenPoint, project: (lngLat: [number, number]) => ScreenPoint): string | null {
-  for (const layer of PIN_LAYERS.toReversed()) {
-    for (const pin of layer.pins(scene).toReversed()) {
-      const position = project(layer.position(pin));
-      if (pinContains(pin.face, point.x - position.x, point.y - position.y)) return pin.face.kind === 'facility' ? pin.id : null;
-    }
+  for (const { pin, position: lngLat } of pickTargets(scene)) {
+    const position = project(lngLat);
+    if (pinContains(pin.face, point.x - position.x, point.y - position.y)) return pin.face.kind === 'facility' ? pin.id : null;
   }
   return null;
 }
