@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelectedFacility } from '../features/facilities/useSelectedFacility';
 import type { Dataset, Facility } from '../schema';
 import { isFacilityVacancyExpired } from '../lib/vacancy-expiry';
@@ -16,7 +16,24 @@ import { HomeForm } from '../features/home/HomeForm';
 import { MapLegend } from '../features/map/MapLegend';
 import styles from './App.module.css';
 
-const MapView = lazy(() => import('../features/map/MapView'));
+type MapViewComponent = typeof import('../features/map/MapView').MapView;
+
+let loadedMapView: MapViewComponent | null = null;
+let mapViewPromise: Promise<MapViewComponent> | null = null;
+
+function loadMapView(): Promise<MapViewComponent> {
+  if (!mapViewPromise) {
+    mapViewPromise = import('../features/map/MapView').then((module) => {
+      loadedMapView = module.MapView;
+      return loadedMapView;
+    });
+  }
+  return mapViewPromise;
+}
+
+if (!window.matchMedia('(max-width: 860px)').matches) {
+  void loadMapView();
+}
 
 export default function App({ data }: { data: Dataset }) {
   const expiredWards = useExpiredWards(data.wards);
@@ -33,12 +50,19 @@ export default function App({ data }: { data: Dataset }) {
     if (source === 'search') setSelectedId(null);
   };
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
-  const [mapMounted, setMapMounted] = useState(() => !window.matchMedia('(max-width: 860px)').matches);
+  const [MapView, setMapView] = useState<MapViewComponent | null>(() =>
+    window.matchMedia('(max-width: 860px)').matches ? null : loadedMapView,
+  );
   useEffect(() => {
-    if (mapMounted) return undefined;
-    const timer = window.setTimeout(() => setMapMounted(true), 0);
-    return () => window.clearTimeout(timer);
-  }, [mapMounted]);
+    if (MapView) return undefined;
+    let active = true;
+    void loadMapView().then((component) => {
+      if (active) setMapView(() => component);
+    });
+    return () => {
+      active = false;
+    };
+  }, [MapView]);
 
   const { visible, distanceOf, vacancyOf } = listFacilities(
     data.facilities,
@@ -102,19 +126,17 @@ export default function App({ data }: { data: Dataset }) {
         </section>
 
         <section className={styles.mapPane} aria-label="地図">
-          {(mapMounted || mobileView === 'map') && (
-            <Suspense fallback={null}>
-              <MapView
-                facilities={visible}
-                allFacilities={data.facilities}
-                vacancyOf={vacancyOf}
-                vacancyExpiredOf={vacancyExpiredOf}
-                distanceOf={distanceOf}
-                home={home}
-                selectedId={selectedId}
-                onSelect={(id) => select(id, 'map')}
-              />
-            </Suspense>
+          {MapView && (
+            <MapView
+              facilities={visible}
+              allFacilities={data.facilities}
+              vacancyOf={vacancyOf}
+              vacancyExpiredOf={vacancyExpiredOf}
+              distanceOf={distanceOf}
+              home={home}
+              selectedId={selectedId}
+              onSelect={(id) => select(id, 'map')}
+            />
           )}
           <MapLegend hasHome={!!home} />
         </section>
