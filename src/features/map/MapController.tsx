@@ -34,10 +34,18 @@ export function MapController({
     selected: undefined,
     popupOpen: false,
   });
+  const initialSelection = useRef(true);
   const initialized = useRef(false);
   const pendingMove = useRef<MapMove | null>(null);
   const resizeToContainer = useCallback(() => {
     if (!map) return;
+    const { clientWidth, clientHeight } = map.getContainer();
+    if (!clientWidth || !clientHeight) return;
+    const canvas = map.getCanvas();
+    const pixelRatio = map.getPixelRatio();
+    if (canvas.width === Math.round(clientWidth * pixelRatio) && canvas.height === Math.round(clientHeight * pixelRatio)) {
+      return;
+    }
     map.resize();
     map.redraw();
   }, [map]);
@@ -70,16 +78,19 @@ export function MapController({
 
   useEffect(() => {
     if (!map) return undefined;
-    initialized.current = false;
+    const { clientWidth, clientHeight } = map.getContainer();
+    initialized.current = clientWidth > 0 && clientHeight > 0;
     // MapLibre の自動リサイズは非表示時に仮寸法へ戻すため、MapGL の trackResize を切り、実寸だけを監視する。
     const observer = new ResizeObserver(() => {
-      const { clientWidth, clientHeight } = map.getContainer();
-      if (!clientWidth || !clientHeight) return;
+      const { clientWidth: width, clientHeight: height } = map.getContainer();
+      if (!width || !height) return;
       resizeToContainer();
       // 非表示で作られた地図の仮のサイズでは全施設の範囲が決まらない。
       if (!initialized.current) {
         initialized.current = true;
-        map.fitBounds(initialBounds, { duration: 0 });
+        if (pendingMove.current?.kind !== 'selection' && pendingMove.current?.kind !== 'home') {
+          map.fitBounds(initialBounds, { duration: 0 });
+        }
       }
       if (pendingMove.current) {
         const move = pendingMove.current;
@@ -93,6 +104,8 @@ export function MapController({
 
   useEffect(() => {
     if (!map) return undefined;
+    const isInitialSelection = initialSelection.current;
+    initialSelection.current = false;
     const previous = previousView.current;
     const selectionChanged = previous.selected !== selected;
     const homeChanged = previous.home !== home;
@@ -103,6 +116,7 @@ export function MapController({
 
     let move: MapMove;
     if (selectionChanged && selected) {
+      const duration = isInitialSelection ? 0 : 600;
       move = {
         kind: 'selection',
         run: () => {
@@ -111,7 +125,7 @@ export function MapController({
           map.flyTo({
             center: [selected.lng, selected.lat],
             zoom: Math.max(map.getZoom(), DETAIL_ZOOM),
-            duration: 600,
+            duration,
             offset: [0, offsetY],
           });
         },

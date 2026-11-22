@@ -71,6 +71,7 @@ export function MapView({
         onIdle={() => setBusy(false)}
         mapLib={maplibregl}
         mapStyle={mapStyle}
+        initialViewState={{ bounds: initialBounds }}
         transformRequest={transformRequest}
         maxZoom={17}
         trackResize={false}
