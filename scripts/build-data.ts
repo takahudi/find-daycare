@@ -13,6 +13,10 @@
 //   data/<区>/kigyo-details.json       認可外保育施設一覧（詳細）PDFからの抽出結果（extract-kigyo-details.ts）
 //   data/<区>/geocode-cache.json       企業主導型で座標が公開されていない施設の住所検索結果（国土地理院）
 //
+// 出力
+//   src/data/facilities.json           アプリが読む公開データ
+//   data/build-warnings.txt            人が判断する警告（1行1件）。前回コミット分との差分を表示する
+//
 // Usage: node scripts/build-data.ts
 import { readFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
@@ -26,8 +30,10 @@ import { reconcileVacancies } from './build-data/reconcile.ts';
 import { buildKigyo } from './build-data/kigyo.ts';
 import { readManifest, SNAPSHOT_IDS } from './snapshots.ts';
 import { finishWard } from './build-data/ward.ts';
+import { replaceWarnings } from './build-data/warnings.ts';
 
 const OUT = path.resolve('src/data/facilities.json');
+const WARNINGS = path.resolve('data/build-warnings.txt');
 const snapshots = Object.fromEntries(await Promise.all(SNAPSHOT_IDS.map(async (id) => [id, await readManifest(id)] as const)));
 const csv = parseCsv((await readFile(path.join(SRC, 'city', 'sukusukudata.csv'), 'utf8')).replace(/^﻿/, ''));
 const [, ...csvRows] = csv;
@@ -73,4 +79,9 @@ console.log(
     .map((w) => `${w.name} ${facilities.filter((f) => f.ward === w.id).length}`)
     .join(', ')})`,
 );
-for (const w of warnings) console.warn(`  ! ${w}`);
+const { added, resolved } = await replaceWarnings(WARNINGS, warnings);
+console.warn(
+  `警告 ${warnings.length} 件 -> ${path.relative(process.cwd(), WARNINGS)}  (前回から新規 ${added.length} 件・解消 ${resolved.length} 件)`,
+);
+for (const w of added) console.warn(`  + ${w}`);
+for (const w of resolved) console.warn(`  - ${w}`);
