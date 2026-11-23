@@ -65,10 +65,11 @@ export async function pinClickPoint(page: Page, id: string) {
     ({ facilityId, centre: pointCentre }) => {
       const probe = window.__findDaycarePins!;
       const canvas = document.querySelector('canvas.maplibregl-canvas');
+      // MouseEvent の clientX/clientY は整数に丸められるため、境界付近のずれを防ぐよう整数座標で判定する。
       for (const radius of [0, 4, 8, 12, 16]) {
         for (let angle = 0; angle < 360; angle += 45) {
-          const x = pointCentre.x + radius * Math.cos((angle * Math.PI) / 180);
-          const y = pointCentre.y + radius * Math.sin((angle * Math.PI) / 180);
+          const x = Math.round(pointCentre.x + radius * Math.cos((angle * Math.PI) / 180));
+          const y = Math.round(pointCentre.y + radius * Math.sin((angle * Math.PI) / 180));
           if (document.elementFromPoint(x, y) === canvas && probe.pick(x, y) === facilityId) return { x, y };
         }
       }

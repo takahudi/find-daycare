@@ -79,6 +79,54 @@ test('クラス年齢を選ぶと、その年齢を受け入れる施設と空�
   );
 });
 
+test('区の選択は折りたたまれ、展開して選択クリアと全区選択ができる', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const filters = page.getByRole('region', { name: '絞り込み' });
+  const trigger = filters.getByRole('button', { name: /^区 / });
+  const cards = page.getByRole('region', { name: '施設一覧' }).getByRole('article');
+
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await expect(trigger).toHaveText(`すべて（${data.wards.length}区）`);
+  await expect(page.getByRole('group', { name: '区', exact: true })).toHaveCount(0);
+
+  await trigger.click();
+  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  const wards = page.getByRole('group', { name: '区', exact: true });
+  await expect(wards).toBeVisible();
+
+  const selectAll = filters.getByRole('button', { name: '全区を選択', exact: true });
+  const clearAll = filters.getByRole('button', { name: '選択をクリア', exact: true });
+  await expect(selectAll).toBeDisabled();
+  await expect(clearAll).toBeEnabled();
+
+  await clearAll.click();
+  await expect(trigger).toHaveText('未選択');
+  await expect(clearAll).toBeDisabled();
+  await expect(selectAll).toBeEnabled();
+  await expect(cards).toHaveCount(0);
+
+  const [first, second, third] = data.wards;
+  await wards.getByRole('button', { name: first.name, exact: true }).click();
+  await expect(trigger).toHaveText(first.name);
+  await expect(cards).toHaveCount(data.facilities.filter((f) => f.ward === first.id).length);
+
+  await wards.getByRole('button', { name: second.name, exact: true }).click();
+  await expect(trigger).toHaveText(`${first.name}・${second.name}`);
+
+  await wards.getByRole('button', { name: third.name, exact: true }).click();
+  await expect(trigger).toHaveText(`${first.name} ほか2区`);
+
+  await selectAll.click();
+  await expect(trigger).toHaveText(`すべて（${data.wards.length}区）`);
+  await expect(cards).toHaveCount(data.facilities.length);
+  await expect(page).toHaveURL('/');
+
+  await page.keyboard.press('Escape');
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await expect(wards).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});
+
 test('地図と施設のピンが表示される', async ({ page }) => {
   const map = page.locator('section[aria-label="地図"]');
   await expect(map).toBeVisible();
@@ -325,11 +373,16 @@ async function representativeScope(page: Page, facilities: TestFacility[]) {
 }
 
 async function filterToRepresentativeWards(page: Page, facilities: TestFacility[]) {
+  const filters = page.getByRole('region', { name: '絞り込み' });
+  const trigger = filters.getByRole('button', { name: /^区 / });
+  await trigger.click();
+  await filters.getByRole('button', { name: '選択をクリア', exact: true }).click();
   const wards = page.getByRole('group', { name: '区', exact: true });
   const selected = new Set(facilities.map((f) => f.ward));
-  for (const ward of data.wards.filter((w) => !selected.has(w.id))) {
+  for (const ward of data.wards.filter((w) => selected.has(w.id))) {
     await wards.getByRole('button', { name: ward.name, exact: true }).click();
   }
+  await trigger.click();
 }
 
 test('地図ピンが空き人数と空きなしの見た目を持つ', async ({ page }) => {
@@ -377,6 +430,17 @@ const accessibilityStates: {
     setup: async (page) => {
       await expect(page.getByRole('article')).toHaveCount(data.facilities.length);
       await expect(viewToggle(page).getByRole('button', { name: 'リスト', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    },
+    scope: representativeCardScope,
+  },
+  {
+    name: 'モバイルで区の選択パネルを展開した表示',
+    viewport: { width: 390, height: 844 },
+    fullPage: false,
+    setup: async (page, { facilities }) => {
+      await filterToRepresentativeWards(page, facilities);
+      await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: /^区 / }).click();
+      await expect(page.getByRole('group', { name: '区', exact: true })).toBeVisible();
     },
     scope: representativeCardScope,
   },

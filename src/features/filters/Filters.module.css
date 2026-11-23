@@ -78,10 +78,112 @@
   background: var(--surface);
 }
 
+.wardFilter {
+  position: relative;
+}
+
+.wardTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.caret {
+  width: 6px;
+  height: 6px;
+  margin-top: -2px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.15s ease;
+}
+
+.wardTrigger[aria-expanded='true'] .caret {
+  margin-top: 2px;
+  transform: rotate(-135deg);
+}
+
+.wardPanel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 1200;
+  width: min(560px, calc(100vw - 48px));
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.wardActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.wardCount {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.wardActionButtons {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wardAction {
+  padding: 2px 4px;
+  border: 0;
+  background: none;
+  color: var(--accent-ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.wardAction:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.wardAction:disabled {
+  color: var(--muted);
+  opacity: 0.55;
+  cursor: default;
+}
+
+.wardList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 /* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
 @media (max-width: 860px) {
   .filters {
     padding: 8px 14px;
     gap: 8px;
+  }
+
+  .wardFilter {
+    flex-basis: 100%;
+  }
+
+  .wardPanel {
+    position: static;
+    flex-basis: 100%;
+    width: auto;
+    margin-top: 4px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--bg);
+    box-shadow: none;
   }
 }

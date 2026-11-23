@@ -4,6 +4,7 @@ import { AGE_LABELS, AGES } from '../../lib/vacancy';
 import { FACILITY_TYPES, FACILITY_TYPE_LABELS } from '../../lib/facility-labels';
 import { SORT_KEYS } from '../../lib/list-facilities';
 import type { useFilters } from './useFilters';
+import { WardFilter } from './WardFilter';
 import styles from './Filters.module.css';
 
 const chipByFacilityType: Record<FacilityType, string> = {
@@ -22,26 +23,24 @@ interface Props {
 }
 
 export function Filters({ wards, hasHome, state }: Props) {
-  const { ages, wardIds, facilityTypes, onlyOpen, sort, toggleWard, toggleAge, toggleFacilityType, setOnlyOpen, setSort } = state;
+  const {
+    ages,
+    wardIds,
+    facilityTypes,
+    onlyOpen,
+    sort,
+    toggleWard,
+    selectAllWards,
+    clearWards,
+    toggleAge,
+    toggleFacilityType,
+    setOnlyOpen,
+    setSort,
+  } = state;
   return (
     <section className={styles.filters} aria-label="絞り込み">
       {wards.length > 1 && (
-        <div className={styles.group} role="group" aria-labelledby="filter-ward">
-          <span id="filter-ward" className={styles.label}>
-            区
-          </span>
-          {wards.map((w) => (
-            <button
-              key={w.id}
-              type="button"
-              className={`${styles.chip}${wardIds.includes(w.id) ? ` ${styles.on}` : ''}`}
-              aria-pressed={wardIds.includes(w.id)}
-              onClick={() => toggleWard(w.id)}
-            >
-              {w.name}
-            </button>
-          ))}
-        </div>
+        <WardFilter wards={wards} wardIds={wardIds} onToggle={toggleWard} onSelectAll={selectAllWards} onClearAll={clearWards} />
       )}
       <div className={styles.group} role="group" aria-labelledby="filter-age">
         <span id="filter-age" className={styles.label}>

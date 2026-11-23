@@ -6,6 +6,7 @@ import data from '../src/data/facilities.json' with { type: 'json' };
 const cards = (page: Page) => page.getByRole('article');
 const selected = (page: Page) => page.locator('article[aria-current="true"]');
 const ids = (page: Page) => cards(page).evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-facility-id')));
+const wardTrigger = (page: Page) => page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: /^区 / });
 
 test.beforeEach(async ({ context }) => {
   await context.route(/^https?:\/\/(?!localhost[:/])/, (route) => route.abort());
@@ -50,10 +51,19 @@ for (const [device, viewport] of [
       await expect(
         restored.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '0歳', exact: true }),
       ).toHaveAttribute('aria-pressed', 'true');
+      const expectedWardSummary = data.wards
+        .filter((ward) => ['kita', 'abeno'].includes(ward.id))
+        .map((ward) => ward.name)
+        .join('・');
+      await expect(wardTrigger(restored)).toHaveText(expectedWardSummary);
+      await expect(selected(restored)).toHaveAttribute('data-facility-id', id!);
+      await expect(selected(restored)).toBeInViewport({ ratio: 0.99 });
+      await wardTrigger(restored).click();
       for (const ward of data.wards)
         await expect(
           restored.getByRole('group', { name: '区', exact: true }).getByRole('button', { name: ward.name, exact: true }),
         ).toHaveAttribute('aria-pressed', String(['kita', 'abeno'].includes(ward.id)));
+      await wardTrigger(restored).click();
       for (const [name, pressed] of [
         ['保育所', true],
         ['認定こども園', false],
@@ -65,8 +75,6 @@ for (const [device, viewport] of [
         ).toHaveAttribute('aria-pressed', String(pressed));
       await expect(restored.getByRole('checkbox', { name: '空きがある施設のみ' })).toBeChecked();
       await expect(restored.getByRole('combobox', { name: '並び順' })).toHaveValue('name');
-      await expect(selected(restored)).toHaveAttribute('data-facility-id', id!);
-      await expect(selected(restored)).toBeInViewport({ ratio: 0.99 });
     }
     await testInfo.attach('共有 URL', { body: page.url(), contentType: 'text/plain' });
     await fresh.close();
@@ -99,14 +107,15 @@ test('既定に戻すと URL が / になり、操作で履歴が増えない', 
     await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name, exact: true }).click();
   await expect.poll(() => new URL(page.url()).searchParams.get('age')).toBe('0,1');
   await expect(page.getByText(/件中.*に空きあり/)).toContainText('（0歳・1歳クラス）');
-  const ward = page.getByRole('group', { name: '区', exact: true }).getByRole('button').first();
   const type = page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '保育所', exact: true });
-  await ward.click();
+  await wardTrigger(page).click();
+  await page.getByRole('group', { name: '区', exact: true }).getByRole('button').first().click();
   await type.click();
   await page.getByRole('checkbox', { name: '空きがある施設のみ' }).check();
   await page.getByRole('combobox', { name: '並び順' }).selectOption('name');
   await expect.poll(() => new URL(page.url()).searchParams.get('sort')).toBe('name');
-  await ward.click();
+  await wardTrigger(page).click();
+  await page.getByRole('group', { name: '区', exact: true }).getByRole('button').first().click();
   await type.click();
   for (const name of ['0歳', '1歳'])
     await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name, exact: true }).click();
@@ -180,6 +189,8 @@ for (const ward of ['', ',']) {
   test('空トークンだけの区は選択0件: ' + JSON.stringify(ward), async ({ page }) => {
     await page.goto('/?ward=' + ward);
     await expect(cards(page)).toHaveCount(0);
+    await expect(wardTrigger(page)).toHaveText('未選択');
+    await wardTrigger(page).click();
     for (const button of await page.getByRole('group', { name: '区', exact: true }).getByRole('button').all())
       await expect(button).toHaveAttribute('aria-pressed', 'false');
   });
@@ -192,6 +203,7 @@ test('初期絞り込みで隠れた施設は URL から消え、条件を広げ
   await expect.poll(() => new URL(page.url()).searchParams.has('facility')).toBe(false);
   await expect(selected(page)).toHaveCount(0);
   await expectSelectedPinCount(page, 0);
+  await wardTrigger(page).click();
   await page.getByRole('group', { name: '区', exact: true }).getByRole('button', { name: '北区', exact: true }).click();
   await expect(page.locator('article[data-facility-id="' + facility.id + '"]')).toHaveCount(1);
   await expect(selected(page)).toHaveCount(0);
@@ -256,6 +268,8 @@ test('初期地図は URL の絞り込みや0件にかかわらず全施設の�
   expect(expectedAbeno).not.toBeNull();
   for (const query of ['?ward=abeno', '?ward=']) {
     await page.goto('/' + query);
+    await expect(wardTrigger(page)).toBeVisible();
+    await wardTrigger(page).click();
     await expect(page.getByRole('group', { name: '区', exact: true })).toBeVisible();
     if (query === '?ward=')
       await page.getByRole('group', { name: '区', exact: true }).getByRole('button', { name: '阿倍野区', exact: true }).click();
