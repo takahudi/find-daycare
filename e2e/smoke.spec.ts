@@ -46,10 +46,20 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
 });
 
-test('トップページを開ける', async ({ page }) => {
+test('トップページを開き、空き情報と出典の詳細を開閉できる', async ({ page }) => {
   await expect(page).toHaveTitle('大阪市 保育施設 空き状況マップ');
   await expect(page.getByText('空き情報：', { exact: false })).toBeVisible();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('空き状況マップ');
+
+  const infoButton = page.getByRole('banner').getByRole('button', { name: '空き情報と出典の詳細', exact: true });
+  await expect(infoButton).toHaveAttribute('aria-expanded', 'false');
+  await infoButton.click();
+  await expect(infoButton).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.getByRole('banner').getByText('出典：大阪市・各区役所', { exact: true })).toBeVisible();
+
+  await page.keyboard.press('Escape');
+  await expect(infoButton).toHaveAttribute('aria-expanded', 'false');
+  await expect(infoButton).toBeFocused();
 });
 
 test('施設のカードが表示される', async ({ page }) => {
@@ -86,7 +96,7 @@ test('区の選択は折りたたまれ、展開して選択クリアと全区�
   const cards = page.getByRole('region', { name: '施設一覧' }).getByRole('article');
 
   await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  await expect(trigger).toHaveText(`すべて（${data.wards.length}区）`);
+  await expect(trigger).toHaveText('区 すべて');
   await expect(page.getByRole('group', { name: '区', exact: true })).toHaveCount(0);
 
   await trigger.click();
@@ -100,24 +110,24 @@ test('区の選択は折りたたまれ、展開して選択クリアと全区�
   await expect(clearAll).toBeEnabled();
 
   await clearAll.click();
-  await expect(trigger).toHaveText('未選択');
+  await expect(trigger).toHaveText('区 未選択');
   await expect(clearAll).toBeDisabled();
   await expect(selectAll).toBeEnabled();
   await expect(cards).toHaveCount(0);
 
   const [first, second, third] = data.wards;
   await wards.getByRole('button', { name: first.name, exact: true }).click();
-  await expect(trigger).toHaveText(first.name);
+  await expect(trigger).toHaveText(`区 ${first.name}`);
   await expect(cards).toHaveCount(data.facilities.filter((f) => f.ward === first.id).length);
 
   await wards.getByRole('button', { name: second.name, exact: true }).click();
-  await expect(trigger).toHaveText(`${first.name}・${second.name}`);
+  await expect(trigger).toHaveText(`区 ${first.name}・${second.name}`);
 
   await wards.getByRole('button', { name: third.name, exact: true }).click();
-  await expect(trigger).toHaveText(`${first.name} ほか2区`);
+  await expect(trigger).toHaveText(`区 ${first.name} ほか2区`);
 
   await selectAll.click();
-  await expect(trigger).toHaveText(`すべて（${data.wards.length}区）`);
+  await expect(trigger).toHaveText('区 すべて');
   await expect(cards).toHaveCount(data.facilities.length);
   await expect(page).toHaveURL('/');
 
@@ -172,7 +182,7 @@ test('デスクトップで地図のピンを選ぶと画面外の対応カー�
   await expect.poll(() => list.evaluate((node) => node.scrollTop)).toBeLessThan(before.scrollTop);
 });
 
-test('住所を検索すると、その住所からの距離で施設を表示する', async ({ page }) => {
+test('住所を検索すると、フォームを折りたたんでその住所からの距離で施設を表示する', async ({ page }) => {
   const address = '大阪市北区中之島1-3-20';
   await page.route('https://msearch.gsi.go.jp/**', (route) =>
     route.fulfill({
@@ -183,9 +193,15 @@ test('住所を検索すると、その住所からの距離で施設を表示�
   await page.getByRole('searchbox', { name: '自宅の住所' }).fill(address);
   await page.getByRole('banner').getByRole('button', { name: '近い順に並べる' }).click();
 
-  await expect(page.getByRole('status')).toHaveText([new RegExp(address)]);
-  await expect(page.getByRole('status')).toHaveText([/からの直線距離で表示中/]);
+  await expect(page.getByRole('searchbox', { name: '自宅の住所' })).toHaveCount(0);
+  await expect(page.getByRole('status')).toHaveText([/北区中之島1-3-20/]);
+  await expect(page.getByRole('status')).toHaveText([/からの直線距離/]);
   await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toContainText('自宅から');
+
+  await page.getByRole('banner').getByRole('button', { name: '変更', exact: true }).click();
+  await expect(page.getByRole('searchbox', { name: '自宅の住所' })).toBeFocused();
+  await page.getByRole('banner').getByRole('button', { name: 'キャンセル', exact: true }).click();
+  await expect(page.getByRole('searchbox', { name: '自宅の住所' })).toHaveCount(0);
 });
 
 test.afterEach(async ({ page }) => {
@@ -222,7 +238,16 @@ test('/wrangler.json は生成ファイルを公開せず404を返す', async ({
 });
 
 test('施設種別の選択肢を保ち、企業主導型と認可外を別のバッジで表示する', async ({ page }) => {
-  const chips = page.getByRole('group', { name: '種別', exact: true }).getByRole('button');
+  const filters = page.getByRole('region', { name: '絞り込み' });
+  const typeTrigger = filters.getByRole('button', { name: /^種別 / });
+  await expect(typeTrigger).toHaveAttribute('aria-expanded', 'false');
+  await expect(typeTrigger).toHaveText('種別 すべて');
+  await expect(page.getByRole('group', { name: '種別', exact: true })).toHaveCount(0);
+
+  await typeTrigger.click();
+  await expect(typeTrigger).toHaveAttribute('aria-expanded', 'true');
+  const typeGroup = page.getByRole('group', { name: '種別', exact: true });
+  const chips = typeGroup.getByRole('button');
   await expect(chips).toHaveText(['保育所', '認定こども園', '地域型保育（0〜2歳）', '企業主導型']);
   const cards = page.getByRole('region', { name: '施設一覧' }).getByRole('article');
   await expect(cards).toHaveCount(data.facilities.length);
@@ -241,8 +266,9 @@ test('施設種別の選択肢を保ち、企業主導型と認可外を別の�
     ).toHaveCSS('background-color', color);
   }
   for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
-    await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: label, exact: true }).click();
+    await typeGroup.getByRole('button', { name: label, exact: true }).click();
   }
+  await expect(typeTrigger).toHaveText('種別 企業主導型');
   const kigyoCount = data.facilities.filter((facility) => facility.facilityType === 'kigyo').length;
   await expect(cards).toHaveCount(kigyoCount);
   await expect(cards.first().getByRole('list', { name: '分類' }).getByRole('listitem')).toHaveText([
@@ -260,8 +286,10 @@ test('施設種別の選択肢を保ち、企業主導型と認可外を別の�
     .poll(async () => (await renderedPins(page)).filter((p) => p.face.kind === 'facility' && p.face.shape === 'square').length)
     .toBe(kigyoCount);
   await expect(page.getByRole('group', { name: '地図の凡例' })).toContainText('認可外');
-  await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '企業主導型', exact: true }).click();
-  await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '保育所', exact: true }).click();
+  await typeGroup.getByRole('button', { name: '企業主導型', exact: true }).click();
+  await expect(typeTrigger).toHaveText('種別 未選択');
+  await typeGroup.getByRole('button', { name: '保育所', exact: true }).click();
+  await expect(typeTrigger).toHaveText('種別 保育所');
   await expect(cards).toHaveCount(data.facilities.filter((facility) => facility.facilityType === 'nursery').length);
   await expect(
     cards
@@ -282,13 +310,22 @@ test('施設種別の選択肢を保ち、企業主導型と認可外を別の�
   await expect
     .poll(async () => (await renderedPins(page)).filter((p) => p.face.kind === 'facility' && p.face.shape === 'square').length)
     .toBe(0);
+  await filters.getByRole('button', { name: 'すべて選択', exact: true }).click();
+  await expect(typeTrigger).toHaveText('種別 すべて');
+  await page.keyboard.press('Escape');
+  await expect(typeTrigger).toHaveAttribute('aria-expanded', 'false');
+  await expect(typeTrigger).toBeFocused();
 });
 
 test('モバイルの地図タブで企業主導型のポップアップに認可外と表示する', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
+  const filters = page.getByRole('region', { name: '絞り込み' });
+  const typeTrigger = filters.getByRole('button', { name: /^種別 / });
+  await typeTrigger.click();
   for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
-    await page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: label, exact: true }).click();
+    await page.getByRole('group', { name: '種別', exact: true }).getByRole('button', { name: label, exact: true }).click();
   }
+  await typeTrigger.click();
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   const map = page.locator('section[aria-label="地図"]');
   await map.scrollIntoViewIfNeeded();
@@ -360,7 +397,7 @@ async function representativeScope(page: Page, facilities: TestFacility[]) {
     'header:has(h1)',
     '[aria-label="絞り込み"]',
     '[aria-label="表示切替"]',
-    '[aria-label="施設一覧"] > p',
+    '[aria-label="施設一覧"] > div:first-child',
     '[aria-label="施設一覧"] > footer',
     'section[aria-label="地図"]',
   ];
@@ -445,13 +482,48 @@ const accessibilityStates: {
     scope: representativeCardScope,
   },
   {
+    name: 'モバイルで種別の選択パネルを展開した表示',
+    viewport: { width: 390, height: 844 },
+    fullPage: false,
+    setup: async (page, { facilities }) => {
+      await filterToRepresentativeWards(page, facilities);
+      await page
+        .getByRole('region', { name: '絞り込み' })
+        .getByRole('button', { name: /^種別 / })
+        .click();
+      await expect(page.getByRole('group', { name: '種別', exact: true })).toBeVisible();
+    },
+    scope: representativeCardScope,
+  },
+  {
+    name: 'モバイルで空き情報の詳細と自宅設定済みバーを表示',
+    viewport: { width: 390, height: 844 },
+    fullPage: false,
+    setup: async (page, { facilities }) => {
+      await filterToRepresentativeWards(page, facilities);
+      const address = '大阪府大阪市東成区中道四丁目';
+      await page.route('https://msearch.gsi.go.jp/**', (route) =>
+        route.fulfill({ json: [{ geometry: { coordinates: [135.535, 34.675] }, properties: { title: address } }] }),
+      );
+      await page.getByRole('searchbox', { name: '自宅の住所' }).fill(address);
+      await page.getByRole('banner').getByRole('button', { name: '近い順に並べる' }).click();
+      await expect(page.getByRole('status')).toHaveText([/東成区中道四丁目/]);
+      await page.getByRole('banner').getByRole('button', { name: '空き情報と出典の詳細', exact: true }).click();
+      await expect(page.getByRole('banner').getByText('出典：大阪市・各区役所', { exact: true })).toBeVisible();
+    },
+    scope: representativeCardScope,
+  },
+  {
     name: 'モバイルの地図で施設の詳細を表示',
     viewport: { width: 390, height: 844 },
     fullPage: true,
     setup: async (page) => {
+      const typeTrigger = page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: /^種別 / });
+      await typeTrigger.click();
       for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
         await page.getByRole('group', { name: '種別', exact: true }).getByRole('button', { name: label, exact: true }).click();
       }
+      await typeTrigger.click();
       await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
       const map = page.locator('section[aria-label="地図"]');
       await map.scrollIntoViewIfNeeded();
@@ -472,7 +544,7 @@ const accessibilityStates: {
       );
       await page.getByRole('searchbox', { name: '自宅の住所' }).fill(address);
       await page.getByRole('banner').getByRole('button', { name: '近い順に並べる' }).click();
-      await expect(page.getByRole('status')).toHaveText([new RegExp(address)]);
+      await expect(page.getByRole('status')).toHaveText([/北区中之島1-3-20/]);
       await expect(page.getByRole('article').first()).toContainText('自宅から');
     },
     scope: representativeCardScope,
@@ -483,7 +555,7 @@ const accessibilityStates: {
     fullPage: false,
     setup: async (page, { facilities, shared, open, ineligible, full }) => {
       await filterToRepresentativeWards(page, facilities);
-      const ages = page.getByRole('group', { name: 'クラス年齢', exact: true });
+      const ages = page.getByRole('group', { name: '年齢', exact: true });
       await ages.getByRole('button', { name: '0歳', exact: true }).click();
       await ages.getByRole('button', { name: '1歳', exact: true }).click();
       const wardIds = new Set(facilities.map((f) => f.ward));

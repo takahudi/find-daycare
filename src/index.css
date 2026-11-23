@@ -76,7 +76,7 @@ select {
 
 /* app/App.module.css の .topbar を写す。 */
 .loading-topbar {
-  padding: 16px 24px 12px;
+  padding: 14px 24px 12px;
   background: var(--surface);
   border-bottom: 1px solid var(--line);
   display: grid;
@@ -113,7 +113,8 @@ select {
 
   .loading-topbar {
     grid-template-columns: 1fr;
-    padding: 12px 14px;
+    padding: 10px 14px;
+    gap: 8px;
   }
 
   .loading-list {

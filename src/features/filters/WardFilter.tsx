@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import type { Ward } from '../../schema';
 import { formatWardSummary } from './ward-summary';
 import styles from './Filters.module.css';
@@ -6,28 +6,29 @@ import styles from './Filters.module.css';
 interface Props {
   wards: Ward[];
   wardIds: string[];
+  open: boolean;
+  onToggleOpen: () => void;
+  onClose: () => void;
   onToggle: (wardId: string) => void;
   onSelectAll: () => void;
   onClearAll: () => void;
 }
 
-export function WardFilter({ wards, wardIds, onToggle, onSelectAll, onClearAll }: Props) {
-  const [open, setOpen] = useState(false);
+export function WardFilter({ wards, wardIds, open, onToggleOpen, onClose, onToggle, onSelectAll, onClearAll }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const summaryId = useId();
   const panelId = useId();
 
   useEffect(() => {
     if (!open) return undefined;
     const onDocumentClick = (event: MouseEvent) => {
       if (event.target instanceof Node && !containerRef.current?.contains(event.target)) {
-        setOpen(false);
+        onClose();
       }
     };
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setOpen(false);
+        onClose();
         triggerRef.current?.focus();
       }
     };
@@ -37,45 +38,41 @@ export function WardFilter({ wards, wardIds, onToggle, onSelectAll, onClearAll }
       document.removeEventListener('click', onDocumentClick);
       document.removeEventListener('keydown', onKeyDown);
     };
-  }, [open]);
+  }, [open, onClose]);
 
   const allSelected = wardIds.length === wards.length;
   const noneSelected = wardIds.length === 0;
   const summary = formatWardSummary(wards, wardIds);
 
   return (
-    <div ref={containerRef} className={`${styles.group} ${styles.wardFilter}`}>
-      <span id="filter-ward" className={styles.label}>
-        区
-      </span>
+    <div ref={containerRef} className={styles.popoverAnchor}>
       <button
         ref={triggerRef}
         type="button"
-        className={`${styles.chip} ${styles.wardTrigger}${!allSelected ? ` ${styles.on}` : ''}`}
-        aria-labelledby={`filter-ward ${summaryId}`}
+        className={`${styles.chip} ${styles.dropdownTrigger}${!allSelected ? ` ${styles.on}` : ''}`}
         aria-expanded={open}
         aria-controls={panelId}
-        onClick={() => setOpen((current) => !current)}
+        onClick={onToggleOpen}
       >
-        <span id={summaryId}>{summary}</span>
+        <span className={styles.triggerPrefix}>区</span> <span>{summary}</span>
         <span className={styles.caret} aria-hidden="true" />
       </button>
       {open && (
-        <div id={panelId} className={styles.wardPanel}>
-          <div className={styles.wardActions}>
-            <span className={styles.wardCount}>
+        <div id={panelId} className={styles.popoverPanel}>
+          <div className={styles.panelActions}>
+            <span className={styles.panelCount}>
               {wardIds.length} / {wards.length}区を選択中
             </span>
-            <div className={styles.wardActionButtons}>
-              <button type="button" className={styles.wardAction} disabled={allSelected} onClick={onSelectAll}>
+            <div className={styles.panelActionButtons}>
+              <button type="button" className={styles.panelAction} disabled={allSelected} onClick={onSelectAll}>
                 全区を選択
               </button>
-              <button type="button" className={styles.wardAction} disabled={noneSelected} onClick={onClearAll}>
+              <button type="button" className={styles.panelAction} disabled={noneSelected} onClick={onClearAll}>
                 選択をクリア
               </button>
             </div>
           </div>
-          <div className={styles.wardList} role="group" aria-labelledby="filter-ward">
+          <div className={styles.panelList} role="group" aria-label="区">
             {wards.map((w) => {
               const selected = wardIds.includes(w.id);
               return (

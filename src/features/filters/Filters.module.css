@@ -1,11 +1,18 @@
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 28px;
+  gap: 8px 20px;
   align-items: center;
-  padding: 10px 24px;
+  padding: 9px 24px;
   background: var(--surface);
   border-bottom: 1px solid var(--line);
+}
+
+.primaryRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
 }
 
 .group {
@@ -16,19 +23,20 @@
 }
 
 .label {
-  margin-right: 4px;
+  margin-right: 2px;
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--muted);
 }
 
 .chip {
-  padding: 4px 12px;
+  padding: 4px 11px;
   border: 1.5px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   color: var(--ink);
-  font-size: 0.85rem;
+  font-size: 0.84rem;
+  line-height: 1.4;
   cursor: pointer;
 }
 
@@ -63,29 +71,37 @@
   color: var(--kigyo);
 }
 
-.toggle,
-.sort {
+.toggleChip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.88rem;
+  gap: 5px;
+  user-select: none;
 }
 
-.sort select {
-  padding: 4px 8px;
-  border: 1.5px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
+.toggleChip input {
+  margin: 0;
+  accent-color: var(--accent-fill);
+  cursor: pointer;
 }
 
-.wardFilter {
+.popoverAnchor {
   position: relative;
 }
 
-.wardTrigger {
+.dropdownTrigger {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+}
+
+.triggerPrefix {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.on .triggerPrefix {
+  color: currentColor;
 }
 
 .caret {
@@ -98,12 +114,12 @@
   transition: transform 0.15s ease;
 }
 
-.wardTrigger[aria-expanded='true'] .caret {
+.dropdownTrigger[aria-expanded='true'] .caret {
   margin-top: 2px;
   transform: rotate(-135deg);
 }
 
-.wardPanel {
+.popoverPanel {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
@@ -116,7 +132,11 @@
   box-shadow: var(--shadow);
 }
 
-.wardActions {
+.typePanel {
+  width: min(440px, calc(100vw - 48px));
+}
+
+.panelActions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -127,19 +147,19 @@
   border-bottom: 1px solid var(--line);
 }
 
-.wardCount {
+.panelCount {
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--muted);
 }
 
-.wardActionButtons {
+.panelActionButtons {
   display: inline-flex;
   align-items: center;
   gap: 12px;
 }
 
-.wardAction {
+.panelAction {
   padding: 2px 4px;
   border: 0;
   background: none;
@@ -149,17 +169,17 @@
   cursor: pointer;
 }
 
-.wardAction:hover:not(:disabled) {
+.panelAction:hover:not(:disabled) {
   text-decoration: underline;
 }
 
-.wardAction:disabled {
+.panelAction:disabled {
   color: var(--muted);
   opacity: 0.55;
   cursor: default;
 }
 
-.wardList {
+.panelList {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -169,18 +189,24 @@
 @media (max-width: 860px) {
   .filters {
     padding: 8px 14px;
-    gap: 8px;
+    gap: 7px;
   }
 
-  .wardFilter {
+  .primaryRow {
     flex-basis: 100%;
   }
 
-  .wardPanel {
+  .popoverAnchor {
+    display: contents;
+  }
+
+  .popoverPanel,
+  .typePanel {
     position: static;
+    order: 1;
     flex-basis: 100%;
     width: auto;
-    margin-top: 4px;
+    margin-top: 2px;
     padding: 10px 12px;
     border-radius: 12px;
     background: var(--bg);

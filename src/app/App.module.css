@@ -6,18 +6,13 @@
 }
 
 .topbar {
-  padding: 16px 24px 12px;
+  padding: 14px 24px 12px;
   background: var(--surface);
   border-bottom: 1px solid var(--line);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 560px);
   gap: 8px 24px;
   align-items: center;
-}
-
-/* HomeForm の状態表示もヘッダー直下のグリッド項目なので、配置を App から渡す。 */
-.homeStatus {
-  grid-column: 2;
 }
 
 .layout {
@@ -42,12 +37,8 @@
   display: none;
 }
 
-/* 860px は index.css の静的ローダー、HomeForm.module.css、Filters.module.css と共通。 */
+/* 860px は index.css の静的ローダー、HomeForm.module.css、Filters.module.css、DatasetHeading.module.css と共通。 */
 @media (max-width: 860px) {
-  .homeStatus {
-    grid-column: 1;
-  }
-
   .app {
     display: block;
     height: auto;
@@ -55,7 +46,8 @@
 
   .topbar {
     grid-template-columns: 1fr;
-    padding: 12px 14px;
+    padding: 10px 14px;
+    gap: 8px;
   }
 
   .mobileTabs {

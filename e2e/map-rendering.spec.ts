@@ -102,7 +102,7 @@ test('選択・並べ替え・自宅の変更では全施設のデータを再�
   const after = await page.evaluate(() => ({ ...window.pinSourceLoads }));
   expect(after['facility-pins']).toBe(before['facility-pins']);
   expect(after['facility-pin-selected']).toBeGreaterThan(before['facility-pin-selected']);
-  await page.getByRole('region', { name: '絞り込み' }).getByRole('combobox', { name: '並び順' }).selectOption('name');
+  await page.getByRole('region', { name: '施設一覧' }).getByRole('combobox', { name: '並び順' }).selectOption('name');
   await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
   await expect.poll(async () => (await renderedPins(page)).filter((pin) => pin.layer === 'home-pin').length).toBe(1);
   await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
@@ -225,11 +225,15 @@ test('ポインターを動かさず絞り込みや地図移動をしてもカ�
   const canvas = page.locator('canvas.maplibregl-canvas');
   await page.mouse.move(pin.clientX, pin.clientY);
   await expect(canvas).toHaveCSS('cursor', 'pointer');
-  const nursery = page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: '保育所', exact: true });
+  const filters = page.getByRole('region', { name: '絞り込み' });
+  const typeTrigger = filters.getByRole('button', { name: /^種別 / });
+  await typeTrigger.evaluate((button: HTMLButtonElement) => button.click());
+  const nursery = filters.getByRole('group', { name: '種別', exact: true }).getByRole('button', { name: '保育所', exact: true });
   await nursery.evaluate((button: HTMLButtonElement) => button.click());
   await expectSelectedPinCount(page, 0);
   await expect(canvas).not.toHaveCSS('cursor', 'pointer');
   await nursery.evaluate((button: HTMLButtonElement) => button.click());
+  await typeTrigger.evaluate((button: HTMLButtonElement) => button.click());
   await expectSelectedPinCount(page, 1);
   await expect(ready).toHaveAttribute('aria-busy', 'false');
   await expect(canvas).toHaveCSS('cursor', 'pointer');

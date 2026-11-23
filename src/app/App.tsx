@@ -44,7 +44,7 @@ export default function App({ data }: { data: Dataset }) {
   const homeState = useHome(wardNames);
   const { home } = homeState;
   const filters = useFilters({ wardIds: data.wards.map((w) => w.id), sort: home ? 'distance' : 'vacancy' });
-  const { ages, wardIds, facilityTypes, onlyOpen, sort, followDefaultSort } = filters;
+  const { ages, wardIds, facilityTypes, onlyOpen, sort, setSort, followDefaultSort } = filters;
   const onHomeChosen = (source: HomeChoice) => {
     followDefaultSort();
     if (source === 'search') setSelectedId(null);
@@ -92,10 +92,10 @@ export default function App({ data }: { data: Dataset }) {
       <header className={styles.topbar}>
         <DatasetHeading data={data} summary={summary} expiredWards={expiredWards} />
 
-        <HomeForm state={homeState} onHomeChosen={onHomeChosen} statusClassName={styles.homeStatus} />
+        <HomeForm state={homeState} onHomeChosen={onHomeChosen} />
       </header>
 
-      <Filters wards={data.wards} hasHome={!!home} state={filters} />
+      <Filters wards={data.wards} state={filters} />
 
       <nav className={styles.mobileTabs} aria-label="表示切替">
         <button type="button" aria-pressed={mobileView === 'list'} onClick={() => setMobileView('list')}>
@@ -114,6 +114,9 @@ export default function App({ data }: { data: Dataset }) {
             vacancyOf={vacancyOf}
             vacancyExpiredOf={vacancyExpiredOf}
             ages={ages}
+            hasHome={!!home}
+            sort={sort}
+            onSortChange={setSort}
             showRank={sort === 'distance' && !!home}
             selectedId={selectedId}
             onSelect={(id) => select(id, 'list')}

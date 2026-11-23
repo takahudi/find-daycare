@@ -149,12 +149,13 @@ test('同じ施設の詳細を開き直すと画面外にずらしたポップ�
   await expectPinProbe(page);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expectInside(page);
-  const { map } = await geometry(page);
+  const { map, popup } = await geometry(page);
+  const dragY = Math.max(60, Math.ceil(popup.top - map.top) + 30);
   const x = map.right - 25,
     y = map.top + map.height / 2;
   await page.mouse.move(x, y);
   await page.mouse.down();
-  await page.mouse.move(x, y - 60, { steps: 10 });
+  await page.mouse.move(x, y - dragY, { steps: 10 });
   await page.waitForTimeout(200);
   await page.mouse.up();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
