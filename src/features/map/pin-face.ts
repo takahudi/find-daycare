@@ -71,12 +71,16 @@ export function pinGeometry(face: PinFace, size: PinSize): PinGeometry {
   };
 }
 export function pinContains(face: PinFace, dx: number, dy: number): boolean {
-  const geometry = pinGeometry(face, 'map');
-  const half = (geometry.box * geometry.scale) / 2;
-  const radius = geometry.corner * geometry.scale;
+  const metrics = METRICS.map;
+  const home = face.kind === 'home';
+  const box = home ? metrics.homeBox : metrics.box;
+  const scale = !home && face.selected ? 1.2 : 1;
+  const half = (box * scale) / 2;
   const x = Math.abs(dx);
   const y = Math.abs(dy);
-  return x <= half && y <= half && Math.max(x - half + radius, 0) ** 2 + Math.max(y - half + radius, 0) ** 2 <= radius ** 2;
+  if (x > half || y > half) return false;
+  const radius = (!home && face.shape === 'square' ? metrics.corner : box / 2) * scale;
+  return Math.max(x - half + radius, 0) ** 2 + Math.max(y - half + radius, 0) ** 2 <= radius ** 2;
 }
 
 export const PIN_THEME_VARS = {

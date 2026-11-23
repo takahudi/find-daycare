@@ -61,8 +61,32 @@ export function PinOverlay({
     return { pin, data: pinCollection(pin ? [pin] : []) };
   }, [home]);
   const route = useMemo(() => routeCollection(homeAt.pin, selected.pin), [homeAt.pin, selected.pin]);
-  const scene: PinScene = { facilities: base.pins, selected: selected.pin, home: homeAt.pin };
-  const pick = useEffectEvent((point: ScreenPoint) => (map ? pickPin(scene, point, (lngLat) => map.project(lngLat)) : null));
+  const scene = useMemo<PinScene>(
+    () => ({ facilities: base.pins, selected: selected.pin, home: homeAt.pin }),
+    [base.pins, selected.pin, homeAt.pin],
+  );
+  const projectionCache = useRef<{
+    key: string;
+    points: WeakMap<readonly [number, number], ScreenPoint>;
+  }>({ key: '', points: new WeakMap() });
+  const pick = useEffectEvent((point: ScreenPoint) => {
+    if (!map) return null;
+    const nw = map.project([135.36, 34.77]);
+    const se = map.project([135.62, 34.56]);
+    const key = `${nw.x},${nw.y},${se.x},${se.y}`;
+    if (projectionCache.current.key !== key) {
+      projectionCache.current = { key, points: new WeakMap() };
+    }
+    const { points } = projectionCache.current;
+    return pickPin(scene, point, (lngLat) => {
+      let projected = points.get(lngLat);
+      if (!projected) {
+        projected = map.project(lngLat);
+        points.set(lngLat, projected);
+      }
+      return projected;
+    });
+  });
   const hoverPoint = useRef<ScreenPoint | null>(null);
   const refreshCursor = useEffectEvent(() => {
     if (map) map.getCanvas().style.cursor = hoverPoint.current && pick(hoverPoint.current) ? 'pointer' : '';
@@ -79,9 +103,14 @@ export function PinOverlay({
     canvas.setAttribute('aria-describedby', hintId);
     // 外側の地図 region と同名のランドマークを重ねない。
     canvas.setAttribute('role', 'group');
+    let cachedTheme: ReturnType<typeof readPinTheme> | null = null;
+    const getTheme = () => {
+      if (!cachedTheme) cachedTheme = readPinTheme(map.getContainer());
+      return cachedTheme;
+    };
     const applyTheme = () => {
       if (!map.getLayer(ROUTE_SOURCE)) return;
-      map.setPaintProperty(ROUTE_SOURCE, 'line-color', readPinTheme(map.getContainer()).accent);
+      map.setPaintProperty(ROUTE_SOURCE, 'line-color', getTheme().accent);
       map.off('styledata', applyTheme);
     };
     map.on('styledata', applyTheme);
@@ -89,8 +118,9 @@ export function PinOverlay({
     const addMissingPin = (id: string) => {
       const face = parsePinImageId(id);
       if (!face || map.hasImage(id)) return;
-      map.addImage(id, pinImage(face, readPinTheme(map.getContainer()), map.getPixelRatio()), {
-        pixelRatio: map.getPixelRatio(),
+      const pixelRatio = map.getPixelRatio();
+      map.addImage(id, pinImage(face, getTheme(), pixelRatio), {
+        pixelRatio,
       });
     };
     const click = (event: MapMouseEvent) => {
@@ -103,6 +133,13 @@ export function PinOverlay({
       frame = null;
       map.getCanvas().style.cursor = '';
     };
+    const scheduleRefreshCursor = () => {
+      if (frame !== null) return;
+      frame = requestAnimationFrame(() => {
+        frame = null;
+        refreshCursor();
+      });
+    };
     const resetCursor = () => {
       hoverPoint.current = null;
       clearCursor();
@@ -113,16 +150,12 @@ export function PinOverlay({
         clearCursor();
         return;
       }
-      if (frame !== null) return;
-      frame = requestAnimationFrame(() => {
-        frame = null;
-        refreshCursor();
-      });
+      scheduleRefreshCursor();
     };
     // v6 の styleimagemissing は応答後の通知なので、生成は応答前に呼ばれる resolver に登録する。
     map.setMissingStyleImageResolver(addMissingPin);
     const sourceChanged = (event: MapSourceDataEvent) => {
-      if (PIN_LAYERS.some((layer) => layer.source === event.sourceId)) refreshCursor();
+      if (hoverPoint.current && PIN_LAYERS.some((layer) => layer.source === event.sourceId)) scheduleRefreshCursor();
     };
     map.on('sourcedataloading', sourceChanged);
     map.on('sourcedata', sourceChanged);
