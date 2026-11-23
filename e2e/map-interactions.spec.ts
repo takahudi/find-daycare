@@ -141,15 +141,26 @@ test('同じ段でラベルが違うピンは南を手前に描き、画素で�
     community: '地域型保育（0〜2歳）',
     kigyo: '企業主導型',
   };
-  const northFilter = filters.getByRole('button', { name: typeLabels[north.facilityType], exact: true });
-  const southFilter = filters.getByRole('button', { name: typeLabels[south.facilityType], exact: true });
+  const typeTrigger = filters.getByRole('button', { name: /^種別 / });
+  const northFilter = filters.getByRole('group', { name: '種別', exact: true }).getByRole('button', {
+    name: typeLabels[north.facilityType],
+    exact: true,
+  });
+  const southFilter = filters.getByRole('group', { name: '種別', exact: true }).getByRole('button', {
+    name: typeLabels[south.facilityType],
+    exact: true,
+  });
+  await typeTrigger.click();
   await northFilter.click();
+  await typeTrigger.click();
   await expect.poll(() => pinCentre(page, north.id)).toBeNull();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   const southOnly = await capture();
   expect(both).toEqual(southOnly);
+  await typeTrigger.click();
   await northFilter.click();
   await southFilter.click();
+  await typeTrigger.click();
   await expect.poll(() => pinCentre(page, south.id)).toBeNull();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   const northOnly = await capture();
@@ -159,7 +170,9 @@ test('同じ段でラベルが違うピンは南を手前に描き、画素で�
       color.every((c, i) => Math.abs(c - labelColor[i]) < 12) && northOnly[index].some((c, i) => Math.abs(c - color[i]) > 100),
   );
   expect(labelPixel).toBeGreaterThanOrEqual(0);
+  await typeTrigger.click();
   await southFilter.click();
+  await typeTrigger.click();
   await expect.poll(() => pinCentre(page, south.id)).not.toBeNull();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   const point = {

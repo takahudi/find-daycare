@@ -13,8 +13,8 @@ describe('区の選択状態の要約表示', () => {
     expect(formatWardSummary(wards, [])).toBe('未選択');
   });
 
-  it('全区選択なら区数つきのすべてを返す', () => {
-    expect(formatWardSummary(wards, ['chuo', 'higashinari', 'tennoji', 'kita'])).toBe('すべて（4区）');
+  it('全区選択ならすべてを返す', () => {
+    expect(formatWardSummary(wards, ['chuo', 'higashinari', 'tennoji', 'kita'])).toBe('すべて');
   });
 
   it('1区なら区名をそのまま返す', () => {

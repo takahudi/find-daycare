@@ -24,6 +24,8 @@ export function useFilters(initial: { wardIds: string[]; sort: SortKey }) {
     clearWards: () => void setQuery({ ward: [] }),
     toggleFacilityType: (facilityType: FacilityType) =>
       void setQuery((current) => ({ type: toggleSelection(current.type, facilityType, FACILITY_TYPES) })),
+    selectAllFacilityTypes: () => void setQuery({ type: [...FACILITY_TYPES] }),
+    clearFacilityTypes: () => void setQuery({ type: [] }),
     setOnlyOpen: (value: boolean) => void setQuery({ open: value }),
     followDefaultSort: () => void setQuery({ sort: null }),
     setSort: (value: SortKey) => void setQuery({ sort: value === initial.sort ? null : value }),

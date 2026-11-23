@@ -1,5 +1,83 @@
+.meta {
+  position: relative;
+}
+
 .asOf {
   margin: 2px 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
   font-size: 0.82rem;
   color: var(--muted);
+}
+
+.asOfText {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.infoButton {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.infoButton:hover,
+.infoButton[aria-expanded='true'] {
+  border-color: var(--accent);
+  background: #fdeee5;
+  color: var(--accent-ink);
+}
+
+.detailsPanel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 1250;
+  width: min(460px, calc(100vw - 48px));
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.detailsPanel p {
+  margin: 0;
+}
+
+.detailsPanel p + p {
+  margin-top: 4px;
+}
+
+.detailsPanel strong {
+  color: var(--ink);
+}
+
+/* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
+@media (max-width: 860px) {
+  .detailsPanel {
+    position: static;
+    width: auto;
+    margin-top: 6px;
+    background: var(--bg);
+    box-shadow: none;
+  }
 }
