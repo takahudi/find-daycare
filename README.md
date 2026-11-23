@@ -202,7 +202,8 @@ pnpm data:archive
 
 - `scripts/fetch-sources.ts [区のid]` … 市・区のページから CSV / xlsx / PDF / HTML を `sources/` に取得（区のidを渡すとその区だけ）
 - `scripts/extract-pdf-details.ts` … 各施設の基本情報PDFから定員・開園時間などを位置ベースで抽出 → `data/<区>/pdf-details.json`（幼保連携型認定こども園の「1号」「2号・3号」に分かれた認可定員は合算し、内訳を注記）
-- `scripts/extract-kigyo-details.ts` … 認可外保育施設一覧（詳細）PDFから企業主導型の開所時間・定員などを抽出 → `data/<区>/kigyo-details.json`（1ページ上下2施設の段組みを、区見出しの縦位置で施設ごとに分けて読む）
+- `scripts/extract-kigyo-details.ts` … 認可外保育施設一覧（詳細）PDFから企業主導型の開所時間・定員などを抽出 → `data/<区>/kigyo-details.json`（1ページ上下2施設の段組みを、区見出しの縦位置で施設ごとに分けて読む）。読み取りは `scripts/kigyo-pdf.ts` にある。施設名が様式の語（「証明書あり」など）になっている場合と、事業開始日が証明書発行日と同じ場合は、別の欄を読んだものとして失敗する
+- `scripts/kigyo-pdf-fixture.ts <ページ> ...` … 上記PDFの指定ページのテキストを `scripts/fixtures/ninkagai-detail-pages.json` に書き出す。`scripts/kigyo-pdf.test.ts` はこの固定入力の抽出結果を `ninkagai-detail-pages.expected.json` と比べる。読み取りを直して抽出結果が変わる場合は、差分を確認してから `pnpm vitest run scripts/kigyo-pdf.test.ts -u` で期待値を更新する
 - `scripts/build-data.ts` … 上記と補完ファイルを突き合わせて `src/data/facilities.json` を生成（区の空き情報xlsxとCSVの自動照合、企業主導型の住所検索 → `data/<区>/geocode-cache.json` を含む）
 - 補完ファイル（`data/<区>/`）：`manual-details.json`（自動抽出できない様式のPDFの目視転記）、`ward-details.json`（区資料からの補完・ふりがな補正・注記）、`websites.json`（公式サイトURL）
 - `scripts/extract-ward-homepages.ts <区のid>` … 区の施設紹介資料PDFの「ホームページ」「URL」「ホームページアドレス」欄・区のページの「〇〇のホームページ」リンクや表の施設名リンク・施設の写真のリンクを一覧表示（`websites.json` 更新時の確認用）

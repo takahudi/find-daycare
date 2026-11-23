@@ -3,5 +3,13 @@
   "printWidth": 130,
   "singleQuote": true,
   "sortPackageJson": false,
-  "ignorePatterns": ["src/data/**", "sources/**", "data/**", "*.md", "worker-configuration.d.ts", "public/map/assets/**"]
+  "ignorePatterns": [
+    "src/data/**",
+    "sources/**",
+    "data/**",
+    "scripts/fixtures/**",
+    "*.md",
+    "worker-configuration.d.ts",
+    "public/map/assets/**"
+  ]
 }
