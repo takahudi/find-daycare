@@ -1,5 +1,5 @@
 {
-  "fetchedOn": "2026-10-22",
+  "fetchedOn": "2026-11-22",
   "files": {
     "facility-pdfs/03-ebie.pdf": {
       "sha256": "20a63a7b0d39591d5d5cc3c7697dcdddf96586cc7dbc9f54af507939d7134f18",
@@ -18,136 +18,136 @@
       "size": 994831
     },
     "facility-pdfs/h3-10-sinke.pdf": {
-      "sha256": "3c7f0def0b3aa7acdf2e884fa38ffdfd145043912a7a2e502db2befb8791a9e0",
-      "size": 992295
+      "sha256": "be9c7b546a7f59dbe361bcdd4f1f97b3fc000320bed299b1a7fa696640e2bfa7",
+      "size": 989032
     },
     "facility-pdfs/h3-11-shinfukushimachidori.pdf": {
-      "sha256": "d11eec9bc3977f85064b782060717c3f4b4d8c5a1930ca82405664934320f5d5",
-      "size": 1001215
+      "sha256": "6920eaf3ce6ac02d5d16889e7b49047977bcfe2f828651102a0b351c7b9c9c66",
+      "size": 1000756
     },
     "facility-pdfs/h3-12-yoshinokaisei.pdf": {
-      "sha256": "34422479e57ccf60d63bffeab772a40aea5bdc4e72ce8358a158b4a37cb6d678",
-      "size": 1002924
+      "sha256": "165dc5403037c78c39d568cd3b91d3b7fdee5e5b4bcbdab162a68f067b3892be",
+      "size": 1002830
     },
     "facility-pdfs/h3-13-yoshinotitose.pdf": {
-      "sha256": "9060b17d729ad3863054a5b0b9d22031da6386e12002b860d346408b1bb5be50",
-      "size": 997892
+      "sha256": "30a772026c5589d978c2cd831106c27fd15ad00fe12568baf56f9b6477dcfef0",
+      "size": 997091
     },
     "facility-pdfs/h3-14-sofiayoshino.pdf": {
-      "sha256": "4490740b94af6061cf1edbd015e611443347ffcfba720ffc1df3057b61a803a3",
-      "size": 1001024
+      "sha256": "b861b416fddf36e43c77085f20c913abd62b4e5da707573e8b4a669749edbd8c",
+      "size": 1000733
     },
     "facility-pdfs/h3-16-aiaisagisu.pdf": {
-      "sha256": "864fa0c3adb608c0ad0ea62b1d7d20c7b16c1356061b572481cec0c5eb37aeb9",
-      "size": 996443
+      "sha256": "a8932f058d6f97acad2a40c1009adc303786b4a0f6d64dcf757a31daa0e13c29",
+      "size": 996450
     },
     "facility-pdfs/h3-17-apolosagisu.pdf": {
-      "sha256": "ad3e8e1b36f007040d637c28157d454548fe4a67765a5371347d8df89dce8a6b",
-      "size": 994560
+      "sha256": "1444ef7c3269d31d083ada0c8d19414be4f867b65e3627c857d9ff412b5e8b89",
+      "size": 994810
     },
     "facility-pdfs/h3-18-kuorisunoda.pdf": {
-      "sha256": "c8b8712734a7da1371bc93c5c94fdcde6162dba852266f14382175d9276e2a1f",
-      "size": 994414
+      "sha256": "1c536a458830e00a72c09fd04c541848b8f5a42a3399846a004c4baa4fe3d5ce",
+      "size": 994567
     },
     "facility-pdfs/h3-3-fujinomori.pdf": {
-      "sha256": "bc291dbe6d6d848134d602fc8a154e037d38f999e5ed0d304fdbc42a70b150dc",
-      "size": 997394
+      "sha256": "f80c3e78801e8ed19c71e041a49db7bf3d5c2ae21095a8686190365fc5d876a3",
+      "size": 997387
     },
     "facility-pdfs/h3-4-nakanoshimahibari.pdf": {
-      "sha256": "96b4c234cb6161c0629c7ab34d9fb712e2ac10016c87694b4aa5b3d901dbef7f",
-      "size": 999072
+      "sha256": "16e5168610e5e742bb6b288597eea3217376f1276fafadc532a5eb0c97cbccaa",
+      "size": 998948
     },
     "facility-pdfs/h3-6-aiebie.pdf": {
-      "sha256": "11533127230e154e46519720abfcaf9a8876d92c270a34f080116f6f76ea963b",
-      "size": 999006
+      "sha256": "88b6f643eb455b9e6b9a9044481ec4a5185255397f7773a1cd02524fc5c55766",
+      "size": 999588
     },
     "facility-pdfs/h3-7-aitamagawa.pdf": {
-      "sha256": "3bd079ad8b9443a9a45d204e2c9db88fe68c074913aaf8118ab2313a7d5fdd0e",
-      "size": 990073
+      "sha256": "d4287fb3b9974090236ce0936d3ee7bd3dae5272c5808ca219967a3d5e7474bc",
+      "size": 990074
     },
     "facility-pdfs/h3-8-dongurikofukushimayosino.pdf": {
-      "sha256": "24269320551563e567bae4d84d7ea0de574b38d51b1ea8b079bca0ad3d1ace74",
-      "size": 1005718
+      "sha256": "bec48ac05a17283766331622c97836790ba862602a9c7b41f3b2f8158e8cad25",
+      "size": 1005736
     },
     "facility-pdfs/h3-9-yusin.pdf": {
-      "sha256": "09b93927a672259222ae446796bf0db03c222d282d3dea61ae47554872472b5e",
-      "size": 1001232
+      "sha256": "7289d1b6125f576411932ba4d090df765158b3abeed456d9f97e4f293b81adbd",
+      "size": 1001215
     },
     "facility-pdfs/k3-1-kaiseihibari.pdf": {
-      "sha256": "5bfd9a2b2144bbe233d7492ed80a17d3297bae7e7c5e89068fbc392659c02973",
-      "size": 1299855
+      "sha256": "53195481141a1871a76febe50613be3956b48ab35e30e015875d074db8dd53ce",
+      "size": 1299862
     },
     "facility-pdfs/k3-2-tamagawahibari.pdf": {
-      "sha256": "c639d728640a5115fce347cb06436d63c8961632b5016b3daf6ea186c447d31c",
-      "size": 1302037
+      "sha256": "5f21119f79b4c9f9151a30658025d6f6e2e764c99731176cc4dee77f48e8ac38",
+      "size": 1302288
     },
     "facility-pdfs/k3-3-wakouen.pdf": {
-      "sha256": "e61950a8e3604f89afdcfc95db36429abaaab603538008e8f95c991cca8f0206",
-      "size": 1303479
+      "sha256": "857d1ef3777125349b6b8e791c993c5e06db6a3e824449577fecde3caada7bf5",
+      "size": 1303613
     },
     "facility-pdfs/k3-4-dai2wakouen.pdf": {
-      "sha256": "7791bcf7670fa3a0a753ae3ef54ac05bd04694264831ef18efbfe39a7a576ab4",
-      "size": 1297158
+      "sha256": "9b748cdf5fd4022c74c5448eeadb0fe279efc995eb4ec2cfd09f2e526b84a2c7",
+      "size": 1297035
     },
     "facility-pdfs/k3-5-ebiehibari.pdf": {
-      "sha256": "79e0f90fcfc17b786881154143994fdee042e799b4dd4e890d0e7c6452349048",
-      "size": 1300721
+      "sha256": "0ac104bc7e2027d541b3e72b4dca6d17dc749fc75ba62240b6fb53adc5cccae6",
+      "size": 1301981
     },
     "facility-pdfs/t3-10-manmaru.pdf": {
-      "sha256": "e747744815af05afb235fe5ae9d851627da2dd873b5c5f247d925d42d96afcde",
-      "size": 966071
+      "sha256": "73c047a516a828996f4900ada4192647611223da0304671c2a18db4cd9215e45",
+      "size": 966594
     },
     "facility-pdfs/t3-11-nodafujihibari.pdf": {
-      "sha256": "edd720d50c9694525b7ef8095a85a018b18d09c7a680036a9b641381acae69ed",
-      "size": 956352
+      "sha256": "a048605d30bb6e09b0f089a08e94c18a2e7fbb453b24b8a010a202f57ea03435",
+      "size": 957075
     },
     "facility-pdfs/t3-12-kaitouhibaribaby.pdf": {
-      "sha256": "ff055a4af96b0bcb2e2bb9b6d9edc9e4b744054dd8c9c5e0da49bfec4a31820f",
-      "size": 964896
+      "sha256": "025edf4df7bf059e179cbd16b7e4102a7bfb09d9c1d0127a7a18cae7af16e916",
+      "size": 964803
     },
     "facility-pdfs/t3-13-hatohuruhukushima.pdf": {
-      "sha256": "f832a4bad87c109269f11e577f006fff07c39e5e1fef23a3b8a64897f4c292a7",
-      "size": 954810
+      "sha256": "9c9d50a93ec1640a748935ba60a1f492cd7728c70159dda2ec24ba642b474e31",
+      "size": 955054
     },
     "facility-pdfs/t3-14-applenoda.pdf": {
-      "sha256": "3b3d6d18a3f1cf593ae86b99b626fd75fbdf3b4ca438bb80261533ee72acc961",
-      "size": 947847
+      "sha256": "86f866a703e4af7e7bb951626f2bdc950b665ddf98e80be057fdd43d22d803df",
+      "size": 955828
     },
     "facility-pdfs/t3-15-kokohagusagisu.pdf": {
-      "sha256": "e51ce03cba8b56f58cc4c6ca901b49bfca2e84107add0e8d4c24372704a91d9c",
-      "size": 971003
+      "sha256": "8bbdb5fc0c4ef14a2ed33122e83f170640558f0674d877ec640555e2bcfaa369",
+      "size": 970999
     },
     "facility-pdfs/t3-16-terasunakanosima.pdf": {
-      "sha256": "3a34e20d99292b59f0434447b6fecf5fd633431511aa3ec002f188ab3f0d8612",
-      "size": 959562
+      "sha256": "6a2d63251b508efda7da20874a101002a724882b96cefce4675fc48ffeb076a8",
+      "size": 959180
     },
     "facility-pdfs/t3-2-hagukumifukushima.pdf": {
-      "sha256": "c103f9e9363dbd70a61c80418c937919fff5b1df0155edd07372fc5dcab76e51",
-      "size": 951799
+      "sha256": "72044c52e29c2c07905a390f0402ff95f8e47b8cf7ac242099a8f71d75459512",
+      "size": 958785
     },
     "facility-pdfs/t3-3-babybeefukushima.pdf": {
-      "sha256": "393a6ba28989fd70afc50a6305938cb5cd91a87d80888f04008e9b8152519fbe",
-      "size": 953145
+      "sha256": "319cf60822f4d6a3a07a384f139cdce79038aecf3205532c013ee8c57dfa1a35",
+      "size": 953141
     },
     "facility-pdfs/t3-4-hokkorihibari.pdf": {
-      "sha256": "b88ae8e8efa1b309bd84e25f30087da0ba7cbe03c59ba12f8b0fba97b9bb637a",
-      "size": 959962
+      "sha256": "391a8ed525229a465f89712aae762d6cf57795d05ef1b7d0cd29f12407e00931",
+      "size": 959959
     },
     "facility-pdfs/t3-5-aiainakanoshima.pdf": {
-      "sha256": "bafb9d2cb52027031c599c5c5afc7478c1ededcc3d9440f6d9cfd69701bb8f7a",
-      "size": 967518
+      "sha256": "6063a3c6f64ee3de696ed6418fabc356de098d7166f85d58523f174c32694974",
+      "size": 967524
     },
     "facility-pdfs/t3-6-genkiyoshino.pdf": {
-      "sha256": "a33141c8632017f59abcfb53f421bc4e574252d62430436e2e7f504df3c661ee",
-      "size": 967110
+      "sha256": "eca3b0e3ad567956f23123b70292493e88eaaa0113b5b5442a09808f01ee2a30",
+      "size": 967286
     },
     "facility-pdfs/t3-7-kidsstationasunarokko.pdf": {
-      "sha256": "e822ceb3d21999cdc112c8dad0946a3d6691e02c115ebcb1c77becccaf8e44af",
-      "size": 965832
+      "sha256": "8a0b49906c0405fc5553d66fa715627cf3d176e93bae41e3656934d8444ca6a3",
+      "size": 965828
     },
     "facility-pdfs/t3-8-kujiraebie.pdf": {
-      "sha256": "d7297b5be07ee93547e35586ddf6d2d91ff5de2a6919fb74efa0c23ff3bdd6c9",
-      "size": 954630
+      "sha256": "e1324cea5e13c32cee1845e4944755a64d209c74febfa3f8f6c133f0ed0d2f62",
+      "size": 954643
     },
     "homepage-sources/1.html": {
       "sha256": "d38b8aa7f3e7d5c144fcb16a6b664d1679f2428a882d0acdf47fcc50090864fc",
@@ -166,20 +166,20 @@
       "size": 1060586
     },
     "kigyo_page.html": {
-      "sha256": "03d234064aea04590675c171e19c68ebd9357f0503b7898062c9a2841bccf19f",
-      "size": 31326
+      "sha256": "4fb6933f78b89d722ee41fbb0d8fd99fa6b5ab6e21914e1dfac4b376f0463cc7",
+      "size": 31325
     },
     "list.pdf": {
-      "sha256": "07b7fad1fffc2e30828c806966fa619570fad90681ed08a7d22306bc0da79991",
-      "size": 519807
+      "sha256": "dff660ffcbdaf12c48e7fe5e39779ca859d816917617851f179938290aca3ea4",
+      "size": 519626
     },
     "list.xlsx": {
       "sha256": "8045cc96ff48a66734f7532ed34c4692c9ad33d47eec6aa9c5a44907400763f9",
       "size": 13608
     },
     "vacancy_page.html": {
-      "sha256": "f534addfe951729d66e9558365874d2c93c91665ba8746844c4bce3b001342bc",
-      "size": 40272
+      "sha256": "33fef6303ad080bbd8f0d60ac714f2f09570583ed1ff166f5b4065e642e0c6d4",
+      "size": 40406
     }
   }
 }

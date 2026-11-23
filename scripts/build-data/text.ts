@@ -31,7 +31,8 @@ export const vacancy = (v: CellValue): number | null => {
 export const parseShared = (v: CellValue): Facility['sharedVacancy'] => {
   const m = String(v ?? '')
     .normalize('NFKC')
-    .trim()
+    // 西区の表は「1 ~ 2 歳 児 で 合 計 3 人」のように1文字ずつ空白を挟むことがある
+    .replace(/\s+/g, '')
     .match(/^(\d)歳?児?[～~〜-](\d)歳児?で(?:合計)?(\d+)[人名]$/);
   if (!m) return null;
   const [from, to, count] = m.slice(1).map(Number);

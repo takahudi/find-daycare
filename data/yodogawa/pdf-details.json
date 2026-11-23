@@ -361,14 +361,14 @@
   "h12-26-ureshiiyodogawatagawakita.pdf": {
     "kana": "うれしいほいくえんよどがわたがわきた",
     "capacity": {
-      "total": 84,
+      "total": 87,
       "byAge": [
         9,
         12,
         12,
-        17,
-        17,
-        17
+        18,
+        18,
+        18
       ]
     },
     "weekday": "07:30〜19:30",
@@ -384,11 +384,11 @@
   "h12-27-yodogawaaiiku.pdf": {
     "kana": "よどがわあいいくほいくえん",
     "capacity": {
-      "total": 129,
+      "total": 124,
       "byAge": [
         9,
         19,
-        24,
+        19,
         25,
         26,
         26
@@ -426,6 +426,25 @@
     "url": null,
     "approvedOn": "2025年4月1日"
   },
+  "h12-29-toreja-sinnoosaka.pdf": {
+    "kana": "とれじゃーきっずしんおおさかほいくえん",
+    "capacity": {
+      "total": 90,
+      "byAge": [
+        9,
+        12,
+        12,
+        19,
+        19,
+        19
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2026年4月1日"
+  },
   "h12-3-shinhigashimikuni.pdf": {
     "kana": "しんひがしみくにほいくえん",
     "capacity": {
@@ -447,6 +466,44 @@
     ],
     "url": null,
     "approvedOn": "1971年11月1日"
+  },
+  "h12-30-nanairosumairuniitaka.pdf": {
+    "kana": "なないろすまいるにいたかほいくえん",
+    "capacity": {
+      "total": 83,
+      "byAge": [
+        9,
+        12,
+        9,
+        17,
+        18,
+        18
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2026年4月1日"
+  },
+  "h12-31-hakuaisyakuro-ba-.pdf": {
+    "kana": "はくあいしゃくろーばーほいくえん",
+    "capacity": {
+      "total": 90,
+      "byAge": [
+        9,
+        12,
+        15,
+        18,
+        18,
+        18
+      ]
+    },
+    "weekday": "07:30〜19:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2026年4月1日"
   },
   "h12-5-hikari.pdf": {
     "kana": "ひかりほいくえん",
@@ -701,17 +758,17 @@
   "k12-5-hakuaisya.pdf": {
     "kana": "ようほれんけいがたにんていこどもえんはくあいしゃこどもえん",
     "capacity": {
-      "total": 160,
+      "total": 163,
       "byAge": [
         10,
         18,
         22,
-        34,
+        36,
         38,
-        38
+        39
       ]
     },
-    "note": "認可定員は1号35人＋2号・3号125人。",
+    "note": "認可定員は1号35人＋2号・3号128人。",
     "weekday": "07:30〜18:30",
     "saturday": "07:30〜18:30",
     "services": [
@@ -843,8 +900,8 @@
     "capacity": {
       "total": 19,
       "byAge": [
-        2,
-        7,
+        4,
+        5,
         10
       ]
     },

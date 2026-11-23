@@ -131,7 +131,7 @@
     "url": null,
     "approvedOn": "2024年9月1日"
   },
-  "h7-12-yahatayayuyu.pdf": {
+  "h7-13-yahatayayuyu.pdf": {
     "kana": "やはたやゆうゆうほいくえん",
     "capacity": {
       "total": 106,
@@ -350,8 +350,8 @@
       "total": 10,
       "byAge": [
         1,
-        2,
-        7
+        4,
+        5
       ]
     },
     "weekday": "08:00〜18:00",

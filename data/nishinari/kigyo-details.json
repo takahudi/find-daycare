@@ -10,8 +10,9 @@
     "capacity": 10,
     "monthlyUpTo": "2歳",
     "freeOfCharge": true,
-    "startedOn": "令和2年2月28日",
     "name": "彩葉保育園",
+    "startedOn": "令和元年9月2日",
+    "certifiedOn": "令和2年2月28日",
     "type": "企業主導型保育事業",
     "postalCode": "557-0013",
     "address": "大阪市西成区天神ノ森1-5-18",
@@ -28,13 +29,14 @@
     "capacity": 19,
     "monthlyUpTo": "2歳",
     "freeOfCharge": true,
-    "startedOn": "令和元年9月30日",
     "name": "ゆーとあい保育園",
+    "startedOn": "令和元年5月30日",
+    "certifiedOn": "令和元年9月30日",
     "type": "企業主導型保育事業",
     "postalCode": "557-0024",
     "address": "大阪市西成区出城2-5-9 スタジオ2.3",
     "operator": "一般財団法人ヒューマンライツ協会",
-    "page": 161
+    "page": 160
   },
   "06-7897-8999": {
     "wardTag": "(24西成区)",
@@ -46,13 +48,14 @@
     "capacity": 18,
     "monthlyUpTo": "2歳",
     "freeOfCharge": true,
-    "startedOn": "令和3年10月29日",
     "name": "くうとぴあ",
+    "startedOn": "令和3年6月1日",
+    "certifiedOn": "令和3年10月29日",
+    "operator": "株式会社BORN",
     "type": "企業主導型保育事業",
     "postalCode": "557-0032",
     "address": "大阪市西成区旭2-3-8",
-    "operator": "株式会社BORN",
-    "page": 162
+    "page": 161
   },
   "080-7967-3287": {
     "wardTag": "(24西成区)",
@@ -64,13 +67,14 @@
     "capacity": 12,
     "monthlyUpTo": "2歳",
     "freeOfCharge": true,
-    "startedOn": "令和6年2月29日",
-    "operator": "株式会社メディ・エイド",
     "name": "企業主導型保育園 アルトキッズ",
+    "startedOn": "令和元年11月1日",
+    "certifiedOn": "令和6年2月29日",
     "type": "企業主導型保育事業",
     "postalCode": "557-0053",
     "address": "大阪市西成区千本北2-29-15",
-    "page": 163
+    "operator": "株式会社メディ・エイド",
+    "page": 162
   },
   "06-6654-7510": {
     "wardTag": "(24西成区)",
@@ -82,8 +86,9 @@
     "capacity": 31,
     "monthlyUpTo": "3歳",
     "freeOfCharge": true,
-    "startedOn": "令和8年10月1日",
     "name": "エミリア保育園",
+    "startedOn": "令和3年3月30日",
+    "certifiedOn": "令和8年10月1日",
     "type": "企業主導型保育事業",
     "postalCode": "557-0054",
     "address": "大阪市西成区千本南1-3-2 タイホウスクエア1F",
@@ -101,12 +106,13 @@
     "capacity": 12,
     "monthlyUpTo": "就学前",
     "freeOfCharge": true,
-    "startedOn": "令和4年1月31日",
     "name": "だいいちキッズルーム南津守園",
+    "startedOn": "平成29年7月1日",
+    "certifiedOn": "令和4年1月31日",
     "type": "企業主導型保育事業",
     "postalCode": "557-0063",
     "address": "大阪市西成区南津守3-1-63 南大阪第一交通（株）2階",
     "operator": "南大阪第一交通株式会社",
-    "page": 164
+    "page": 163
   }
 }

@@ -10,13 +10,14 @@
     "capacity": 12,
     "monthlyUpTo": "2歳",
     "freeOfCharge": true,
-    "startedOn": "令和3年6月30日",
     "name": "みんなのおうち保育園南館",
+    "startedOn": "令和3年3月1日",
+    "certifiedOn": "令和3年6月30日",
     "type": "企業主導型保育事業",
     "postalCode": "547-0011",
     "address": "大阪市平野区長吉出戸7-12-10 ブリッジフィールド102号",
     "operator": "社会福祉法人むぎの会",
-    "page": 155
+    "page": 154
   },
   "06-7709-0390": {
     "wardTag": "(23平野区)",
@@ -29,13 +30,14 @@
     "capacity": 12,
     "monthlyUpTo": "2歳",
     "freeOfCharge": true,
-    "startedOn": "令和2年2月28日",
-    "operator": "株式会社チェリッシュ",
     "name": "チェリッシュ保育園",
+    "startedOn": "令和元年5月19日",
+    "certifiedOn": "令和2年2月28日",
     "type": "企業主導型保育事業",
     "postalCode": "547-0032",
     "address": "大阪市平野区流町1-5-25 レクシア平野DUO101",
-    "page": 157
+    "operator": "株式会社チェリッシュ",
+    "page": 156
   },
   "06-6718-4105": {
     "wardTag": "(23平野区)",
@@ -47,8 +49,9 @@
     "capacity": 12,
     "monthlyUpTo": "2歳",
     "freeOfCharge": true,
-    "startedOn": "令和元年12月27日",
     "name": "なぎの木保育園",
+    "startedOn": "平成31年4月22日",
+    "certifiedOn": "令和元年12月27日",
     "type": "企業主導型保育事業",
     "postalCode": "547-0033",
     "address": "大阪市平野区平野西1-2-8 GRAZZIARE平野西1階",
@@ -65,13 +68,14 @@
     "capacity": 30,
     "monthlyUpTo": "5歳",
     "freeOfCharge": true,
-    "startedOn": "令和3年7月30日",
     "name": "ＭＯＳＨ ＬＡＮＤ",
+    "startedOn": "令和3年3月25日",
+    "certifiedOn": "令和3年7月30日",
     "type": "企業主導型保育事業",
     "postalCode": "547-0034",
     "address": "大阪市平野区背戸口1-22-16 ヴェルデ瑞穂壱番館1Ｆ",
     "operator": "株式会社モッシュ",
-    "page": 158
+    "page": 157
   },
   "06-6718-4124": {
     "wardTag": "(23平野区)",
@@ -84,12 +88,13 @@
     "capacity": 12,
     "monthlyUpTo": "3歳",
     "freeOfCharge": true,
-    "startedOn": "令和元年7月31日",
-    "operator": "一般社団法人カンガルーママ",
     "name": "ドルチェ保育園",
+    "startedOn": "平成28年10月1日",
+    "certifiedOn": "令和元年7月31日",
     "type": "企業主導型保育事業",
     "postalCode": "547-0034",
     "address": "大阪市平野区背戸口3-6-2 エレガントグリーンハイツ１階",
+    "operator": "一般社団法人カンガルーママ",
     "page": 158
   },
   "06-4302-2931": {
@@ -103,13 +108,14 @@
     "capacity": 19,
     "monthlyUpTo": "3歳",
     "freeOfCharge": true,
-    "startedOn": "令和8年4月1日",
     "name": "カンガルーママ保育園",
+    "startedOn": "平成28年10月1日",
+    "certifiedOn": "令和8年4月1日",
+    "operator": "一般社団法人カンガルーママ",
     "type": "企業主導型保育事業",
     "postalCode": "547-0034",
     "address": "大阪市平野区背戸口3-4-14",
-    "operator": "一般社団法人カンガルーママ",
-    "page": 159
+    "page": 158
   },
   "06-6795-1020": {
     "wardTag": "(23平野区)",
@@ -121,8 +127,9 @@
     "capacity": 19,
     "monthlyUpTo": "2歳",
     "freeOfCharge": true,
-    "startedOn": "平成29年8月31日",
     "name": "オリーブ保育園",
+    "startedOn": "平成29年1月16日",
+    "certifiedOn": "平成29年8月31日",
     "type": "企業主導型保育事業",
     "postalCode": "547-0041",
     "address": "大阪市平野区平野北2-12-12",
@@ -140,12 +147,13 @@
     "capacity": 19,
     "monthlyUpTo": "2歳",
     "freeOfCharge": true,
-    "startedOn": "令和3年9月30日",
-    "operator": "株式会社 楽笑",
     "name": "ふぃーるど保育園",
+    "startedOn": "令和3年4月1日",
+    "certifiedOn": "令和3年9月30日",
     "type": "企業主導型保育事業",
     "postalCode": "547-0045",
     "address": "大阪市平野区平野上町1-5-10 楽笑ビル2F",
-    "page": 160
+    "operator": "株式会社 楽笑",
+    "page": 159
   }
 }

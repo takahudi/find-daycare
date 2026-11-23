@@ -1,5 +1,5 @@
 {
-  "fetchedOn": "2026-10-23",
+  "fetchedOn": "2026-11-23",
   "files": {
     "facility-pdfs/11-himejima.pdf": {
       "sha256": "4a42ddc7b2018c89d76efc8da7483302c5c275041291464f03d620f36f03c482",
@@ -18,108 +18,108 @@
       "size": 988241
     },
     "facility-pdfs/h11-1-aozora.pdf": {
-      "sha256": "5f553ffbd5f8194825915277ba7d357cc1cfcc8c8092348616454d689b0b1ef7",
-      "size": 992491
+      "sha256": "4c541159071caaa0bd1dadbd0bc2b3dba147dfaa52b6bf1388532ffaa663b68f",
+      "size": 992485
     },
     "facility-pdfs/h11-10-torejyahimesato.pdf": {
-      "sha256": "5ade5963f670e4164a6474d3cae0704d88b2e2e7c66a4ccdf2d8f91a19ca1a99",
-      "size": 998747
+      "sha256": "33f462edeb0f833f596aead2c948007e8723dedf36ad2c3fadbc3117cea99cb7",
+      "size": 998385
     },
     "facility-pdfs/h11-11-sofiautajima.pdf": {
-      "sha256": "4e78e500e19fb2e03ac5611149156edc1aea7324c0a40de8dde88a5ff7a87de7",
-      "size": 998559
+      "sha256": "08f7bb92003c5c3bdce3375489ccebdf339f8397083a182996a0d31980cf19ac",
+      "size": 997938
     },
     "facility-pdfs/h11-12-nozato.pdf": {
-      "sha256": "6561cca93615e907614477f8bee8d8cf8210ba6015c5df9264639e671edb40df",
-      "size": 997652
+      "sha256": "5927de1067f5766b09aa43737894bafbe196f285b91de7d2967dd1f61164fdae",
+      "size": 997385
     },
     "facility-pdfs/h11-13-kidscourtoowada.pdf": {
-      "sha256": "98cb552316bbc85ec8cc3797ce595571383404ac61d02b7a561f0a40b5c74db3",
-      "size": 1001149
+      "sha256": "92aa7aa879c97057ce4c3839ce5d79c5013d8a8545f9d0a5b9f3294bcbdc66c5",
+      "size": 1002810
     },
     "facility-pdfs/h11-14-buraitoutajima.pdf": {
-      "sha256": "c116baf5d87be9291fcffa09fe977b8d342be03e611946d25e9a2285f6afa2ae",
-      "size": 991488
+      "sha256": "74bbfc28f4f20074002b7818b472b823a9fc205a43681b29d3c974efa817cfda",
+      "size": 991492
     },
     "facility-pdfs/h11-16-kashiwazatosakuraen.pdf": {
-      "sha256": "fd5e9d7c9d40110f815b51cf316e14af91748627c1ff70cbdda7bc263f24bd8c",
-      "size": 1019732
+      "sha256": "b28c130dc55097c5e53fc62491df0cf30e0e3df84f32353c2541e630c34cc637",
+      "size": 1019939
     },
     "facility-pdfs/h11-17-shiawaseippaihimejima.pdf": {
-      "sha256": "8b1f64bb6de1a4d62e8be93213fe77dba3a9619c937473e16cda48106dec61b5",
-      "size": 989429
+      "sha256": "a141f0d6be405a4a31355fa0fe793ed806568fe67797da0873709cf9bbc6f50c",
+      "size": 989450
     },
     "facility-pdfs/h11-2-midori.pdf": {
-      "sha256": "52a45f03ad43bf0043ccb2d0f036a14cfcadd2abff38bc9cb2a833650c6c8dc1",
-      "size": 992669
+      "sha256": "50e4a5d439e90f9b5389490b1aa181bc0994a598e2edc02624ecf72f3021d350",
+      "size": 993232
     },
     "facility-pdfs/h11-3-mihana.pdf": {
-      "sha256": "40c87a31b9f82b935d8ce4469f1568dd8b6113891534e97253202f317f88c3ba",
-      "size": 1003306
+      "sha256": "ff62490b8f6d3bd843027e47285f8b29e8ea99d5592ae9e3c6dcf952d4f0eaf0",
+      "size": 1003563
     },
     "facility-pdfs/h11-4-yodokko.pdf": {
-      "sha256": "d5e97dd1b7a667f43443d7473c27f009f605ba7b2c82e24b8d88c835bbe93039",
-      "size": 992469
+      "sha256": "20056ba309a25c0fea4e1dc4cfcb3fc67823f758ebfa8a56ec1f00e3ce13ce5a",
+      "size": 992476
     },
     "facility-pdfs/h11-5-reimondomitejima.pdf": {
-      "sha256": "c57f95457d072882c5852c127d666621d469791a1ceb8cf6d4a7e0b967ea5aa8",
-      "size": 1002347
+      "sha256": "986b2f708a83ffa7fa457233f9fbcc710fdbf2a575c39d7239ef4ba4f7ca1807",
+      "size": 997460
     },
     "facility-pdfs/h11-7-misakitukuda.pdf": {
-      "sha256": "3ef0a5637ab336d44aa7373e664762a9744925738055b17c66af55c9a2dc805f",
-      "size": 998471
+      "sha256": "ba4a4a0783967e05bf7a45bb8d4fd0bbee57b3c7d07a1c96603e7a3a58b4b3ed",
+      "size": 995251
     },
     "facility-pdfs/h11-8-kamino.pdf": {
-      "sha256": "e41ddc8c180dd6c622ef72001dd5b5cea375514efc0aff87d30944e4cbb45542",
-      "size": 1001761
+      "sha256": "dac128a466c69de7d9656603e0a9e0f74227507a1088213bb43e0ab69e21b8cc",
+      "size": 1001748
     },
     "facility-pdfs/h11-9-reimondonishiyodo.pdf": {
-      "sha256": "34a863b245479859ccaca0d175c4f49f7bdb0eb393228888ad70e804b01ca04c",
-      "size": 1000026
+      "sha256": "6300f7c8ccbf766f09bffde5f40b12910ed7a3beb482c4dc2e83da0b5aed5772",
+      "size": 998989
     },
     "facility-pdfs/k11-1-hikarinosono.pdf": {
-      "sha256": "95a01d8bda34012281804655016331066a4b0244d94586b460ca5a2ad10a6e6e",
-      "size": 1297327
+      "sha256": "ccf586785edbd88fbe18a88b29f84ab410d42d5b2d7b75489ed55a2509bfddb8",
+      "size": 1297829
     },
     "facility-pdfs/k11-2-miteshima.pdf": {
-      "sha256": "cba5e092ec905f5be8434bc55f55f0a84243c660504f54e67928e8e334c50105",
-      "size": 1295296
+      "sha256": "481348704bdd2a9e6859255c9f787a0d48923e5b2989c9c008c916b3dd223391",
+      "size": 1295356
     },
     "facility-pdfs/k11-3-takara.pdf": {
-      "sha256": "b1deb97ffb3145e2611329a4fd705ec7b73bd89cf7266e97c12b53e9746b0cbc",
-      "size": 1307114
+      "sha256": "9ffe88322d39684c782de7bee5d9c614cc48d4f859e094e6a49a80a2d97f9183",
+      "size": 1307125
     },
     "facility-pdfs/k11-4-takaranozato.pdf": {
-      "sha256": "f1a6b89e9a76f950fce043d2d7bb403633d03b39ed0c729e6c56ae755b017a58",
-      "size": 1305498
+      "sha256": "ac7c0f5928fa7dc1451382f49231ed57aef7649a6e7afd698e0949b4561c7526",
+      "size": 1305720
     },
     "facility-pdfs/t11-2-kirarakashiwazato.pdf": {
-      "sha256": "37d5cffe1259054b914ca2eae8a352b86ea57558461354e4a0716887ff7a2470",
-      "size": 967607
+      "sha256": "22567db5193c5f1c8bb962c9feaa82416387770b9f2cf9f1ff7d10a5e6a93e4c",
+      "size": 967604
     },
     "facility-pdfs/t11-3-babylandsakura.pdf": {
-      "sha256": "fa541f26897d94d5cb9d69f63ce09f4d618deac0239b7582fa9750fc4c064730",
-      "size": 958618
+      "sha256": "ac85c034035a74a6091b39674a6dea3fdd886ef06d75795f1cf77f09cb2fc977",
+      "size": 972651
     },
     "facility-pdfs/t11-5-kiraranozato.pdf": {
-      "sha256": "0a66f92f098e0fa30df2f98fea7a9a501d6685d509c5bf05404c74e0eac36b0f",
+      "sha256": "a9992a008f22f9a966d80f569bdc10e87b3a74d25aa88cba87da90ca2a040820",
       "size": 967465
     },
     "facility-pdfs/t11-6-takaranishiyodo.pdf": {
-      "sha256": "af96fb2a24167cdae06b8060a9dd7861f59e1f2972aefdd4fff944bcc3a75eba",
-      "size": 971145
+      "sha256": "b4e7c9daffd38104f5514fd87ed203767962d37467b52af94796fabb37ecde54",
+      "size": 971331
     },
     "facility-pdfs/t11-7-nukumoritibune.pdf": {
-      "sha256": "1d06f6c3c5f1f81857f4fa0f0c1ef7044a0bff99e35c7e14972a38cdf441fc3d",
+      "sha256": "165c2875fef405e8ef261ba74845a19b4a18a05620217f47e204c178951d9919",
       "size": 954674
     },
     "facility-pdfs/t11-8-kujirahimejima.pdf": {
-      "sha256": "9cd0c1ff02401707b6d18189d9459ef36d818659741f1a9364b25bc36bf96060",
-      "size": 950292
+      "sha256": "339e9de41ed2b4be76f2d5f5c81fcfa1ce18fd2b561de95a637ebedc100cb496",
+      "size": 952229
     },
     "facility-pdfs/t11-9-himejimasunfriends.pdf": {
-      "sha256": "bd73fd30820cfd5e2a5c024731304efd90a856042eb92e9999ffc19acb83ced2",
-      "size": 957762
+      "sha256": "2609d40ab3a8d75bc1392e2fa1ac50409479f19c257d974ae068d8b94a9d1e96",
+      "size": 961451
     },
     "homepage-sources/1.html": {
       "sha256": "7419d1f8821b89cce92454f5503038b6a54920aefa4bf4dd5545274f337dbd38",
@@ -130,20 +130,20 @@
       "size": 169671
     },
     "kigyo_page.html": {
-      "sha256": "9b4115d34dad5f56a030bb390002519d1894cb22d9ca5d1c1564dc9102b08b5e",
-      "size": 40921
+      "sha256": "e4382f30760f3277aa044c71cb7d431737c1f256fd615905e37cf88671fc82d8",
+      "size": 40924
     },
     "list.pdf": {
-      "sha256": "9e47cfdfa1a5e6968de2c48b9fa34c2a8927ad59b1c5106026bfe4f2a4d11545",
-      "size": 420911
+      "sha256": "d2a0b057ea88fb72c7829c7eb24e9e2ee1ad0d1c14cd03814e3ade6a81738abd",
+      "size": 420758
     },
     "list.xlsx": {
       "sha256": "5766d6a326cc8e40931dabb3744964713bcdb7acd8395dd2cdc35e025fe2b1ab",
       "size": 12830
     },
     "vacancy_page.html": {
-      "sha256": "1597ad8f86ebd552748e20e1d1cf6f9a4924262a6431c8ffdd3899198f1a845a",
-      "size": 48496
+      "sha256": "d0af21eea23844484adfbf0ac078bc393b56c45fe18a4f50ee650865bb0c76d2",
+      "size": 48539
     }
   }
 }

@@ -117,4 +117,30 @@ describe('ピンのクリック', () => {
     expect(routeCollection(null, selected).features).toEqual([]);
     expect(routeCollection(home, null).features).toEqual([]);
   });
+  it('同じsceneの繰り返し判定では各ピンの量子化座標を再計算せず同じ参照を渡す', () => {
+    const all = [facility('a', 34.6, 135.5), facility('b', 34.7, 135.5)];
+    const pins = facilityPins(all, all, (f) => (f.id === 'a' ? 1 : 0));
+    const current = scene({
+      facilities: pins,
+      selected: selectedPin(pins, 'a'),
+      home: homePin({ lat: 34.65, lng: 135.5, label: '自宅' }),
+    });
+    const firstRefs: [number, number][] = [];
+    const secondRefs: [number, number][] = [];
+    expect(
+      pickPin(current, { x: 999999, y: 999999 }, (lngLat) => {
+        firstRefs.push(lngLat);
+        return project(lngLat);
+      }),
+    ).toBeNull();
+    expect(
+      pickPin(current, { x: 999999, y: 999999 }, (lngLat) => {
+        secondRefs.push(lngLat);
+        return project(lngLat);
+      }),
+    ).toBeNull();
+    expect(firstRefs.length).toBe(4);
+    expect(secondRefs.length).toBe(4);
+    secondRefs.forEach((ref, index) => expect(ref).toBe(firstRefs[index]));
+  });
 });

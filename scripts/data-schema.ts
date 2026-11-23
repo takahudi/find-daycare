@@ -31,25 +31,41 @@ export const WardDetailSchema = v.strictObject({
   note: v.optional(TextSchema),
 });
 export const WebsiteSchema = v.strictObject({ url: v.nullable(HttpUrlSchema), label: TextSchema });
-export const KigyoDetailSchema = v.strictObject({
-  wardTag: TextSchema,
-  phone: v.nullable(TextSchema),
-  hours: v.strictObject({ weekday: v.optional(TextSchema), saturday: v.optional(TextSchema), holiday: v.optional(TextSchema) }),
-  capacity: v.nullable(CountSchema),
-  monthlyUpTo: v.nullable(TextSchema),
-  freeOfCharge: v.nullable(v.boolean()),
-  name: TextSchema,
-  type: TextSchema,
-  postalCode: v.optional(TextSchema),
-  address: TextSchema,
-  startedOn: v.optional(TextSchema),
-  operator: v.optional(TextSchema),
-  page: v.pipe(
-    v.number('PDFのページは数値が必要です'),
-    v.integer('PDFのページは整数が必要です'),
-    v.minValue(1, 'PDFのページは1以上が必要です'),
+/** 認可外保育施設一覧（詳細）PDFの様式の語（欄の見出しと選択肢）。施設名がこれで始まるなら別の欄を読んでいる */
+const KIGYO_FORM_WORD =
+  /^(施設種別|施設所在地|電話番号|事業開始日|設置者|開所時間等|受入れ年齢等|定員|国の無償化|市の無償化|基準を満たす証明書|証明書|確認年月日|地域枠|月極|一時保育|平日延長|土曜延長|日祝延長)/;
+
+export const KigyoDetailSchema = v.pipe(
+  v.strictObject({
+    wardTag: TextSchema,
+    phone: v.nullable(TextSchema),
+    hours: v.strictObject({ weekday: v.optional(TextSchema), saturday: v.optional(TextSchema), holiday: v.optional(TextSchema) }),
+    capacity: v.nullable(CountSchema),
+    monthlyUpTo: v.nullable(TextSchema),
+    freeOfCharge: v.nullable(v.boolean()),
+    name: TextSchema,
+    type: TextSchema,
+    postalCode: v.optional(TextSchema),
+    address: TextSchema,
+    startedOn: v.optional(TextSchema),
+    certifiedOn: v.optional(TextSchema),
+    operator: v.optional(TextSchema),
+    page: v.pipe(
+      v.number('PDFのページは数値が必要です'),
+      v.integer('PDFのページは整数が必要です'),
+      v.minValue(1, 'PDFのページは1以上が必要です'),
+    ),
+  }),
+  v.check(
+    ({ name }) => !KIGYO_FORM_WORD.test(name.replace(/\s+/g, '')),
+    ({ input }) => `施設名が様式の語です（別の欄を読んでいる）: ${input.name}`,
   ),
-});
+  // 事業開始日が証明書発行日より後の施設は実在するので（別の種別から移行した施設など）、前後関係は検査しない
+  v.check(
+    ({ startedOn, certifiedOn }) => !startedOn || startedOn !== certifiedOn,
+    ({ input }) => `事業開始日が証明書発行日と同じです（証明書発行日を読んでいる）: ${input.startedOn}`,
+  ),
+);
 export const GeocodePositionSchema = v.pipe(
   v.strictObject(HomeSchema.entries),
   v.check((position) => inOsakaCity(position), '座標が大阪市内の範囲外です'),

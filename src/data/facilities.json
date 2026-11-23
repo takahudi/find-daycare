@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-10-27T09:04:18.513Z",
-  "citySnapshot": "2026-10-23",
+  "generatedAt": "2026-11-22T15:10:24.329Z",
+  "citySnapshot": "2026-11-23",
   "wards": [
     {
       "id": "chuo",
-      "snapshot": "2026-10-21",
+      "snapshot": "2026-11-22",
       "name": "中央区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "中央区役所「保育施設等の空き状況」",
@@ -31,12 +31,12 @@
     },
     {
       "id": "higashinari",
-      "snapshot": "2026-10-21",
+      "snapshot": "2026-11-22",
       "name": "東成区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "東成区役所「保育施設等の空き状況」",
@@ -62,12 +62,12 @@
     },
     {
       "id": "tennoji",
-      "snapshot": "2026-10-21",
+      "snapshot": "2026-11-22",
       "name": "天王寺区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "天王寺区役所「保育施設等の空き状況」",
@@ -97,12 +97,12 @@
     },
     {
       "id": "naniwa",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "浪速区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "浪速区役所「保育施設等の空き状況」",
@@ -144,12 +144,12 @@
     },
     {
       "id": "nishi",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "西区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年9月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "西区役所「保育施設等の空き状況」",
@@ -175,12 +175,12 @@
     },
     {
       "id": "ikuno",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "生野区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "生野区役所「保育施設等の空き状況」",
@@ -198,11 +198,11 @@
     },
     {
       "id": "abeno",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "阿倍野区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
       "kigyoVacancyAsOf": "令和8年4月1日現在",
       "sources": [
         {
@@ -225,12 +225,12 @@
     },
     {
       "id": "joto",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "城東区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "城東区役所「保育施設等の空き状況」",
@@ -252,12 +252,12 @@
     },
     {
       "id": "kita",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "北区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "北区役所「保育施設等の空き状況」",
@@ -279,12 +279,12 @@
     },
     {
       "id": "miyakojima",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "都島区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "都島区役所「保育施設等の空き状況」",
@@ -302,12 +302,12 @@
     },
     {
       "id": "fukushima",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "福島区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "福島区役所「保育施設等の空き状況」",
@@ -329,12 +329,12 @@
     },
     {
       "id": "nishinari",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "西成区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "西成区役所「保育施設等の空き状況」",
@@ -352,12 +352,12 @@
     },
     {
       "id": "higashisumiyoshi",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "東住吉区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "東住吉区役所「保育施設等の空き状況」",
@@ -383,12 +383,12 @@
     },
     {
       "id": "sumiyoshi",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "住吉区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "住吉区役所「保育施設等の空き状況」",
@@ -410,12 +410,12 @@
     },
     {
       "id": "hirano",
-      "snapshot": "2026-10-22",
+      "snapshot": "2026-11-22",
       "name": "平野区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "平野区役所「保育施設等の空き状況」",
@@ -437,12 +437,12 @@
     },
     {
       "id": "tsurumi",
-      "snapshot": "2026-10-23",
+      "snapshot": "2026-11-22",
       "name": "鶴見区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "鶴見区役所「保育施設等の空き状況」",
@@ -464,12 +464,12 @@
     },
     {
       "id": "asahi",
-      "snapshot": "2026-10-23",
+      "snapshot": "2026-11-23",
       "name": "旭区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "旭区役所「保育施設等の空き状況」",
@@ -487,11 +487,11 @@
     },
     {
       "id": "yodogawa",
-      "snapshot": "2026-10-23",
+      "snapshot": "2026-11-23",
       "name": "淀川区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
       "kigyoVacancyAsOf": null,
       "sources": [
         {
@@ -510,12 +510,12 @@
     },
     {
       "id": "higashiyodogawa",
-      "snapshot": "2026-10-23",
+      "snapshot": "2026-11-23",
       "name": "東淀川区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "東淀川区役所「保育施設等の空き状況」",
@@ -533,12 +533,12 @@
     },
     {
       "id": "nishiyodogawa",
-      "snapshot": "2026-10-23",
+      "snapshot": "2026-11-23",
       "name": "西淀川区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "西淀川区役所「保育施設等の空き状況」",
@@ -560,12 +560,12 @@
     },
     {
       "id": "konohana",
-      "snapshot": "2026-10-23",
+      "snapshot": "2026-11-23",
       "name": "此花区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "此花区役所「保育施設等の空き状況」",
@@ -583,12 +583,12 @@
     },
     {
       "id": "minato",
-      "snapshot": "2026-10-23",
+      "snapshot": "2026-11-23",
       "name": "港区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "港区役所「保育施設等の空き状況」",
@@ -606,12 +606,12 @@
     },
     {
       "id": "taisho",
-      "snapshot": "2026-10-23",
+      "snapshot": "2026-11-23",
       "name": "大正区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "大正区役所「保育施設等の空き状況」",
@@ -633,12 +633,12 @@
     },
     {
       "id": "suminoe",
-      "snapshot": "2026-10-23",
+      "snapshot": "2026-11-23",
       "name": "住之江区",
-      "vacancyAsOf": "令和8年10月1日現在",
-      "vacancyFor": "11月1日入所用",
-      "admissionDate": "2026-11-01",
-      "kigyoVacancyAsOf": "令和8年10月1日現在",
+      "vacancyAsOf": "令和8年11月1日現在",
+      "vacancyFor": "12月1日入所用",
+      "admissionDate": "2026-12-01",
+      "kigyoVacancyAsOf": "令和8年11月1日現在",
       "sources": [
         {
           "label": "住之江区役所「保育施設等の空き状況」",
@@ -687,7 +687,7 @@
       "lat": 34.680602,
       "lng": 135.516296,
       "vacancies": [
-        0,
+        1,
         0,
         1,
         5,
@@ -831,7 +831,7 @@
       "lng": 135.511481,
       "vacancies": [
         0,
-        0,
+        1,
         2,
         null,
         null,
@@ -938,7 +938,7 @@
       "vacancies": [
         0,
         0,
-        2,
+        3,
         0,
         4,
         4
@@ -988,10 +988,10 @@
       "lat": 34.666226,
       "lng": 135.509663,
       "vacancies": [
-        0,
-        0,
-        0,
-        2,
+        1,
+        1,
+        1,
+        1,
         0,
         0
       ],
@@ -1154,14 +1154,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 81,
+        "total": 89,
         "byAge": [
           9,
           12,
           12,
-          16,
-          16,
-          16
+          20,
+          18,
+          18
         ]
       },
       "hours": {
@@ -1173,11 +1173,11 @@
         "延長保育",
         "障がい児保育"
       ],
-      "approvedOn": "2015年4月1日",
-      "note": null,
+      "approvedOn": "2026年4月1日",
+      "note": "認可定員は1号8人＋2号・3号81人。",
       "website": "https://saiseikai.net/",
       "websiteLabel": "公式サイト（中央区役所 情報提供資料に記載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/h5-10-buraitotanimachi.pdf",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/k5-3-buraitooosakatanimati.pdf",
       "infoPdfLabel": "市の施設基本情報(PDF)"
     },
     {
@@ -1378,8 +1378,7 @@
         "holiday": null
       },
       "services": [
-        "延長保育",
-        "障がい児保育"
+        "延長保育"
       ],
       "approvedOn": "2017年6月1日",
       "note": null,
@@ -1511,40 +1510,23 @@
       "lat": 34.677557,
       "lng": 135.516283,
       "vacancies": [
-        1,
-        1,
+        0,
+        0,
         0,
         0,
         0,
         0
       ],
       "sharedVacancy": null,
-      "capacity": {
-        "total": 84,
-        "byAge": [
-          12,
-          13,
-          14,
-          15,
-          15,
-          15
-        ]
-      },
-      "hours": {
-        "weekday": "07:00〜19:00",
-        "saturday": "07:00〜19:00",
-        "holiday": null
-      },
-      "services": [
-        "延長保育",
-        "障がい児保育"
-      ],
-      "approvedOn": "2021年5月1日",
+      "capacity": null,
+      "hours": null,
+      "services": [],
+      "approvedOn": null,
       "note": null,
       "website": "https://www.kcs.ed.jp/tanimachi/",
       "websiteLabel": "公式サイト（中央区役所 情報提供資料に記載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/h5-18-tanimachichuo.pdf",
-      "infoPdfLabel": "市の施設基本情報(PDF)"
+      "infoPdfUrl": null,
+      "infoPdfLabel": null
     },
     {
       "id": "chuo-53325",
@@ -1639,7 +1621,8 @@
         "holiday": null
       },
       "services": [
-        "延長保育"
+        "延長保育",
+        "障がい児保育"
       ],
       "approvedOn": "2022年4月1日",
       "note": null,
@@ -1764,7 +1747,7 @@
       "licensing": "licensed",
       "detailType": "保育所",
       "ownership": "私立",
-      "operator": "中川企画建設 株式会社",
+      "operator": "株式会社 コスモスグループ",
       "postalCode": "540-0006",
       "address": "大阪市中央区法円坂1-4-10ファミール難波宮1階",
       "phone": "06-4309-6683",
@@ -1774,8 +1757,8 @@
         0,
         0,
         0,
-        0,
         1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -2031,7 +2014,7 @@
         0,
         0,
         0,
-        1,
+        0,
         0,
         0
       ],
@@ -2062,7 +2045,7 @@
       "note": "認可定員は1号9人＋2号・3号192人。",
       "website": "https://yoshijukai.or.jp/urban-hoiku-uemachi/",
       "websiteLabel": "運営法人（社会福祉法人 由寿会）公式サイトの施設ページ",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/k5-5-arbanchilduemachi.pdf",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/k5-1-arbanchilduemachi.pdf",
       "infoPdfLabel": "市の施設基本情報(PDF)"
     },
     {
@@ -2114,7 +2097,7 @@
       "note": "認可定員は1号3人＋2号・3号92人。",
       "website": "https://renbi.com/morinomiya",
       "websiteLabel": "公式サイト（中央区役所 情報提供資料に記載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/k5-6-renbimorinomiya.pdf",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/k5-2-renbimorinomiya.pdf",
       "infoPdfLabel": "市の施設基本情報(PDF)"
     },
     {
@@ -2173,7 +2156,7 @@
       "lat": 34.682082,
       "lng": 135.511583,
       "vacancies": [
-        2,
+        0,
         0,
         0,
         null,
@@ -2404,7 +2387,7 @@
       "lng": 135.514609,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         null,
         null,
@@ -2496,7 +2479,7 @@
       "lng": 135.515692,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         null,
         null,
@@ -2587,7 +2570,7 @@
       "lat": 34.682365,
       "lng": 135.503365,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -2726,7 +2709,7 @@
       "lng": 135.513567,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         null,
         null,
@@ -2817,7 +2800,7 @@
       "lat": 34.672811,
       "lng": 135.520088,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -3346,8 +3329,8 @@
       "lat": 34.673932296762,
       "lng": 135.50506911605,
       "vacancies": [
-        3,
-        1,
+        0,
+        0,
         null,
         null,
         null,
@@ -3393,7 +3376,7 @@
       "vacancies": [
         0,
         0,
-        2,
+        1,
         null,
         null,
         null
@@ -3482,7 +3465,7 @@
         0,
         0,
         0,
-        1,
+        0,
         0,
         0
       ],
@@ -3523,8 +3506,8 @@
       "lat": 34.679426553859,
       "lng": 135.50956515894,
       "vacancies": [
-        1,
-        1,
+        0,
+        0,
         0,
         null,
         null,
@@ -3569,7 +3552,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -3613,19 +3596,13 @@
       "lng": 135.4980426796,
       "vacancies": [
         0,
-        1,
-        1,
+        0,
+        0,
         null,
         null,
         null
       ],
-      "sharedVacancy": {
-        "ages": [
-          1,
-          2
-        ],
-        "count": 1
-      },
+      "sharedVacancy": null,
       "capacity": {
         "total": 12,
         "byAge": []
@@ -3639,7 +3616,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "1・2歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は3歳まで。事業開始 平成30年11月1日。",
+      "note": "月極保育の対象は3歳まで。事業開始 平成30年11月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=41",
@@ -3750,9 +3727,9 @@
       "lat": 34.672842005747,
       "lng": 135.5095544345,
       "vacancies": [
-        6,
-        0,
-        2,
+        1,
+        1,
+        1,
         null,
         null,
         null
@@ -3796,7 +3773,7 @@
       "lng": 135.50503117543,
       "vacancies": [
         0,
-        4,
+        3,
         2,
         0,
         null,
@@ -3895,9 +3872,9 @@
       "capacity": {
         "total": 345,
         "byAge": [
-          7,
-          18,
-          35,
+          6,
+          24,
+          30,
           75,
           105,
           105
@@ -3941,7 +3918,7 @@
         1,
         7,
         2,
-        9
+        8
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -4042,7 +4019,7 @@
       "lng": 135.539441,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         0,
         2,
@@ -4193,7 +4170,7 @@
       "lat": 34.676951,
       "lng": 135.556843,
       "vacancies": [
-        0,
+        3,
         0,
         0,
         0,
@@ -4213,7 +4190,7 @@
         ]
       },
       "hours": {
-        "weekday": "07:00〜19:00",
+        "weekday": "07:00〜18:30",
         "saturday": "07:00〜18:00",
         "holiday": null
       },
@@ -4351,7 +4328,7 @@
       "lat": 34.66957,
       "lng": 135.537477,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         0,
@@ -4360,14 +4337,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 112,
+        "total": 127,
         "byAge": [
           12,
           20,
           20,
-          20,
-          20,
-          20
+          25,
+          25,
+          25
         ]
       },
       "hours": {
@@ -4377,14 +4354,13 @@
       },
       "services": [
         "延長保育",
-        "障がい児保育",
-        "体調不良児対応型"
+        "障がい児保育"
       ],
-      "approvedOn": "2009年6月1日",
+      "approvedOn": "2026年4月1日",
       "note": "0歳児は満3か月以上が対象（東成区役所 空き情報より）。",
       "website": "https://akinomori.ed.jp/",
       "websiteLabel": "公式サイト（東成区役所 Web版すくすく・つながるフェアに掲載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12687/h14-5-dai2akinomoritamatu.pdf",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12687/k14-2-akenomoritamatu.pdf",
       "infoPdfLabel": "市の施設基本情報(PDF)"
     },
     {
@@ -4406,7 +4382,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         0,
         0,
         0
@@ -4511,21 +4487,21 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         0,
         1,
         0
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 81,
+        "total": 84,
         "byAge": [
           6,
           12,
           12,
-          17,
-          17,
-          17
+          18,
+          18,
+          18
         ]
       },
       "hours": {
@@ -4660,7 +4636,7 @@
       "lng": 135.55151,
       "vacancies": [
         0,
-        0,
+        1,
         1,
         null,
         null,
@@ -4956,7 +4932,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年11月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=111",
@@ -5000,10 +4976,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年4月25日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=111",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=110",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -5045,7 +5021,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和4年7月29日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年8月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=112",
@@ -5090,7 +5066,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=110",
@@ -5135,10 +5111,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和4年1月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月7日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=110",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=109",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -5180,7 +5156,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年7月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=109",
@@ -5260,7 +5236,7 @@
         0,
         0,
         0,
-        1,
+        0,
         0,
         0
       ],
@@ -5353,7 +5329,7 @@
         0,
         0,
         2,
-        0,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -5450,11 +5426,11 @@
       "lat": 34.654749,
       "lng": 135.513139,
       "vacancies": [
-        1,
-        3,
-        3,
         2,
         1,
+        0,
+        0,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -5470,12 +5446,11 @@
         ]
       },
       "hours": {
-        "weekday": "07:30〜19:30",
-        "saturday": "07:30〜19:30",
+        "weekday": "07:30〜18:30",
+        "saturday": "07:30〜18:30",
         "holiday": null
       },
       "services": [
-        "延長保育",
         "障がい児保育"
       ],
       "approvedOn": "2010年4月1日",
@@ -5502,7 +5477,7 @@
       "lat": 34.647415,
       "lng": 135.517462,
       "vacancies": [
-        1,
+        0,
         0,
         2,
         0,
@@ -5661,7 +5636,7 @@
       "lng": 135.525965,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         0,
         0,
@@ -5816,7 +5791,7 @@
       "lat": 34.654062,
       "lng": 135.52247,
       "vacancies": [
-        0,
+        3,
         0,
         0,
         0,
@@ -5973,7 +5948,7 @@
       "lng": 135.53242,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         0,
         0,
@@ -6074,7 +6049,7 @@
         0,
         0,
         0,
-        0,
+        1,
         0,
         0
       ],
@@ -6176,11 +6151,11 @@
       "lng": 135.527913,
       "vacancies": [
         0,
-        0,
-        1,
         1,
         0,
-        0
+        0,
+        0,
+        2
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -6303,7 +6278,9 @@
         "saturday": "07:30〜19:30",
         "holiday": null
       },
-      "services": [],
+      "services": [
+        "延長保育"
+      ],
       "approvedOn": "2024年4月1日",
       "note": null,
       "website": "https://www.ureshii-h.jp/place/uehommachi-2/",
@@ -6330,7 +6307,7 @@
       "vacancies": [
         0,
         0,
-        2,
+        0,
         0,
         0,
         0
@@ -6494,14 +6471,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 192,
+        "total": 190,
         "byAge": [
           6,
           16,
           18,
           50,
           50,
-          52
+          50
         ]
       },
       "hours": {
@@ -6515,7 +6492,7 @@
         "障がい児保育"
       ],
       "approvedOn": "2025年4月1日",
-      "note": "認可定員は1号109人＋2号・3号83人。",
+      "note": "認可定員は1号96人＋2号・3号94人。",
       "website": "https://yoshimigakuen.ed.jp/",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12681/k9-4-tennojiyoutien.pdf",
@@ -6538,7 +6515,7 @@
       "lat": 34.653156,
       "lng": 135.52004,
       "vacancies": [
-        2,
+        0,
         0,
         0,
         null,
@@ -6630,7 +6607,7 @@
       "lat": 34.674112,
       "lng": 135.521853,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         null,
@@ -6678,7 +6655,7 @@
       "vacancies": [
         0,
         0,
-        0,
+        2,
         null,
         null,
         null
@@ -6769,7 +6746,7 @@
       "lng": 135.515534,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         null,
         null,
@@ -6957,7 +6934,7 @@
       "vacancies": [
         0,
         0,
-        11,
+        10,
         14,
         0,
         0
@@ -7072,7 +7049,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は6歳まで。事業開始 平成29年4月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は6歳まで。事業開始 平成28年11月1日。地図の位置は住所から推定しています。",
       "website": "http://チャイルドアカデミー.com",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=80",
@@ -7116,7 +7093,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成29年11月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年6月1日。地図の位置は住所から推定しています。",
       "website": "http://www.nichiikids.net",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=76",
@@ -7160,7 +7137,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和4年12月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年5月30日。地図の位置は住所から推定しています。",
       "website": "http://www.homarehoikuen.jp",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載。資料のURLの誤記を補正）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=77",
@@ -7183,7 +7160,7 @@
       "lat": 34.663883,
       "lng": 135.520767,
       "vacancies": [
-        2,
+        0,
         0,
         0,
         null,
@@ -7204,7 +7181,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 平成31年1月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は3歳まで。事業開始 平成29年10月1日。地図の位置は住所から推定しています。",
       "website": "https://www.mom-hoikuen.com/",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=82",
@@ -7248,7 +7225,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成29年9月29日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年4月1日。地図の位置は住所から推定しています。",
       "website": "http://renbi.com/yuhigaoka",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=88",
@@ -7293,7 +7270,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 令和6年6月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は3歳まで。事業開始 平成30年2月26日。地図の位置は住所から推定しています。",
       "website": "https://peraichi.com/landing_pages/view/nanairotennnoujihoikuen/",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=86",
@@ -7337,7 +7314,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和6年6月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月20日。地図の位置は住所から推定しています。",
       "website": "https://izuru-hoikuen.jp/",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=81",
@@ -7381,7 +7358,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年6月29日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月10日。地図の位置は住所から推定しています。",
       "website": "http://hugme-hoikuen.club/",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=84",
@@ -7405,7 +7382,7 @@
       "lng": 135.514297,
       "vacancies": [
         3,
-        2,
+        4,
         3,
         null,
         null,
@@ -7425,7 +7402,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月15日。地図の位置は住所から推定しています。",
       "website": "http://hoiku.inclusionosaka.com",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=85",
@@ -7469,7 +7446,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 令和2年3月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成30年7月2日。地図の位置は住所から推定しています。",
       "website": "https://habataki-hoikuen.com/",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=84",
@@ -7513,7 +7490,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年10月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年4月1日。地図の位置は住所から推定しています。",
       "website": "https://www.eisai-hoikuen.com/",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=75",
@@ -7557,7 +7534,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年4月16日。地図の位置は住所から推定しています。",
       "website": "https://okazakigakuen1946.jp/",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=77",
@@ -7581,7 +7558,7 @@
       "lng": 135.513855,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         null,
         null,
@@ -7601,7 +7578,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月1日。地図の位置は住所から推定しています。",
       "website": "http://www.morino-nakama.jp",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=85",
@@ -7646,7 +7623,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 令和元年10月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 令和元年6月3日。地図の位置は住所から推定しています。",
       "website": "http://hoikuen-hikari.jp",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=78",
@@ -7691,7 +7668,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年11月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年4月26日。地図の位置は住所から推定しています。",
       "website": "https://ichigo-kids.com",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=79",
@@ -7715,8 +7692,8 @@
       "lng": 135.522949,
       "vacancies": [
         0,
-        10,
-        10,
+        8,
+        8,
         2,
         null,
         null
@@ -7726,7 +7703,7 @@
           1,
           2
         ],
-        "count": 10
+        "count": 8
       },
       "capacity": {
         "total": 30,
@@ -7741,7 +7718,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "1・2歳クラスの空きはあわせて10人です（区の一覧で結合表記）。4〜5歳クラスは区の一覧で「調整中」です。月極保育の対象は5歳まで。事業開始 令和元年8月30日。地図の位置は住所から推定しています。",
+      "note": "1・2歳クラスの空きはあわせて8人です（区の一覧で結合表記）。4〜5歳クラスは区の一覧で「調整中」です。月極保育の対象は5歳まで。事業開始 平成31年4月1日。地図の位置は住所から推定しています。",
       "website": "https://oim.or.jp/personnel/acceptance/sakura/",
       "websiteLabel": "公式サイト（天王寺区役所の施設紹介資料に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=81",
@@ -7765,22 +7742,22 @@
       "lng": 135.507619,
       "vacancies": [
         0,
-        1,
         0,
-        1,
+        0,
+        0,
         0,
         0
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 141,
+        "total": 125,
         "byAge": [
           9,
-          21,
+          20,
           24,
-          29,
-          29,
-          29
+          24,
+          24,
+          24
         ]
       },
       "hours": {
@@ -7793,7 +7770,7 @@
         "障がい児保育"
       ],
       "approvedOn": "2024年4月1日",
-      "note": "認可定員は1号15人＋2号・3号126人。空き人数は区の公表値です（大阪市の空き情報マップのデータでは1歳児0人）。",
+      "note": "認可定員は1号18人＋2号・3号107人。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12682/k10-1-aizomebasi.pdf",
@@ -7872,11 +7849,11 @@
       "lng": 135.491306,
       "vacancies": [
         0,
-        0,
-        7,
+        1,
+        6,
         6,
         12,
-        5
+        6
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -7925,7 +7902,7 @@
       "lng": 135.484514,
       "vacancies": [
         0,
-        2,
+        1,
         2,
         9,
         9,
@@ -7979,7 +7956,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         0,
         0,
         0
@@ -8133,20 +8110,20 @@
       "lat": 34.660406,
       "lng": 135.49468,
       "vacancies": [
-        1,
         0,
         0,
         1,
+        0,
         2,
         0
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 84,
+        "total": 81,
         "byAge": [
           9,
-          15,
-          15,
+          13,
+          14,
           15,
           15,
           15
@@ -8187,10 +8164,10 @@
       "lng": 135.500243,
       "vacancies": [
         0,
-        0,
-        0,
         1,
         0,
+        1,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -8293,8 +8270,8 @@
         0,
         0,
         1,
-        0,
         1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -8344,8 +8321,8 @@
       "vacancies": [
         0,
         0,
-        1,
-        1,
+        0,
+        2,
         1,
         1
       ],
@@ -8399,7 +8376,7 @@
         0,
         0,
         0,
-        0,
+        1,
         1
       ],
       "sharedVacancy": null,
@@ -8541,7 +8518,7 @@
       "lng": 135.495892,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         null,
         null,
@@ -8551,9 +8528,9 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          2,
-          8,
-          9
+          5,
+          7,
+          7
         ]
       },
       "hours": {
@@ -8581,7 +8558,7 @@
       "ownership": "私立",
       "operator": "株式会社 アバン",
       "postalCode": "556-0011",
-      "address": "大阪市浪速区難波中3-4-16セイアンビル3F",
+      "address": "大阪市浪速区難波中3-14-16新栄難波ビル3階",
       "phone": "06-6648-8637",
       "lat": 34.659792,
       "lng": 135.500097,
@@ -8689,8 +8666,8 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          2,
-          7,
+          4,
+          5,
           10
         ]
       },
@@ -8746,7 +8723,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和7年6月1日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年3月1日。",
       "website": "https://www.npo-aiueo.org/childcare/namba/",
       "websiteLabel": "公式サイト（浪速区役所の施設紹介ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=91",
@@ -8790,7 +8767,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成30年2月28日。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成29年9月1日。",
       "website": "http://www.baycom.zaq.ne.jp/bgdko905/",
       "websiteLabel": "公式サイト（浪速区役所の施設紹介ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=89",
@@ -8800,7 +8777,7 @@
       "id": "naniwa-kigyo-03",
       "ward": "naniwa",
       "wardName": "浪速区",
-      "name": "もりのなかま保育園 日本橋ひよこ園",
+      "name": "もりのなかま保育園 日本橋ひよこ園 サイエンス+",
       "kana": "",
       "facilityType": "kigyo",
       "licensing": "unlicensed",
@@ -8834,7 +8811,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年7月31日。区の施設一覧によると、令和8年10月から「もりのなかま保育園日本橋ひよこ園サイエンス＋」に施設名を変更する予定です。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月1日。令和8年10月に「もりのなかま保育園日本橋ひよこ園」から施設名を変更しました（区の施設一覧は旧名のまま）。",
       "website": "https://www.morino-nakama.jp/nippombashi_hiyoko/",
       "websiteLabel": "公式サイト（浪速区役所の施設紹介ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=89",
@@ -8879,7 +8856,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年7月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年3月29日。",
       "website": "https://terrace-namba-nursey.com/",
       "websiteLabel": "公式サイト（浪速区役所の施設紹介ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=90",
@@ -8903,8 +8880,8 @@
       "lng": 135.488987771,
       "vacancies": [
         0,
-        2,
-        2,
+        0,
+        0,
         null,
         null,
         null
@@ -8923,7 +8900,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 令和4年7月29日。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成30年9月18日。",
       "website": "https://www.japan-hoikuen.com/",
       "websiteLabel": "公式サイト（浪速区役所の施設紹介ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=92",
@@ -8968,7 +8945,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年1月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年3月26日。",
       "website": "https://www.ocatkids.jp/",
       "websiteLabel": "公式サイト（浪速区役所の施設紹介ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=91",
@@ -8991,9 +8968,9 @@
       "lat": 34.6573304591,
       "lng": 135.496041255,
       "vacancies": [
+        0,
         2,
         2,
-        1,
         null,
         null,
         null
@@ -9012,7 +8989,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年7月30日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年4月20日。",
       "website": "https://hiyoko-room.com/",
       "websiteLabel": "公式サイト（浪速区役所の施設紹介ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=90",
@@ -9197,10 +9174,10 @@
       "vacancies": [
         0,
         0,
+        0,
         1,
         0,
-        0,
-        0
+        1
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -9389,7 +9366,7 @@
       "lat": 34.689629,
       "lng": 135.492352,
       "vacancies": [
-        3,
+        0,
         0,
         0,
         2,
@@ -9540,7 +9517,7 @@
         null,
         null,
         0,
-        2,
+        3,
         0,
         0
       ],
@@ -9685,7 +9662,7 @@
       "lng": 135.491729,
       "vacancies": [
         0,
-        0,
+        1,
         1,
         0,
         1,
@@ -9739,7 +9716,7 @@
       "vacancies": [
         0,
         0,
-        0,
+        1,
         3,
         0,
         2
@@ -9883,9 +9860,9 @@
       "lng": 135.494422,
       "vacancies": [
         0,
+        0,
+        0,
         1,
-        0,
-        0,
         1,
         0
       ],
@@ -9935,7 +9912,7 @@
       "lat": 34.685514,
       "lng": 135.49233,
       "vacancies": [
-        2,
+        0,
         0,
         0,
         0,
@@ -10012,6 +9989,7 @@
         "holiday": null
       },
       "services": [
+        "一時預かり",
         "障がい児保育"
       ],
       "approvedOn": "2025年4月1日",
@@ -10038,7 +10016,7 @@
       "lat": 34.68033,
       "lng": 135.473284,
       "vacancies": [
-        3,
+        0,
         0,
         0,
         3,
@@ -10091,12 +10069,12 @@
       "lat": 34.677657,
       "lng": 135.486403,
       "vacancies": [
-        0,
-        0,
-        0,
+        2,
+        3,
         0,
         1,
-        2
+        1,
+        1
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -10116,7 +10094,7 @@
         "holiday": null
       },
       "services": [
-        "一時預かり",
+        "延長保育",
         "障がい児保育"
       ],
       "approvedOn": "2025年4月1日",
@@ -10196,10 +10174,10 @@
       "lng": 135.488461,
       "vacancies": [
         0,
-        0,
+        2,
         0,
         3,
-        1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -10250,7 +10228,7 @@
         0,
         0,
         0,
-        7,
+        5,
         0,
         0
       ],
@@ -10274,6 +10252,7 @@
       "services": [
         "延長保育",
         "障がい児保育",
+        "休日保育",
         "体調不良児対応型"
       ],
       "approvedOn": "2018年4月1日",
@@ -10302,10 +10281,10 @@
       "vacancies": [
         0,
         0,
-        1,
-        1,
-        1,
-        5
+        0,
+        0,
+        0,
+        2
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -10355,7 +10334,7 @@
         null,
         null,
         null,
-        2,
+        1,
         0,
         1
       ],
@@ -10455,7 +10434,7 @@
         0,
         0,
         0,
-        5,
+        3,
         0,
         0
       ],
@@ -10505,7 +10484,7 @@
       "lat": 34.674665,
       "lng": 135.480173,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         3,
@@ -10566,11 +10545,11 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 94,
+        "total": 93,
         "byAge": [
           11,
           11,
-          12,
+          11,
           20,
           20,
           20
@@ -10996,7 +10975,7 @@
       "lat": 34.675129,
       "lng": 135.47849,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -11042,7 +11021,7 @@
       "lat": 34.673545,
       "lng": 135.479987,
       "vacancies": [
-        2,
+        0,
         1,
         1,
         null,
@@ -11099,9 +11078,9 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          4,
+          5,
           7,
-          8
+          7
         ]
       },
       "hours": {
@@ -11175,7 +11154,7 @@
       "lat": 34.684444,
       "lng": 135.488486,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -11221,7 +11200,7 @@
       "lat": 34.676384,
       "lng": 135.486112,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         null,
@@ -11269,7 +11248,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -11324,8 +11303,8 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          2,
-          7,
+          4,
+          5,
           10
         ]
       },
@@ -11449,9 +11428,9 @@
       "lat": 34.669530758455,
       "lng": 135.47268053708,
       "vacancies": [
-        2,
         0,
-        2,
+        0,
+        0,
         null,
         null,
         null
@@ -11470,7 +11449,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 令和元年9月30日。",
+      "note": "月極保育の対象は3歳まで。事業開始 令和元年5月7日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=71",
@@ -11493,9 +11472,9 @@
       "lat": 34.684675034604,
       "lng": 135.48455116253,
       "vacancies": [
-        1,
         0,
-        1,
+        0,
+        0,
         null,
         null,
         null
@@ -11539,8 +11518,8 @@
       "lng": 135.49586816493,
       "vacancies": [
         2,
-        4,
-        4,
+        3,
+        3,
         null,
         null,
         null
@@ -11550,7 +11529,7 @@
           1,
           2
         ],
-        "count": 4
+        "count": 3
       },
       "capacity": {
         "total": 12,
@@ -11566,7 +11545,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "1・2歳クラスの空きはあわせて4人です（区の一覧で結合表記）。月極保育の対象は2歳まで。事業開始 平成29年10月10日。",
+      "note": "1・2歳クラスの空きはあわせて3人です（区の一覧で結合表記）。月極保育の対象は2歳まで。事業開始 平成29年10月10日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=59",
@@ -11589,14 +11568,20 @@
       "lat": 34.676294987441,
       "lng": 135.49495769429,
       "vacancies": [
-        2,
+        1,
         1,
         0,
         null,
         null,
         null
       ],
-      "sharedVacancy": null,
+      "sharedVacancy": {
+        "ages": [
+          0,
+          1
+        ],
+        "count": 1
+      },
       "capacity": {
         "total": 30,
         "byAge": []
@@ -11610,7 +11595,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月1日。",
+      "note": "0・1歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は2歳まで。事業開始 平成30年3月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=59",
@@ -11722,7 +11707,7 @@
       "lat": 34.683244794591,
       "lng": 135.48117841631,
       "vacancies": [
-        5,
+        1,
         0,
         0,
         0,
@@ -11743,7 +11728,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成30年2月28日。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成29年9月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=68",
@@ -11787,7 +11772,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年10月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年4月2日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=66",
@@ -11854,9 +11839,9 @@
       "lat": 34.672106155948,
       "lng": 135.49091527798,
       "vacancies": [
+        0,
         1,
-        2,
-        2,
+        0,
         null,
         null,
         null
@@ -11900,20 +11885,12 @@
       "vacancies": [
         0,
         0,
-        1,
-        1,
-        1,
-        1
+        0,
+        0,
+        0,
+        0
       ],
-      "sharedVacancy": {
-        "ages": [
-          2,
-          3,
-          4,
-          5
-        ],
-        "count": 1
-      },
+      "sharedVacancy": null,
       "capacity": {
         "total": 19,
         "byAge": []
@@ -11928,7 +11905,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "2・3・4・5歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は5歳まで。事業開始 平成31年3月25日。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成31年3月25日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=65",
@@ -11951,21 +11928,14 @@
       "lat": 34.672320986105,
       "lng": 135.48799327169,
       "vacancies": [
-        7,
-        7,
-        7,
+        0,
+        0,
+        0,
         null,
         null,
         null
       ],
-      "sharedVacancy": {
-        "ages": [
-          0,
-          1,
-          2
-        ],
-        "count": 7
-      },
+      "sharedVacancy": null,
       "capacity": {
         "total": 14,
         "byAge": []
@@ -11979,7 +11949,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "0・1・2歳クラスの空きはあわせて7人です（区の一覧で結合表記）。月極保育の対象は2歳まで。事業開始 平成29年10月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年5月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=68",
@@ -12157,7 +12127,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年8月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年4月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=66",
@@ -12215,8 +12185,8 @@
       "lat": 34.674339207693,
       "lng": 135.49729267375,
       "vacancies": [
-        1,
-        1,
+        0,
+        0,
         0,
         null,
         null,
@@ -12282,7 +12252,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年11月29日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年7月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=69",
@@ -12306,8 +12276,8 @@
       "lng": 135.47904864343,
       "vacancies": [
         3,
-        3,
-        4,
+        2,
+        2,
         null,
         null,
         null
@@ -12326,7 +12296,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年1月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年6月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=70",
@@ -12350,19 +12320,13 @@
       "lng": 135.48498491251,
       "vacancies": [
         0,
-        1,
-        1,
+        0,
+        0,
         null,
         null,
         null
       ],
-      "sharedVacancy": {
-        "ages": [
-          1,
-          2
-        ],
-        "count": 1
-      },
+      "sharedVacancy": null,
       "capacity": {
         "total": 12,
         "byAge": []
@@ -12377,7 +12341,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "1・2歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は2歳まで。事業開始 令和元年5月1日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=57",
@@ -12582,7 +12546,7 @@
       "lat": 34.683890314995,
       "lng": 135.48843303155,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -12627,7 +12591,7 @@
       "lat": 34.68366880693,
       "lng": 135.4918160227,
       "vacancies": [
-        2,
+        0,
         0,
         0,
         5,
@@ -12789,7 +12753,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は6歳まで。事業開始 令和4年12月28日。",
+      "note": "月極保育の対象は6歳まで。事業開始 令和3年7月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=70",
@@ -12858,9 +12822,9 @@
       "vacancies": [
         null,
         null,
-        9,
+        8,
         4,
-        9,
+        8,
         0
       ],
       "sharedVacancy": null,
@@ -13018,7 +12982,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         0,
         0,
         0
@@ -13089,7 +13053,7 @@
       },
       "hours": {
         "weekday": "08:00〜18:00",
-        "saturday": "08:00〜16:00",
+        "saturday": "08:00〜18:00",
         "holiday": null
       },
       "services": [],
@@ -13118,10 +13082,10 @@
       "lng": 135.538373,
       "vacancies": [
         0,
+        1,
         0,
         0,
-        2,
-        2,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -13251,7 +13215,8 @@
       },
       "services": [
         "延長保育",
-        "障がい児保育"
+        "障がい児保育",
+        "体調不良児対応型"
       ],
       "approvedOn": "2001年4月1日",
       "note": null,
@@ -13386,7 +13351,7 @@
         0,
         0,
         0,
-        0,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -13436,8 +13401,8 @@
       "vacancies": [
         0,
         0,
-        2,
-        6,
+        1,
+        4,
         6,
         3
       ],
@@ -13486,10 +13451,10 @@
       "lng": 135.534768,
       "vacancies": [
         0,
+        1,
         0,
-        0,
-        0,
-        0,
+        1,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -13538,21 +13503,21 @@
       "vacancies": [
         0,
         0,
-        0,
         1,
-        3,
-        3
+        0,
+        4,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 77,
+        "total": 131,
         "byAge": [
-          0,
-          0,
-          0,
-          25,
-          25,
-          27
+          9,
+          20,
+          24,
+          26,
+          26,
+          26
         ]
       },
       "hours": {
@@ -13697,21 +13662,21 @@
       "vacancies": [
         0,
         0,
-        0,
-        0,
+        1,
+        1,
         0,
         2
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 63,
+        "total": 70,
         "byAge": [
           6,
-          16,
           11,
+          16,
           14,
-          8,
-          8
+          14,
+          9
         ]
       },
       "hours": {
@@ -13771,7 +13736,11 @@
         "saturday": "07:30〜18:30",
         "holiday": null
       },
-      "services": [],
+      "services": [
+        "延長保育",
+        "一時預かり",
+        "障がい児保育"
+      ],
       "approvedOn": "2025年4月1日",
       "note": "認可定員は1号203人＋2号・3号57人。",
       "website": null,
@@ -13876,7 +13845,8 @@
       },
       "services": [
         "延長保育",
-        "障がい児保育"
+        "障がい児保育",
+        "体調不良児対応型"
       ],
       "approvedOn": "2017年4月1日",
       "note": null,
@@ -13957,7 +13927,7 @@
         null,
         0,
         0,
-        1,
+        0,
         0,
         0
       ],
@@ -14083,6 +14053,7 @@
         "holiday": null
       },
       "services": [
+        "延長保育",
         "障がい児保育"
       ],
       "approvedOn": "2015年4月1日",
@@ -14112,20 +14083,20 @@
         0,
         0,
         0,
-        1,
+        0,
         0,
         0
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 120,
+        "total": 110,
         "byAge": [
           6,
           12,
           12,
           25,
-          30,
-          35
+          25,
+          30
         ]
       },
       "hours": {
@@ -14138,7 +14109,7 @@
         "障がい児保育"
       ],
       "approvedOn": "2017年4月1日",
-      "note": "認可定員は1号54人＋2号・3号66人。",
+      "note": "認可定員は1号44人＋2号・3号66人。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12688/k15-5-sumire.pdf",
@@ -14161,7 +14132,7 @@
       "lat": 34.63895,
       "lng": 135.548218,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         0,
@@ -14215,7 +14186,7 @@
       "vacancies": [
         0,
         0,
-        3,
+        0,
         0,
         0,
         0
@@ -14393,7 +14364,7 @@
         "体調不良児対応型"
       ],
       "approvedOn": "2024年4月1日",
-      "note": "空き人数は区の公表値です（大阪市の空き情報マップのデータでは2歳児0人・4歳児0人・5歳児2人）。",
+      "note": "空き人数は区の公表値です（大阪市の空き情報マップのデータでは3歳児1人・4歳児0人・5歳児2人）。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12688/h15-21-popinstatumi.pdf",
@@ -14463,7 +14434,7 @@
       "lng": 135.531361,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         null,
         null,
@@ -14600,7 +14571,7 @@
       "lat": 34.659793,
       "lng": 135.54436,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         null,
@@ -14611,8 +14582,8 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          2,
-          7,
+          4,
+          5,
           10
         ]
       },
@@ -14806,10 +14777,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成30年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成30年4月9日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=119",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=118",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -14851,7 +14822,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年6月29日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月15日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=118",
@@ -14896,10 +14867,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年1月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=114",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=113",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -14915,7 +14886,7 @@
       "operator": "株式会社 be leef",
       "postalCode": "544-0013",
       "address": "大阪市生野区巽中4-3-1",
-      "phone": "06-6757-0560",
+      "phone": "090-6281-8854",
       "lat": 34.643017,
       "lng": 135.549637,
       "vacancies": [
@@ -14940,7 +14911,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 令和6年10月1日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 令和元年7月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=113",
@@ -14959,16 +14930,16 @@
       "operator": "社会福祉法人 三秀會",
       "postalCode": "544-0015",
       "address": "大阪市生野区巽南3-6-5 サンキューハウス1階",
-      "phone": "06-6752-3390",
+      "phone": "080-9669-1339",
       "lat": 34.641975,
       "lng": 135.550125,
       "vacancies": [
         0,
         0,
         0,
-        null,
-        null,
-        null
+        0,
+        0,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -14984,7 +14955,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成31年3月29日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成30年10月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=115",
@@ -15029,7 +15000,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年10月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=117",
@@ -15052,7 +15023,7 @@
       "lat": 34.644199,
       "lng": 135.538055,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -15073,10 +15044,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成30年6月29日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成30年1月31日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=117",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=116",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -15118,10 +15089,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和6年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年3月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=113",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=112",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -15143,7 +15114,7 @@
       "vacancies": [
         0,
         0,
-        0,
+        1,
         0,
         0,
         0
@@ -15162,10 +15133,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 令和3年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 令和3年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=115",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=114",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -15189,7 +15160,7 @@
         0,
         0,
         0,
-        2,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -15241,9 +15212,9 @@
       "vacancies": [
         0,
         0,
-        2,
+        1,
         0,
-        2,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -15503,8 +15474,8 @@
       "lng": 135.51411,
       "vacancies": [
         0,
-        1,
         0,
+        1,
         0,
         0,
         0
@@ -15611,8 +15582,8 @@
         0,
         0,
         0,
-        1,
-        1
+        4,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -15660,10 +15631,10 @@
       "lat": 34.61789,
       "lng": 135.515236,
       "vacancies": [
-        2,
         0,
         0,
-        1,
+        0,
+        0,
         3,
         2
       ],
@@ -15821,7 +15792,7 @@
         0,
         0,
         0,
-        1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -15923,7 +15894,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -16079,7 +16050,7 @@
       "lat": 34.625658,
       "lng": 135.50844,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         0,
@@ -16616,9 +16587,9 @@
           0,
           0,
           0,
-          44,
-          48,
-          48
+          46,
+          47,
+          47
         ]
       },
       "hours": {
@@ -16634,7 +16605,7 @@
         "地域子育て支援事業"
       ],
       "approvedOn": "2023年4月1日",
-      "note": "認可定員は1号100人＋2号・3号40人。",
+      "note": "認可定員は1号90人＋2号・3号50人。",
       "website": "https://www.matsumushi.ed.jp/",
       "websiteLabel": "公式サイト（阿倍野区役所の「阿倍野区の保育施設等紹介」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12692/k19-10-matsumushi.pdf",
@@ -16669,8 +16640,8 @@
         "total": 10,
         "byAge": [
           2,
-          3,
-          5
+          2,
+          6
         ]
       },
       "hours": {
@@ -17256,7 +17227,7 @@
       "lng": 135.516567,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         null,
         null,
@@ -17302,7 +17273,7 @@
       "lng": 135.525326,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         null,
         null,
@@ -17364,8 +17335,8 @@
         ]
       },
       "hours": {
-        "weekday": "07:30〜19:30",
-        "saturday": "07:30〜18:30",
+        "weekday": "07:00〜19:00",
+        "saturday": "07:00〜18:00",
         "holiday": null
       },
       "services": [],
@@ -17442,7 +17413,7 @@
         0,
         0,
         0,
-        0,
+        1,
         0,
         0
       ],
@@ -17481,9 +17452,9 @@
         0,
         0,
         0,
-        0,
-        0,
-        0
+        null,
+        null,
+        null
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -17500,10 +17471,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "空き人数は令和8年9月11日の区の調査時点の値です。月極保育の対象は2歳まで。事業開始 平成30年12月28日。地図の位置は住所から推定しています。",
+      "note": "空き人数は令和8年10月16日の区の調査時点の値です。月極保育の対象は2歳まで。事業開始 平成29年7月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=130",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=129",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -17544,10 +17515,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "空き人数は令和8年9月11日の区の調査時点の値です。月極保育の対象は3歳まで。事業開始 平成29年9月29日。地図の位置は住所から推定しています。",
+      "note": "空き人数は令和8年10月16日の区の調査時点の値です。月極保育の対象は3歳まで。事業開始 平成29年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=133",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=132",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -17589,7 +17560,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "空き人数は令和8年9月11日の区の調査時点の値です。月極保育の対象は2歳まで。事業開始 平成30年3月30日。地図の位置は住所から推定しています。",
+      "note": "空き人数は令和8年10月16日の区の調査時点の値です。月極保育の対象は2歳まで。事業開始 平成29年11月13日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=132",
@@ -17633,10 +17604,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "空き人数は令和8年9月14日の区の調査時点の値です。月極保育の対象は2歳まで。事業開始 令和元年7月31日。地図の位置は住所から推定しています。",
+      "note": "空き人数は令和8年10月16日の区の調査時点の値です。月極保育の対象は2歳まで。事業開始 平成31年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=131",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=130",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -17677,7 +17648,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "空き人数は令和8年9月11日の区の調査時点の値です。月極保育の対象は2歳まで。事業開始 令和元年7月31日。地図の位置は住所から推定しています。",
+      "note": "空き人数は令和8年10月16日の区の調査時点の値です。月極保育の対象は2歳まで。事業開始 平成31年3月29日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=129",
@@ -17721,10 +17692,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "空き人数は令和8年9月11日の区の調査時点の値です。月極保育の対象は2歳まで。事業開始 令和元年10月31日。地図の位置は住所から推定しています。",
+      "note": "空き人数は令和8年10月16日の区の調査時点の値です。月極保育の対象は2歳まで。事業開始 令和元年6月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=132",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=131",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -17765,10 +17736,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "空き人数は令和8年9月11日の区の調査時点の値です。月極保育の対象は5歳まで。事業開始 令和6年12月1日。地図の位置は住所から推定しています。",
+      "note": "空き人数は令和8年10月16日の区の調査時点の値です。月極保育の対象は5歳まで。事業開始 令和2年5月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=134",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=133",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -17809,7 +17780,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "空き人数は令和8年9月11日の区の調査時点の値です。月極保育の対象は3歳まで。事業開始 平成30年2月28日。地図の位置は住所から推定しています。",
+      "note": "空き人数は令和8年10月16日の区の調査時点の値です。月極保育の対象は3歳まで。事業開始 令和3年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=135",
@@ -17853,7 +17824,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "空き人数は令和8年9月11日の区の調査時点の値です。月極保育の対象は3歳まで。事業開始 令和7年8月1日。地図の位置は住所から推定しています。",
+      "note": "空き人数は令和8年10月16日の区の調査時点の値です。月極保育の対象は3歳まで。事業開始 令和5年3月27日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=134",
@@ -17929,10 +17900,10 @@
       "lat": 34.698636,
       "lng": 135.553581,
       "vacancies": [
+        0,
+        0,
+        0,
         1,
-        1,
-        1,
-        3,
         2,
         0
       ],
@@ -18091,7 +18062,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         0,
         4,
         12
@@ -18145,7 +18116,7 @@
         0,
         0,
         0,
-        5,
+        4,
         3,
         0
       ],
@@ -18205,14 +18176,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 258,
+        "total": 230,
         "byAge": [
           18,
-          36,
-          48,
-          50,
-          50,
-          56
+          35,
+          42,
+          45,
+          45,
+          45
         ]
       },
       "hours": {
@@ -18250,7 +18221,7 @@
       "lng": 135.55894,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         1,
         0,
@@ -18409,7 +18380,7 @@
       "vacancies": [
         0,
         0,
-        0,
+        2,
         3,
         0,
         0
@@ -18619,7 +18590,7 @@
         0,
         0,
         0,
-        2,
+        1,
         2,
         5
       ],
@@ -18721,7 +18692,7 @@
       "lng": 135.547085,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         0,
         0,
@@ -18771,7 +18742,7 @@
       "lat": 34.704501,
       "lng": 135.537375,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         0,
@@ -19037,22 +19008,22 @@
       "lat": 34.705859,
       "lng": 135.545036,
       "vacancies": [
-        1,
         0,
+        0,
+        0,
+        1,
         2,
-        4,
-        3,
         1
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 98,
+        "total": 107,
         "byAge": [
-          9,
-          17,
-          17,
+          10,
+          20,
           18,
-          18,
+          20,
+          20,
           19
         ]
       },
@@ -19067,7 +19038,7 @@
         "体調不良児対応型"
       ],
       "approvedOn": "2015年4月1日",
-      "note": "認可定員は1号6人＋2号・3号92人。",
+      "note": "認可定員は1号6人＋2号・3号101人。",
       "website": "https://miyakojima.or.jp/seiiku/",
       "websiteLabel": "公式サイト（城東区役所の「城東区内の保育施設・事業について」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12690/k17-3-seiikujidou.pdf",
@@ -19143,7 +19114,7 @@
       "lat": 34.695858,
       "lng": 135.541473,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         0,
@@ -19169,7 +19140,9 @@
       },
       "services": [
         "延長保育",
-        "障がい児保育"
+        "障がい児保育",
+        "病児対応型",
+        "地域子育て支援事業"
       ],
       "approvedOn": "2020年4月1日",
       "note": "認可定員は1号15人＋2号・3号125人。",
@@ -19251,9 +19224,9 @@
         0,
         0,
         0,
-        1,
-        1,
-        1
+        0,
+        0,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -19261,8 +19234,8 @@
         "byAge": [
           12,
           14,
-          14,
-          20,
+          15,
+          19,
           20,
           20
         ]
@@ -19359,8 +19332,8 @@
         0,
         3,
         2,
-        1,
-        2
+        0,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -19435,6 +19408,7 @@
       },
       "services": [
         "延長保育",
+        "一時預かり",
         "障がい児保育",
         "体調不良児対応型"
       ],
@@ -19559,7 +19533,7 @@
       "lat": 34.69443,
       "lng": 135.546446,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         null,
@@ -19697,9 +19671,9 @@
       "lat": 34.700977,
       "lng": 135.550822,
       "vacancies": [
+        1,
         0,
-        0,
-        2,
+        3,
         null,
         null,
         null
@@ -19934,7 +19908,7 @@
       "lat": 34.680266,
       "lng": 135.561243,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -19980,7 +19954,7 @@
       "lat": 34.705509,
       "lng": 135.538095,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         null,
@@ -19991,8 +19965,8 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          2,
-          7,
+          4,
+          5,
           10
         ]
       },
@@ -20027,9 +20001,9 @@
       "lng": 135.547864,
       "vacancies": [
         0,
-        0,
         1,
         0,
+        1,
         1,
         0
       ],
@@ -20178,10 +20152,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年9月26日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=124",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=123",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -20222,7 +20196,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年11月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月26日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=123",
@@ -20267,10 +20241,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年6月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月20日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=126",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=125",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -20311,10 +20285,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年10月30日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=125",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=124",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -20355,7 +20329,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 令和元年10月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は3歳まで。事業開始 令和元年6月4日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=124",
@@ -20432,7 +20406,7 @@
       "vacancies": [
         0,
         0,
-        5,
+        4,
         6,
         8,
         14
@@ -20528,7 +20502,7 @@
       "lat": 34.710794,
       "lng": 135.515451,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         5,
@@ -20633,9 +20607,9 @@
       "lat": 34.7174,
       "lng": 135.517999,
       "vacancies": [
-        2,
         0,
-        2,
+        0,
+        0,
         0,
         0,
         0
@@ -20688,8 +20662,8 @@
       "vacancies": [
         0,
         0,
-        0,
-        0,
+        2,
+        1,
         0,
         0
       ],
@@ -20740,7 +20714,7 @@
       "lng": 135.506852,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         0,
         1,
@@ -20792,7 +20766,7 @@
       "lat": 34.717073,
       "lng": 135.504084,
       "vacancies": [
-        2,
+        0,
         0,
         0,
         1,
@@ -20846,12 +20820,12 @@
       "lat": 34.704836,
       "lng": 135.483801,
       "vacancies": [
-        1,
-        2,
+        0,
+        0,
+        0,
         1,
         0,
-        2,
-        1
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -20900,10 +20874,10 @@
       "lng": 135.517902,
       "vacancies": [
         0,
-        1,
-        0,
         0,
         2,
+        0,
+        3,
         0
       ],
       "sharedVacancy": null,
@@ -20954,7 +20928,7 @@
       "vacancies": [
         null,
         null,
-        1,
+        0,
         0,
         0,
         0
@@ -21003,7 +20977,7 @@
       "lat": 34.715918,
       "lng": 135.513917,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         0,
@@ -21028,8 +21002,7 @@
         "holiday": null
       },
       "services": [
-        "延長保育",
-        "障がい児保育"
+        "延長保育"
       ],
       "approvedOn": "2019年4月1日",
       "note": null,
@@ -21057,7 +21030,7 @@
       "vacancies": [
         0,
         0,
-        2,
+        0,
         null,
         null,
         null
@@ -21198,7 +21171,7 @@
         0,
         0,
         2,
-        1
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -21301,7 +21274,7 @@
         0,
         0,
         0,
-        1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -21753,8 +21726,8 @@
         0,
         0,
         0,
-        1,
-        1
+        0,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -21804,7 +21777,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         0,
         4,
         1
@@ -21863,13 +21836,13 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 77,
+        "total": 75,
         "byAge": [
           7,
           12,
-          15,
+          12,
           17,
-          13,
+          14,
           13
         ]
       },
@@ -21910,7 +21883,7 @@
         0,
         0,
         0,
-        1
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -22112,7 +22085,7 @@
       "lat": 34.706525,
       "lng": 135.506406,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         0,
@@ -22224,16 +22197,16 @@
         null,
         0,
         0,
-        4,
-        3
+        0,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 105,
+        "total": 108,
         "byAge": [
           0,
           0,
-          0,
+          3,
           35,
           35,
           35
@@ -22250,7 +22223,7 @@
         "地域子育て支援事業"
       ],
       "approvedOn": "2023年4月1日",
-      "note": "認可定員は1号90人＋2号・3号15人。",
+      "note": "認可定員は1号90人＋2号・3号18人。",
       "website": "https://kg.temma-g.jp/",
       "websiteLabel": "公式サイト（北区役所の「北区内 認可保育施設について」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12672/k1-4-taiseigakuintenma.pdf",
@@ -22514,8 +22487,8 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          5,
-          6,
+          4,
+          7,
           8
         ]
       },
@@ -22549,9 +22522,9 @@
       "lat": 34.695458,
       "lng": 135.50749,
       "vacancies": [
+        1,
         0,
-        0,
-        0,
+        2,
         null,
         null,
         null
@@ -22595,9 +22568,9 @@
       "lat": 34.71079,
       "lng": 135.493414,
       "vacancies": [
-        3,
+        0,
         1,
-        3,
+        2,
         null,
         null,
         null
@@ -22643,7 +22616,7 @@
       "vacancies": [
         0,
         0,
-        0,
+        1,
         null,
         null,
         null
@@ -22742,11 +22715,11 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 12,
+        "total": 13,
         "byAge": [
-          2,
-          4,
-          6
+          3,
+          5,
+          5
         ]
       },
       "hours": {
@@ -22883,8 +22856,8 @@
         "total": 19,
         "byAge": [
           3,
-          6,
-          10
+          8,
+          8
         ]
       },
       "hours": {
@@ -22984,7 +22957,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成29年10月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年4月3日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=10",
@@ -23028,7 +23001,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年10月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=8",
@@ -23051,9 +23024,9 @@
       "lat": 34.698875,
       "lng": 135.514832,
       "vacancies": [
-        4,
-        3,
-        5,
+        1,
+        1,
+        1,
         1,
         1,
         1
@@ -23079,7 +23052,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "3・4・5歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は5歳まで。事業開始 令和5年11月30日。地図の位置は住所から推定しています。",
+      "note": "3・4・5歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は5歳まで。事業開始 平成29年1月4日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=10",
@@ -23103,8 +23076,8 @@
       "lng": 135.505936,
       "vacancies": [
         4,
-        7,
-        7,
+        6,
+        8,
         1,
         1,
         1
@@ -23123,7 +23096,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成30年6月29日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成30年2月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=15",
@@ -23146,9 +23119,9 @@
       "lat": 34.69389,
       "lng": 135.516876,
       "vacancies": [
-        2,
-        3,
-        2,
+        0,
+        0,
+        0,
         0,
         0,
         0
@@ -23167,7 +23140,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 令和4年1月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成29年10月2日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=12",
@@ -23191,19 +23164,13 @@
       "lng": 135.507278,
       "vacancies": [
         0,
-        2,
-        2,
+        0,
+        0,
         0,
         0,
         0
       ],
-      "sharedVacancy": {
-        "ages": [
-          1,
-          2
-        ],
-        "count": 2
-      },
+      "sharedVacancy": null,
       "capacity": {
         "total": 29,
         "byAge": []
@@ -23218,7 +23185,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "1・2歳クラスの空きはあわせて2人です（区の一覧で結合表記）。月極保育の対象は6歳まで。事業開始 令和4年3月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は6歳まで。事業開始 平成28年12月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=16",
@@ -23262,7 +23229,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成29年2月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成28年10月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=13",
@@ -23306,7 +23273,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成29年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成29年3月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=21",
@@ -23350,7 +23317,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年7月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=8",
@@ -23394,7 +23361,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和5年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年7月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=20",
@@ -23449,7 +23416,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "0・1・2・3・4・5歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は5歳まで。事業開始 令和元年6月28日。地図の位置は住所から推定しています。",
+      "note": "0・1・2・3・4・5歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は5歳まで。事業開始 平成30年7月17日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=14",
@@ -23493,7 +23460,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 平成30年9月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は3歳まで。事業開始 平成30年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=9",
@@ -23538,7 +23505,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 令和元年8月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成31年4月18日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=19",
@@ -23563,7 +23530,7 @@
       "vacancies": [
         0,
         0,
-        0,
+        1,
         null,
         null,
         null
@@ -23582,7 +23549,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年4月22日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=12",
@@ -23605,21 +23572,14 @@
       "lat": 34.701485,
       "lng": 135.504654,
       "vacancies": [
-        1,
-        1,
+        0,
+        0,
         1,
         null,
         null,
         null
       ],
-      "sharedVacancy": {
-        "ages": [
-          0,
-          1,
-          2
-        ],
-        "count": 1
-      },
+      "sharedVacancy": null,
       "capacity": {
         "total": 12,
         "byAge": []
@@ -23633,7 +23593,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "0・1・2歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は2歳まで。事業開始 令和元年10月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月7日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=18",
@@ -23657,19 +23617,13 @@
       "lng": 135.516556,
       "vacancies": [
         0,
-        2,
-        2,
+        0,
+        0,
         0,
         0,
         0
       ],
-      "sharedVacancy": {
-        "ages": [
-          1,
-          2
-        ],
-        "count": 2
-      },
+      "sharedVacancy": null,
       "capacity": {
         "total": 12,
         "byAge": []
@@ -23683,7 +23637,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "1・2歳クラスの空きはあわせて2人です（区の一覧で結合表記）。月極保育の対象は5歳まで。事業開始 平成30年4月1日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成30年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=7",
@@ -23727,7 +23681,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年7月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年3月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=20",
@@ -23743,7 +23697,7 @@
       "licensing": "unlicensed",
       "detailType": null,
       "ownership": null,
-      "operator": "株式会社AEG 月極あり 2ヶ月 一時保育あり",
+      "operator": "株式会社AEG 月極あり 2ヶ月 一時保育あり 2ヶ月",
       "postalCode": "530-0022",
       "address": "大阪市北区浪花町14-34 アジュレーブ天六1階",
       "phone": "06-6271-8089",
@@ -23797,7 +23751,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -23858,7 +23812,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "0・1歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は2歳まで。事業開始 令和元年11月29日。地図の位置は住所から推定しています。",
+      "note": "0・1歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は2歳まで。事業開始 令和元年5月29日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=19",
@@ -23903,7 +23857,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳11ヶ月まで。事業開始 令和2年1月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳11ヶ月まで。事業開始 令和元年8月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=15",
@@ -23947,7 +23901,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年3月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=14",
@@ -23992,7 +23946,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年7月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年3月12日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=11",
@@ -24017,7 +23971,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -24036,7 +23990,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 令和3年7月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は3歳まで。事業開始 令和3年3月25日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=13",
@@ -24050,10 +24004,10 @@
       "kana": "おおさかしりつけまほいくしょ",
       "facilityType": "nursery",
       "licensing": "licensed",
-      "detailType": null,
-      "ownership": null,
-      "operator": null,
-      "postalCode": null,
+      "detailType": "保育所",
+      "ownership": "公設置民営",
+      "operator": "株式会社 クオリス",
+      "postalCode": "535-0005",
       "address": "大阪市旭区赤川2-16-9",
       "phone": "06-6924-1565",
       "lat": 34.726482,
@@ -24064,7 +24018,7 @@
         0,
         2,
         2,
-        2
+        1
       ],
       "sharedVacancy": null,
       "capacity": null,
@@ -24103,7 +24057,7 @@
         0,
         10,
         2,
-        8
+        6
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -24262,7 +24216,7 @@
       "vacancies": [
         1,
         0,
-        0,
+        1,
         null,
         null,
         null
@@ -24423,20 +24377,20 @@
         0,
         0,
         0,
-        2,
+        1,
         0,
         0
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 84,
+        "total": 78,
         "byAge": [
           9,
-          15,
-          15,
-          15,
-          15,
-          15
+          13,
+          14,
+          14,
+          14,
+          14
         ]
       },
       "hours": {
@@ -24633,9 +24587,9 @@
       "vacancies": [
         0,
         0,
-        0,
+        1,
         3,
-        0,
+        2,
         0
       ],
       "sharedVacancy": null,
@@ -24745,12 +24699,12 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 80,
+        "total": 81,
         "byAge": [
           9,
           12,
           12,
-          15,
+          16,
           16,
           16
         ]
@@ -24788,11 +24742,11 @@
       "lat": 34.72441,
       "lng": 135.527665,
       "vacancies": [
-        1,
-        2,
         0,
-        1,
-        1,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -24918,6 +24872,7 @@
         "holiday": null
       },
       "services": [
+        "延長保育",
         "障がい児保育",
         "体調不良児対応型"
       ],
@@ -25104,10 +25059,10 @@
       "lat": 34.706737,
       "lng": 135.523642,
       "vacancies": [
+        1,
         0,
         0,
-        0,
-        0,
+        1,
         0,
         0
       ],
@@ -25177,12 +25132,11 @@
         ]
       },
       "hours": {
-        "weekday": "07:30〜19:30",
-        "saturday": "07:30〜19:30",
+        "weekday": "07:30〜18:30",
+        "saturday": "07:30〜18:30",
         "holiday": null
       },
       "services": [
-        "延長保育",
         "障がい児保育",
         "体調不良児対応型"
       ],
@@ -25393,7 +25347,11 @@
         "saturday": "07:30〜18:30",
         "holiday": null
       },
-      "services": [],
+      "services": [
+        "延長保育",
+        "一時預かり",
+        "障がい児保育"
+      ],
       "approvedOn": "2025年4月1日",
       "note": "認可定員は1号190人＋2号・3号90人。",
       "website": null,
@@ -25619,8 +25577,8 @@
         ]
       },
       "hours": {
-        "weekday": "07:30〜19:30",
-        "saturday": "07:30〜19:30",
+        "weekday": "07:30〜18:30",
+        "saturday": "07:30〜18:30",
         "holiday": null
       },
       "services": [],
@@ -25741,7 +25699,7 @@
       "lng": 135.520252,
       "vacancies": [
         0,
-        0,
+        2,
         0,
         null,
         null,
@@ -25751,8 +25709,8 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          2,
-          7,
+          4,
+          5,
           10
         ]
       },
@@ -25899,7 +25857,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成30年9月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成29年5月30日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=22",
@@ -25943,7 +25901,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年7月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月26日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=23",
@@ -25987,7 +25945,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年10月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=24",
@@ -26165,7 +26123,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成30年9月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成30年5月14日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=22",
@@ -26291,7 +26249,7 @@
         1,
         0,
         4,
-        1,
+        0,
         10
       ],
       "sharedVacancy": null,
@@ -26472,7 +26430,7 @@
         "延長保育",
         "障がい児保育"
       ],
-      "approvedOn": "2008年6月1日",
+      "approvedOn": "2008年4月1日",
       "note": null,
       "website": "https://www.muginoho.ed.jp/nakanoshima",
       "websiteLabel": "公式サイト（福島区役所の「保育施設のご紹介」に掲載）",
@@ -26500,8 +26458,8 @@
         0,
         0,
         0,
-        0,
-        1
+        1,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -26658,7 +26616,7 @@
         0,
         0,
         0,
-        1
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -26967,10 +26925,10 @@
       "lat": 34.696166,
       "lng": 135.473206,
       "vacancies": [
-        1,
         0,
         0,
-        1,
+        0,
+        0,
         0,
         0
       ],
@@ -27305,7 +27263,7 @@
         ]
       },
       "hours": {
-        "weekday": "07:00〜19:00",
+        "weekday": "07:00〜18:30",
         "saturday": "07:00〜18:00",
         "holiday": null
       },
@@ -27358,8 +27316,8 @@
         ]
       },
       "hours": {
-        "weekday": "07:00〜19:00",
-        "saturday": "07:00〜19:00",
+        "weekday": "07:00〜18:30",
+        "saturday": "07:00〜18:30",
         "holiday": null
       },
       "services": [
@@ -27390,7 +27348,7 @@
       "lat": 34.693967,
       "lng": 135.483667,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -27576,7 +27534,7 @@
       "vacancies": [
         0,
         0,
-        3,
+        1,
         null,
         null,
         null
@@ -27620,7 +27578,7 @@
       "lat": 34.688961,
       "lng": 135.474432,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         null,
@@ -27678,8 +27636,8 @@
         "total": 19,
         "byAge": [
           3,
-          7,
-          9
+          6,
+          10
         ]
       },
       "hours": {
@@ -28038,7 +27996,7 @@
         null,
         null,
         0,
-        2,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -28306,7 +28264,7 @@
         0,
         0,
         0,
-        2,
+        1,
         0,
         9
       ],
@@ -28359,7 +28317,7 @@
         null,
         null,
         0,
-        2,
+        1,
         0,
         13
       ],
@@ -28412,7 +28370,7 @@
         0,
         0,
         0,
-        0,
+        1,
         1,
         0
       ],
@@ -28513,7 +28471,7 @@
         0,
         0,
         1,
-        3,
+        4,
         3
       ],
       "sharedVacancy": null,
@@ -28558,11 +28516,11 @@
       "lat": 34.644474,
       "lng": 135.49097,
       "vacancies": [
+        1,
         0,
         0,
         0,
-        0,
-        3,
+        2,
         1
       ],
       "sharedVacancy": null,
@@ -28614,7 +28572,7 @@
       "lat": 34.646206,
       "lng": 135.506621,
       "vacancies": [
-        0,
+        1,
         0,
         1,
         0,
@@ -28721,9 +28679,9 @@
         0,
         0,
         0,
-        1,
         0,
-        1
+        0,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -28772,7 +28730,7 @@
       "lng": 135.488908,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         0,
         0,
@@ -28826,7 +28784,7 @@
         0,
         0,
         0,
-        1,
+        0,
         0,
         0
       ],
@@ -28863,7 +28821,7 @@
       "wardName": "西成区",
       "name": "玉出東保育園",
       "kana": "たまでひがしほいくえん",
-      "facilityType": "kodomoen",
+      "facilityType": "nursery",
       "licensing": "licensed",
       "detailType": "保育所型認定こども園",
       "ownership": "私立",
@@ -28877,8 +28835,8 @@
         0,
         0,
         0,
-        0,
-        0,
+        1,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -28931,8 +28889,8 @@
         0,
         0,
         0,
-        0,
-        2
+        2,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -29035,7 +28993,7 @@
         0,
         0,
         0,
-        0,
+        1,
         1
       ],
       "sharedVacancy": null,
@@ -29203,10 +29161,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月30日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月30日。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=161",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=160",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -29247,10 +29205,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和6年2月29日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年11月1日。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=163",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=162",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -29292,7 +29250,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年2月28日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月2日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=160",
@@ -29337,10 +29295,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は就学前まで。事業開始 令和4年1月31日。",
+      "note": "月極保育の対象は就学前まで。事業開始 平成29年7月1日。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=164",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=163",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -29360,7 +29318,7 @@
       "lat": 34.632020753983,
       "lng": 135.49273400192,
       "vacancies": [
-        1,
+        0,
         1,
         0,
         null,
@@ -29381,7 +29339,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 令和8年10月1日。",
+      "note": "月極保育の対象は3歳まで。事業開始 令和3年3月30日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=163",
@@ -29425,10 +29383,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年10月29日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年6月1日。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=162",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=161",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -29451,7 +29409,7 @@
         2,
         0,
         0,
-        null,
+        0,
         0,
         0
       ],
@@ -29478,7 +29436,7 @@
         "体調不良児対応型"
       ],
       "approvedOn": "1971年4月1日",
-      "note": "3歳クラスの空きは区の空き情報で「調整中」です。",
+      "note": null,
       "website": "https://ikuwashirasagi.or.jp/",
       "websiteLabel": "公式サイト（東住吉区役所の「保育所（園）」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12695/h22-1-ikuwashirasagi.pdf",
@@ -29502,7 +29460,7 @@
       "lng": 135.542686,
       "vacancies": [
         1,
-        0,
+        1,
         1,
         0,
         0,
@@ -29522,7 +29480,7 @@
       },
       "hours": {
         "weekday": "07:00〜19:00",
-        "saturday": "07:00〜17:00",
+        "saturday": "07:00〜18:00",
         "holiday": null
       },
       "services": [
@@ -29557,7 +29515,7 @@
         0,
         0,
         0,
-        0,
+        1,
         0,
         0
       ],
@@ -29610,8 +29568,8 @@
         0,
         0,
         0,
-        3,
-        3
+        4,
+        8
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -29663,7 +29621,7 @@
         0,
         0,
         0,
-        6,
+        7,
         3,
         1
       ],
@@ -29923,7 +29881,7 @@
       "lng": 135.532488,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         0,
         1,
@@ -30029,9 +29987,9 @@
       "lat": 34.629836,
       "lng": 135.523251,
       "vacancies": [
+        1,
         0,
-        0,
-        0,
+        1,
         0,
         0,
         0
@@ -30080,7 +30038,7 @@
       "lat": 34.632449,
       "lng": 135.531649,
       "vacancies": [
-        0,
+        2,
         0,
         0,
         null,
@@ -30938,7 +30896,7 @@
       "lat": 34.618834,
       "lng": 135.532117,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         null,
@@ -31076,7 +31034,7 @@
       "lat": 34.631892,
       "lng": 135.528846,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -31230,7 +31188,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和6年11月18日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月5日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=151",
@@ -31253,8 +31211,8 @@
       "lat": 34.606321,
       "lng": 135.539299,
       "vacancies": [
-        2,
-        1,
+        0,
+        0,
         0,
         null,
         null,
@@ -31275,7 +31233,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年1月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年8月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=149",
@@ -31319,10 +31277,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年7月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年3月1日。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=154",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=153",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -31363,7 +31321,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 令和2年1月31日。",
+      "note": "月極保育の対象は3歳まで。事業開始 平成31年4月5日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=153",
@@ -31408,10 +31366,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年12月27日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月15日。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=151",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=150",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -31452,7 +31410,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月30日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=154",
@@ -31496,10 +31454,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年2月28日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月1日。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=149",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=148",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -31540,10 +31498,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年9月30日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和2年3月30日。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=150",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=149",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -31584,10 +31542,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年9月30日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年4月1日。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=153",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=152",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -31628,7 +31586,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年10月29日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年6月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=150",
@@ -31672,7 +31630,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和5年7月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年4月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=152",
@@ -31749,9 +31707,9 @@
       "lng": 135.515987,
       "vacancies": [
         0,
+        1,
         0,
-        0,
-        6,
+        2,
         2,
         0
       ],
@@ -31857,8 +31815,8 @@
         null,
         null,
         null,
-        3,
         2,
+        1,
         1
       ],
       "sharedVacancy": null,
@@ -31910,7 +31868,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         1,
         5,
         2
@@ -32034,7 +31992,7 @@
       },
       "hours": {
         "weekday": "07:00〜19:00",
-        "saturday": "07:00〜19:00",
+        "saturday": "07:00〜18:00",
         "holiday": null
       },
       "services": [
@@ -32117,7 +32075,7 @@
       "lat": 34.619996,
       "lng": 135.507823,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -32126,10 +32084,10 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 48,
+        "total": 44,
         "byAge": [
           12,
-          16,
+          12,
           20,
           0,
           0,
@@ -32170,7 +32128,7 @@
       "lat": 34.619684,
       "lng": 135.507925,
       "vacancies": [
-        0,
+        2,
         0,
         0,
         0,
@@ -32179,12 +32137,12 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 120,
+        "total": 114,
         "byAge": [
           10,
-          17,
+          13,
           0,
-          32,
+          30,
           30,
           31
         ]
@@ -32226,7 +32184,7 @@
         0,
         0,
         0,
-        0,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -32752,7 +32710,7 @@
         0,
         0,
         0,
-        3,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -32958,7 +32916,7 @@
         0,
         0,
         0,
-        2,
+        0,
         0,
         0
       ],
@@ -33154,10 +33112,10 @@
       "vacancies": [
         null,
         null,
-        6,
-        5,
-        5,
-        5
+        3,
+        3,
+        3,
+        3
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -33205,7 +33163,7 @@
       "vacancies": [
         null,
         null,
-        1,
+        0,
         0,
         0,
         0
@@ -33265,11 +33223,11 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 221,
+        "total": 234,
         "byAge": [
           0,
-          0,
-          11,
+          12,
+          12,
           70,
           70,
           70
@@ -33286,7 +33244,7 @@
         "障がい児保育"
       ],
       "approvedOn": "2019年4月1日",
-      "note": "認可定員は1号150人＋2号・3号71人。",
+      "note": "認可定員は1号140人＋2号・3号94人。",
       "website": "http://www.higashikohama-youchien.ed.jp/",
       "websiteLabel": "公式サイト（住吉区役所の「幼稚園・認定こども園・保育所（園）・地域型保育事業所」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12694/k21-5-higasikohama.pdf",
@@ -33517,8 +33475,8 @@
       "lat": 34.600806,
       "lng": 135.521424,
       "vacancies": [
-        1,
         0,
+        1,
         0,
         0,
         0,
@@ -33556,7 +33514,7 @@
       "lat": 34.607218,
       "lng": 135.496814,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         null,
@@ -33890,8 +33848,8 @@
         "total": 19,
         "byAge": [
           5,
-          7,
-          7
+          6,
+          8
         ]
       },
       "hours": {
@@ -33935,8 +33893,8 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          5,
-          6,
+          3,
+          8,
           8
         ]
       },
@@ -34176,7 +34134,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年6月29日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年1月26日。",
       "website": "https://www.like-kd.co.jp/academy/establishment/office/abiko/index.html",
       "websiteLabel": "公式サイト（住吉区役所の「幼稚園・認定こども園・保育所（園）・地域型保育事業所」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=142",
@@ -34220,7 +34178,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成29年2月28日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成28年10月1日。",
       "website": "https://www.kakehashi-hoikuen.com/",
       "websiteLabel": "公式サイト（住吉区役所の「幼稚園・認定こども園・保育所（園）・地域型保育事業所」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=144",
@@ -34265,10 +34223,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成29年6月30日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年1月20日。",
       "website": "https://peraichi.com/landing_pages/view/nadecyanhoikuenn/",
       "websiteLabel": "公式サイト（住吉区役所の「幼稚園・認定こども園・保育所（園）・地域型保育事業所」に掲載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=145",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=144",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -34292,8 +34250,8 @@
         null,
         null,
         0,
-        1,
-        0
+        0,
+        1
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -34309,10 +34267,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は6歳まで。事業開始 令和2年3月31日。",
+      "note": "月極保育の対象は6歳まで。事業開始 平成29年10月1日。",
       "website": "https://www.lemonkai.or.jp/school/preschool/pre-sugimoto/",
       "websiteLabel": "公式サイト（住吉区役所の「幼稚園・認定こども園・保育所（園）・地域型保育事業所」に掲載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=143",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=142",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -34353,10 +34311,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月30日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月1日。",
       "website": "https://mamahoikuen.jp/tezukayama/",
       "websiteLabel": "公式サイト（住吉区役所の「幼稚園・認定こども園・保育所（園）・地域型保育事業所」に掲載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=147",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=146",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -34397,7 +34355,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年9月28日。同じ所在地に事業所内保育事業（認可・地域型）と企業主導型保育事業（認可外）があり、区の空き情報でも別々に公表されています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年4月1日。同じ所在地に事業所内保育事業（認可・地域型）と企業主導型保育事業（認可外）があり、区の空き情報でも別々に公表されています。",
       "website": "https://ozukids.jp/",
       "websiteLabel": "公式サイト（住吉区役所の「幼稚園・認定こども園・保育所（園）・地域型保育事業所」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=147",
@@ -34422,7 +34380,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -34441,10 +34399,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年8月30日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年4月1日。",
       "website": "https://orange-hoikuen.jp/",
       "websiteLabel": "公式サイト（住吉区役所の「幼稚園・認定こども園・保育所（園）・地域型保育事業所」に掲載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=146",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=145",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -34486,10 +34444,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 令和3年7月30日。",
+      "note": "月極保育の対象は3歳まで。事業開始 令和3年2月1日。",
       "website": "https://hoiku.smile-company.net/facility/nagai/",
       "websiteLabel": "公式サイト（住吉区役所の「幼稚園・認定こども園・保育所（園）・地域型保育事業所」に掲載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=142",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=141",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -34530,7 +34488,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 令和3年7月30日。",
+      "note": "月極保育の対象は5歳まで。事業開始 令和3年3月26日。",
       "website": "https://mosh-clover.com/kids-animado-land/",
       "websiteLabel": "公式サイト（住吉区役所の「幼稚園・認定こども園・保育所（園）・地域型保育事業所」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=145",
@@ -34662,7 +34620,7 @@
         0,
         0,
         4,
-        5,
+        7,
         8
       ],
       "sharedVacancy": null,
@@ -34767,7 +34725,7 @@
         0,
         0,
         0,
-        1,
+        2,
         0
       ],
       "sharedVacancy": null,
@@ -34821,7 +34779,7 @@
         0,
         0,
         4,
-        2,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -35133,7 +35091,7 @@
         0,
         0,
         0,
-        2,
+        1,
         2,
         0
       ],
@@ -35340,10 +35298,10 @@
       "lng": 135.562883,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         1,
-        1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -35601,7 +35559,7 @@
       "lng": 135.544489,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         0,
         0,
@@ -35859,7 +35817,7 @@
       "lat": 34.603134,
       "lng": 135.58339,
       "vacancies": [
-        2,
+        0,
         0,
         0,
         0,
@@ -35913,7 +35871,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         0,
         0,
         0
@@ -36383,6 +36341,8 @@
         "holiday": null
       },
       "services": [
+        "延長保育",
+        "一時預かり",
         "障がい児保育"
       ],
       "approvedOn": "2016年4月1日",
@@ -36621,9 +36581,9 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          3,
-          8,
-          8
+          5,
+          7,
+          7
         ]
       },
       "hours": {
@@ -36749,7 +36709,7 @@
       "lng": 135.546585,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         0,
         null,
@@ -36770,10 +36730,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 令和8年4月1日。地図の位置は住所から推定しています。所在地は市の認可外保育施設一覧（詳細）の値です。区の空き情報・企業主導型保育所一覧では「背戸口3-4-4 メゾン背戸口1F」と書かれています。",
+      "note": "月極保育の対象は3歳まで。事業開始 平成28年10月1日。地図の位置は住所から推定しています。所在地は市の認可外保育施設一覧（詳細）の値です。区の空き情報・企業主導型保育所一覧では「背戸口3-4-4 メゾン背戸口1F」と書かれています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=159",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=158",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -36814,7 +36774,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成29年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年1月16日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=159",
@@ -36894,7 +36854,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 令和元年7月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は3歳まで。事業開始 平成28年10月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=158",
@@ -36938,7 +36898,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年12月27日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年4月22日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=157",
@@ -36983,10 +36943,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年2月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月19日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=157",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=156",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -37028,10 +36988,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年6月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年3月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=155",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=154",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -37072,10 +37032,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 令和3年7月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 令和3年3月25日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=158",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=157",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -37117,10 +37077,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年9月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=160",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=159",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -37338,8 +37298,8 @@
         0,
         0,
         0,
-        0,
-        0,
+        1,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -37544,11 +37504,11 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 340,
+        "total": 350,
         "byAge": [
           0,
           0,
-          10,
+          20,
           120,
           105,
           105
@@ -37564,7 +37524,7 @@
         "障がい児保育"
       ],
       "approvedOn": "2019年4月1日",
-      "note": "認可定員は1号270人＋2号・3号70人。",
+      "note": "認可定員は1号270人＋2号・3号80人。",
       "website": "https://nenpougakuen.ed.jp/",
       "websiteLabel": "公式サイト（鶴見区役所「鶴見区幼稚園・保育所等への入所をお考えの方に情報を提供します」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12691/k18-2-nenpou.pdf",
@@ -37641,8 +37601,8 @@
         0,
         0,
         0,
-        2,
-        1,
+        0,
+        0,
         3
       ],
       "sharedVacancy": null,
@@ -37690,12 +37650,12 @@
       "lat": 34.716139,
       "lng": 135.583536,
       "vacancies": [
+        2,
         0,
         0,
+        1,
         0,
-        0,
-        0,
-        0
+        2
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -38001,7 +37961,7 @@
         0,
         0,
         0,
-        0,
+        1,
         0,
         0
       ],
@@ -38445,7 +38405,7 @@
         "体調不良児対応型"
       ],
       "approvedOn": "2016年4月1日",
-      "note": "空き人数は区の公表値です（大阪市の空き情報マップのデータでは4歳児0人）。",
+      "note": null,
       "website": "https://www.serio-corp.com/nursery/parents/list/tk_yokodutsumi/",
       "websiteLabel": "公式サイト（鶴見区役所「鶴見区幼稚園・保育所等への入所をお考えの方に情報を提供します」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12691/h18-20-torejyayokodutumi.pdf",
@@ -38678,7 +38638,7 @@
       "lat": 34.703928,
       "lng": 135.561483,
       "vacancies": [
-        0,
+        1,
         0,
         null,
         null,
@@ -38876,7 +38836,7 @@
         0,
         0,
         0,
-        1,
+        0,
         0,
         0
       ],
@@ -38902,7 +38862,7 @@
         "地域子育て支援事業"
       ],
       "approvedOn": "2021年4月1日",
-      "note": "認可定員は1号4人＋2号・3号90人。空き人数は区の公表値です（大阪市の空き情報マップのデータでは3歳児2人）。",
+      "note": "認可定員は1号4人＋2号・3号90人。",
       "website": "https://mattahigashi.himawari-swc.com/overview/",
       "websiteLabel": "公式サイト（鶴見区役所「鶴見区幼稚園・保育所等への入所をお考えの方に情報を提供します」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12691/k18-4-mattahigashi.pdf",
@@ -38914,7 +38874,7 @@
       "wardName": "鶴見区",
       "name": "保育所型認定こども園 鶴見みどり保育園",
       "kana": "つるみみどりほいくえん",
-      "facilityType": "nursery",
+      "facilityType": "kodomoen",
       "licensing": "licensed",
       "detailType": "保育所型認定こども園",
       "ownership": "私立",
@@ -38934,30 +38894,30 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 93,
+        "total": 104,
         "byAge": [
           0,
           0,
           18,
-          24,
           25,
-          26
+          30,
+          31
         ]
       },
       "hours": {
         "weekday": "07:00〜19:00",
-        "saturday": "07:00〜16:00",
+        "saturday": "07:00〜19:00",
         "holiday": null
       },
       "services": [
         "延長保育",
         "障がい児保育"
       ],
-      "approvedOn": "1988年4月1日",
-      "note": null,
+      "approvedOn": "2026年4月1日",
+      "note": "認可定員は1号11人＋2号・3号93人。",
       "website": "https://www.ans.co.jp/n/tsurumimidori/",
       "websiteLabel": "公式サイト（鶴見区役所「鶴見区幼稚園・保育所等への入所をお考えの方に情報を提供します」に掲載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12691/h18-4-turumimidori.pdf",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12691/k18-7-turumimidori.pdf",
       "infoPdfLabel": "市の施設基本情報(PDF)"
     },
     {
@@ -38966,7 +38926,7 @@
       "wardName": "鶴見区",
       "name": "保育所型認定こども園 鶴見みどり保育園 分園",
       "kana": "つるみみどりほいくえんぶんえん",
-      "facilityType": "nursery",
+      "facilityType": "kodomoen",
       "licensing": "licensed",
       "detailType": "保育所型認定こども園",
       "ownership": "私立",
@@ -39165,9 +39125,9 @@
       "capacity": {
         "total": 12,
         "byAge": [
-          1,
           2,
-          9
+          2,
+          8
         ]
       },
       "hours": {
@@ -39340,7 +39300,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -39451,7 +39411,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年10月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=126",
@@ -39496,10 +39456,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=129",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=128",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -39541,7 +39501,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和4年4月28日。地図の位置は住所から推定しています。所在地は市の認可外保育施設一覧（詳細）の値です。区の企業主導型の空き情報では「横堤1-5-44」と書かれています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年12月1日。地図の位置は住所から推定しています。所在地は市の認可外保育施設一覧（詳細）の値です。区の企業主導型の空き情報では「横堤1-5-44」と書かれています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=127",
@@ -39586,10 +39546,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和4年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和4年3月22日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=127",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=126",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -39612,7 +39572,7 @@
         0,
         0,
         0,
-        1,
+        0,
         6,
         3
       ],
@@ -39716,7 +39676,7 @@
         null,
         0,
         1,
-        1,
+        2,
         8
       ],
       "sharedVacancy": null,
@@ -39820,7 +39780,7 @@
         0,
         0,
         0,
-        0,
+        1,
         0
       ],
       "sharedVacancy": null,
@@ -39980,14 +39940,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 150,
+        "total": 119,
         "byAge": [
-          0,
-          30,
-          30,
-          30,
-          30,
-          30
+          8,
+          18,
+          18,
+          25,
+          25,
+          25
         ]
       },
       "hours": {
@@ -39998,8 +39958,7 @@
       "services": [
         "延長保育",
         "障がい児保育",
-        "休日保育",
-        "体調不良児対応型"
+        "休日保育"
       ],
       "approvedOn": "1966年7月1日",
       "note": null,
@@ -40030,7 +39989,7 @@
         0,
         0,
         0,
-        2
+        3
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -40193,8 +40152,8 @@
         "total": 50,
         "byAge": [
           14,
-          18,
-          18,
+          15,
+          21,
           0,
           0,
           0
@@ -40400,11 +40359,11 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 320,
+        "total": 330,
         "byAge": [
           0,
           0,
-          20,
+          30,
           100,
           100,
           100
@@ -40421,7 +40380,7 @@
         "障がい児保育"
       ],
       "approvedOn": "2018年4月1日",
-      "note": "認可定員は1号240人＋2号・3号80人。",
+      "note": "認可定員は1号240人＋2号・3号90人。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12689/k16-1-akenohosi.pdf",
@@ -40645,9 +40604,9 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          5,
           6,
-          8
+          6,
+          7
         ]
       },
       "hours": {
@@ -40772,7 +40731,7 @@
       "lat": 34.725658,
       "lng": 135.552255,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -40829,9 +40788,9 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          2,
-          7,
-          10
+          3,
+          4,
+          12
         ]
       },
       "hours": {
@@ -40924,7 +40883,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は6歳まで。事業開始 平成30年7月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は6歳まで。事業開始 平成30年3月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=119",
@@ -40968,10 +40927,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成30年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成30年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=122",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=121",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -41013,10 +40972,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年7月31日。地図の位置は住所から推定しています。所在地は市の認可外保育施設一覧（詳細）の値です。区の企業主導型の空き状況一覧では「中宮1-12-26」と書かれています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年3月1日。地図の位置は住所から推定しています。所在地は市の認可外保育施設一覧（詳細）の値です。区の企業主導型の空き状況一覧では「中宮1-12-26」と書かれています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=120",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=119",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -41058,10 +41017,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は満3歳まで。事業開始 令和2年1月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は満3歳まで。事業開始 平成31年4月26日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=121",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=120",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -41102,7 +41061,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年3月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年11月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=121",
@@ -41147,7 +41106,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は6歳まで。事業開始 令和5年11月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は6歳まで。事業開始 令和4年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=120",
@@ -41174,8 +41133,8 @@
         0,
         2,
         0,
-        2,
-        12
+        3,
+        11
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -41280,8 +41239,8 @@
         0,
         0,
         0,
-        2,
-        1,
+        0,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -41382,7 +41341,7 @@
         0,
         0,
         3,
-        3,
+        4,
         0
       ],
       "sharedVacancy": null,
@@ -41431,7 +41390,7 @@
       "lat": 34.742543,
       "lng": 135.500742,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         0,
@@ -41536,7 +41495,7 @@
       "lng": 135.475312,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         null,
         null,
@@ -41696,7 +41655,7 @@
         null,
         null,
         0,
-        1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -41789,7 +41748,7 @@
         0,
         0,
         0,
-        1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -41942,7 +41901,7 @@
       "lat": 34.716932,
       "lng": 135.466383,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         0,
@@ -42046,11 +42005,11 @@
       "lat": 34.741908,
       "lng": 135.499036,
       "vacancies": [
-        2,
         0,
         0,
-        2,
-        1,
+        0,
+        0,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -42242,9 +42201,9 @@
       "lat": 34.747053,
       "lng": 135.486898,
       "vacancies": [
-        3,
         0,
-        1,
+        0,
+        0,
         0,
         0,
         0
@@ -42357,14 +42316,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 84,
+        "total": 87,
         "byAge": [
           9,
           12,
           12,
-          17,
-          17,
-          17
+          18,
+          18,
+          18
         ]
       },
       "hours": {
@@ -42403,18 +42362,18 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         0,
         0,
         0
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 129,
+        "total": 124,
         "byAge": [
           9,
           19,
-          24,
+          19,
           25,
           26,
           26
@@ -42725,14 +42684,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 160,
+        "total": 163,
         "byAge": [
           10,
           18,
           22,
-          34,
+          36,
           38,
-          38
+          39
         ]
       },
       "hours": {
@@ -42747,7 +42706,7 @@
         "体調不良児対応型"
       ],
       "approvedOn": "2019年10月1日",
-      "note": "認可定員は1号35人＋2号・3号125人。",
+      "note": "認可定員は1号35人＋2号・3号128人。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12685/k12-5-hakuaisya.pdf",
@@ -42878,7 +42837,7 @@
       "lng": 135.487121,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         0,
         0,
@@ -42988,7 +42947,7 @@
       "vacancies": [
         0,
         0,
-        2,
+        4,
         0,
         0,
         0
@@ -43039,7 +42998,7 @@
       "lat": 34.731005,
       "lng": 135.472102,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         0,
@@ -43068,7 +43027,7 @@
         "障がい児保育"
       ],
       "approvedOn": "2025年4月1日",
-      "note": "認可定員は1号15人＋2号・3号78人。空き人数は区の公表値です（大阪市の空き情報マップのデータでは0歳児0人）。",
+      "note": "認可定員は1号15人＋2号・3号78人。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12685/k12-11-makotoyodogawa.pdf",
@@ -43092,8 +43051,8 @@
       "lng": 135.492915,
       "vacancies": [
         0,
-        0,
-        2,
+        1,
+        1,
         null,
         null,
         null
@@ -43137,8 +43096,8 @@
       "lat": 34.735128,
       "lng": 135.484133,
       "vacancies": [
-        0,
-        0,
+        2,
+        1,
         0,
         null,
         null,
@@ -43185,7 +43144,7 @@
       "vacancies": [
         0,
         0,
-        3,
+        2,
         null,
         null,
         null
@@ -43368,19 +43327,13 @@
       "lng": 135.471294,
       "vacancies": [
         0,
-        1,
-        1,
+        0,
+        0,
         null,
         null,
         null
       ],
-      "sharedVacancy": {
-        "ages": [
-          1,
-          2
-        ],
-        "count": 1
-      },
+      "sharedVacancy": null,
       "capacity": {
         "total": 5,
         "byAge": [
@@ -43396,7 +43349,7 @@
       },
       "services": [],
       "approvedOn": "2016年2月1日",
-      "note": "満1歳以上である児童（利用開始月中に満1歳となる場合を含む）のみ利用できます（区の空き情報の注記）。空き人数は区の公表値です（大阪市の空き情報マップのデータでは2歳児0人）。1・2歳クラスの空きはあわせて1人です（区の空き情報の注記）。",
+      "note": "満1歳以上である児童（利用開始月中に満1歳となる場合を含む）のみ利用できます（区の空き情報の注記）。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12685/t12-8-pokokomadori.pdf",
@@ -43419,7 +43372,7 @@
       "lat": 34.726906,
       "lng": 135.490168,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         null,
@@ -43476,8 +43429,8 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          2,
-          7,
+          4,
+          5,
           10
         ]
       },
@@ -43742,8 +43695,8 @@
       "lng": 135.471973,
       "vacancies": [
         0,
-        0,
         3,
+        0,
         null,
         null,
         null
@@ -43785,7 +43738,7 @@
       "address": "大阪市淀川区三国本町3-36-10 カトレアビル1F",
       "phone": "06-6151-3085",
       "lat": 34.736811,
-      "lng": 135.48347035738,
+      "lng": 135.4834704,
       "vacancies": [
         0,
         0,
@@ -43881,7 +43834,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -43969,7 +43922,7 @@
         0,
         0,
         1,
-        1
+        0
       ],
       "sharedVacancy": null,
       "capacity": null,
@@ -44044,7 +43997,7 @@
       "vacancies": [
         0,
         0,
-        2,
+        0,
         0,
         0,
         0
@@ -44103,7 +44056,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 令和元年8月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は3歳まで。事業開始 平成29年1月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=99",
@@ -44148,7 +44101,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳児まで。事業開始 令和4年1月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳児まで。事業開始 平成29年7月26日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=101",
@@ -44192,7 +44145,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は6歳まで。事業開始 平成30年4月27日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は6歳まで。事業開始 平成29年11月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=99",
@@ -44237,7 +44190,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 平成30年9月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は3歳まで。事業開始 平成30年3月27日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=96",
@@ -44281,7 +44234,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 平成30年10月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 平成30年6月4日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=102",
@@ -44325,7 +44278,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年10月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年3月25日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=102",
@@ -44369,7 +44322,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年7月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=96",
@@ -44413,7 +44366,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和4年9月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=100",
@@ -44457,7 +44410,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年10月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年6月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=97",
@@ -44480,7 +44433,7 @@
       "lat": 34.739216,
       "lng": 135.492676,
       "vacancies": [
-        0,
+        1,
         0,
         1,
         null,
@@ -44501,7 +44454,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年1月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年7月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=97",
@@ -44545,7 +44498,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳児まで。事業開始 令和2年2月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳児まで。事業開始 令和元年8月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=100",
@@ -44674,9 +44627,9 @@
       "vacancies": [
         0,
         0,
+        1,
         0,
-        0,
-        0,
+        6,
         0
       ],
       "sharedVacancy": null,
@@ -44747,7 +44700,9 @@
         "saturday": "07:30〜18:30",
         "holiday": null
       },
-      "services": [],
+      "services": [
+        "体調不良児対応型"
+      ],
       "approvedOn": "1976年10月1日",
       "note": null,
       "website": null,
@@ -44777,7 +44732,7 @@
         0,
         1,
         0,
-        1
+        2
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -44880,7 +44835,7 @@
         0,
         0,
         3,
-        2
+        3
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -45127,7 +45082,7 @@
       "wardName": "東淀川区",
       "name": "風の子保育園",
       "kana": "かぜのこほいくえん",
-      "facilityType": "nursery",
+      "facilityType": "kodomoen",
       "licensing": "licensed",
       "detailType": "保育所型認定こども園",
       "ownership": "私立",
@@ -45147,14 +45102,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 141,
+        "total": 147,
         "byAge": [
           9,
           15,
           18,
-          33,
-          33,
-          33
+          35,
+          35,
+          35
         ]
       },
       "hours": {
@@ -45164,14 +45119,13 @@
       },
       "services": [
         "延長保育",
-        "障がい児保育",
-        "地域子育て支援事業"
+        "障がい児保育"
       ],
-      "approvedOn": "1956年9月11日",
-      "note": null,
+      "approvedOn": "2026年4月1日",
+      "note": "認可定員は1号6人＋2号・3号141人。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12686/h13-7-kazenoko.pdf",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12686/k13-8-kazenoko.pdf",
       "infoPdfLabel": "市の施設基本情報(PDF)"
     },
     {
@@ -45349,7 +45303,7 @@
         0,
         0,
         0,
-        1,
+        0,
         0,
         0
       ],
@@ -45399,7 +45353,7 @@
       "lng": 135.511288,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         0,
         0,
@@ -45557,7 +45511,7 @@
         0,
         0,
         3,
-        2,
+        3,
         3,
         3
       ],
@@ -45871,9 +45825,9 @@
       "vacancies": [
         0,
         0,
-        1,
         0,
         1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -46089,14 +46043,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 475,
+        "total": 420,
         "byAge": [
           0,
           0,
           0,
-          145,
-          165,
-          165
+          140,
+          140,
+          140
         ]
       },
       "hours": {
@@ -46109,7 +46063,7 @@
         "障がい児保育"
       ],
       "approvedOn": "2016年4月1日",
-      "note": "認可定員は1号385人＋2号・3号90人。",
+      "note": "認可定員は1号270人＋2号・3号150人。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12686/k13-3-komatu.pdf",
@@ -46342,7 +46296,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -46427,7 +46381,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -46517,8 +46471,8 @@
       "lat": 34.746131,
       "lng": 135.533309,
       "vacancies": [
-        2,
-        1,
+        0,
+        0,
         0,
         null,
         null,
@@ -47034,9 +46988,9 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          4,
+          1,
           7,
-          8
+          11
         ]
       },
       "hours": {
@@ -47202,7 +47156,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -47241,7 +47195,7 @@
       "vacancies": [
         0,
         0,
-        0,
+        2,
         null,
         null,
         null
@@ -47300,10 +47254,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=105",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=104",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -47344,7 +47298,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年7月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年3月28日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=107",
@@ -47388,7 +47342,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は3歳まで。事業開始 平成30年9月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は3歳まで。事業開始 平成30年5月16日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=103",
@@ -47432,7 +47386,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年9月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年6月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=104",
@@ -47460,7 +47414,7 @@
         0,
         0,
         1,
-        4
+        3
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -47477,7 +47431,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は就学前まで。事業開始 令和元年9月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は就学前まで。事業開始 令和元年5月7日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=108",
@@ -47521,7 +47475,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和5年3月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月13日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=106",
@@ -47565,10 +47519,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和4年3月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和2年2月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=107",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=106",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -47609,10 +47563,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は5歳まで。事業開始 令和5年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は5歳まで。事業開始 令和3年3月30日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=108",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=107",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -47654,7 +47608,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳児まで。事業開始 令和6年1月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳児まで。事業開始 令和3年6月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=103",
@@ -47729,7 +47683,7 @@
       "lng": 135.442988,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         0,
         0,
@@ -47782,7 +47736,7 @@
         0,
         0,
         0,
-        0,
+        1,
         2,
         1
       ],
@@ -47816,57 +47770,39 @@
       "infoPdfLabel": "市の施設基本情報(PDF)"
     },
     {
-      "id": "nishiyodogawa-113101",
+      "id": "nishiyodogawa-113322",
       "ward": "nishiyodogawa",
       "wardName": "西淀川区",
-      "name": "柏里保育所",
-      "kana": "おおさかしりつかしわざとほいくしょ",
+      "name": "たからかしわざと園",
+      "kana": "たからかしわざとえん",
       "facilityType": "nursery",
       "licensing": "licensed",
-      "detailType": "保育所",
-      "ownership": "公設置民営",
+      "detailType": "小規模保育事業者―A型",
+      "ownership": "私立",
       "operator": "社会福祉法人 たから福祉会",
-      "postalCode": "555-0022",
-      "address": "大阪市西淀川区柏里3-17-1-101",
-      "phone": "06-6471-0440",
-      "lat": 34.712937,
-      "lng": 135.464988,
+      "postalCode": "555-0012",
+      "address": "大阪市西淀川区柏里3-17-34",
+      "phone": "06-6770-9050",
+      "lat": 34.712788,
+      "lng": 135.465257,
       "vacancies": [
         0,
         0,
         0,
-        1,
-        1,
+        0,
+        0,
         0
       ],
       "sharedVacancy": null,
-      "capacity": {
-        "total": 91,
-        "byAge": [
-          5,
-          10,
-          16,
-          18,
-          20,
-          22
-        ]
-      },
-      "hours": {
-        "weekday": "07:30〜18:30",
-        "saturday": "07:30〜18:30",
-        "holiday": null
-      },
-      "services": [
-        "延長保育",
-        "障がい児保育",
-        "地域子育て支援事業"
-      ],
-      "approvedOn": "1949年1月19日",
+      "capacity": null,
+      "hours": null,
+      "services": [],
+      "approvedOn": null,
       "note": null,
       "website": "https://tkr.or.jp/takara-kashiwazato/",
       "websiteLabel": "公式サイト（西淀川区役所「認可保育施設等一覧表」に掲載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12683/11-kasiwazato.pdf",
-      "infoPdfLabel": "市の施設基本情報(PDF)"
+      "infoPdfUrl": null,
+      "infoPdfLabel": null
     },
     {
       "id": "nishiyodogawa-113203",
@@ -48044,7 +47980,7 @@
       "lng": 135.456603,
       "vacancies": [
         0,
-        1,
+        0,
         1,
         0,
         0,
@@ -48200,8 +48136,8 @@
       "lng": 135.455506,
       "vacancies": [
         0,
-        1,
-        2,
+        0,
+        0,
         null,
         null,
         null
@@ -48359,7 +48295,7 @@
         0,
         1,
         0,
-        1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -48611,7 +48547,7 @@
       "ownership": "私立",
       "operator": "株式会社 さくらブロッサム",
       "postalCode": "555-0022",
-      "address": "大阪市西淀川区姫里2-1-3",
+      "address": "大阪市西淀川区柏里1-14-16",
       "phone": "06-6472-1390",
       "lat": 34.706568,
       "lng": 135.461597,
@@ -48620,19 +48556,19 @@
         0,
         0,
         0,
-        1,
+        0,
         4
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 99,
+        "total": 100,
         "byAge": [
           6,
-          12,
-          18,
-          21,
-          21,
-          21
+          14,
+          14,
+          22,
+          22,
+          22
         ]
       },
       "hours": {
@@ -48677,14 +48613,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 78,
+        "total": 117,
         "byAge": [
-          9,
+          12,
           30,
-          14,
+          30,
           15,
-          5,
-          5
+          15,
+          15
         ]
       },
       "hours": {
@@ -48697,7 +48633,7 @@
         "障がい児保育"
       ],
       "approvedOn": "2025年4月1日",
-      "note": "期間限定保育の枠もあります（空き: 1歳児3人・2歳児6人）。",
+      "note": "期間限定保育の枠もあります（空き: 1歳児1人・2歳児6人）。",
       "website": "https://shiawase-hoiku.com/introduction/himejima/",
       "websiteLabel": "公式サイト（西淀川区役所「認可保育施設等一覧表」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12683/h11-17-shiawaseippaihimejima.pdf",
@@ -48746,6 +48682,7 @@
       },
       "services": [
         "延長保育",
+        "障がい児保育",
         "体調不良児対応型"
       ],
       "approvedOn": "2015年4月1日",
@@ -48781,14 +48718,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 459,
+        "total": 423,
         "byAge": [
           3,
-          12,
-          24,
-          140,
-          140,
-          140
+          20,
+          25,
+          125,
+          125,
+          125
         ]
       },
       "hours": {
@@ -48800,7 +48737,7 @@
         "延長保育"
       ],
       "approvedOn": "2017年4月1日",
-      "note": "認可定員は1号369人＋2号・3号90人。",
+      "note": "認可定員は1号300人＋2号・3号123人。",
       "website": "https://miteshima.jp/",
       "websiteLabel": "公式サイト（西淀川区役所「認可保育施設等一覧表」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12683/k11-2-miteshima.pdf",
@@ -48827,7 +48764,7 @@
         0,
         0,
         0,
-        1,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -48876,7 +48813,7 @@
       "lat": 34.710962,
       "lng": 135.465267,
       "vacancies": [
-        0,
+        1,
         0,
         0,
         null,
@@ -49106,9 +49043,9 @@
       "lat": 34.702008,
       "lng": 135.451208,
       "vacancies": [
-        2,
         0,
-        1,
+        0,
+        0,
         null,
         null,
         null
@@ -49163,8 +49100,8 @@
       "capacity": {
         "total": 19,
         "byAge": [
-          2,
-          7,
+          4,
+          5,
           10
         ]
       },
@@ -49219,7 +49156,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年6月28日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年3月10日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=94",
@@ -49263,7 +49200,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年6月29日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=95",
@@ -49287,7 +49224,7 @@
       "lng": 135.454746,
       "vacancies": [
         1,
-        1,
+        2,
         1,
         0,
         null,
@@ -49307,7 +49244,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年11月30日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月15日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=93",
@@ -49332,7 +49269,7 @@
       "vacancies": [
         0,
         0,
-        1,
+        0,
         null,
         null,
         null
@@ -49351,7 +49288,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和4年8月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=94",
@@ -49395,7 +49332,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月30日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年5月13日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=93",
@@ -49439,7 +49376,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和4年8月31日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和4年3月18日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=92",
@@ -49699,12 +49636,13 @@
       },
       "services": [
         "延長保育",
-        "障がい児保育"
+        "障がい児保育",
+        "地域子育て支援事業"
       ],
       "approvedOn": "2015年4月1日",
       "note": null,
-      "website": null,
-      "websiteLabel": null,
+      "website": "https://www.ans.co.jp/n/seishi/index.html",
+      "websiteLabel": "施設URL（市の施設基本情報より）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12676/h4-13-seishinishikujyo.pdf",
       "infoPdfLabel": "市の施設基本情報(PDF)"
     },
@@ -49722,8 +49660,8 @@
       "postalCode": "554-0022",
       "address": "大阪市此花区春日出中1-15-13",
       "phone": "06-6461-3713",
-      "lat": 34.6806247026287,
-      "lng": 135.451142026006,
+      "lat": 34.6806247,
+      "lng": 135.451142,
       "vacancies": [
         null,
         0,
@@ -49751,7 +49689,6 @@
       },
       "services": [
         "延長保育",
-        "一時預かり",
         "障がい児保育",
         "休日保育",
         "体調不良児対応型",
@@ -49843,14 +49780,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 68,
+        "total": 79,
         "byAge": [
+          6,
           9,
-          11,
-          24,
-          24,
-          0,
-          0
+          16,
+          16,
+          16,
+          16
         ]
       },
       "hours": {
@@ -49944,7 +49881,7 @@
         1,
         2,
         2,
-        2
+        1
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -49988,15 +49925,15 @@
       "postalCode": "554-0002",
       "address": "大阪市此花区伝法2-10-26",
       "phone": "06-6461-2063",
-      "lat": 34.6875998125907,
-      "lng": 135.454985338715,
+      "lat": 34.68759981,
+      "lng": 135.4549853,
       "vacancies": [
         null,
         null,
-        2,
+        0,
         null,
         0,
-        4
+        1
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -50039,13 +49976,13 @@
       "postalCode": "554-0002",
       "address": "大阪市此花区伝法2-10-26",
       "phone": "06-6461-2063",
-      "lat": 34.6876406141924,
-      "lng": 135.455458748576,
+      "lat": 34.68764061,
+      "lng": 135.4554587,
       "vacancies": [
         0,
         0,
         null,
-        1,
+        0,
         null,
         null
       ],
@@ -50096,7 +50033,7 @@
         0,
         0,
         0,
-        0,
+        1,
         1,
         1
       ],
@@ -50577,7 +50514,7 @@
       "lng": 135.468698,
       "vacancies": [
         0,
-        0,
+        2,
         0,
         0,
         1,
@@ -50830,8 +50767,8 @@
       "lng": 135.449302,
       "vacancies": [
         0,
-        1,
-        2,
+        0,
+        0,
         0,
         0,
         0
@@ -50910,7 +50847,7 @@
       "note": null,
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12679/h7-12-yahatayayuyu.pdf",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12679/h7-13-yahatayayuyu.pdf",
       "infoPdfLabel": "市の施設基本情報(PDF)"
     },
     {
@@ -50985,7 +50922,7 @@
       "vacancies": [
         0,
         0,
-        3,
+        1,
         0,
         0,
         0
@@ -51089,7 +51026,7 @@
       "lng": 135.461222,
       "vacancies": [
         0,
-        1,
+        0,
         0,
         5,
         0,
@@ -51404,8 +51341,8 @@
         "total": 10,
         "byAge": [
           1,
-          2,
-          7
+          4,
+          5
         ]
       },
       "hours": {
@@ -51577,7 +51514,7 @@
       "lng": 135.463985,
       "vacancies": [
         0,
-        0,
+        1,
         0,
         null,
         null,
@@ -51841,7 +51778,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成29年9月30日。地図の位置は住所から推定しています。",
       "website": "http://cocoro-hoikuen.jp/",
       "websiteLabel": "公式サイト（港区役所の企業主導型保育事業所の空き情報ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=71",
@@ -51886,7 +51823,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和4年7月29日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年4月1日。地図の位置は住所から推定しています。",
       "website": "https://kidacademy-nursery.jp/nursery/#nursery01",
       "websiteLabel": "公式サイト（港区役所の企業主導型保育事業所の空き情報ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=73",
@@ -51930,7 +51867,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年3月29日。地図の位置は住所から推定しています。",
       "website": "http://kts-tewotsunagou.sunnyday.jp/ksh/ksh.html",
       "websiteLabel": "公式サイト（港区役所の企業主導型保育事業所の空き情報ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=72",
@@ -51975,7 +51912,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年4月1日。地図の位置は住所から推定しています。",
       "website": "https://ichigo-kids.com/",
       "websiteLabel": "公式サイト（港区役所の企業主導型保育事業所の空き情報ページに掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=72",
@@ -52101,11 +52038,11 @@
       "lng": 135.474678,
       "vacancies": [
         0,
-        1,
         0,
-        1,
         0,
-        1
+        0,
+        0,
+        0
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -52266,14 +52203,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 123,
+        "total": 133,
         "byAge": [
           18,
-          18,
-          18,
-          23,
-          23,
-          23
+          20,
+          20,
+          25,
+          25,
+          25
         ]
       },
       "hours": {
@@ -52287,7 +52224,7 @@
         "障がい児保育"
       ],
       "approvedOn": "2022年4月1日",
-      "note": "認可定員は1号15人＋2号・3号108人。",
+      "note": "認可定員は1号15人＋2号・3号118人。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12680/k8-5-tsurumachiuminokaze.pdf",
@@ -52311,7 +52248,7 @@
       "lng": 135.477133,
       "vacancies": [
         0,
-        1,
+        0,
         2,
         null,
         null,
@@ -52321,8 +52258,8 @@
       "capacity": {
         "total": 85,
         "byAge": [
-          15,
-          50,
+          18,
+          47,
           20,
           0,
           0,
@@ -52467,8 +52404,8 @@
       "lng": 135.475904,
       "vacancies": [
         null,
-        1,
         0,
+        1,
         1,
         0,
         0
@@ -52583,9 +52520,9 @@
       "capacity": {
         "total": 278,
         "byAge": [
-          14,
-          42,
-          42,
+          18,
+          40,
+          40,
           60,
           60,
           60
@@ -52624,11 +52561,11 @@
       "lng": 135.455976,
       "vacancies": [
         0,
-        16,
+        14,
         8,
-        17,
+        16,
         9,
-        16
+        15
       ],
       "sharedVacancy": null,
       "capacity": {
@@ -52678,7 +52615,7 @@
       "vacancies": [
         0,
         0,
-        2,
+        0,
         2,
         1,
         1
@@ -52776,8 +52713,8 @@
       "lng": 135.4727,
       "vacancies": [
         0,
-        1,
-        1,
+        0,
+        0,
         null,
         null,
         null
@@ -52786,8 +52723,8 @@
       "capacity": {
         "total": 13,
         "byAge": [
-          3,
-          5,
+          4,
+          4,
           5
         ]
       },
@@ -52868,7 +52805,7 @@
       "lng": 135.47440493964,
       "vacancies": [
         0,
-        2,
+        0,
         0,
         null,
         null,
@@ -52888,7 +52825,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年11月29日。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年3月28日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=74",
@@ -52932,7 +52869,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年12月28日。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和3年5月1日。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=75",
@@ -53113,7 +53050,7 @@
         0,
         0,
         0,
-        1,
+        2,
         2,
         0
       ],
@@ -53174,12 +53111,12 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 140,
+        "total": 126,
         "byAge": [
+          12,
           14,
-          18,
-          25,
-          25,
+          20,
+          22,
           29,
           29
         ]
@@ -53227,14 +53164,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 193,
+        "total": 130,
         "byAge": [
-          24,
-          30,
-          30,
-          33,
-          38,
-          38
+          10,
+          22,
+          23,
+          25,
+          25,
+          25
         ]
       },
       "hours": {
@@ -53281,14 +53218,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 245,
+        "total": 257,
         "byAge": [
           18,
           35,
           42,
-          50,
-          50,
-          50
+          54,
+          54,
+          54
         ]
       },
       "hours": {
@@ -53298,14 +53235,13 @@
       },
       "services": [
         "延長保育",
-        "障がい児保育",
-        "体調不良児対応型"
+        "障がい児保育"
       ],
-      "approvedOn": "1952年4月1日",
-      "note": null,
+      "approvedOn": "2026年4月1日",
+      "note": "認可定員は1号12人＋2号・3号245人。",
       "website": "https://www.kohamagakuen.com/",
       "websiteLabel": "公式サイト（住之江区役所「保育所（園）・認定こども園・地域型保育事業所」に掲載）",
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12693/h20-3-kohamagakuen.pdf",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12693/k20-10-kohamagakuenn.pdf",
       "infoPdfLabel": "市の施設基本情報(PDF)"
     },
     {
@@ -53429,7 +53365,7 @@
       "vacancies": [
         0,
         0,
-        0,
+        1,
         0,
         0,
         0
@@ -53490,14 +53426,14 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 120,
+        "total": 102,
         "byAge": [
           9,
+          15,
+          18,
           20,
           20,
-          23,
-          24,
-          24
+          20
         ]
       },
       "hours": {
@@ -53541,11 +53477,11 @@
       ],
       "sharedVacancy": null,
       "capacity": {
-        "total": 82,
+        "total": 79,
         "byAge": [
           7,
           12,
-          15,
+          12,
           16,
           16,
           16
@@ -53691,7 +53627,7 @@
       "vacancies": [
         0,
         0,
-        0,
+        1,
         5,
         0,
         0
@@ -53857,9 +53793,9 @@
         "total": 132,
         "byAge": [
           6,
-          14,
           12,
-          30,
+          12,
+          32,
           35,
           35
         ]
@@ -53875,7 +53811,7 @@
         "体調不良児対応型"
       ],
       "approvedOn": "2015年4月1日",
-      "note": "認可定員は1号82人＋2号・3号50人。",
+      "note": "認可定員は1号84人＋2号・3号48人。",
       "website": "https://www.misaki.ed.jp/",
       "websiteLabel": "公式サイト（住之江区役所「保育所（園）・認定こども園・地域型保育事業所」に掲載）",
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12693/k20-1-misaki.pdf",
@@ -54109,9 +54045,9 @@
       "vacancies": [
         0,
         0,
-        2,
         0,
-        1,
+        0,
+        0,
         0
       ],
       "sharedVacancy": null,
@@ -54345,7 +54281,7 @@
       "vacancies": [
         1,
         2,
-        1,
+        0,
         null,
         null,
         null
@@ -54481,7 +54417,7 @@
       "lat": 34.622396,
       "lng": 135.480622,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -54528,8 +54464,8 @@
       "lng": 135.478291,
       "vacancies": [
         null,
-        3,
-        1,
+        2,
+        0,
         0,
         3,
         4
@@ -54584,10 +54520,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年5月29日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年12月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=140",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=139",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -54629,7 +54565,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和元年9月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成31年4月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=140",
@@ -54673,10 +54609,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年12月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年8月29日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=139",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=138",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -54718,10 +54654,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年7月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=137",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=136",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -54762,7 +54698,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年10月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年6月11日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=137",
@@ -54785,7 +54721,7 @@
       "lat": 34.621769,
       "lng": 135.476273,
       "vacancies": [
-        1,
+        0,
         0,
         0,
         null,
@@ -54806,7 +54742,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 平成30年8月31日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 平成30年2月26日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=138",
@@ -54850,7 +54786,7 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和2年2月28日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和元年10月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
       "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=139",
@@ -54895,10 +54831,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "月極保育の対象は2歳まで。事業開始 令和3年4月30日。地図の位置は住所から推定しています。",
+      "note": "月極保育の対象は2歳まで。事業開始 令和2年10月1日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=138",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=137",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     },
     {
@@ -54945,10 +54881,10 @@
         "国の無償化対象"
       ],
       "approvedOn": null,
-      "note": "1・2歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は6歳まで。事業開始 令和5年7月31日。地図の位置は住所から推定しています。",
+      "note": "1・2歳クラスの空きはあわせて1人です（区の一覧で結合表記）。月極保育の対象は6歳まで。事業開始 平成30年12月12日。地図の位置は住所から推定しています。",
       "website": null,
       "websiteLabel": null,
-      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=141",
+      "infoPdfUrl": "https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf#page=140",
       "infoPdfLabel": "市の認可外保育施設一覧(PDF)"
     }
   ]

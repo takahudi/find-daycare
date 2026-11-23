@@ -311,7 +311,7 @@
       "障がい児保育"
     ],
     "url": null,
-    "approvedOn": "2008年6月1日"
+    "approvedOn": "2008年4月1日"
   },
   "h3-6-aiebie.pdf": {
     "kana": "あいぐらんほいくえんえびえ",
@@ -467,7 +467,7 @@
       ]
     },
     "note": "認可定員は1号3人＋2号・3号241人。",
-    "weekday": "07:00〜19:00",
+    "weekday": "07:00〜18:30",
     "saturday": "07:00〜18:00",
     "services": [
       "延長保育",
@@ -491,8 +491,8 @@
       ]
     },
     "note": "認可定員は1号9人＋2号・3号113人。",
-    "weekday": "07:00〜19:00",
-    "saturday": "07:00〜19:00",
+    "weekday": "07:00〜18:30",
+    "saturday": "07:00〜18:30",
     "services": [
       "延長保育",
       "障がい児保育"
@@ -585,7 +585,7 @@
     "weekday": "07:30〜20:00",
     "saturday": "07:30〜18:30",
     "services": [],
-    "url": null,
+    "url": "https://fukushima.japan-childcare.com/",
     "approvedOn": "2022年4月1日"
   },
   "t3-14-applenoda.pdf": {
@@ -738,8 +738,8 @@
       "total": 19,
       "byAge": [
         3,
-        7,
-        9
+        6,
+        10
       ]
     },
     "weekday": "07:30〜19:30",
