@@ -20,6 +20,8 @@ export function useFilters(initial: { wardIds: string[]; sort: SortKey }) {
     toggleAge: (age: number) => void setQuery((current) => ({ age: toggleSelection(current.age, age, AGES) })),
     toggleWard: (wardId: string) =>
       void setQuery((current) => ({ ward: toggleSelection(current.ward, wardId, initial.wardIds) })),
+    selectAllWards: () => void setQuery({ ward: initial.wardIds }),
+    clearWards: () => void setQuery({ ward: [] }),
     toggleFacilityType: (facilityType: FacilityType) =>
       void setQuery((current) => ({ type: toggleSelection(current.type, facilityType, FACILITY_TYPES) })),
     setOnlyOpen: (value: boolean) => void setQuery({ open: value }),
