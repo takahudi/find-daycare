@@ -6,10 +6,22 @@ import { cell, normName, normPhone, parseShared, vacancy } from './text.ts';
 
 // 空き情報CSVで施設情報PDFのURLが空欄の施設（施設一覧ページ上のPDFと名称で対応付け）
 const PDF_FALLBACK: Record<string, string> = {
-  ブライトこども園大阪谷町: 'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/h5-10-buraitotanimachi.pdf',
+  ブライトこども園大阪谷町: 'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/k5-3-buraitooosakatanimati.pdf',
   谷町中央こども園: 'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/h5-18-tanimachichuo.pdf',
   なにわのみやPreSchool: 'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12677/h5-23-naniwanomiya.pdf',
+  // 認定こども園への移行でPDF名が変わった施設（CSVは移行前のPDF名のまま）
+  明の守たまつ保育園: 'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12687/k14-2-akenomoritamatu.pdf',
+  粉浜学園: 'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000012/12693/k20-10-kohamagakuenn.pdf',
 };
+// 市は施設一覧のPDFの通し番号だけを振り直すことがあり（k5-5-arbanchilduemachi.pdf → k5-1-arbanchilduemachi.pdf）、
+// CSVや PDF_FALLBACK は古い名前のまま残る。通し番号を除いた名前が1件だけ一致すれば同じ施設のPDFとみなす
+const pdfSlug = (file: string) => file.replace(/^[a-z]+\d+-\d+-/, '');
+function findListedPdf(url: string, listedPdfs: Set<string>) {
+  const file = url.split('/').pop()!;
+  if (listedPdfs.has(file)) return url;
+  const same = [...listedPdfs].filter((l) => pdfSlug(l) === pdfSlug(file));
+  return same.length === 1 ? url.replace(/[^/]+$/, same[0]) : undefined;
+}
 const FACILITY_TYPE: Record<string, Facility['facilityType']> = {
   保育所: 'nursery',
   認定こども園: 'kodomoen',
@@ -52,8 +64,10 @@ export function buildLicensed(ward: WardConfig, wardRows: string[][], input: War
     if (!listed) warn(`施設一覧に見つからない: ${name}`);
 
     // CSVのPDFのURLが施設一覧ページにない（リンク切れ）ものは載せない
-    const infoUrl = [csvInfoUrl, PDF_FALLBACK[key]].find((u) => u && listedPdfs.has(u.split('/').pop()!));
+    const infoUrl = [csvInfoUrl, PDF_FALLBACK[key]].map((u) => u && findListedPdf(u, listedPdfs)).find(Boolean);
     if (csvInfoUrl && !infoUrl) warn(`CSVの施設情報PDFが施設一覧ページにないため非掲載: ${name} ${csvInfoUrl}`);
+    if (csvInfoUrl && infoUrl && infoUrl !== csvInfoUrl)
+      warn(`CSVの施設情報PDFが施設一覧ページで改名されているため、改名後のPDFを使用: ${name} ${infoUrl.split('/').pop()}`);
     const pdfFile = infoUrl?.split('/').pop();
     const auto = pdfFile ? pdfDetails[pdfFile] : undefined;
     const manual = pdfFile ? manualDetails[pdfFile] : undefined;
@@ -72,8 +86,10 @@ export function buildLicensed(ward: WardConfig, wardRows: string[][], input: War
     const site = websites[key];
     if (!FACILITY_TYPE[category]) throw new Error(`unknown category: ${category}`);
     // CSVの施設番号が別の施設と重なっていることがある（鶴見区のポピンズナーサリースクール鶴見緑地と茨田東こども園）。後の行は基本情報PDFの名前を足して区別する
+    // IDは共有URLに入るため、施設一覧ページ側でPDFが改名されても変わらないようCSVのPDF名を使う
     const baseId = `${ward.id}-${sortKey}`;
-    const id = wardFacilities.some((x) => x.id === baseId) ? `${baseId}-${(pdfFile ?? key).replace(/\.pdf$/, '')}` : baseId;
+    const idPdf = csvInfoUrl ? csvInfoUrl.split('/').pop() : pdfFile;
+    const id = wardFacilities.some((x) => x.id === baseId) ? `${baseId}-${(idPdf ?? key).replace(/\.pdf$/, '')}` : baseId;
     if (id !== baseId) warn(`CSVの施設番号 ${sortKey} が重複しているため、IDを ${id} にした: ${name}`);
 
     wardFacilities.push({

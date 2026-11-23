@@ -16,6 +16,12 @@ import { geocode } from './geocode.ts';
 const KIGYO_DETAIL_PDF =
   'https://www.city.osaka.lg.jp/kodomo/cmsfiles/contents/0000585/585842/21_sisetu_itiran_tiikiwaku_ari.pdf';
 
+// 区の空き情報の表と所在地を補う資料で名前が違う施設（空き情報の表の名前 → 所在地の資料の名前。normName の形）
+const KIGYO_INFO_ALIASES: Record<string, string> = {
+  // 浪速区の施設一覧は改称（令和8年10月）前の名前のまま
+  'もりのなかま保育園日本橋ひよこ園サイエンス+': 'もりのなかま保育園日本橋ひよこ園',
+};
+
 /**
  * 企業主導型の設置者名。市のPDFの値を基本にし、PDFで語が抜けている（区の表の値がPDFの値の文字をすべて順に含む）
  * ときだけ区の表の値を使う。区の表にも誤記があるため（例:「サエンス」）、単純には区の表を優先しない
@@ -153,7 +159,8 @@ export async function buildKigyo(ward: WardConfig, input: WardInputs, warn: Warn
         throw new Error(`${ward.name}: 企業主導型を市の一覧と施設名で対応付けられない: ${name}（候補${hits.length}件）`);
       byName = withPhone(hits[0][1], hits[0][0]);
     } else if (!infoCells.length) {
-      const info = infoRows.find((r) => r.length > 1 && infoKey(r[0].text) === infoKey(name));
+      const key = infoKey(name);
+      const info = infoRows.find((r) => r.length > 1 && infoKey(r[0].text) === (KIGYO_INFO_ALIASES[key] ?? key));
       if (!info) throw new Error(`${ward.name}: 企業主導型の所在地が区の施設一覧にない: ${name}`);
       infoCells = infoCols.map((k) => info[k]);
     }

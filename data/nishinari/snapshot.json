@@ -1,5 +1,5 @@
 {
-  "fetchedOn": "2026-10-22",
+  "fetchedOn": "2026-11-22",
   "files": {
     "facility-pdfs/24-kitatumori.pdf": {
       "sha256": "7509da0e838541f0d6502d2f2d8568a22dff84a4a68f2751361ec8a7943c3c7e",
@@ -70,19 +70,19 @@
       "size": 969604
     },
     "kigyo_page.html": {
-      "sha256": "3aac8e640fea37e5f5ae3effa2085314416f5a58e99b7479a0f82bcbf4f09096",
-      "size": 28676
+      "sha256": "9461bf5955b4479825cd66e222790c92e3aa78be7feb0da8bfa7e2dc5c8a52d4",
+      "size": 28675
     },
     "list.pdf": {
-      "sha256": "6e2a89a20bce67c4721f3e5d671ac0869655a4d0f65d923f03247823eaed7af7",
-      "size": 315697
+      "sha256": "9d53801a43b520fcc33ee700143590493111af4567e0400f051fa71bb44aaf24",
+      "size": 315540
     },
     "list.xlsx": {
       "sha256": "943308dc80f929a40bbe174a56f2bddaa033af2e1b9f081a6ebf429e61a6d6e3",
       "size": 11853
     },
     "vacancy_page.html": {
-      "sha256": "9acf5414a1eabdc07314060238c6e0d731977a0be6ed4aa10e59625336092af5",
+      "sha256": "c6733f59b76400316ca05c40441fa9f02c9acbc45b1b45bc84ed4f73c550b9c8",
       "size": 30373
     }
   }

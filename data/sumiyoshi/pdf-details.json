@@ -426,29 +426,6 @@
     "url": null,
     "approvedOn": "2025年7月1日"
   },
-  "h21-3-shionnyuji.pdf": {
-    "kana": "しおんにゅうじほいくえん",
-    "capacity": {
-      "total": 76,
-      "byAge": [
-        20,
-        28,
-        28,
-        0,
-        0,
-        0
-      ]
-    },
-    "weekday": "07:00〜19:00",
-    "saturday": "07:00〜19:00",
-    "services": [
-      "延長保育",
-      "障がい児保育",
-      "体調不良児対応型"
-    ],
-    "url": null,
-    "approvedOn": "1981年4月1日"
-  },
   "h21-5-shionruri2nyuji.pdf": {
     "kana": "しおんるりつーにゅうじほいくえん",
     "capacity": {
@@ -463,7 +440,7 @@
       ]
     },
     "weekday": "07:00〜19:00",
-    "saturday": "07:00〜19:00",
+    "saturday": "07:00〜18:00",
     "services": [
       "延長保育",
       "障がい児保育"
@@ -471,37 +448,13 @@
     "url": null,
     "approvedOn": "2001年4月1日"
   },
-  "h21-6-shionruri.pdf": {
-    "kana": "しおんるりほいくえん",
-    "capacity": {
-      "total": 171,
-      "byAge": [
-        7,
-        7,
-        7,
-        50,
-        50,
-        50
-      ]
-    },
-    "weekday": "07:00〜19:00",
-    "saturday": "07:00〜19:00",
-    "services": [
-      "延長保育",
-      "一時預かり",
-      "障がい児保育",
-      "地域子育て支援事業"
-    ],
-    "url": null,
-    "approvedOn": "1995年11月1日"
-  },
   "h21-7-tairyounyuji.pdf": {
     "kana": "たいりょうにゅうじほいくえん",
     "capacity": {
-      "total": 48,
+      "total": 44,
       "byAge": [
         12,
-        16,
+        12,
         20,
         0,
         0,
@@ -521,12 +474,12 @@
   "h21-8-tairyou.pdf": {
     "kana": "たいりょうほいくえん",
     "capacity": {
-      "total": 120,
+      "total": 114,
       "byAge": [
         10,
-        17,
+        13,
         0,
-        32,
+        30,
         30,
         31
       ]
@@ -636,6 +589,30 @@
     "url": null,
     "approvedOn": "2025年4月1日"
   },
+  "k21-12-shionnruri.pdf": {
+    "kana": "しおんるりこどもえん",
+    "capacity": {
+      "total": 247,
+      "byAge": [
+        20,
+        31,
+        31,
+        55,
+        55,
+        55
+      ]
+    },
+    "note": "認可定員は1号15人＋2号・3号232人。",
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜18:00",
+    "services": [
+      "延長保育",
+      "一時預かり",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2026年4月1日"
+  },
   "k21-2-mandai.pdf": {
     "kana": "にんていこどもえんまんだいようちえん",
     "capacity": {
@@ -706,17 +683,17 @@
   "k21-5-higasikohama.pdf": {
     "kana": "にんていこどもえんひがしこはまようちえん",
     "capacity": {
-      "total": 221,
+      "total": 234,
       "byAge": [
         0,
-        0,
-        11,
+        12,
+        12,
         70,
         70,
         70
       ]
     },
-    "note": "認可定員は1号150人＋2号・3号71人。",
+    "note": "認可定員は1号140人＋2号・3号94人。",
     "weekday": "07:30〜18:30",
     "saturday": "07:30〜18:30",
     "services": [
@@ -900,6 +877,22 @@
     "url": "https://www.alohahoiku.com/tezukayama/",
     "approvedOn": "2024年4月1日"
   },
+  "t21-14-sumie.pdf": {
+    "kana": "すみえほいくえん",
+    "capacity": {
+      "total": 12,
+      "byAge": [
+        3,
+        4,
+        5
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": "https://www.ontoku.or.jp/facilities/sumie/",
+    "approvedOn": "2026年4月1日"
+  },
   "t21-2-kidsroombabybee.pdf": {
     "kana": "きっずるーむべいびーびー",
     "capacity": {
@@ -929,7 +922,7 @@
     "weekday": "07:30〜19:00",
     "saturday": "07:30〜18:30",
     "services": [],
-    "url": null,
+    "url": "https://hoiku.smile-company.net/facility/yamanouchi/",
     "approvedOn": "2023年4月1日"
   },
   "t21-4-minamisumiyoshitubasa.pdf": {
@@ -961,7 +954,7 @@
     "weekday": "07:30〜19:30",
     "saturday": "07:30〜19:30",
     "services": [],
-    "url": null,
+    "url": "https://panda-hoikuen.co.jp/",
     "approvedOn": "2017年4月1日"
   },
   "t21-6-seiaihigashikohama.pdf": {
@@ -1002,8 +995,8 @@
       "total": 19,
       "byAge": [
         5,
-        7,
-        7
+        6,
+        8
       ]
     },
     "weekday": "07:30〜19:30",
@@ -1017,8 +1010,8 @@
     "capacity": {
       "total": 19,
       "byAge": [
-        5,
-        6,
+        3,
+        8,
         8
       ]
     },

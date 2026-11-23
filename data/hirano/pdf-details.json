@@ -723,9 +723,11 @@
     "weekday": "07:30〜18:30",
     "saturday": "07:30〜18:30",
     "services": [
+      "延長保育",
+      "一時預かり",
       "障がい児保育"
     ],
-    "url": "https://nishihirano.com/",
+    "url": "https://nishihiranoyouchien.ed.jp",
     "approvedOn": "2016年4月1日"
   },
   "k23-4-kougenji.pdf": {
@@ -856,7 +858,7 @@
     "weekday": "07:30〜19:00",
     "saturday": "07:30〜18:30",
     "services": [],
-    "url": null,
+    "url": "https://hoiku.smile-company.net/facility/hirano/",
     "approvedOn": "2023年4月1日"
   },
   "t23-3-cloverhimawari.pdf": {
@@ -880,9 +882,9 @@
     "capacity": {
       "total": 19,
       "byAge": [
-        3,
-        8,
-        8
+        5,
+        7,
+        7
       ]
     },
     "weekday": "07:30〜19:00",
@@ -890,5 +892,21 @@
     "services": [],
     "url": null,
     "approvedOn": "2025年4月1日"
+  },
+  "t23-5-hiranohidamaridai2.pdf": {
+    "kana": "ひらのひだまりだいにほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        6,
+        6,
+        7
+      ]
+    },
+    "weekday": "07:30〜19:00",
+    "saturday": "07:30〜19:00",
+    "services": [],
+    "url": null,
+    "approvedOn": "2026年4月1日"
   }
 }

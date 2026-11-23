@@ -241,6 +241,7 @@
     "services": [
       "延長保育",
       "障がい児保育",
+      "休日保育",
       "体調不良児対応型"
     ],
     "url": null,
@@ -315,11 +316,11 @@
   "h6-24-taiyouminamihorie.pdf": {
     "kana": "たいようみなみほりえほいくえん",
     "capacity": {
-      "total": 94,
+      "total": 93,
       "byAge": [
         11,
         11,
-        12,
+        11,
         20,
         20,
         20
@@ -562,29 +563,6 @@
     "url": null,
     "approvedOn": "2010年4月1日"
   },
-  "h6-9-shinmachi.pdf": {
-    "kana": "しんまちほいくえん",
-    "capacity": {
-      "total": 72,
-      "byAge": [
-        7,
-        13,
-        13,
-        13,
-        13,
-        13
-      ]
-    },
-    "weekday": "07:30〜19:00",
-    "saturday": "07:30〜19:00",
-    "services": [
-      "延長保育",
-      "障がい児保育",
-      "体調不良児対応型"
-    ],
-    "url": null,
-    "approvedOn": "2012年7月1日"
-  },
   "k6-1-akebonohorie.pdf": {
     "kana": "あけぼのほりえこどもえん",
     "capacity": {
@@ -650,6 +628,7 @@
     "weekday": "07:30〜18:30",
     "saturday": "07:30〜18:30",
     "services": [
+      "一時預かり",
       "障がい児保育"
     ],
     "url": null,
@@ -672,7 +651,7 @@
     "weekday": "07:30〜19:00",
     "saturday": "07:30〜19:00",
     "services": [
-      "一時預かり",
+      "延長保育",
       "障がい児保育"
     ],
     "url": null,
@@ -719,6 +698,29 @@
     "services": [],
     "url": null,
     "approvedOn": "2025年4月1日"
+  },
+  "k6-7-sinnmati.pdf": {
+    "kana": "しんまちこどもえん",
+    "capacity": {
+      "total": 75,
+      "byAge": [
+        7,
+        13,
+        13,
+        14,
+        14,
+        14
+      ]
+    },
+    "note": "認可定員は1号3人＋2号・3号72人。",
+    "weekday": "07:30〜19:00",
+    "saturday": "07:30〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2026年4月1日"
   },
   "t6-1-ohisamaroom.pdf": {
     "kana": "おひさまるーむ",
@@ -789,8 +791,8 @@
     "capacity": {
       "total": 19,
       "byAge": [
-        2,
-        7,
+        4,
+        5,
         10
       ]
     },
@@ -885,9 +887,9 @@
     "capacity": {
       "total": 19,
       "byAge": [
-        4,
+        5,
         7,
-        8
+        7
       ]
     },
     "weekday": "07:30〜19:00",

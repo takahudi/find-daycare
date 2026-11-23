@@ -70,28 +70,6 @@
     "url": null,
     "approvedOn": "1967年12月1日"
   },
-  "h5-10-buraitotanimachi.pdf": {
-    "kana": "ぶらいとほいくえんおおさかたにまち",
-    "capacity": {
-      "total": 81,
-      "byAge": [
-        9,
-        12,
-        12,
-        16,
-        16,
-        16
-      ]
-    },
-    "weekday": "07:00〜19:00",
-    "saturday": "07:00〜19:00",
-    "services": [
-      "延長保育",
-      "障がい児保育"
-    ],
-    "url": null,
-    "approvedOn": "2015年4月1日"
-  },
   "h5-11-ayumihigashi.pdf": {
     "kana": "あゆみひがしほいくえん",
     "capacity": {
@@ -174,8 +152,7 @@
     "weekday": "07:00〜20:00",
     "saturday": "07:00〜20:00",
     "services": [
-      "延長保育",
-      "障がい児保育"
+      "延長保育"
     ],
     "url": null,
     "approvedOn": "2017年6月1日"
@@ -226,28 +203,6 @@
     "url": null,
     "approvedOn": "2019年6月1日"
   },
-  "h5-18-tanimachichuo.pdf": {
-    "kana": "たにまちちゅうおうほいくえん",
-    "capacity": {
-      "total": 84,
-      "byAge": [
-        12,
-        13,
-        14,
-        15,
-        15,
-        15
-      ]
-    },
-    "weekday": "07:00〜19:00",
-    "saturday": "07:00〜19:00",
-    "services": [
-      "延長保育",
-      "障がい児保育"
-    ],
-    "url": null,
-    "approvedOn": "2021年5月1日"
-  },
   "h5-19-kuorisutaniroku.pdf": {
     "kana": "くおりすきっずたにろくほいくえん",
     "capacity": {
@@ -264,7 +219,8 @@
     "weekday": "07:00〜20:00",
     "saturday": "07:00〜19:00",
     "services": [
-      "延長保育"
+      "延長保育",
+      "障がい児保育"
     ],
     "url": null,
     "approvedOn": "2022年4月1日"
@@ -333,7 +289,7 @@
       "一時預かり",
       "障がい児保育"
     ],
-    "url": "https://bioskids.jp/",
+    "url": "https://bios-k.com/",
     "approvedOn": "2023年4月1日"
   },
   "h5-23-naniwanomiya.pdf": {
@@ -420,6 +376,25 @@
     ],
     "url": null,
     "approvedOn": "2025年4月1日"
+  },
+  "h5-27-sakurasakumirai_touhei.pdf": {
+    "kana": "さくらさくみらいとうへい",
+    "capacity": {
+      "total": 76,
+      "byAge": [
+        6,
+        10,
+        12,
+        16,
+        16,
+        16
+      ]
+    },
+    "weekday": "07:30〜19:00",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2026年4月1日"
   },
   "h5-3-mothershipsenba.pdf": {
     "kana": "まざーしっぷせんばほいくえん",
@@ -508,7 +483,7 @@
       "延長保育",
       "障がい児保育"
     ],
-    "url": null,
+    "url": "https://sousuikai287.jp/",
     "approvedOn": "2012年11月1日"
   },
   "h5-8-uemachimidori.pdf": {
@@ -556,7 +531,7 @@
     "url": null,
     "approvedOn": "2015年1月1日"
   },
-  "k5-5-arbanchilduemachi.pdf": {
+  "k5-1-arbanchilduemachi.pdf": {
     "kana": "あーばんちゃいるどこどもえんうえまち",
     "capacity": {
       "total": 201,
@@ -581,7 +556,7 @@
     "url": null,
     "approvedOn": "2023年4月1日"
   },
-  "k5-6-renbimorinomiya.pdf": {
+  "k5-2-renbimorinomiya.pdf": {
     "kana": "にんていこどもえんれんびようじがくえんもりのみやきんだーすくーる",
     "capacity": {
       "total": 95,
@@ -603,6 +578,52 @@
     ],
     "url": null,
     "approvedOn": "2025年4月1日"
+  },
+  "k5-3-buraitooosakatanimati.pdf": {
+    "kana": "ぶらいとこどもえんおおさかたにまち",
+    "capacity": {
+      "total": 89,
+      "byAge": [
+        9,
+        12,
+        12,
+        20,
+        18,
+        18
+      ]
+    },
+    "note": "認可定員は1号8人＋2号・3号81人。",
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2026年4月1日"
+  },
+  "k5-4-tanimatichuuou.pdf": {
+    "kana": "たにまちちゅうおうこどもえん",
+    "capacity": {
+      "total": 99,
+      "byAge": [
+        12,
+        13,
+        14,
+        20,
+        20,
+        20
+      ]
+    },
+    "note": "認可定員は1号15人＋2号・3号84人。",
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2026年4月1日"
   },
   "t5-1-skip.pdf": {
     "kana": "ほいくえんすきっぷ",

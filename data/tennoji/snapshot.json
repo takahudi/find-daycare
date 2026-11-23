@@ -1,137 +1,149 @@
 {
-  "fetchedOn": "2026-10-21",
+  "fetchedOn": "2026-11-22",
   "files": {
     "facility-pdfs/09-ajihara.pdf": {
       "sha256": "8fcd73fb2729cb7079bf235dcd44b2bd95a3b714f6bb9a7f51d8dbf668c4ab1e",
       "size": 143746
     },
     "facility-pdfs/h9-1-shitennoujiyuuhigaoka.pdf": {
-      "sha256": "3b1f03a497909d4d75ec2dcc5ce9572364dad49829acdcdbfb2a03e0c7d065ba",
-      "size": 1006331
+      "sha256": "e1026418cdd7a0daa8ddc637830058b45e65bd566236e1224e841110276532f3",
+      "size": 1006328
     },
     "facility-pdfs/h9-10-popinstennouji.pdf": {
-      "sha256": "4700d3eca0f70104f7ca563b03d9f6c4a7f3461840be75ea430b919f5a2edb7b",
-      "size": 991353
+      "sha256": "fb3f474c659c330c2a99ada7be88997f2c7c13729bf4b8f1c923f7fcf66fd17b",
+      "size": 995431
     },
     "facility-pdfs/h9-11-sanadayamakaisei.pdf": {
-      "sha256": "c5c328097f711ccccf245b546c7cf4935140052e05cca119a10c05c74aa22154",
-      "size": 1004131
+      "sha256": "6370cbd979365d186d77721bca65c474cfd043b4cc9bf9ef40ad3dd38cb72c4c",
+      "size": 1003996
     },
     "facility-pdfs/h9-12-seiwakaisei.pdf": {
-      "sha256": "b750228fff3673f621ddba7cbeb221b22bc2dde7bbdc6117fcbf697122eb67b1",
-      "size": 1004314
+      "sha256": "5dc06f2d0977b3d59079cd9e9f025e51426a4528d2d67c992d3a078fce9d2caf",
+      "size": 1004318
     },
     "facility-pdfs/h9-13-hopperutennoujiuehonmachi.pdf": {
-      "sha256": "0bf8931b4660faf7152ca449cec29f91a2b2fedf181712f73147dad3485b3ae3",
-      "size": 1001368
+      "sha256": "2787d388cd8075d8439a231c5c9e78b68cffd94af6b19c2b92dc3b83a222ac43",
+      "size": 1000938
     },
     "facility-pdfs/h9-14-kujiratennouji.pdf": {
-      "sha256": "8e69da9348046ea7bf9184e6be74c1dace60cbdabe7a3eb297290011f3a80bfa",
-      "size": 988814
+      "sha256": "069455d28cee4a54d84b4bfc66144219c7c6b544a24fcfaf94fae7f4ebc393aa",
+      "size": 988815
     },
     "facility-pdfs/h9-15-arontiakids.pdf": {
-      "sha256": "40188c0697888a9faa710ab84ee8a64dc28c59b0e9d4322a63d1a46d4ae925e4",
-      "size": 1001016
+      "sha256": "94ad9a5eda2d059a9027f061389ce4db55efc73b237a1deb797f1d3d3cdb5905",
+      "size": 1001125
     },
     "facility-pdfs/h9-16-osakasaisyouyama.pdf": {
-      "sha256": "f55299ca15fd3cfc5c4506c455e4de76bd340f126ff01f4dd94f63fbe6ea250a",
-      "size": 1003541
+      "sha256": "f4b02627afba980bdb0ac6cf6796f1e121d0712b2586caef683c5884b14f6d85",
+      "size": 1005181
     },
     "facility-pdfs/h9-17-yumetamatukuri.pdf": {
-      "sha256": "d742bfbd9cbdd05aa167cc0de031c11caeca02ec4e725c2ad63f6a3b0e0e1ef4",
-      "size": 1000556
+      "sha256": "0ea35deff63309d09fa4f682e18e4439bdf11512ddd76b339e1ddb8c16bb7045",
+      "size": 1000553
     },
     "facility-pdfs/h9-18-hinatahoikuenseiwa.pdf": {
-      "sha256": "0882c0a9d0de72a75a31bef31c315d64c3374e529a0462fc40e6f2193c6258d2",
-      "size": 989868
+      "sha256": "6e642bf17ad3aaa49925b09ce71ea1728a42804c37f75faf48badca1349ab7ff",
+      "size": 990454
     },
     "facility-pdfs/h9-19-momonoki.pdf": {
-      "sha256": "4db51b6f61020f6d20b90978e688769bec1ad6c4a0f27593025e027ba802468c",
-      "size": 984420
-    },
-    "facility-pdfs/h9-2-sukusuku.pdf": {
-      "sha256": "47161fb3b5bd0d21886762030985008878400431d9ab4dc8313b4bc14cc9a0e1",
-      "size": 998688
+      "sha256": "1a690ff9f246289b845ac1e0117da1548459ddba056d63070bd41c447f3ca9c1",
+      "size": 986118
     },
     "facility-pdfs/h9-21-ureshiiuehonmati.pdf": {
-      "sha256": "50a173bece429f51a8055e43336c4a1cc5552feee4a627facb0b9735ec62c2e8",
-      "size": 987394
+      "sha256": "ea31ad07bdd31c068baa661790390c006c62d27b851898929908c16d9c26d258",
+      "size": 991487
     },
     "facility-pdfs/h9-22-ureshiidougasiba.pdf": {
-      "sha256": "774be6a3f5ecb561cf9609a8916a8378f15ee075b4e3cb7587b7da91a0388c7a",
-      "size": 999784
-    },
-    "facility-pdfs/h9-23-kinosiitano.pdf": {
-      "sha256": "8b39ad24313453df1760eed86216f1034a2d47fdc07c48348712471775e6229f",
-      "size": 982843
-    },
-    "facility-pdfs/h9-3-hinodesanadayama.pdf": {
-      "sha256": "0a617f671d0f4e1e3a6a93ee912a387a79bedc9f7a5db0b421982e7c03b27c8f",
-      "size": 995814
-    },
-    "facility-pdfs/h9-4-renbitanimachi.pdf": {
-      "sha256": "ca4b60682dc75d62699307375f18a7935df8b03b1618a60a2254128fd240c26a",
+      "sha256": "3a20239b5538ee7e9d6175bc24a848452b3b3604aa493da44a432e2585023817",
       "size": 999647
     },
+    "facility-pdfs/h9-23-kinosiitano.pdf": {
+      "sha256": "b493baba135ab1c4d74adbefae88ef7f636191648d5285de750abb790727f73c",
+      "size": 982846
+    },
+    "facility-pdfs/h9-24-popinnzuuehonnmati.pdf": {
+      "sha256": "374331a5602a21bb9dfba9b24a251bd14e51d5053f9f63f5a778c3ef0963b0c1",
+      "size": 983253
+    },
+    "facility-pdfs/h9-25-yuuhigaokanijiirokizzu.pdf": {
+      "sha256": "591232d3494910cae2dc4aad66a9aa889d75b97a41ab82a1cdbb4dddf4f5e421",
+      "size": 993478
+    },
+    "facility-pdfs/h9-3-hinodesanadayama.pdf": {
+      "sha256": "31ee08bd50861a1404cd5453c0c31c3c3523e1a78261c41ef8679a91cc1ae9fe",
+      "size": 996486
+    },
     "facility-pdfs/h9-5-kidscourttennouji.pdf": {
-      "sha256": "37ee7c2564078fca398fb91cea02882ec14619a2dcfc36098ce165c4bcfa9656",
-      "size": 1003537
+      "sha256": "86e69384d8831f99cfce38bad68529afdb1724e629fbfd5789985afa1ec33236",
+      "size": 1001114
     },
     "facility-pdfs/h9-8-tennoujiekimaeozora.pdf": {
-      "sha256": "73800e206fbc1584484d0d6ca006657d5640ca4a09bd02f175c61501478c9b74",
-      "size": 999040
+      "sha256": "f466b96f864c2eaa5eaef3acb504ffca5d685f951b6fdfe45afb474f03985cab",
+      "size": 998817
     },
     "facility-pdfs/h9-9-uehonmachigenki.pdf": {
-      "sha256": "2c7909d24a80f0cb5f8de8fdc1e535199efc2f2d741b95992cd4fb9bdac2a6e2",
-      "size": 997555
+      "sha256": "d179c4140ccf7449c23968e54f6403db1f0575a7dee2c1aedbd9bd8c711b6e6c",
+      "size": 1000293
     },
     "facility-pdfs/k9-1-uesiokinder.pdf": {
-      "sha256": "dee9c5073125ccff65918ba397672398ba86e17accb9b1e849fd355e329e1123",
-      "size": 1297802
+      "sha256": "0d101254773a401fe0714675ca84a4bfe8581959e955c3c1afb86dc98494c1c6",
+      "size": 1297250
     },
     "facility-pdfs/k9-2-tennoji.pdf": {
-      "sha256": "e3ef15cbeadd615064ff8698ee33e8e206846ae53973824c5a0e7f63f2c41996",
-      "size": 1301173
+      "sha256": "04d30aabf3bc88d77908f1a9e6170d2523466bc31ba427c038bfe524c4662d6b",
+      "size": 1303384
     },
     "facility-pdfs/k9-3-kodemaritennoji.pdf": {
-      "sha256": "3e85618309d0afe3472cfef1c657d76649ca79a9fb383319f9d65aa84dce71a6",
-      "size": 1289835
+      "sha256": "044d9eacec3fe4d01c4953f0e9c1e91316aeedbb28b82f6e70b91921b825fbe9",
+      "size": 1290244
     },
     "facility-pdfs/k9-4-tennojiyoutien.pdf": {
-      "sha256": "a8969fa9ee38334967417c875024982a741c9966d01271a4b42a1e4d02825496",
-      "size": 1303143
+      "sha256": "72188230d49fa0753c6fbd7c56c5b1b44f5e4022b4c632dfc438bafdbbab1571",
+      "size": 1303117
+    },
+    "facility-pdfs/k9-5-rennbihonnenn.pdf": {
+      "sha256": "9087f5291f06fe81d24f86583449a8c95337023ed3ca8dc84191d82690948d97",
+      "size": 1296392
+    },
+    "facility-pdfs/k9-6-sukusuku.pdf": {
+      "sha256": "70a4ac6128d3bb37da737fbbf90944a9f940602243fb63b239db7a0cc2bd21c6",
+      "size": 1289002
     },
     "facility-pdfs/t9-1-kanon.pdf": {
-      "sha256": "a9058c4aa655e7b38576be843e6c44640eee7dc2274e9081a0f4fa21e4163f4d",
-      "size": 964241
+      "sha256": "6b76b92a2cc8c7c25ed8d9060e5c13b9e7b69ac84b7e6ec4866e126ed976af4f",
+      "size": 964645
     },
     "facility-pdfs/t9-2-totkids.pdf": {
-      "sha256": "f6ef08cc95b197891ee23a085e853f52c49bf4f4d0d3735f47fb59683d31d0b3",
-      "size": 966092
+      "sha256": "a327e03ab4a72a3273df629ceba3446899bd46f7ae01132e00f6c0769f1d3867",
+      "size": 965965
     },
     "facility-pdfs/t9-3-akatuki.pdf": {
-      "sha256": "5375460c5c3b03bc5797f52b3928eb815202d360aed62a8d7ff1d52f19295adf",
-      "size": 949820
+      "sha256": "ed341def57fa5b9daf2d899ca2222fb5a8e0bf9df9c7bb1cf72d44bd48a595cd",
+      "size": 951062
     },
     "facility-pdfs/t9-4-renbiishigatuji.pdf": {
-      "sha256": "33b052a3a44f470a08ff71bea7404be5fe6b8f7de8157b72708bb243a559b86b",
-      "size": 961367
+      "sha256": "bbda75f24eeb935b72b5d785506167a8cf0693c8397b37d3d396cd48106980b6",
+      "size": 961542
     },
     "facility-pdfs/t9-5-kidspalacetennouji.pdf": {
-      "sha256": "bec0adcf75be0a3d5c9ed91c0b0ae326c679224fa699da9e59e4acab8cca2b1f",
-      "size": 974717
+      "sha256": "8e0fe3e5d8decafe5f883f19cb6730b6d2258554c7ffe16c4bae034a00e18700",
+      "size": 973971
     },
     "facility-pdfs/t9-6-step.pdf": {
-      "sha256": "2b17cb0c7708c28f8f86667baebe1412e4d68ab838920637bddf4730a8753d6c",
-      "size": 966945
+      "sha256": "e968c78e6c48605c23cbd143c5a70ac76d0b00faf0bf075c6d4d62183537e77e",
+      "size": 966947
     },
     "facility-pdfs/t9-7-sanadayamaminoru.pdf": {
-      "sha256": "c256ce853a904ce2f33425c48a74591f2114de21b8767253d156be2d8b70985a",
-      "size": 953077
+      "sha256": "54c5eefa3a9e7f95fd926d82b3201acda2470f6fcdc10e534ac1f473d0857153",
+      "size": 952436
     },
     "facility-pdfs/t9-8-uehonmati.pdf": {
-      "sha256": "49673fd07f847018dc346e1a2970d66032969178fb3d15754c94d06d611f9ef5",
-      "size": 974266
+      "sha256": "a2d806ec317c9f8d7f89744f0a0617c0c5ba720ddd8a73ce81909312d296c9b1",
+      "size": 968537
+    },
+    "facility-pdfs/t9-9-tennoujikatuyama.pdf": {
+      "sha256": "f1ad59d24fe3b2d896ca6ce31062bf70d37011e7fecd8f4f1f62c44518e6a390",
+      "size": 961692
     },
     "homepage-sources/1.html": {
       "sha256": "d241076461ee39272cbde3583a3b83710f674da0f5f1a532a4e2300c347429c1",
@@ -362,24 +374,24 @@
       "size": 579576
     },
     "kigyo_page.html": {
-      "sha256": "324f6c3e19ae07c7744b751a2c12dbd4399abc3bba9d5e08ec0d5f8fd2ec878e",
+      "sha256": "ba68a9f2709895c6c3a0a6ecf949cc084de6a327b0395fee76a1c994015654b6",
       "size": 38530
     },
     "list.pdf": {
-      "sha256": "cb2ac4e4f38868ea2b2cee743329a7f328807235482e84a131388236cdbbc3ce",
-      "size": 520522
+      "sha256": "0dd4e78557b6bbf96366ae81abf37bf3e4e7760d5faa5110d47118897e5aa0ff",
+      "size": 520366
     },
     "list.xlsx": {
       "sha256": "51035ada84d65d08840152c84ad8a01df5bcc46d841c32145e68f19714b1ea87",
       "size": 13812
     },
     "vacancy.pdf": {
-      "sha256": "713d38ef2e976b7ad951a3083d1937550f8058b0942a0b61c8690af6e1ac561b",
-      "size": 123579
+      "sha256": "a793114cbe8ea7eb0e909294ced06cc4a9c2cb46c3117c37de936c368e882d93",
+      "size": 123584
     },
     "vacancy_page.html": {
-      "sha256": "adf8a926ae171d1ed698a21f01667087abfeb819f99a09ffdf6219b7e39d83b6",
-      "size": 45132
+      "sha256": "3c4283ce45539c01ef6f3859c52a63b99627c62e3f32b0c217f971338b331bef",
+      "size": 45078
     }
   }
 }

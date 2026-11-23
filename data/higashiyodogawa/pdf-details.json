@@ -465,6 +465,25 @@
     "url": null,
     "approvedOn": "2024年4月1日"
   },
+  "h13-25-sugatenkaedenoki.pdf": {
+    "kana": "すがはらてんまかえでのきほいくえん",
+    "capacity": {
+      "total": 99,
+      "byAge": [
+        7,
+        12,
+        16,
+        21,
+        21,
+        22
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2026年4月25日"
+  },
   "h13-3-itakanodai2.pdf": {
     "kana": "いたかのだいにほいくえん",
     "capacity": {
@@ -501,7 +520,9 @@
     },
     "weekday": "07:30〜18:30",
     "saturday": "07:30〜18:30",
-    "services": [],
+    "services": [
+      "体調不良児対応型"
+    ],
     "url": null,
     "approvedOn": "1976年10月1日"
   },
@@ -526,29 +547,6 @@
     ],
     "url": null,
     "approvedOn": "1974年8月1日"
-  },
-  "h13-7-kazenoko.pdf": {
-    "kana": "かぜのこほいくえん",
-    "capacity": {
-      "total": 141,
-      "byAge": [
-        9,
-        15,
-        18,
-        33,
-        33,
-        33
-      ]
-    },
-    "weekday": "07:00〜19:00",
-    "saturday": "07:00〜18:00",
-    "services": [
-      "延長保育",
-      "障がい児保育",
-      "地域子育て支援事業"
-    ],
-    "url": null,
-    "approvedOn": "1956年9月11日"
   },
   "h13-8-kamishinjyo.pdf": {
     "kana": "かみしんじょうほいくえん",
@@ -646,17 +644,17 @@
   "k13-3-komatu.pdf": {
     "kana": "にんていこどもえんこまつようちえん",
     "capacity": {
-      "total": 475,
+      "total": 420,
       "byAge": [
         0,
         0,
         0,
-        145,
-        165,
-        165
+        140,
+        140,
+        140
       ]
     },
-    "note": "認可定員は1号385人＋2号・3号90人。",
+    "note": "認可定員は1号270人＋2号・3号150人。",
     "weekday": "07:30〜19:00",
     "saturday": "07:30〜18:30",
     "services": [
@@ -757,6 +755,29 @@
     ],
     "url": "http://hoikuen.tokuzoji.org",
     "approvedOn": "2025年4月1日"
+  },
+  "k13-8-kazenoko.pdf": {
+    "kana": "かぜのこほいくえん",
+    "capacity": {
+      "total": 147,
+      "byAge": [
+        9,
+        15,
+        18,
+        35,
+        35,
+        35
+      ]
+    },
+    "note": "認可定員は1号6人＋2号・3号141人。",
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜18:00",
+    "services": [
+      "延長保育",
+      "障がい児保育"
+    ],
+    "url": null,
+    "approvedOn": "2026年4月1日"
   },
   "t13-1-atoriekodomonato.pdf": {
     "kana": "ほいくあとりえこどもなーと",
@@ -859,9 +880,9 @@
     "capacity": {
       "total": 19,
       "byAge": [
-        4,
+        1,
         7,
-        8
+        11
       ]
     },
     "weekday": "07:00〜19:00",
@@ -933,6 +954,38 @@
     "services": [],
     "url": null,
     "approvedOn": "2015年4月1日"
+  },
+  "t13-20-irokko.pdf": {
+    "kana": "いろっこほいくえん",
+    "capacity": {
+      "total": 19,
+      "byAge": [
+        5,
+        7,
+        7
+      ]
+    },
+    "weekday": "07:30〜18:30",
+    "saturday": "07:30〜18:30",
+    "services": [],
+    "url": null,
+    "approvedOn": "2026年4月1日"
+  },
+  "t13-21-kasumi.pdf": {
+    "kana": "かすみほいくえん",
+    "capacity": {
+      "total": 15,
+      "byAge": [
+        3,
+        6,
+        6
+      ]
+    },
+    "weekday": "07:00〜19:00",
+    "saturday": "07:00〜19:00",
+    "services": [],
+    "url": null,
+    "approvedOn": "2026年4月1日"
   },
   "t13-3-kodomonatoplus.pdf": {
     "kana": "ほいくあとりえこどもなーとぷらす",

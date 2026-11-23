@@ -251,9 +251,9 @@ export const WARDS: WardConfig[] = [
     listPage: `${ORIGIN}/kodomo/page/0000012689.html`,
     // 空き人数は添付PDFの表のみで公表（ビルド時に列の位置で読んで照合する）
     vacancyPage: `${ORIGIN}/asahi/page/0000324254.html`,
-    vacancyFile: /\/aki\d+\.pdf$/,
+    vacancyFile: /\/(?:aki\d+|R\d+\.\d+)\.pdf$/,
     kigyoPage: `${ORIGIN}/asahi/page/0000436879.html`,
-    kigyoFile: /\/kisyu\d+\.pdf$/,
+    kigyoFile: /\/(?:kisyu|aki)\d+\.pdf$/,
     // 区の資料（幼稚園・保育園(所)情報フェア https://www.city.osaka.lg.jp/asahi/page/0000509466.html の施設PDFは画像のみ、
     // 保育施設等一覧 https://www.city.osaka.lg.jp/asahi/page/0000680318.html ）には公式サイトの記載がない
     homepageSources: [],
