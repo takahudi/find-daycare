@@ -1,0 +1,247 @@
+[
+  {
+    "page": 24,
+    "blocks": [
+      {
+        "wardTag": "(02都島区)",
+        "phone": "06-6924-5005",
+        "hours": {
+          "weekday": "07:00〜20:00",
+          "saturday": "07:00〜20:00"
+        },
+        "capacity": 12,
+        "monthlyUpTo": "2歳",
+        "freeOfCharge": true,
+        "name": "都島まほろ保育園",
+        "startedOn": "平成29年10月1日",
+        "certifiedOn": "平成30年2月28日",
+        "type": "企業主導型保育事業",
+        "postalCode": "534-0021",
+        "address": "大阪市都島区都島本通3-1-22",
+        "operator": "株式会社ハピネスライフ"
+      },
+      {
+        "wardTag": "(02都島区)",
+        "phone": "06-6924-7500",
+        "hours": {
+          "weekday": "08:00〜18:00"
+        },
+        "capacity": 15,
+        "monthlyUpTo": "5歳",
+        "freeOfCharge": false,
+        "name": "都島こどもの国",
+        "startedOn": "平成25年10月1日",
+        "type": "その他認可外保育施設",
+        "postalCode": "534-0021",
+        "address": "大阪市都島区都島本通1-4-20 大成ビル302",
+        "operator": "株式会社タイセイシュアサービス"
+      }
+    ]
+  },
+  {
+    "page": 26,
+    "blocks": [
+      {
+        "wardTag": "(02都島区)",
+        "phone": "06-6352-7716",
+        "hours": {
+          "weekday": "09:00〜22:00",
+          "saturday": "09:00〜22:00",
+          "holiday": "09:00〜22:00"
+        },
+        "capacity": 12,
+        "monthlyUpTo": "2歳",
+        "freeOfCharge": true,
+        "name": "なないろ京橋保育園",
+        "startedOn": "平成29年2月20日",
+        "certifiedOn": "平成29年8月31日",
+        "type": "企業主導型保育事業",
+        "postalCode": "534-0025",
+        "address": "大阪市都島区片町1-2-16 河野ビル1F",
+        "operator": "株式会社セブンキューブ"
+      },
+      {
+        "wardTag": "(02都島区)",
+        "phone": "06-6351-0022",
+        "hours": {
+          "weekday": "07:30〜20:30",
+          "saturday": "07:30〜20:30",
+          "holiday": "07:30〜20:30"
+        },
+        "capacity": 12,
+        "monthlyUpTo": "2歳",
+        "freeOfCharge": true,
+        "name": "りありのきっず大阪京橋",
+        "startedOn": "令和6年4月1日",
+        "certifiedOn": "平成29年11月30日",
+        "type": "企業主導型保育事業",
+        "postalCode": "543-0025",
+        "address": "大阪市都島区片町2-10-6 SAKRAS城 2F",
+        "operator": "株式会社リアリノ"
+      }
+    ]
+  },
+  {
+    "page": 33,
+    "blocks": [
+      {
+        "wardTag": "(05中央区)",
+        "phone": "06-6948-5969",
+        "hours": {
+          "weekday": "07:30〜18:30",
+          "saturday": "07:30〜18:30"
+        },
+        "capacity": 24,
+        "monthlyUpTo": "2歳",
+        "freeOfCharge": true,
+        "name": "OBPキッズオアシス",
+        "startedOn": "平成30年4月1日",
+        "certifiedOn": "平成30年8月31日",
+        "type": "企業主導型保育事業",
+        "postalCode": "540-0001",
+        "address": "大阪市中央区城見2-2-53 大阪東京海上日動ビルディングサンクンガーデンB1",
+        "operator": "学校法人慈光学園"
+      },
+      {
+        "wardTag": "(05中央区)",
+        "phone": null,
+        "hours": {
+          "weekday": "10:00〜17:00",
+          "saturday": "10:00〜17:00",
+          "holiday": "10:00〜17:00"
+        },
+        "capacity": 5,
+        "monthlyUpTo": null,
+        "freeOfCharge": false,
+        "name": "Luminous",
+        "startedOn": "令和7年11月21日",
+        "type": "ベビーホテル",
+        "postalCode": "540-0003",
+        "address": "大阪市中央区森ノ宮中央1-16-17 岡田ビル308",
+        "operator": "株式会社FE&E"
+      }
+    ]
+  },
+  {
+    "page": 35,
+    "blocks": [
+      {
+        "wardTag": "(05中央区)",
+        "phone": "06-6768-8408",
+        "hours": {
+          "weekday": "07:30〜18:30",
+          "saturday": "07:30〜18:30"
+        },
+        "capacity": 12,
+        "monthlyUpTo": "2歳",
+        "freeOfCharge": true,
+        "name": "森ノ宮もっきん保育園",
+        "startedOn": "平成30年4月1日",
+        "certifiedOn": "平成30年8月31日",
+        "type": "企業主導型保育事業",
+        "postalCode": "540-0004",
+        "address": "大阪市中央区玉造1-23-17",
+        "operator": "株式会社島商会"
+      },
+      {
+        "wardTag": "(05中央区)",
+        "phone": "06-6710-4022",
+        "hours": {
+          "weekday": "09:00〜16:00"
+        },
+        "capacity": 50,
+        "monthlyUpTo": "5歳",
+        "freeOfCharge": true,
+        "name": "スマイルインターナショナルプリスクール森ノ宮校",
+        "startedOn": "平成31年3月20日",
+        "certifiedOn": "令和2年2月28日",
+        "postalCode": "540-0005",
+        "address": "大阪市中央区上町1-1-23 アルシオーネ上町2F",
+        "operator": "アットスマイル株式会社",
+        "type": "企業主導型保育事業"
+      }
+    ]
+  },
+  {
+    "page": 95,
+    "blocks": [
+      {
+        "wardTag": "(11西淀川区)",
+        "phone": null,
+        "hours": {
+          "weekday": "08:00〜19:00",
+          "saturday": "08:00〜19:00"
+        },
+        "capacity": 12,
+        "monthlyUpTo": "2歳",
+        "freeOfCharge": true,
+        "name": "西大阪保育園",
+        "startedOn": "平成30年2月1日",
+        "certifiedOn": "平成30年6月29日",
+        "type": "企業主導型保育事業",
+        "postalCode": "555-0031",
+        "address": "大阪市西淀川区出来島1-6-11",
+        "operator": "株式会社Re BORN"
+      },
+      {
+        "wardTag": "(11西淀川区)",
+        "phone": "080-3258-0314",
+        "hours": {
+          "weekday": "08:30〜15:00"
+        },
+        "capacity": 15,
+        "monthlyUpTo": "6歳",
+        "freeOfCharge": true,
+        "name": "ヤクルト西淀川保育ルーム",
+        "startedOn": "平成6年10月4日",
+        "certifiedOn": "令和元年11月29日",
+        "operator": "南大阪ヤクルト販売株式会社",
+        "type": "事業所内保育事業",
+        "postalCode": "555-0032",
+        "address": "大阪市西淀川区大和田3-4-18"
+      }
+    ]
+  },
+  {
+    "page": 163,
+    "blocks": [
+      {
+        "wardTag": "(24西成区)",
+        "phone": "06-6654-7510",
+        "hours": {
+          "weekday": "07:30〜20:30",
+          "saturday": "07:30〜20:30"
+        },
+        "capacity": 31,
+        "monthlyUpTo": "3歳",
+        "freeOfCharge": true,
+        "name": "エミリア保育園",
+        "startedOn": "令和3年3月30日",
+        "certifiedOn": "令和8年10月1日",
+        "type": "企業主導型保育事業",
+        "postalCode": "557-0054",
+        "address": "大阪市西成区千本南1-3-2 タイホウスクエア1F",
+        "operator": "株式会社GROW"
+      },
+      {
+        "wardTag": "(24西成区)",
+        "phone": "06-6105-0319",
+        "hours": {
+          "weekday": "07:00〜20:00",
+          "saturday": "07:00〜20:00",
+          "holiday": "07:00〜20:00"
+        },
+        "capacity": 12,
+        "monthlyUpTo": "就学前",
+        "freeOfCharge": true,
+        "name": "だいいちキッズルーム南津守園",
+        "startedOn": "平成29年7月1日",
+        "certifiedOn": "令和4年1月31日",
+        "type": "企業主導型保育事業",
+        "postalCode": "557-0063",
+        "address": "大阪市西成区南津守3-1-63 南大阪第一交通（株）2階",
+        "operator": "南大阪第一交通株式会社"
+      }
+    ]
+  }
+]
