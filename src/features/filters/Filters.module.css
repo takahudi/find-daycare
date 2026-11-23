@@ -212,4 +212,28 @@
     background: var(--bg);
     box-shadow: none;
   }
+
+  .overlayPanels {
+    position: relative;
+    z-index: 1200;
+  }
+
+  .overlayPanels .popoverPanel,
+  .overlayPanels .typePanel {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 14px;
+    right: 14px;
+    width: auto;
+    max-height: min(60vh, 360px);
+    max-height: min(60dvh, 360px);
+    overflow-y: auto;
+    z-index: 1200;
+    margin-top: 0;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
 }

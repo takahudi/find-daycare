@@ -74,8 +74,27 @@
     border-bottom-color: var(--accent);
   }
 
+  .mapView {
+    display: grid;
+    grid-template-rows: auto auto auto minmax(min(220px, calc(100vh - 46px)), 1fr);
+    grid-template-rows: auto auto auto minmax(min(220px, calc(100dvh - 46px)), 1fr);
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .mapView .topbar {
+    gap: 0;
+    padding: 8px 14px;
+  }
+
   .layout {
     display: block;
+  }
+
+  .mapView .layout {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    min-height: 0;
   }
 
   .list {
@@ -86,7 +105,8 @@
 
   .mapPane {
     position: relative;
-    height: calc(100vh - 46px);
+    height: 100%;
+    min-height: 0;
     border-left: 0;
   }
 

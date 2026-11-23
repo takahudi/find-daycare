@@ -22,3 +22,18 @@
   display: block;
   flex: none;
 }
+
+/* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css、DatasetHeading.module.css と共通。 */
+@media (max-width: 860px) {
+  .legend {
+    left: 10px;
+    right: 10px;
+    bottom: 24px;
+    width: fit-content;
+    max-width: calc(100% - 20px);
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    padding: 5px 9px;
+    font-size: 0.75rem;
+  }
+}
