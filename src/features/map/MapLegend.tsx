@@ -1,3 +1,4 @@
+import type { Ref } from 'react';
 import { LICENSING_LABELS } from '../../lib/facility-labels';
 import { facilityFace, HOME_FACE } from './pin-face';
 import { PinSwatch } from './PinSwatch';
@@ -9,9 +10,9 @@ const ENTRIES = [
   { face: facilityFace({ licensing: 'unlicensed' }, 1, false), label: LICENSING_LABELS.unlicensed },
 ] as const;
 
-export function MapLegend({ hasHome: home }: { hasHome: boolean }) {
+export function MapLegend({ hasHome: home, ref }: { hasHome: boolean; ref?: Ref<HTMLDivElement> }) {
   return (
-    <div className={styles.legend} role="group" aria-label="地図の凡例">
+    <div ref={ref} className={styles.legend} role="group" aria-label="地図の凡例">
       {ENTRIES.map(({ face, label }) => (
         <span key={label}>
           <PinSwatch face={face} /> {label}

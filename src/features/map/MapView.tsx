@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from 'react';
+import { useId, useRef, useState, type RefObject } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
 import MapGL, { AttributionControl, NavigationControl } from 'react-map-gl/maplibre';
@@ -31,6 +31,8 @@ interface Props {
   distanceOf: (f: Facility) => number | null;
   home: Home | null;
   selectedId: string | null;
+  mapShown: boolean;
+  legendRef: RefObject<HTMLDivElement | null>;
   onSelect: (id: string) => void;
 }
 
@@ -42,6 +44,8 @@ export function MapView({
   distanceOf,
   home,
   selectedId,
+  mapShown,
+  legendRef,
   onSelect,
 }: Props) {
   const hintId = useId();
@@ -89,6 +93,8 @@ export function MapView({
           initialBounds={initialBounds}
           popupRef={popupRef}
           popupOpen={popupOpen}
+          mapShown={mapShown}
+          legendRef={legendRef}
         />
         <NavigationControl position="top-left" showCompass={false} />
         <AttributionControl compact={false} />

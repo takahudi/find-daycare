@@ -3,14 +3,26 @@ import { useMap } from 'react-map-gl/maplibre';
 import type { LngLatBoundsLike, Popup } from 'maplibre-gl';
 import type { Facility, Home } from '../../schema';
 import { distanceMeters } from '../../lib/geo';
-import { boundsFor } from './map-bounds';
+import { centeredBoundsFor } from './map-bounds';
 import { POPUP_OFFSET } from './FacilityPopup';
 
 const POPUP_MARGIN = 8;
+const HOME_PADDING_MARGIN = 8;
 // MapLibre のズームは 512px のタイルが基準なので、以前の Leaflet（256px）の16と同じ縮尺は15になる。
 const DETAIL_ZOOM = 15;
 
 type MapMove = { kind: 'selection' | 'home' | 'popup'; run: () => void };
+
+function homePadding(container: HTMLElement, legend: HTMLElement | null) {
+  const mapRect = container.getBoundingClientRect();
+  const { width, height } = mapRect;
+  const legendRect = legend?.getBoundingClientRect();
+  const legendInset = legendRect && legendRect.height > 0 ? Math.max(0, mapRect.bottom - legendRect.top) : 0;
+  const top = Math.min(HOME_PADDING_MARGIN, Math.floor(height / 8));
+  const side = Math.min(16, Math.floor(width / 8));
+  const bottom = Math.min(legendInset + HOME_PADDING_MARGIN, Math.floor(height / 3));
+  return { top, bottom, left: side, right: side };
+}
 
 export function MapController({
   facilities,
@@ -19,6 +31,8 @@ export function MapController({
   initialBounds,
   popupRef,
   popupOpen,
+  mapShown,
+  legendRef,
 }: {
   facilities: Facility[];
   home: Home | null;
@@ -26,15 +40,18 @@ export function MapController({
   initialBounds: LngLatBoundsLike;
   popupRef: RefObject<Popup | null>;
   popupOpen: boolean;
+  mapShown: boolean;
+  legendRef: RefObject<HTMLDivElement | null>;
 }) {
   const { current: map } = useMap();
   const selected = facilities.find((facility) => facility.id === selectedId);
-  const previousView = useRef<{ home: Home | null; selected: Facility | undefined; popupOpen: boolean }>({
+  const previousView = useRef<{ home: Home | null; selected: Facility | undefined; popupOpen: boolean; mapShown: boolean }>({
     home: null,
     selected: undefined,
     popupOpen: false,
+    mapShown,
   });
-  const initialSelection = useRef(true);
+  const initialMove = useRef(true);
   const initialized = useRef(false);
   const pendingMove = useRef<MapMove | null>(null);
   const resizeToContainer = useCallback(() => {
@@ -49,6 +66,26 @@ export function MapController({
     map.resize();
     map.redraw();
   }, [map]);
+  const centerOnHome = useCallback(
+    (targetHome: Home, targetFacilities: Facility[], duration: number) => {
+      if (!map) return;
+      const nearest = [...targetFacilities]
+        .sort((a, b) => distanceMeters(targetHome, a) - distanceMeters(targetHome, b))
+        .slice(0, 5);
+      const padding = homePadding(map.getContainer(), legendRef.current);
+      if (nearest.length === 0) {
+        map.flyTo({
+          center: [targetHome.lng, targetHome.lat],
+          zoom: DETAIL_ZOOM,
+          duration,
+          offset: [0, (padding.top - padding.bottom) / 2],
+        });
+      } else {
+        map.fitBounds(centeredBoundsFor(targetHome, nearest, 0.2), { duration, maxZoom: DETAIL_ZOOM, padding });
+      }
+    },
+    [map, legendRef],
+  );
   const fitPopup = useCallback(() => {
     if (!map || !popupRef.current) return;
     const container = map.getContainer().getBoundingClientRect();
@@ -104,19 +141,20 @@ export function MapController({
 
   useEffect(() => {
     if (!map) return undefined;
-    const isInitialSelection = initialSelection.current;
-    initialSelection.current = false;
+    const isInitial = initialMove.current;
+    initialMove.current = false;
     const previous = previousView.current;
     const selectionChanged = previous.selected !== selected;
     const homeChanged = previous.home !== home;
-    previousView.current = { home, selected, popupOpen };
+    const reopenedMap = !previous.mapShown && mapShown;
+    previousView.current = { home, selected, popupOpen, mapShown };
     // 行き先が消えた保留中の移動だけを捨てる。
     const pendingKind = pendingMove.current?.kind;
     if (pendingKind === 'home' ? homeChanged && !home : selectionChanged && !selected) pendingMove.current = null;
 
     let move: MapMove;
     if (selectionChanged && selected) {
-      const duration = isInitialSelection ? 0 : 600;
+      const duration = isInitial ? 0 : 600;
       move = {
         kind: 'selection',
         run: () => {
@@ -131,10 +169,17 @@ export function MapController({
         },
       };
     } else if (homeChanged && home) {
-      const nearest = [...facilities].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5);
+      const duration = isInitial ? 0 : 600;
+      const targetFacilities = facilities;
       move = {
         kind: 'home',
-        run: () => map.fitBounds(boundsFor([home, ...nearest], 0.2), { duration: 600, maxZoom: DETAIL_ZOOM }),
+        run: () => centerOnHome(home, targetFacilities, duration),
+      };
+    } else if (reopenedMap && home && !popupOpen && !pendingMove.current) {
+      const targetFacilities = facilities;
+      move = {
+        kind: 'home',
+        run: () => centerOnHome(home, targetFacilities, 0),
       };
     } else if (popupOpen && !previous.popupOpen) {
       move = { kind: 'popup', run: fitPopup };
@@ -151,6 +196,6 @@ export function MapController({
     }
     run();
     return undefined;
-  }, [map, home, selected, popupOpen, facilities, popupRef, moveWhenVisible, fitPopup]);
+  }, [map, home, selected, popupOpen, mapShown, facilities, popupRef, centerOnHome, moveWhenVisible, fitPopup]);
   return null;
 }

@@ -226,3 +226,82 @@ for (const viewport of [
       .toBe(true);
   });
 }
+
+test('モバイルの地図モードではタイトルを隠して画面内に凡例を収め、自宅を描画範囲の中央に置く', async ({ page, context }) => {
+  const home = { lat: 34.675, lng: 135.535 };
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ latitude: home.lat, longitude: home.lng });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
+  await waitForLocation(page);
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+  await expectPinProbe(page);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect.poll(() => homePinShown(page)).toBe(true);
+
+  await expect(page.getByRole('banner').getByRole('button', { name: '空き情報と出典の詳細', exact: true })).toBeHidden();
+
+  const layout = await page.evaluate(() => ({
+    scrollHeight: document.documentElement.scrollHeight,
+    innerHeight: window.innerHeight,
+    scrollY: window.scrollY,
+  }));
+  expect(layout.scrollY).toBe(0);
+  expect(layout.scrollHeight).toBeLessThanOrEqual(layout.innerHeight);
+
+  const map = (await page.locator('.maplibregl-map').boundingBox())!;
+  const legend = (await page.getByRole('group', { name: '地図の凡例' }).boundingBox())!;
+  const attribution = (await page.locator('.maplibregl-ctrl-attrib').boundingBox())!;
+  expect(legend.x).toBeGreaterThanOrEqual(0);
+  expect(legend.x + legend.width).toBeLessThanOrEqual(390);
+  expect(legend.y).toBeGreaterThanOrEqual(map.y);
+  expect(legend.y + legend.height).toBeLessThanOrEqual(844);
+  expect(legend.y + legend.height).toBeLessThanOrEqual(attribution.y + 1);
+
+  const expectHomeCentered = async () => {
+    await expect
+      .poll(async () => {
+        const homePin = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin');
+        if (!homePin) return Number.POSITIVE_INFINITY;
+        const targetX = map.x + map.width / 2;
+        const targetY = (map.y + legend.y) / 2;
+        return Math.hypot(homePin.clientX - targetX, homePin.clientY - targetY);
+      })
+      .toBeLessThan(2);
+  };
+  await expectHomeCentered();
+
+  const nearest = [...data.facilities].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5);
+  for (const facility of nearest) {
+    await expect.poll(() => pinCentre(page, facility.id)).not.toBeNull();
+  }
+
+  // 地図モードで区の選択パネルを開いてもオーバーレイで表示され、地図の高さは変わらない。
+  const wardTrigger = page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: /^区 / });
+  await wardTrigger.click();
+  await expect(page.getByRole('group', { name: '区', exact: true })).toBeVisible();
+  const mapWhilePanelOpen = (await page.locator('.maplibregl-map').boundingBox())!;
+  expect(Math.abs(mapWhilePanelOpen.height - map.height)).toBeLessThan(1);
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('group', { name: '区', exact: true })).toHaveCount(0);
+
+  // 手動ドラッグは自由にでき、リストへ戻してから再度地図を開くと自宅が中央に戻る。
+  const dragX = map.x + map.width - 40;
+  const dragY = map.y + map.height / 2;
+  await page.mouse.move(dragX, dragY);
+  await page.mouse.down();
+  await page.mouse.move(dragX - 150, dragY - 120, { steps: 15 });
+  await page.waitForTimeout(200);
+  await page.mouse.up();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const draggedPin = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin')!;
+  expect(Math.hypot(draggedPin.clientX - (map.x + map.width / 2), draggedPin.clientY - (map.y + legend.y) / 2)).toBeGreaterThan(
+    50,
+  );
+
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expectHomeCentered();
+});

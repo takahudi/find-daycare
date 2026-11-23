@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelectedFacility } from '../features/facilities/useSelectedFacility';
 import type { Dataset, Facility } from '../schema';
 import { isFacilityVacancyExpired } from '../lib/vacancy-expiry';
@@ -50,6 +50,7 @@ export default function App({ data }: { data: Dataset }) {
     if (source === 'search') setSelectedId(null);
   };
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
+  const legendRef = useRef<HTMLDivElement>(null);
   const [MapView, setMapView] = useState<MapViewComponent | null>(() =>
     window.matchMedia('(max-width: 860px)').matches ? null : loadedMapView,
   );
@@ -90,12 +91,12 @@ export default function App({ data }: { data: Dataset }) {
   return (
     <div className={`${styles.app} ${mobileView === 'list' ? styles.listView : styles.mapView}`}>
       <header className={styles.topbar}>
-        <DatasetHeading data={data} summary={summary} expiredWards={expiredWards} />
+        <DatasetHeading data={data} summary={summary} expiredWards={expiredWards} compactOnMobile={mobileView === 'map'} />
 
         <HomeForm state={homeState} onHomeChosen={onHomeChosen} />
       </header>
 
-      <Filters wards={data.wards} state={filters} />
+      <Filters wards={data.wards} state={filters} overlayPanelsOnMobile={mobileView === 'map'} />
 
       <nav className={styles.mobileTabs} aria-label="表示切替">
         <button type="button" aria-pressed={mobileView === 'list'} onClick={() => setMobileView('list')}>
@@ -138,10 +139,12 @@ export default function App({ data }: { data: Dataset }) {
               distanceOf={distanceOf}
               home={home}
               selectedId={selectedId}
+              mapShown={mobileView === 'map'}
+              legendRef={legendRef}
               onSelect={(id) => select(id, 'map')}
             />
           )}
-          <MapLegend hasHome={!!home} />
+          <MapLegend ref={legendRef} hasHome={!!home} />
         </section>
       </main>
     </div>

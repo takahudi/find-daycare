@@ -73,6 +73,25 @@
 
 /* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
 @media (max-width: 860px) {
+  .compactOnMobile {
+    position: relative;
+  }
+
+  /* 見出し構造と読み上げ用の h1 を残しつつ、地図モードの縦幅を確保する。 */
+  .compactOnMobile .title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .compactOnMobile .meta,
+  .compactOnMobile .expiry {
+    display: none;
+  }
+
   .detailsPanel {
     position: static;
     width: auto;
