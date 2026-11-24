@@ -9,21 +9,14 @@ export function DatasetHeading({
   data,
   summary,
   expiredWards,
-  compactOnMobile,
 }: {
   data: Dataset;
   summary: DatasetSummary;
   expiredWards: Ward[];
-  compactOnMobile?: boolean;
 }) {
   const { wardNames, title, asOfLabels, kigyoAsOfText } = summary;
   const wardTitle = `対象: ${wardNames.join('・')}`;
   const [detailsOpen, setDetailsOpen] = useState(false);
-  const [previousCompact, setPreviousCompact] = useState(Boolean(compactOnMobile));
-  if (previousCompact !== Boolean(compactOnMobile)) {
-    setPreviousCompact(Boolean(compactOnMobile));
-    if (compactOnMobile) setDetailsOpen(false);
-  }
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const detailsId = useId();
@@ -50,10 +43,8 @@ export function DatasetHeading({
   }, [detailsOpen]);
 
   return (
-    <div className={compactOnMobile ? styles.compactOnMobile : undefined}>
-      <div className={styles.title}>
-        <SiteTitle area={title} title={wardTitle} />
-      </div>
+    <div>
+      <SiteTitle area={title} title={wardTitle} />
       <div ref={containerRef} className={styles.meta}>
         <p className={styles.asOf}>
           <span className={styles.asOfText}>
@@ -93,9 +84,7 @@ export function DatasetHeading({
           </div>
         )}
       </div>
-      <div className={styles.expiry}>
-        <VacancyExpiryWarning expiredWards={expiredWards} wardCount={data.wards.length} />
-      </div>
+      <VacancyExpiryWarning expiredWards={expiredWards} wardCount={data.wards.length} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 import { useSelectedFacility } from '../features/facilities/useSelectedFacility';
 import type { Dataset, Facility } from '../schema';
 import { isFacilityVacancyExpired } from '../lib/vacancy-expiry';
@@ -49,7 +49,16 @@ export default function App({ data }: { data: Dataset }) {
     followDefaultSort();
     if (source === 'search') setSelectedId(null);
   };
+  const [mobileTab, setMobileTab] = useState<'list' | 'map'>('list');
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
+  const switchMobileView = (next: 'list' | 'map') => {
+    setMobileTab(next);
+    if (next === 'list') {
+      startTransition(() => setMobileView('list'));
+    } else {
+      setMobileView('map');
+    }
+  };
   const legendRef = useRef<HTMLDivElement>(null);
   const [MapView, setMapView] = useState<MapViewComponent | null>(() =>
     window.matchMedia('(max-width: 860px)').matches ? null : loadedMapView,
@@ -91,7 +100,7 @@ export default function App({ data }: { data: Dataset }) {
   return (
     <div className={`${styles.app} ${mobileView === 'list' ? styles.listView : styles.mapView}`}>
       <header className={styles.topbar}>
-        <DatasetHeading data={data} summary={summary} expiredWards={expiredWards} compactOnMobile={mobileView === 'map'} />
+        <DatasetHeading data={data} summary={summary} expiredWards={expiredWards} />
 
         <HomeForm state={homeState} onHomeChosen={onHomeChosen} />
       </header>
@@ -99,10 +108,10 @@ export default function App({ data }: { data: Dataset }) {
       <Filters wards={data.wards} state={filters} overlayPanelsOnMobile={mobileView === 'map'} />
 
       <nav className={styles.mobileTabs} aria-label="表示切替">
-        <button type="button" aria-pressed={mobileView === 'list'} onClick={() => setMobileView('list')}>
+        <button type="button" aria-pressed={mobileTab === 'list'} onClick={() => switchMobileView('list')}>
           リスト
         </button>
-        <button type="button" aria-pressed={mobileView === 'map'} onClick={() => setMobileView('map')}>
+        <button type="button" aria-pressed={mobileTab === 'map'} onClick={() => switchMobileView('map')}>
           地図
         </button>
       </nav>
@@ -123,7 +132,7 @@ export default function App({ data }: { data: Dataset }) {
             onSelect={(id) => select(id, 'list')}
             onShowOnMap={(id) => {
               select(id, 'list');
-              setMobileView('map');
+              switchMobileView('map');
             }}
           />
           <Sources data={data} summary={summary} />

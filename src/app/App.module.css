@@ -67,6 +67,14 @@
     background: none;
     font-weight: 700;
     color: var(--muted);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.1s;
+  }
+
+  .mobileTabs button:active {
+    background: var(--bg);
   }
 
   .mobileTabs button[aria-pressed='true'] {
@@ -82,17 +90,14 @@
     min-height: 100dvh;
   }
 
-  .mapView .topbar {
-    gap: 0;
-    padding: 8px 14px;
-  }
-
   .layout {
     display: block;
   }
 
   .mapView .layout {
+    position: relative;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
     min-height: 0;
   }
@@ -110,8 +115,22 @@
     border-left: 0;
   }
 
-  .listView .mapPane,
-  .mapView .list {
+  .listView .mapPane {
     display: none;
+  }
+
+  /* display: none にすると1100件超のカード再構築でリスト復帰が重くなるため、横幅とレイアウトキャッシュを保って隠す。 */
+  .mapView .list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+    content-visibility: hidden;
   }
 }

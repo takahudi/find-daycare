@@ -227,20 +227,24 @@ for (const viewport of [
   });
 }
 
-test('モバイルの地図モードではタイトルを隠して画面内に凡例を収め、自宅を描画範囲の中央に置く', async ({ page, context }) => {
+test('モバイルの地図モードではタブ位置を動かさず全幅表示で凡例を収め、自宅を描画範囲の中央に置く', async ({ page, context }) => {
   const home = { lat: 34.675, lng: 135.535 };
   await context.grantPermissions(['geolocation']);
   await context.setGeolocation({ latitude: home.lat, longitude: home.lng });
-  await page.setViewportSize({ width: 390, height: 844 });
+  await page.setViewportSize({ width: 412, height: 915 });
   await page.goto('/');
   await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
   await waitForLocation(page);
+  const tabsBefore = (await viewToggle(page).boundingBox())!;
+
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expectPinProbe(page);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expect.poll(() => homePinShown(page)).toBe(true);
 
-  await expect(page.getByRole('banner').getByRole('button', { name: '空き情報と出典の詳細', exact: true })).toBeHidden();
+  const tabsAfter = (await viewToggle(page).boundingBox())!;
+  expect(Math.abs(tabsAfter.y - tabsBefore.y)).toBeLessThan(1);
+  expect(Math.abs(tabsAfter.height - tabsBefore.height)).toBeLessThan(1);
 
   const layout = await page.evaluate(() => ({
     scrollHeight: document.documentElement.scrollHeight,
@@ -251,12 +255,15 @@ test('モバイルの地図モードではタイトルを隠して画面内に�
   expect(layout.scrollHeight).toBeLessThanOrEqual(layout.innerHeight);
 
   const map = (await page.locator('.maplibregl-map').boundingBox())!;
+  expect(map.x).toBe(0);
+  expect(map.width).toBe(412);
+
   const legend = (await page.getByRole('group', { name: '地図の凡例' }).boundingBox())!;
   const attribution = (await page.locator('.maplibregl-ctrl-attrib').boundingBox())!;
   expect(legend.x).toBeGreaterThanOrEqual(0);
-  expect(legend.x + legend.width).toBeLessThanOrEqual(390);
+  expect(legend.x + legend.width).toBeLessThanOrEqual(412);
   expect(legend.y).toBeGreaterThanOrEqual(map.y);
-  expect(legend.y + legend.height).toBeLessThanOrEqual(844);
+  expect(legend.y + legend.height).toBeLessThanOrEqual(915);
   expect(legend.y + legend.height).toBeLessThanOrEqual(attribution.y + 1);
 
   const expectHomeCentered = async () => {
