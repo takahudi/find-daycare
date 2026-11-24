@@ -8,6 +8,7 @@ import { AGE_LABELS } from '../../lib/vacancy';
 import { FACILITY_TYPE_LABELS, LICENSING_LABELS } from '../../lib/facility-labels';
 import { VacancyExpiryBadge } from '../dataset/VacancyExpiry';
 import { MapController } from './MapController';
+import { HomeControl } from './HomeControl';
 import { FacilityPopup } from './FacilityPopup';
 import { boundsFor } from './map-bounds';
 import { createMapStyle } from './map-style';
@@ -97,6 +98,7 @@ export function MapView({
           legendRef={legendRef}
         />
         <NavigationControl position="top-left" showCompass={false} />
+        {home && <HomeControl home={home} facilities={facilities} legendRef={legendRef} />}
         <AttributionControl compact={false} />
         <PinOverlay
           hintId={hintId}
