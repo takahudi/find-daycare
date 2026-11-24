@@ -30,8 +30,8 @@ async function freeze(page: Page) {
 }
 async function openMap(page: Page, mobile = false) {
   await page.goto('/');
-  await expectPinProbe(page);
   if (mobile) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+  await expectPinProbe(page);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
 }
 const flightGeometry = (page: Page) =>
@@ -136,8 +136,8 @@ for (const viewport of [
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.setViewportSize(viewport);
     await page.goto('/?facility=' + facilityId);
-    await expectPinProbe(page);
     if (viewport.width === 390) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+    await expectPinProbe(page);
     await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
     await expectInside(page);
   });
@@ -234,8 +234,8 @@ for (const last of ['facility', 'home']) {
 test('地図より高い詳細は上端の余白を優先する', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 130 });
   await page.goto('/?facility=' + facilityId);
-  await expectPinProbe(page);
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+  await expectPinProbe(page);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   const map = await page.locator('.maplibregl-map').evaluate((element) => element.getBoundingClientRect().toJSON());
   const popup = await page.locator('.maplibregl-popup').evaluate((element) => element.getBoundingClientRect().toJSON());

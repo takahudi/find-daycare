@@ -122,23 +122,25 @@ export function MapController({
       }
     });
     observer.observe(map.getContainer());
-    observer.observe(document.documentElement);
     return () => observer.disconnect();
   }, [map, initialBounds, resizeToContainer, syncPadding]);
 
   useEffect(() => {
-    if (!map) return undefined;
+    if (!map || !mapShown) return undefined;
     const sync = () => syncPadding();
     sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(document.documentElement);
     window.addEventListener('scroll', sync, { passive: true });
     window.addEventListener('resize', sync);
     map.on('moveend', sync);
     return () => {
+      observer.disconnect();
       window.removeEventListener('scroll', sync);
       window.removeEventListener('resize', sync);
       map.off('moveend', sync);
     };
-  }, [map, syncPadding]);
+  }, [map, mapShown, syncPadding]);
 
   useEffect(() => {
     if (!map || !mapShown) return;

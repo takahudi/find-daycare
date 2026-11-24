@@ -209,8 +209,8 @@ for (const viewport of [
   test('初期URL選択の詳細が地図内に収まる ' + viewport.width + '×' + viewport.height, async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.goto('/?facility=taisho-82305');
-    await expectPinProbe(page);
     if (viewport.width === 390) await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+    await expectPinProbe(page);
     await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
     const map = (await page.locator('.maplibregl-map').boundingBox())!;
     await expect
@@ -387,6 +387,32 @@ test('低い画面のモバイルでもタブ位置まで手動スクロール�
   expect(550 - tabsCollapsed.height).toBeGreaterThan(visibleBefore + 100);
   await expect(viewToggle(page).getByRole('button', { name: /絞り込みとヘッダー/ })).toHaveAttribute('aria-expanded', 'false');
   await expectHomeCentered();
+});
+
+test('モバイルのリスト初期表示では地図を先読みせず、深くスクロールした状態でも絞り込みボタンで即座にヘッダーへ戻れる', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible();
+  await expect(page.locator('.maplibregl-map')).toHaveCount(0);
+
+  const headerToggle = viewToggle(page).getByRole('button', { name: /絞り込みとヘッダー/ });
+  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
+  await headerToggle.click();
+  await expect(headerToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect.poll(async () => Math.abs((await viewToggle(page).boundingBox())!.y)).toBeLessThan(2);
+
+  await page.evaluate(() => window.scrollTo(0, 5000));
+  await expect(headerToggle).toHaveAttribute('aria-expanded', 'false');
+  await headerToggle.click();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
+  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('.maplibregl-map')).toHaveCount(0);
+
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+  await expectPinProbe(page);
+  await expect(page.locator('.maplibregl-map')).toHaveCount(1);
 });
 
 test('地図を動かしても自宅に戻るボタンで自宅と近い5施設が中央に戻る', async ({ page, context }) => {
