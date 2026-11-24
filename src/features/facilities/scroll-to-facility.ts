@@ -19,7 +19,7 @@ export function scrollToFacility(id: string) {
   let frames = 0;
   const scroll = () => {
     pendingFrame = undefined;
-    if (!card.isConnected || card.getClientRects().length === 0) return;
+    if (!card.isConnected || card.getClientRects().length === 0 || getComputedStyle(card).visibility === 'hidden') return;
     // 未描画カードの実寸への変化は遅れるため、補正前の位置が連続して安定するまで待つ。
     const rect = card.getBoundingClientRect();
     stableFrames = previousRect?.top === rect.top && previousRect.bottom === rect.bottom ? stableFrames + 1 : 0;
