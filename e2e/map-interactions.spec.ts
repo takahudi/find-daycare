@@ -292,21 +292,27 @@ test('モバイルの地図モードではタブ位置を動かさず全幅表�
     await expect.poll(() => pinCentre(page, facility.id)).not.toBeNull();
   }
 
-  // ヘッダー開閉ボタンでタブ位置までスクロールすると、自宅ピンが見えている範囲の中央に追従する。
-  const headerToggle = viewToggle(page).getByRole('button', { name: /絞り込みとヘッダー/ });
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
+  // スクロールでヘッダーを隠すと自宅ピンが見えている範囲の中央に追従し、フロートの先頭に戻るボタンで戻せる。
+  await expect(viewToggle(page).getByRole('button')).toHaveText(['リスト', '地図']);
+  const scrollToTop = page.getByRole('button', { name: '先頭に戻る', exact: true });
+  await expect(scrollToTop).toHaveCount(0);
   const pinBeforeCollapse = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin')!;
-  await headerToggle.click();
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'false');
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight - window.innerHeight));
+  await expect(scrollToTop).toBeVisible();
   await expect.poll(async () => Math.abs((await viewToggle(page).boundingBox())!.y)).toBeLessThan(2);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expectLegendInsideViewport();
+  const legendWhileCollapsed = (await page.getByRole('group', { name: '地図の凡例' }).boundingBox())!;
+  const scrollToTopBox = (await scrollToTop.boundingBox())!;
+  expect(scrollToTopBox.y + scrollToTopBox.height, '先頭に戻るボタンが凡例と重ならない').toBeLessThanOrEqual(
+    legendWhileCollapsed.y,
+  );
   await expectHomeCentered();
   const pinWhileCollapsed = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin')!;
   expect(pinWhileCollapsed.clientY).toBeLessThan(pinBeforeCollapse.clientY - 50);
 
-  await headerToggle.click();
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
+  await scrollToTop.click();
+  await expect(scrollToTop).toHaveCount(0);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expectLegendInsideViewport();
@@ -379,35 +385,33 @@ test('低い画面のモバイルでもタブ位置まで手動スクロール�
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expectHomeCentered();
 
-  // タブが上端に張り付く位置までスクロールすると、地図領域が広がりボタン状態も連動する。
+  // タブが上端に張り付く位置までスクロールすると、地図領域が広がり先頭に戻るボタンが表示される。
   await page.evaluate((y) => window.scrollTo(0, y), maxScroll);
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   const tabsCollapsed = (await viewToggle(page).boundingBox())!;
   expect(Math.abs(tabsCollapsed.y)).toBeLessThan(2);
   expect(550 - tabsCollapsed.height).toBeGreaterThan(visibleBefore + 100);
-  await expect(viewToggle(page).getByRole('button', { name: /絞り込みとヘッダー/ })).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.getByRole('button', { name: '先頭に戻る', exact: true })).toBeVisible();
   await expectHomeCentered();
 });
 
-test('モバイルのリスト初期表示では地図を先読みせず、深くスクロールした状態でも絞り込みボタンで即座にヘッダーへ戻れる', async ({
+test('モバイルのリスト初期表示では地図を先読みせず、深くスクロールした状態でも先頭に戻るボタンで即座にヘッダーへ戻れる', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(page.getByRole('region', { name: '施設一覧' }).getByRole('article').first()).toBeVisible();
   await expect(page.locator('.maplibregl-map')).toHaveCount(0);
+  await expect(viewToggle(page).getByRole('button')).toHaveText(['リスト', '地図']);
 
-  const headerToggle = viewToggle(page).getByRole('button', { name: /絞り込みとヘッダー/ });
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
-  await headerToggle.click();
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'false');
-  await expect.poll(async () => Math.abs((await viewToggle(page).boundingBox())!.y)).toBeLessThan(2);
+  const scrollToTop = page.getByRole('button', { name: '先頭に戻る', exact: true });
+  await expect(scrollToTop).toHaveCount(0);
 
   await page.evaluate(() => window.scrollTo(0, 5000));
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'false');
-  await headerToggle.click();
+  await expect(scrollToTop).toBeVisible();
+  await scrollToTop.click();
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(scrollToTop).toHaveCount(0);
   await expect(page.locator('.maplibregl-map')).toHaveCount(0);
 
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();

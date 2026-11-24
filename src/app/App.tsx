@@ -14,7 +14,8 @@ import { Filters } from '../features/filters/Filters';
 import { useHome, type HomeChoice } from '../features/home/useHome';
 import { HomeForm } from '../features/home/HomeForm';
 import { MapLegend } from '../features/map/MapLegend';
-import { useMobileHeaderScroll } from './useMobileHeaderScroll';
+import { ScrollToTopButton } from './ScrollToTopButton';
+import { useMobileBarHeight } from './useMobileBarHeight';
 import styles from './App.module.css';
 
 type MapViewComponent = typeof import('../features/map/MapView').MapView;
@@ -64,6 +65,7 @@ export default function App({ data }: { data: Dataset }) {
   };
   const appRef = useRef<HTMLDivElement>(null);
   const mobileTabsRef = useRef<HTMLElement>(null);
+  const listRef = useRef<HTMLElement>(null);
   const legendRef = useRef<HTMLDivElement>(null);
   const [MapView, setMapView] = useState<MapViewComponent | null>(() => (mapActivated ? loadedMapView : null));
   useEffect(() => {
@@ -91,12 +93,7 @@ export default function App({ data }: { data: Dataset }) {
     { ages, wardIds, facilityTypes, onlyOpen, sort },
     home,
   );
-  const { headerCollapsed, canToggleHeader, toggleHeader } = useMobileHeaderScroll(
-    appRef,
-    mobileTabsRef,
-    mobileView,
-    visible.length,
-  );
+  useMobileBarHeight(appRef, mobileTabsRef);
 
   const { selectedId, setSelectedId } = useSelectedFacility(
     data.facilities.map((facility) => facility.id),
@@ -144,40 +141,32 @@ export default function App({ data }: { data: Dataset }) {
         >
           地図
         </button>
-        <button
-          type="button"
-          className={styles.headerToggle}
-          aria-expanded={!headerCollapsed}
-          aria-label={headerCollapsed ? '絞り込みとヘッダーを表示' : '絞り込みとヘッダーを隠す'}
-          disabled={!canToggleHeader}
-          onClick={toggleHeader}
-        >
-          <span>絞り込み</span>
-          <span className={styles.headerToggleCaret} aria-hidden="true" />
-        </button>
       </nav>
 
       <main className={styles.layout}>
-        <section className={styles.list} aria-label="施設一覧">
-          <FacilityList
-            facilities={visible}
-            distanceOf={distanceOf}
-            vacancyOf={vacancyOf}
-            vacancyExpiredOf={vacancyExpiredOf}
-            ages={ages}
-            hasHome={!!home}
-            sort={sort}
-            onSortChange={setSort}
-            showRank={sort === 'distance' && !!home}
-            selectedId={selectedId}
-            onSelect={(id) => select(id, 'list')}
-            onShowOnMap={(id) => {
-              select(id, 'list');
-              switchMobileView('map');
-            }}
-          />
-          <Sources data={data} summary={summary} />
-        </section>
+        <div className={styles.listPane}>
+          <section ref={listRef} className={styles.list} aria-label="施設一覧">
+            <FacilityList
+              facilities={visible}
+              distanceOf={distanceOf}
+              vacancyOf={vacancyOf}
+              vacancyExpiredOf={vacancyExpiredOf}
+              ages={ages}
+              hasHome={!!home}
+              sort={sort}
+              onSortChange={setSort}
+              showRank={sort === 'distance' && !!home}
+              selectedId={selectedId}
+              onSelect={(id) => select(id, 'list')}
+              onShowOnMap={(id) => {
+                select(id, 'list');
+                switchMobileView('map');
+              }}
+            />
+            <Sources data={data} summary={summary} />
+          </section>
+          <ScrollToTopButton listRef={listRef} mobileView={mobileView} />
+        </div>
 
         <section className={styles.mapPane} aria-label="地図">
           {MapView && (

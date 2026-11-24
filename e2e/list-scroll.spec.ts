@@ -130,4 +130,26 @@ test('mobile: 地図のピンで選んだ遠い施設のカードへリストに
   expect((await selected.boundingBox())!.y, 'カードの上端が表示切替タブに隠れない').toBeGreaterThanOrEqual(
     tabs.y + tabs.height - 1,
   );
+  const scrollToTop = page.getByRole('button', { name: '先頭に戻る', exact: true });
+  await expect(scrollToTop).toBeVisible();
+  await scrollToTop.click();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
+  await expect(scrollToTop).toHaveCount(0);
+});
+
+test('desktop: 一覧をスクロールすると先頭に戻るボタンが表示され、クリックで一覧の先頭に戻る', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/');
+  const list = page.getByRole('region', { name: '施設一覧', exact: true });
+  await expect(list.getByRole('article')).toHaveCount(data.facilities.length);
+  const scrollToTop = page.getByRole('button', { name: '先頭に戻る', exact: true });
+  await expect(scrollToTop).toHaveCount(0);
+
+  await list.evaluate((node) => {
+    node.scrollTop = 2000;
+  });
+  await expect(scrollToTop).toBeVisible();
+  await scrollToTop.click();
+  await expect.poll(() => list.evaluate((node) => node.scrollTop)).toBe(0);
+  await expect(scrollToTop).toHaveCount(0);
 });
