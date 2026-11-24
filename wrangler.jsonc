@@ -3,8 +3,9 @@
   "name": "find-daycare",
   "main": "worker/index.ts",
   "compatibility_date": "2026-10-12",
-  "workers_dev": true,
+  "workers_dev": false,
   "preview_urls": true,
+  "routes": [{ "pattern": "osaka.hoiku-map.com", "custom_domain": true }],
   "observability": {
     "enabled": true,
   },
