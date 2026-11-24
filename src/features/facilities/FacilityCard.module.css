@@ -20,6 +20,12 @@
     transform 0.15s;
 }
 
+/* 先頭付近はヘッダー開閉スクロールで直ちに画面内へ入るため、初回スクロール時のロック解除レイアウトを避ける。 */
+.card:nth-child(-n + 6) {
+  content-visibility: visible;
+  contain-intrinsic-height: none;
+}
+
 .card:hover {
   transform: translateY(-1px);
   border-color: var(--line);
