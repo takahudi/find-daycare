@@ -45,13 +45,13 @@ Cloudflare Vite プラグインを使い、Workers の実行環境（workerd）�
 
 ## デプロイ
 
-Cloudflare Workers Static Assets の workers.dev に公開します。リポジトリへの書き込み権限を持つ人が同じリポジトリ内のブランチから作った PR では、チェックと E2E が通ると PR ごとのプレビュー URL を作ります。フォークや Bot が作成した PR ではプレビューを作りません。
+Cloudflare Workers Static Assets のカスタムドメイン（`https://osaka.hoiku-map.com/`）に公開します。本番の `workers.dev` は無効化（`workers_dev: false`）し、PR プレビューのみ有効化（`preview_urls: true`）しています。リポジトリへの書き込み権限を持つ人が同じリポジトリ内のブランチから作った PR では、チェックと E2E が通ると PR ごとのプレビュー URL を作ります。フォークや Bot が作成した PR ではプレビューを作りません。
 
 Worker は `/map/tiles/<build>/<z>/<x>/<y>.mvt` を地図専用 R2 バケット `find-daycare-map` の PMTiles から配信します。それ以外は静的アセットに渡します。ビルドはアセットを `dist/client`、Worker を `dist/find_daycare` に出力します。CI の E2E とデプロイは、どちらも `wrangler.jsonc` の Worker ソースを使います。
 
 プレビュー URL は `https://pr-<PR番号>-find-daycare.<workers.dev サブドメイン>.workers.dev` です。各実行の GitHub Actions Summary から開けます。GitHub の preview 環境では、最新のプレビューだけがアクティブなデプロイとして表示されます。
 
-`main` にマージすると、CI でビルドし、E2E を通過した同じ artifact を本番にデプロイします。GitHub リポジトリの secrets に `CLOUDFLARE_API_TOKEN` と `CLOUDFLARE_ACCOUNT_ID` を設定してください。
+`main` にマージすると、CI でビルドし、E2E を通過した同じ artifact を本番にデプロイします。GitHub リポジトリの secrets に `CLOUDFLARE_API_TOKEN` と `CLOUDFLARE_ACCOUNT_ID` を設定してください。カスタムドメインを `wrangler.jsonc` で管理するため、`CLOUDFLARE_API_TOKEN` には Account の Workers Scripts 編集権限に加え、`hoiku-map.com` ゾーンの `Zone: Read`・`DNS: Edit`・`Workers Routes: Edit` 権限が必要です。
 
 意図的なロールバックには `wrangler rollback` またはダッシュボードを使い、過去の workflow run は再実行しません。
 

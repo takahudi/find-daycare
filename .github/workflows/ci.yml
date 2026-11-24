@@ -166,8 +166,9 @@ jobs:
       - id: deploy
         run: |
           pnpm exec wrangler deploy --config wrangler.jsonc --assets dist/client
-          url=$(jq -ser '[.[] | select(.type == "deploy" and .version == 1)][-1].targets[] | select(startswith("https://") and endswith(".workers.dev"))' "$WRANGLER_OUTPUT_FILE_PATH")
+          url=$(jq -ser '[[.[] | select(.type == "deploy" and .version == 1)][-1].targets[] | select(contains(" (custom domain")) | "https://\(split(" ")[0])"][0] | select(type == "string")' "$WRANGLER_OUTPUT_FILE_PATH")
           echo "url=$url" >> "$GITHUB_OUTPUT"
+          printf 'Production URL: %s\n' "$url" >> "$GITHUB_STEP_SUMMARY"
         env:
           WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-production.ndjson
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

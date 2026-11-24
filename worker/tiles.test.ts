@@ -193,4 +193,7 @@ it('ソース設定はタイルだけを先にWorkerへ渡し地図のR2だけ�
   expect(config.main).toBe(resolve('worker/index.ts'));
   expect(config.assets).toEqual({ binding: 'ASSETS', run_worker_first: ['/map/tiles/*'], not_found_handling: 'none' });
   expect(config.r2_buckets).toEqual([{ binding: 'MAP_TILES', bucket_name: 'find-daycare-map' }]);
+  expect(config.workers_dev).toBe(false);
+  expect(config.preview_urls).toBe(true);
+  expect(config.routes).toEqual([{ pattern: 'osaka.hoiku-map.com', custom_domain: true }]);
 });
