@@ -1,3 +1,7 @@
+.legendTrack {
+  display: contents;
+}
+
 .legend {
   position: absolute;
   z-index: 500;
@@ -25,15 +29,29 @@
 
 /* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css、DatasetHeading.module.css と共通。 */
 @media (max-width: 860px) {
+  .legendTrack {
+    position: absolute;
+    inset: 0;
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 0 10px 24px;
+    pointer-events: none;
+  }
+
   .legend {
-    left: 10px;
-    right: 10px;
+    position: sticky;
+    left: auto;
     bottom: 24px;
+    z-index: auto;
     width: fit-content;
-    max-width: calc(100% - 20px);
+    max-width: 100%;
     flex-wrap: wrap;
     gap: 4px 10px;
     padding: 5px 9px;
     font-size: 0.75rem;
+    pointer-events: auto;
   }
 }

@@ -55,12 +55,13 @@
     top: 0;
     z-index: 1000;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    align-items: stretch;
     background: var(--surface);
     border-bottom: 1px solid var(--line);
   }
 
-  .mobileTabs button {
+  .mobileTab {
     padding: 10px;
     border: 0;
     border-bottom: 3px solid transparent;
@@ -73,21 +74,67 @@
     transition: background-color 0.1s;
   }
 
-  .mobileTabs button:active {
+  .mobileTab:active {
     background: var(--bg);
   }
 
-  .mobileTabs button[aria-pressed='true'] {
+  .mobileTab[aria-pressed='true'] {
     color: var(--accent-ink);
     border-bottom-color: var(--accent);
   }
 
+  .headerToggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+    border: 0;
+    border-left: 1px solid var(--line);
+    background: none;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color 0.1s,
+      color 0.1s;
+  }
+
+  .headerToggle:active:not(:disabled) {
+    background: var(--bg);
+  }
+
+  .headerToggle[aria-expanded='false'] {
+    color: var(--accent-ink);
+  }
+
+  .headerToggle:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  .headerToggleCaret {
+    width: 6px;
+    height: 6px;
+    margin-top: -2px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.15s ease;
+  }
+
+  .headerToggle[aria-expanded='true'] .headerToggleCaret {
+    margin-top: 2px;
+    transform: rotate(-135deg);
+  }
+
   .mapView {
     display: grid;
-    grid-template-rows: auto auto auto minmax(min(220px, calc(100vh - 46px)), 1fr);
-    grid-template-rows: auto auto auto minmax(min(220px, calc(100dvh - 46px)), 1fr);
-    min-height: 100vh;
-    min-height: 100dvh;
+    grid-template-rows: auto auto auto calc(100vh - var(--mobile-bar-height, 48px));
+    grid-template-rows: auto auto auto calc(100dvh - var(--mobile-bar-height, 48px));
   }
 
   .layout {

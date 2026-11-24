@@ -68,6 +68,12 @@
   height: 19px;
 }
 
+@media (max-width: 860px) {
+  .map :global(.maplibregl-ctrl-bottom-right) {
+    bottom: var(--map-hidden-bottom, 0px);
+  }
+}
+
 @media (forced-colors: active) {
   :global(.maplibregl-ctrl-group) .homeControlButton {
     color: ButtonText;

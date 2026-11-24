@@ -12,17 +12,19 @@ const ENTRIES = [
 
 export function MapLegend({ hasHome: home, ref }: { hasHome: boolean; ref?: Ref<HTMLDivElement> }) {
   return (
-    <div ref={ref} className={styles.legend} role="group" aria-label="地図の凡例">
-      {ENTRIES.map(({ face, label }) => (
-        <span key={label}>
-          <PinSwatch face={face} /> {label}
-        </span>
-      ))}
-      {home && (
-        <span>
-          <PinSwatch face={HOME_FACE} /> 自宅
-        </span>
-      )}
+    <div className={styles.legendTrack}>
+      <div ref={ref} className={styles.legend} role="group" aria-label="地図の凡例">
+        {ENTRIES.map(({ face, label }) => (
+          <span key={label}>
+            <PinSwatch face={face} /> {label}
+          </span>
+        ))}
+        {home && (
+          <span>
+            <PinSwatch face={HOME_FACE} /> 自宅
+          </span>
+        )}
+      </div>
     </div>
   );
 }

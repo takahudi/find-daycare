@@ -252,27 +252,35 @@ test('モバイルの地図モードではタブ位置を動かさず全幅表�
     scrollY: window.scrollY,
   }));
   expect(layout.scrollY).toBe(0);
-  expect(layout.scrollHeight).toBeLessThanOrEqual(layout.innerHeight);
+  expect(layout.scrollHeight).toBeGreaterThan(layout.innerHeight);
 
   const map = (await page.locator('.maplibregl-map').boundingBox())!;
   expect(map.x).toBe(0);
   expect(map.width).toBe(412);
+  expect(Math.abs(map.height - (915 - tabsAfter.height))).toBeLessThan(2);
 
-  const legend = (await page.getByRole('group', { name: '地図の凡例' }).boundingBox())!;
-  const attribution = (await page.locator('.maplibregl-ctrl-attrib').boundingBox())!;
-  expect(legend.x).toBeGreaterThanOrEqual(0);
-  expect(legend.x + legend.width).toBeLessThanOrEqual(412);
-  expect(legend.y).toBeGreaterThanOrEqual(map.y);
-  expect(legend.y + legend.height).toBeLessThanOrEqual(915);
-  expect(legend.y + legend.height).toBeLessThanOrEqual(attribution.y + 1);
+  const expectLegendInsideViewport = async () => {
+    const mapBox = (await page.locator('.maplibregl-map').boundingBox())!;
+    const legend = (await page.getByRole('group', { name: '地図の凡例' }).boundingBox())!;
+    const attribution = (await page.locator('.maplibregl-ctrl-attrib').boundingBox())!;
+    expect(legend.x).toBeGreaterThanOrEqual(0);
+    expect(legend.x + legend.width).toBeLessThanOrEqual(412);
+    expect(legend.y).toBeGreaterThanOrEqual(mapBox.y);
+    expect(legend.y + legend.height).toBeLessThanOrEqual(915);
+    expect(attribution.y + attribution.height).toBeLessThanOrEqual(915 + 1);
+    expect(legend.y + legend.height).toBeLessThanOrEqual(attribution.y + 1);
+  };
+  await expectLegendInsideViewport();
 
   const expectHomeCentered = async () => {
     await expect
       .poll(async () => {
+        const mapBox = (await page.locator('.maplibregl-map').boundingBox())!;
+        const legend = (await page.getByRole('group', { name: '地図の凡例' }).boundingBox())!;
         const homePin = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin');
         if (!homePin) return Number.POSITIVE_INFINITY;
-        const targetX = map.x + map.width / 2;
-        const targetY = (map.y + legend.y) / 2;
+        const targetX = mapBox.x + mapBox.width / 2;
+        const targetY = (mapBox.y + legend.y) / 2;
         return Math.hypot(homePin.clientX - targetX, homePin.clientY - targetY);
       })
       .toBeLessThan(2);
@@ -283,6 +291,26 @@ test('モバイルの地図モードではタブ位置を動かさず全幅表�
   for (const facility of nearest) {
     await expect.poll(() => pinCentre(page, facility.id)).not.toBeNull();
   }
+
+  // ヘッダー開閉ボタンでタブ位置までスクロールすると、自宅ピンが見えている範囲の中央に追従する。
+  const headerToggle = viewToggle(page).getByRole('button', { name: /絞り込みとヘッダー/ });
+  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
+  const pinBeforeCollapse = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin')!;
+  await headerToggle.click();
+  await expect(headerToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect.poll(async () => Math.abs((await viewToggle(page).boundingBox())!.y)).toBeLessThan(2);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expectLegendInsideViewport();
+  await expectHomeCentered();
+  const pinWhileCollapsed = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin')!;
+  expect(pinWhileCollapsed.clientY).toBeLessThan(pinBeforeCollapse.clientY - 50);
+
+  await headerToggle.click();
+  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expectLegendInsideViewport();
+  await expectHomeCentered();
 
   // 地図モードで区の選択パネルを開いてもオーバーレイで表示され、地図の高さは変わらない。
   const wardTrigger = page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: /^区 / });
@@ -295,21 +323,69 @@ test('モバイルの地図モードではタブ位置を動かさず全幅表�
 
   // 手動ドラッグは自由にでき、リストへ戻してから再度地図を開くと自宅が中央に戻る。
   const dragX = map.x + map.width - 40;
-  const dragY = map.y + map.height / 2;
+  const dragY = (map.y + 915) / 2;
   await page.mouse.move(dragX, dragY);
   await page.mouse.down();
   await page.mouse.move(dragX - 150, dragY - 120, { steps: 15 });
   await page.waitForTimeout(200);
   await page.mouse.up();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const legendNow = (await page.getByRole('group', { name: '地図の凡例' }).boundingBox())!;
   const draggedPin = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin')!;
-  expect(Math.hypot(draggedPin.clientX - (map.x + map.width / 2), draggedPin.clientY - (map.y + legend.y) / 2)).toBeGreaterThan(
-    50,
-  );
+  expect(
+    Math.hypot(draggedPin.clientX - (map.x + map.width / 2), draggedPin.clientY - (map.y + legendNow.y) / 2),
+  ).toBeGreaterThan(50);
 
   await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expectHomeCentered();
+});
+
+test('低い画面のモバイルでもタブ位置まで手動スクロールすると地図が広がり自宅が中央に追従する', async ({ page, context }) => {
+  const home = { lat: 34.675, lng: 135.535 };
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ latitude: home.lat, longitude: home.lng });
+  await page.setViewportSize({ width: 375, height: 550 });
+  await page.goto('/');
+  await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
+  await waitForLocation(page);
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+  await expectPinProbe(page);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect.poll(() => homePinShown(page)).toBe(true);
+
+  const tabsBefore = (await viewToggle(page).boundingBox())!;
+  const visibleBefore = 550 - (tabsBefore.y + tabsBefore.height);
+  expect(visibleBefore).toBeLessThan(350);
+
+  const expectHomeCentered = async () => {
+    await expect
+      .poll(async () => {
+        const mapBox = (await page.locator('.maplibregl-map').boundingBox())!;
+        const legend = (await page.getByRole('group', { name: '地図の凡例' }).boundingBox())!;
+        const homePin = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin');
+        if (!homePin) return Number.POSITIVE_INFINITY;
+        return Math.hypot(homePin.clientX - (mapBox.x + mapBox.width / 2), homePin.clientY - (mapBox.y + legend.y) / 2);
+      })
+      .toBeLessThan(2);
+  };
+  await expectHomeCentered();
+
+  // 途中までスクロールしても中央に追従する。
+  const maxScroll = await page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight);
+  expect(maxScroll).toBeGreaterThan(100);
+  await page.evaluate((y) => window.scrollTo(0, y), Math.round(maxScroll / 2));
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expectHomeCentered();
+
+  // タブが上端に張り付く位置までスクロールすると、地図領域が広がりボタン状態も連動する。
+  await page.evaluate((y) => window.scrollTo(0, y), maxScroll);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const tabsCollapsed = (await viewToggle(page).boundingBox())!;
+  expect(Math.abs(tabsCollapsed.y)).toBeLessThan(2);
+  expect(550 - tabsCollapsed.height).toBeGreaterThan(visibleBefore + 100);
+  await expect(viewToggle(page).getByRole('button', { name: /絞り込みとヘッダー/ })).toHaveAttribute('aria-expanded', 'false');
   await expectHomeCentered();
 });
 
