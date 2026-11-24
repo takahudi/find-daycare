@@ -14,6 +14,7 @@ import { Filters } from '../features/filters/Filters';
 import { useHome, type HomeChoice } from '../features/home/useHome';
 import { HomeForm } from '../features/home/HomeForm';
 import { MapLegend } from '../features/map/MapLegend';
+import { useMobileHeaderScroll } from './useMobileHeaderScroll';
 import styles from './App.module.css';
 
 type MapViewComponent = typeof import('../features/map/MapView').MapView;
@@ -59,7 +60,10 @@ export default function App({ data }: { data: Dataset }) {
       setMobileView('map');
     }
   };
+  const appRef = useRef<HTMLDivElement>(null);
+  const mobileTabsRef = useRef<HTMLElement>(null);
   const legendRef = useRef<HTMLDivElement>(null);
+  const { headerCollapsed, canToggleHeader, toggleHeader } = useMobileHeaderScroll(appRef, mobileTabsRef);
   const [MapView, setMapView] = useState<MapViewComponent | null>(() =>
     window.matchMedia('(max-width: 860px)').matches ? null : loadedMapView,
   );
@@ -98,7 +102,7 @@ export default function App({ data }: { data: Dataset }) {
   };
 
   return (
-    <div className={`${styles.app} ${mobileView === 'list' ? styles.listView : styles.mapView}`}>
+    <div ref={appRef} className={`${styles.app} ${mobileView === 'list' ? styles.listView : styles.mapView}`}>
       <header className={styles.topbar}>
         <DatasetHeading data={data} summary={summary} expiredWards={expiredWards} />
 
@@ -107,12 +111,33 @@ export default function App({ data }: { data: Dataset }) {
 
       <Filters wards={data.wards} state={filters} overlayPanelsOnMobile={mobileView === 'map'} />
 
-      <nav className={styles.mobileTabs} aria-label="表示切替">
-        <button type="button" aria-pressed={mobileTab === 'list'} onClick={() => switchMobileView('list')}>
+      <nav ref={mobileTabsRef} className={styles.mobileTabs} aria-label="表示切替">
+        <button
+          type="button"
+          className={styles.mobileTab}
+          aria-pressed={mobileTab === 'list'}
+          onClick={() => switchMobileView('list')}
+        >
           リスト
         </button>
-        <button type="button" aria-pressed={mobileTab === 'map'} onClick={() => switchMobileView('map')}>
+        <button
+          type="button"
+          className={styles.mobileTab}
+          aria-pressed={mobileTab === 'map'}
+          onClick={() => switchMobileView('map')}
+        >
           地図
+        </button>
+        <button
+          type="button"
+          className={styles.headerToggle}
+          aria-expanded={!headerCollapsed}
+          aria-label={headerCollapsed ? '絞り込みとヘッダーを表示' : '絞り込みとヘッダーを隠す'}
+          disabled={!canToggleHeader}
+          onClick={toggleHeader}
+        >
+          <span>絞り込み</span>
+          <span className={styles.headerToggleCaret} aria-hidden="true" />
         </button>
       </nav>
 

@@ -42,7 +42,7 @@ const flightGeometry = (page: Page) =>
     const pin = window.__findDaycarePins!.rendered().find((candidate) => candidate.layer === 'facility-pin-selected');
     const marker = pin ? { x: pin.clientX, y: pin.clientY, top: pin.clientY, width: 0, height: 0 } : null;
     const popupAnchor = { x: tip.x + tip.width / 2, y: tip.bottom + offset };
-    return { map: map.toJSON(), popup: popup.toJSON(), marker, popupAnchor };
+    return { map: map.toJSON(), popup: popup.toJSON(), marker, popupAnchor, viewportHeight: window.innerHeight };
   }, POPUP_OFFSET);
 async function geometry(page: Page) {
   const scene = await flightGeometry(page);
@@ -251,8 +251,9 @@ test('非表示だった地図へ移ると実際の高さに合わせた位置�
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expect
     .poll(async () => {
-      const { map, marker } = await geometry(page);
-      return Math.abs(marker.top + marker.height / 2 - map.top - map.height / 2);
+      const { map, marker, viewportHeight } = await geometry(page);
+      const visibleCenterY = (map.top + Math.min(map.bottom, viewportHeight)) / 2;
+      return Math.abs(marker.top + marker.height / 2 - visibleCenterY);
     })
     .toBeLessThan(1);
   await expectInside(page);
@@ -280,11 +281,9 @@ test('保留中の施設選択は自宅を解除しても地図の表示時に�
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expect
     .poll(async () => {
-      const { map, marker } = await geometry(page);
-      return Math.hypot(
-        marker.x + marker.width / 2 - map.x - map.width / 2,
-        marker.y + marker.height / 2 - map.y - map.height / 2,
-      );
+      const { map, marker, viewportHeight } = await geometry(page);
+      const visibleCenterY = (map.top + Math.min(map.bottom, viewportHeight)) / 2;
+      return Math.hypot(marker.x + marker.width / 2 - map.x - map.width / 2, marker.y + marker.height / 2 - visibleCenterY);
     })
     .toBeLessThan(1);
   await expectInside(page);
@@ -376,11 +375,9 @@ test('非表示の間に WebGL が復元されても地図で見る施設が中�
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expect
     .poll(async () => {
-      const { map, marker } = await geometry(page);
-      return Math.hypot(
-        marker.x + marker.width / 2 - map.x - map.width / 2,
-        marker.y + marker.height / 2 - map.y - map.height / 2,
-      );
+      const { map, marker, viewportHeight } = await geometry(page);
+      const visibleCenterY = (map.top + Math.min(map.bottom, viewportHeight)) / 2;
+      return Math.hypot(marker.x + marker.width / 2 - map.x - map.width / 2, marker.y + marker.height / 2 - visibleCenterY);
     })
     .toBeLessThan(1);
   await expectInside(page);
