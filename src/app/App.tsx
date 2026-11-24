@@ -52,23 +52,31 @@ export default function App({ data }: { data: Dataset }) {
   };
   const [mobileTab, setMobileTab] = useState<'list' | 'map'>('list');
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
+  const [mapActivated, setMapActivated] = useState(() => !window.matchMedia('(max-width: 860px)').matches);
   const switchMobileView = (next: 'list' | 'map') => {
     setMobileTab(next);
     if (next === 'list') {
       startTransition(() => setMobileView('list'));
     } else {
+      setMapActivated(true);
       setMobileView('map');
     }
   };
   const appRef = useRef<HTMLDivElement>(null);
   const mobileTabsRef = useRef<HTMLElement>(null);
   const legendRef = useRef<HTMLDivElement>(null);
-  const { headerCollapsed, canToggleHeader, toggleHeader } = useMobileHeaderScroll(appRef, mobileTabsRef);
-  const [MapView, setMapView] = useState<MapViewComponent | null>(() =>
-    window.matchMedia('(max-width: 860px)').matches ? null : loadedMapView,
-  );
+  const [MapView, setMapView] = useState<MapViewComponent | null>(() => (mapActivated ? loadedMapView : null));
   useEffect(() => {
-    if (MapView) return undefined;
+    if (mapActivated) return undefined;
+    const media = window.matchMedia('(max-width: 860px)');
+    const onChange = () => {
+      if (!media.matches) setMapActivated(true);
+    };
+    media.addEventListener('change', onChange);
+    return () => media.removeEventListener('change', onChange);
+  }, [mapActivated]);
+  useEffect(() => {
+    if (!mapActivated || MapView) return undefined;
     let active = true;
     void loadMapView().then((component) => {
       if (active) setMapView(() => component);
@@ -76,12 +84,18 @@ export default function App({ data }: { data: Dataset }) {
     return () => {
       active = false;
     };
-  }, [MapView]);
+  }, [mapActivated, MapView]);
 
   const { visible, distanceOf, vacancyOf } = listFacilities(
     data.facilities,
     { ages, wardIds, facilityTypes, onlyOpen, sort },
     home,
+  );
+  const { headerCollapsed, canToggleHeader, toggleHeader } = useMobileHeaderScroll(
+    appRef,
+    mobileTabsRef,
+    mobileView,
+    visible.length,
   );
 
   const { selectedId, setSelectedId } = useSelectedFacility(
