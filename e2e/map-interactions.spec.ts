@@ -312,3 +312,71 @@ test('モバイルの地図モードではタブ位置を動かさず全幅表�
   await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
   await expectHomeCentered();
 });
+
+test('地図を動かしても自宅に戻るボタンで自宅と近い5施設が中央に戻る', async ({ page, context }) => {
+  const home = { lat: 34.675, lng: 135.535 };
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ latitude: home.lat, longitude: home.lng });
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/');
+  await expectPinProbe(page);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+
+  const mapRegion = page.getByRole('region', { name: '地図', exact: true });
+  const homeButton = mapRegion.getByRole('button', { name: '自宅に戻る', exact: true });
+  await expect(homeButton).toHaveCount(0);
+
+  await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
+  await waitForLocation(page);
+  await expect.poll(() => homePinShown(page)).toBe(true);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expect(homeButton).toBeVisible();
+
+  const zoomOutBox = (await mapRegion.getByRole('button', { name: 'Zoom out', exact: true }).boundingBox())!;
+  const homeBox = (await homeButton.boundingBox())!;
+  expect(Math.abs(homeBox.x - zoomOutBox.x)).toBeLessThan(1);
+  expect(Math.abs(homeBox.width - zoomOutBox.width)).toBeLessThan(1);
+  expect(homeBox.y).toBeGreaterThan(zoomOutBox.y + zoomOutBox.height);
+
+  const map = (await page.locator('.maplibregl-map').boundingBox())!;
+  const legend = (await page.getByRole('group', { name: '地図の凡例' }).boundingBox())!;
+  const expectHomeCentered = async () => {
+    await expect
+      .poll(async () => {
+        const homePin = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin');
+        if (!homePin) return Number.POSITIVE_INFINITY;
+        const targetX = map.x + map.width / 2;
+        const targetY = (map.y + legend.y) / 2;
+        return Math.hypot(homePin.clientX - targetX, homePin.clientY - targetY);
+      })
+      .toBeLessThan(2);
+  };
+  await expectHomeCentered();
+
+  const dragX = map.x + map.width - 40;
+  const dragY = map.y + map.height / 2;
+  await page.mouse.move(dragX, dragY);
+  await page.mouse.down();
+  await page.mouse.move(dragX - 300, dragY - 200, { steps: 15 });
+  await page.waitForTimeout(200);
+  await page.mouse.up();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const draggedPin = (await renderedPins(page)).find((pin) => pin.layer === 'home-pin');
+  expect(
+    draggedPin
+      ? Math.hypot(draggedPin.clientX - (map.x + map.width / 2), draggedPin.clientY - (map.y + legend.y) / 2)
+      : Number.POSITIVE_INFINITY,
+  ).toBeGreaterThan(100);
+
+  await homeButton.click();
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await expectHomeCentered();
+
+  const nearest = [...data.facilities].sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b)).slice(0, 5);
+  for (const facility of nearest) {
+    await expect.poll(() => pinCentre(page, facility.id)).not.toBeNull();
+  }
+
+  await page.getByRole('banner').getByRole('button', { name: '解除', exact: true }).click();
+  await expect(homeButton).toHaveCount(0);
+});

@@ -49,3 +49,27 @@
 :global(.maplibregl-canvas-container) {
   isolation: isolate;
 }
+
+:global(.maplibregl-ctrl-group button) {
+  width: 36px;
+  height: 36px;
+  touch-action: manipulation;
+}
+
+:global(.maplibregl-ctrl-group) .homeControlButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-ink);
+}
+
+.homeControlIcon {
+  width: 19px;
+  height: 19px;
+}
+
+@media (forced-colors: active) {
+  :global(.maplibregl-ctrl-group) .homeControlButton {
+    color: ButtonText;
+  }
+}

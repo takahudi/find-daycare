@@ -2,27 +2,12 @@ import { useCallback, useEffect, useRef, type RefObject } from 'react';
 import { useMap } from 'react-map-gl/maplibre';
 import type { LngLatBoundsLike, Popup } from 'maplibre-gl';
 import type { Facility, Home } from '../../schema';
-import { distanceMeters } from '../../lib/geo';
-import { centeredBoundsFor } from './map-bounds';
+import { centerOnHome, DETAIL_ZOOM } from './home-camera';
 import { POPUP_OFFSET } from './FacilityPopup';
 
 const POPUP_MARGIN = 8;
-const HOME_PADDING_MARGIN = 8;
-// MapLibre のズームは 512px のタイルが基準なので、以前の Leaflet（256px）の16と同じ縮尺は15になる。
-const DETAIL_ZOOM = 15;
 
 type MapMove = { kind: 'selection' | 'home' | 'popup'; run: () => void };
-
-function homePadding(container: HTMLElement, legend: HTMLElement | null) {
-  const mapRect = container.getBoundingClientRect();
-  const { width, height } = mapRect;
-  const legendRect = legend?.getBoundingClientRect();
-  const legendInset = legendRect && legendRect.height > 0 ? Math.max(0, mapRect.bottom - legendRect.top) : 0;
-  const top = Math.min(HOME_PADDING_MARGIN, Math.floor(height / 8));
-  const side = Math.min(16, Math.floor(width / 8));
-  const bottom = Math.min(legendInset + HOME_PADDING_MARGIN, Math.floor(height / 3));
-  return { top, bottom, left: side, right: side };
-}
 
 export function MapController({
   facilities,
@@ -66,23 +51,10 @@ export function MapController({
     map.resize();
     map.redraw();
   }, [map]);
-  const centerOnHome = useCallback(
+  const focusHome = useCallback(
     (targetHome: Home, targetFacilities: Facility[], duration: number) => {
       if (!map) return;
-      const nearest = [...targetFacilities]
-        .sort((a, b) => distanceMeters(targetHome, a) - distanceMeters(targetHome, b))
-        .slice(0, 5);
-      const padding = homePadding(map.getContainer(), legendRef.current);
-      if (nearest.length === 0) {
-        map.flyTo({
-          center: [targetHome.lng, targetHome.lat],
-          zoom: DETAIL_ZOOM,
-          duration,
-          offset: [0, (padding.top - padding.bottom) / 2],
-        });
-      } else {
-        map.fitBounds(centeredBoundsFor(targetHome, nearest, 0.2), { duration, maxZoom: DETAIL_ZOOM, padding });
-      }
+      centerOnHome(map, targetHome, targetFacilities, legendRef.current, duration);
     },
     [map, legendRef],
   );
@@ -173,13 +145,13 @@ export function MapController({
       const targetFacilities = facilities;
       move = {
         kind: 'home',
-        run: () => centerOnHome(home, targetFacilities, duration),
+        run: () => focusHome(home, targetFacilities, duration),
       };
     } else if (reopenedMap && home && !popupOpen && !pendingMove.current) {
       const targetFacilities = facilities;
       move = {
         kind: 'home',
-        run: () => centerOnHome(home, targetFacilities, 0),
+        run: () => focusHome(home, targetFacilities, 0),
       };
     } else if (popupOpen && !previous.popupOpen) {
       move = { kind: 'popup', run: fitPopup };
@@ -196,6 +168,6 @@ export function MapController({
     }
     run();
     return undefined;
-  }, [map, home, selected, popupOpen, mapShown, facilities, popupRef, centerOnHome, moveWhenVisible, fitPopup]);
+  }, [map, home, selected, popupOpen, mapShown, facilities, popupRef, focusHome, moveWhenVisible, fitPopup]);
   return null;
 }
