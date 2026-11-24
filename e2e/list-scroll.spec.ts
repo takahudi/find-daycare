@@ -1,4 +1,4 @@
-import { expectFacilityPinCount, clickPin, zoomToPin } from './map.ts';
+import { expectFacilityPinCount, clickPin, viewToggle, zoomToPin } from './map.ts';
 import { expect, test, type Page } from '@playwright/test';
 import data from '../src/data/facilities.json' with { type: 'json' };
 
@@ -107,3 +107,27 @@ for (const viewport of [
     await expect(page.locator('article[aria-current="true"]')).not.toBeInViewport();
   });
 }
+
+test('mobile: 地図のピンで選んだ遠い施設のカードへリストに戻ると移動する', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const cards = page.locator('article[data-facility-id]');
+  await expect(cards).toHaveCount(data.facilities.length);
+  const order = await cards.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-facility-id')));
+  const id = 'tsurumi-184308';
+  expect(order.indexOf(id)).toBeGreaterThanOrEqual(Math.floor(order.length / 2));
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+  await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
+  await expectFacilityPinCount(page, data.facilities.length);
+  await zoomToPin(page, id);
+  await clickPin(page, id);
+  const selected = page.locator('article[aria-current="true"]');
+  await expect(selected).toHaveAttribute('data-facility-id', id);
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
+  await waitForFrames(page);
+  await expect(selected).toBeInViewport({ ratio: 0.99 });
+  const tabs = (await viewToggle(page).boundingBox())!;
+  expect((await selected.boundingBox())!.y, 'カードの上端が表示切替タブに隠れない').toBeGreaterThanOrEqual(
+    tabs.y + tabs.height - 1,
+  );
+});

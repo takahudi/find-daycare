@@ -1,4 +1,4 @@
-import { startTransition, useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useEffectEvent, useRef, useState } from 'react';
 import { useSelectedFacility } from '../features/facilities/useSelectedFacility';
 import type { Dataset, Facility } from '../schema';
 import { isFacilityVacancyExpired } from '../lib/vacancy-expiry';
@@ -102,11 +102,13 @@ export default function App({ data }: { data: Dataset }) {
     data.facilities.map((facility) => facility.id),
     visible.map((facility) => facility.id),
   );
-  const [initialSelectedId] = useState(selectedId);
+  const scrollToSelected = useEffectEvent(() => {
+    if (selectedId) scrollToFacility(selectedId);
+  });
   useEffect(() => {
-    // カード操作では表示位置を変えず、読み込み時に選択されていた施設だけに移動する。
-    if (initialSelectedId) scrollToFacility(initialSelectedId);
-  }, [initialSelectedId]);
+    // カード操作では表示位置を変えず、読み込み時とモバイルで地図からリストへ戻ったときだけ選択施設へ移動する。
+    if (mobileView === 'list') scrollToSelected();
+  }, [mobileView]);
 
   const select = (id: string, from: 'list' | 'map') => {
     setSelectedId(id);
