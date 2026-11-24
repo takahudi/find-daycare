@@ -108,33 +108,146 @@ for (const viewport of [
   });
 }
 
-test('mobile: 地図のピンで選んだ遠い施設のカードへリストに戻ると移動する', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
+test('mobile: 地図で選んだ施設をスクロール位置を保ったまま先頭にピン留めし、一覧の位置へ移動後に先頭へ戻れる', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 412, height: 915 });
   await page.goto('/');
   const cards = page.locator('article[data-facility-id]');
   await expect(cards).toHaveCount(data.facilities.length);
-  const order = await cards.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-facility-id')));
+  const initialOrder = await cards.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-facility-id')));
   const id = 'tsurumi-184308';
-  expect(order.indexOf(id)).toBeGreaterThanOrEqual(Math.floor(order.length / 2));
+  const originalIndex = initialOrder.indexOf(id);
+  expect(originalIndex).toBeGreaterThanOrEqual(Math.floor(initialOrder.length / 2));
+
+  const scrollToTop = page.getByRole('button', { name: '先頭に戻る', exact: true });
+  await expect(scrollToTop).toHaveCount(0);
+
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
   await expectFacilityPinCount(page, data.facilities.length);
   await zoomToPin(page, id);
   await clickPin(page, id);
-  const selected = page.locator('article[aria-current="true"]');
-  await expect(selected).toHaveAttribute('data-facility-id', id);
+
   await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await waitForFrames(page);
+
+  // スクロール位置は動かず、ヘッダーが見えたまま維持される。
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
+  await expect(scrollToTop).toHaveCount(0);
+
+  const pinned = page.getByRole('region', { name: '地図で選択中の施設', exact: true });
+  await expect(pinned).toBeVisible();
+  const selected = page.locator('article[aria-current="true"]');
+  await expect(selected).toHaveCount(1);
+  await expect(selected).toHaveAttribute('data-facility-id', id);
+  await expect(pinned.locator('article[aria-current="true"]')).toHaveCount(1);
+  await expect(cards).toHaveCount(data.facilities.length);
   await expect(selected).toBeInViewport({ ratio: 0.99 });
   const tabs = (await viewToggle(page).boundingBox())!;
   expect((await selected.boundingBox())!.y, 'カードの上端が表示切替タブに隠れない').toBeGreaterThanOrEqual(
     tabs.y + tabs.height - 1,
   );
-  const scrollToTop = page.getByRole('button', { name: '先頭に戻る', exact: true });
+
+  // 地図へ戻ってもスクロール位置は維持される。
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
+
+  // リストへ戻り「一覧の位置へ移動」を押すとピン留めが解除され元の位置へスクロールし、先頭に戻るボタンで戻せる。
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
+  await expect(pinned).toBeVisible();
+  await pinned.getByRole('button', { name: '一覧の位置へ移動', exact: true }).click();
+  await expect(pinned).toHaveCount(0);
+  await waitForFrames(page);
+  await expect(selected).toBeInViewport({ ratio: 0.99 });
+  const restoredOrder = await cards.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-facility-id')));
+  expect(restoredOrder).toEqual(initialOrder);
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(500);
+  const tabsAfterJump = (await viewToggle(page).boundingBox())!;
+  expect((await selected.boundingBox())!.y, '移動後もカードの上端が表示切替タブに隠れない').toBeGreaterThanOrEqual(
+    tabsAfterJump.y + tabsAfterJump.height - 1,
+  );
   await expect(scrollToTop).toBeVisible();
   await scrollToTop.click();
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
   await expect(scrollToTop).toHaveCount(0);
+});
+
+test('mobile: 地図でヘッダーを隠した状態でもスクロール位置を維持してピン留めし、閉じるで解除できる', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const cards = page.locator('article[data-facility-id]');
+  await expect(cards).toHaveCount(data.facilities.length);
+  const initialOrder = await cards.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-facility-id')));
+  const id = 'tsurumi-184308';
+
+  const scrollToTop = page.getByRole('button', { name: '先頭に戻る', exact: true });
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+  await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight - window.innerHeight));
+  await expect(scrollToTop).toBeVisible();
+  const collapsedScrollY = await page.evaluate(() => window.scrollY);
+  expect(collapsedScrollY).toBeGreaterThan(50);
+
+  await expectFacilityPinCount(page, data.facilities.length);
+  await zoomToPin(page, id);
+  await clickPin(page, id);
+
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
+  await waitForFrames(page);
+
+  await expect(scrollToTop).toBeVisible();
+  expect(Math.abs((await page.evaluate(() => window.scrollY)) - collapsedScrollY)).toBeLessThan(2);
+
+  const pinned = page.getByRole('region', { name: '地図で選択中の施設', exact: true });
+  await expect(pinned).toBeVisible();
+  const selected = pinned.locator('article[aria-current="true"]');
+  await expect(selected).toHaveAttribute('data-facility-id', id);
+  await expect(selected).toBeInViewport({ ratio: 0.99 });
+
+  await pinned.getByRole('button', { name: '閉じる', exact: true }).click();
+  await expect(pinned).toHaveCount(0);
+  await expect(scrollToTop).toBeVisible();
+  expect(Math.abs((await page.evaluate(() => window.scrollY)) - collapsedScrollY)).toBeLessThan(2);
+  const restoredOrder = await cards.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-facility-id')));
+  expect(restoredOrder).toEqual(initialOrder);
+});
+
+test('mobile: ピン留めされたカードの下までスクロールして別のカードを選んでも表示位置が跳ねない', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const cards = page.locator('article[data-facility-id]');
+  await expect(cards).toHaveCount(data.facilities.length);
+  const id = 'tsurumi-184308';
+
+  await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+  await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
+  await expectFacilityPinCount(page, data.facilities.length);
+  await zoomToPin(page, id);
+  await clickPin(page, id);
+
+  await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
+  await waitForFrames(page);
+  const pinned = page.getByRole('region', { name: '地図で選択中の施設', exact: true });
+  await expect(pinned).toBeVisible();
+
+  const other = cards.nth(5);
+  const otherId = (await other.getAttribute('data-facility-id'))!;
+  expect(otherId).not.toBe(id);
+  await other.evaluate((node) => window.scrollTo(0, node.getBoundingClientRect().top + window.scrollY - 200));
+  await waitForFrames(page, 4);
+  const pinnedBox = await pinned.boundingBox();
+  const tabsBox = (await viewToggle(page).boundingBox())!;
+  expect(pinnedBox!.y + pinnedBox!.height).toBeLessThanOrEqual(tabsBox.y + tabsBox.height);
+  const beforeTop = (await other.boundingBox())!.y;
+
+  await other.getByRole('heading').click();
+  await expect(pinned).toHaveCount(0);
+  const selected = page.locator('article[aria-current="true"]');
+  await expect(selected).toHaveAttribute('data-facility-id', otherId);
+  await waitForFrames(page, 4);
+  const afterTop = (await selected.boundingBox())!.y;
+  expect(Math.abs(afterTop - beforeTop)).toBeLessThan(2);
 });
 
 test('desktop: 一覧をスクロールすると先頭に戻るボタンが表示され、クリックで一覧の先頭に戻る', async ({ page }) => {

@@ -533,6 +533,25 @@ const accessibilityStates: {
     scope: async () => [],
   },
   {
+    name: 'モバイルで地図から選んだ施設をリスト先頭にピン留めした表示',
+    viewport: { width: 390, height: 844 },
+    fullPage: false,
+    setup: async (page) => {
+      const typeTrigger = page.getByRole('region', { name: '絞り込み' }).getByRole('button', { name: /^種別 / });
+      await typeTrigger.click();
+      for (const label of ['保育所', '認定こども園', '地域型保育（0〜2歳）']) {
+        await page.getByRole('group', { name: '種別', exact: true }).getByRole('button', { name: label, exact: true }).click();
+      }
+      await typeTrigger.click();
+      await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
+      await openVisibleUnlicensedPopup(page);
+      await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
+      await expect(page.locator('section[aria-label="施設一覧"] > section')).toHaveCount(1);
+      await expect(page.getByRole('region', { name: '地図で選択中の施設', exact: true })).toBeVisible();
+    },
+    scope: async () => ['section[aria-label="施設一覧"] > section', '[aria-label="表示切替"]'],
+  },
+  {
     name: '住所検索で自宅を指定した表示',
     viewport: { width: 1280, height: 800 },
     fullPage: false,
