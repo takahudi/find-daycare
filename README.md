@@ -109,9 +109,9 @@ pnpm map:assets  # フォント・スプライトを取得し data/map/assets.js
 
 ## デプロイ
 
-Cloudflare Workers Static Assets + R2（`wrangler.jsonc`）にデプロイします。Worker は `/map/tiles/<build>/<z>/<x>/<y>.mvt` を R2 の PMTiles から配信し、それ以外は静的アセットを配信します。
+Cloudflare Workers Static Assets + R2（`wrangler.jsonc`）のカスタムドメイン（`https://osaka.hoiku-map.com/`）に公開します。本番の `workers.dev` は無効化（`workers_dev: false`）し、PR プレビューのみ有効化（`preview_urls: true`）しています。Worker は `/map/tiles/<build>/<z>/<x>/<y>.mvt` を R2 の PMTiles から配信し、それ以外は静的アセットを配信します。
 
-GitHub Actions（[.github/workflows/ci.yml](.github/workflows/ci.yml)）により、PR ではチェック・E2E 通過後にプレビューデプロイを作成し、`main` へのマージで本番環境へデプロイします。デプロイにはリポジトリの Secrets に `CLOUDFLARE_API_TOKEN` と `CLOUDFLARE_ACCOUNT_ID` が必要です。
+GitHub Actions（[.github/workflows/ci.yml](.github/workflows/ci.yml)）により、PR ではチェック・E2E 通過後にプレビューデプロイを作成し、`main` へのマージで本番環境へデプロイします。リポジトリの Secrets に `CLOUDFLARE_API_TOKEN`（Account の Workers Scripts 編集権限に加え、`hoiku-map.com` ゾーンの `Zone: Read`・`DNS: Edit`・`Workers Routes: Edit` 権限）と `CLOUDFLARE_ACCOUNT_ID` が必要です。
 
 ## 技術スタック・構成
 
