@@ -84,12 +84,10 @@ export function useMobileHeaderScroll(
     const collapseOffset = collapseOffsetOf(tabs);
     if (collapseOffset <= 0) return;
     const target = headerCollapsed ? 0 : collapseOffset;
-    const distance = Math.abs(window.scrollY - target);
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    window.scrollTo({
-      top: target,
-      behavior: reducedMotion || distance > collapseOffset * 2 ? 'auto' : 'smooth',
-    });
+    setHeaderCollapsed(target > 0);
+    // Chrome Android では content-visibility: auto を含む長い一覧に対する behavior: 'smooth' が
+    // 初回のみコンポジタ準備で大きく遅延することがあるため、即時スクロールで確実に応答させる。
+    window.scrollTo(0, target);
   }, [tabsRef, headerCollapsed]);
 
   return { headerCollapsed, canToggleHeader, toggleHeader };
