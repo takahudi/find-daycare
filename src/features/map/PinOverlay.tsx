@@ -27,6 +27,7 @@ export function PinOverlay({
   selectedId,
   home,
   onSelect,
+  onDeselect,
 }: {
   hintId: string;
   facilities: Facility[];
@@ -35,6 +36,7 @@ export function PinOverlay({
   selectedId: string | null;
   home: Home | null;
   onSelect: (id: string) => void;
+  onDeselect: () => void;
 }) {
   const map = useMap().current?.getMap();
   // Compiler は effect event が読む scene の計算をキャッシュしないため、source の同一性をここで保つ。
@@ -89,14 +91,25 @@ export function PinOverlay({
   });
   const hoverPoint = useRef<ScreenPoint | null>(null);
   const refreshCursor = useEffectEvent(() => {
-    if (map) map.getCanvas().style.cursor = hoverPoint.current && pick(hoverPoint.current) ? 'pointer' : '';
+    if (!map) return;
+    const hit = hoverPoint.current ? pick(hoverPoint.current) : null;
+    map.getCanvas().style.cursor = hit && (hit.kind === 'facility' || scene.selected !== null) ? 'pointer' : '';
   });
   useSourceData(map, 'facility-pins', base.data);
   useSourceData(map, 'facility-pin-selected', selected.data);
   useSourceData(map, 'home-pin', homeAt.data);
   useSourceData(map, ROUTE_SOURCE, route);
 
-  const select = useEffectEvent((id: string) => onSelect(id));
+  const handleClick = useEffectEvent((point: ScreenPoint) => {
+    const hit = pick(point);
+    if (!hit) return;
+    if (hit.kind === 'facility') onSelect(hit.id);
+    else if (scene.selected) onDeselect();
+  });
+  const pickKey = useEffectEvent((point: ScreenPoint) => {
+    const hit = pick(point);
+    return hit ? (hit.kind === 'home' ? 'home' : hit.id) : null;
+  });
   useEffect(() => {
     if (!map) return undefined;
     const canvas = map.getCanvas();
@@ -124,8 +137,7 @@ export function PinOverlay({
       });
     };
     const click = (event: MapMouseEvent) => {
-      const id = pick(event.point);
-      if (id) select(id);
+      handleClick(event.point);
     };
     let frame: number | null = null;
     const clearCursor = () => {
@@ -165,7 +177,7 @@ export function PinOverlay({
     map.on('mouseout', resetCursor);
     map.on('dragstart', resetCursor);
     map.on('boxzoomstart', resetCursor);
-    const removeProbe = installPinProbe(map, pick);
+    const removeProbe = installPinProbe(map, pickKey);
     return () => {
       resetCursor();
       map.setMissingStyleImageResolver(null);

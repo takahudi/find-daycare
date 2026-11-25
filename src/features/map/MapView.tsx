@@ -35,6 +35,7 @@ interface Props {
   mapShown: boolean;
   legendRef: RefObject<HTMLDivElement | null>;
   onSelect: (id: string) => void;
+  onDeselect: () => void;
 }
 
 export function MapView({
@@ -48,6 +49,7 @@ export function MapView({
   mapShown,
   legendRef,
   onSelect,
+  onDeselect,
 }: Props) {
   const hintId = useId();
   const popupRef = useRef<maplibregl.Popup>(null);
@@ -108,6 +110,7 @@ export function MapView({
           selectedId={selectedId}
           home={home}
           onSelect={selectMarker}
+          onDeselect={onDeselect}
         />
         {selected && popupOpen && (
           <FacilityPopup

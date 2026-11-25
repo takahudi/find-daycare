@@ -244,10 +244,13 @@ function pickTargets(scene: PinScene): readonly PickTarget[] {
   }
   return targets;
 }
-export function pickPin(scene: PinScene, point: ScreenPoint, project: (lngLat: [number, number]) => ScreenPoint): string | null {
+export type PinHit = { readonly kind: 'facility'; readonly id: string } | { readonly kind: 'home' };
+export function pickPin(scene: PinScene, point: ScreenPoint, project: (lngLat: [number, number]) => ScreenPoint): PinHit | null {
   for (const { pin, position: lngLat } of pickTargets(scene)) {
     const position = project(lngLat);
-    if (pinContains(pin.face, point.x - position.x, point.y - position.y)) return pin.face.kind === 'facility' ? pin.id : null;
+    if (pinContains(pin.face, point.x - position.x, point.y - position.y)) {
+      return pin.face.kind === 'facility' ? { kind: 'facility', id: pin.id } : { kind: 'home' };
+    }
   }
   return null;
 }

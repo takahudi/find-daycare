@@ -50,7 +50,7 @@ export default function App({ data }: { data: Dataset }) {
   const { ages, wardIds, facilityTypes, onlyOpen, sort, setSort, followDefaultSort } = filters;
   const onHomeChosen = (source: HomeChoice) => {
     followDefaultSort();
-    if (source === 'search') setSelectedId(null);
+    if (source === 'search') deselect();
   };
   const [mobileTab, setMobileTab] = useState<'list' | 'map'>('list');
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
@@ -145,6 +145,11 @@ export default function App({ data }: { data: Dataset }) {
     });
   };
 
+  const deselect = () => {
+    setSelectedId(null);
+    setPinnedId(null);
+  };
+
   const select = (id: string, from: 'list' | 'map') => {
     setSelectedId(id);
     if (from === 'map') {
@@ -235,6 +240,7 @@ export default function App({ data }: { data: Dataset }) {
               mapShown={mobileView === 'map'}
               legendRef={legendRef}
               onSelect={(id) => select(id, 'map')}
+              onDeselect={deselect}
             />
           )}
           <MapLegend ref={legendRef} hasHome={!!home} />
