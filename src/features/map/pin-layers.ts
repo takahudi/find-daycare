@@ -244,9 +244,29 @@ function pickTargets(scene: PinScene): readonly PickTarget[] {
   }
   return targets;
 }
+export interface PinGeoBounds {
+  readonly west: number;
+  readonly east: number;
+  readonly south: number;
+  readonly north: number;
+}
 export type PinHit = { readonly kind: 'facility'; readonly id: string } | { readonly kind: 'home' };
-export function pickPin(scene: PinScene, point: ScreenPoint, project: (lngLat: [number, number]) => ScreenPoint): PinHit | null {
+export function pickPin(
+  scene: PinScene,
+  point: ScreenPoint,
+  project: (lngLat: [number, number]) => ScreenPoint,
+  visibleBounds?: PinGeoBounds,
+): PinHit | null {
   for (const { pin, position: lngLat } of pickTargets(scene)) {
+    if (
+      visibleBounds &&
+      (lngLat[0] < visibleBounds.west ||
+        lngLat[0] > visibleBounds.east ||
+        lngLat[1] < visibleBounds.south ||
+        lngLat[1] > visibleBounds.north)
+    ) {
+      continue;
+    }
     const position = project(lngLat);
     if (pinContains(pin.face, point.x - position.x, point.y - position.y)) {
       return pin.face.kind === 'facility' ? { kind: 'facility', id: pin.id } : { kind: 'home' };

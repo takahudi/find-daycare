@@ -15,10 +15,14 @@ import {
   routeCollection,
   ROUTE_SOURCE,
   selectedPin,
+  type PinGeoBounds,
   type PinScene,
   type ScreenPoint,
 } from './pin-layers';
 import { installPinProbe } from './pin-probe';
+
+// 最大ピン（選択中 30px × 1.2 = 36px → 半径 18px）に余裕を持たせた画面外除外マージン。
+const PICK_BOUNDS_MARGIN_PX = 24;
 
 export function PinOverlay({
   hintId,
@@ -73,24 +77,45 @@ export function PinOverlay({
   const projectionCache = useRef<{
     key: string;
     points: WeakMap<readonly [number, number], ScreenPoint>;
-  }>({ key: '', points: new WeakMap() });
+    bounds: PinGeoBounds | null;
+    width: number;
+    height: number;
+  }>({ key: '', points: new WeakMap(), bounds: null, width: 0, height: 0 });
   const pick = useEffectEvent((point: ScreenPoint) => {
     if (!map) return null;
     const nw = map.project([135.36, 34.77]);
     const se = map.project([135.62, 34.56]);
-    const key = `${nw.x},${nw.y},${se.x},${se.y}`;
+    const { clientWidth: width, clientHeight: height } = map.getContainer();
+    const key = `${nw.x},${nw.y},${se.x},${se.y},${width},${height}`;
     if (projectionCache.current.key !== key) {
-      projectionCache.current = { key, points: new WeakMap() };
-    }
-    const { points } = projectionCache.current;
-    return pickPin(scene, point, (lngLat) => {
-      let projected = points.get(lngLat);
-      if (!projected) {
-        projected = map.project(lngLat);
-        points.set(lngLat, projected);
+      let bounds: PinGeoBounds | null = null;
+      if (width > 0 && height > 0) {
+        const topLeft = map.unproject([-PICK_BOUNDS_MARGIN_PX, -PICK_BOUNDS_MARGIN_PX]);
+        const bottomRight = map.unproject([width + PICK_BOUNDS_MARGIN_PX, height + PICK_BOUNDS_MARGIN_PX]);
+        bounds = {
+          west: Math.min(topLeft.lng, bottomRight.lng),
+          east: Math.max(topLeft.lng, bottomRight.lng),
+          south: Math.min(topLeft.lat, bottomRight.lat),
+          north: Math.max(topLeft.lat, bottomRight.lat),
+        };
       }
-      return projected;
-    });
+      projectionCache.current = { key, points: new WeakMap(), bounds, width, height };
+    }
+    const { points, bounds } = projectionCache.current;
+    const visibleBounds = bounds && point.x >= 0 && point.x <= width && point.y >= 0 && point.y <= height ? bounds : undefined;
+    return pickPin(
+      scene,
+      point,
+      (lngLat) => {
+        let projected = points.get(lngLat);
+        if (!projected) {
+          projected = map.project(lngLat);
+          points.set(lngLat, projected);
+        }
+        return projected;
+      },
+      visibleBounds,
+    );
   });
   const hoverPoint = useRef<ScreenPoint | null>(null);
   const refreshCursor = useEffectEvent(() => {

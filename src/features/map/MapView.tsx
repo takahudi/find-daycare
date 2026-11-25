@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type RefObject } from 'react';
+import { useId, useLayoutEffect, useRef, useState, type RefObject } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
 import MapGL, { AttributionControl, NavigationControl } from 'react-map-gl/maplibre';
@@ -19,10 +19,15 @@ import { PinOverlay } from './PinOverlay';
 
 maplibregl.setWorkerUrl(workerUrl);
 maplibregl.prewarm();
-const mapStyles: Record<Theme, ReturnType<typeof createMapStyle>> = {
-  light: createMapStyle(window.location.origin, 'light'),
-  dark: createMapStyle(window.location.origin, 'dark'),
-};
+const mapStyles: Partial<Record<Theme, ReturnType<typeof createMapStyle>>> = {};
+function mapStyleFor(theme: Theme) {
+  let style = mapStyles[theme];
+  if (!style) {
+    style = createMapStyle(window.location.origin, theme);
+    mapStyles[theme] = style;
+  }
+  return style;
+}
 // Static Assets は @ を正規化するが、Vite は %40 を解決しないため、本番配信だけ書き換える。
 const transformRequest: maplibregl.RequestTransformFunction = (url) => ({
   url: import.meta.env.DEV ? url : url.replace('@2x.', '%402x.'),
@@ -57,8 +62,12 @@ export function MapView({
 }: Props) {
   const { theme } = useTheme();
   const hintId = useId();
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const busyRef = useRef(true);
   const popupRef = useRef<maplibregl.Popup>(null);
-  const [busy, setBusy] = useState(true);
+  useLayoutEffect(() => {
+    mapContainerRef.current?.setAttribute('aria-busy', String(busyRef.current));
+  }, []);
   const selected = facilities.find((facility) => facility.id === selectedId);
   const [closedId, setClosedId] = useState<string | null>(null);
   const [previousSelectedId, setPreviousSelectedId] = useState(selectedId);
@@ -74,16 +83,22 @@ export function MapView({
     onSelect(id);
   };
   return (
-    <div className={`${styles.map}${theme === 'dark' ? ` ${styles.mapDark}` : ''}`} aria-busy={busy}>
+    <div ref={mapContainerRef} className={`${styles.map}${theme === 'dark' ? ` ${styles.mapDark}` : ''}`}>
       <p id={hintId} className="visually-hidden">
         地図のピンはクリックかタップで選べます。キーボードや読み上げでは、表示切替でリストを開き、施設一覧から施設を選んでください。
       </p>
       <MapGL
         locale={{ 'Map.Title': '地図' }}
-        onMoveStart={() => setBusy(true)}
-        onIdle={() => setBusy(false)}
+        onMoveStart={() => {
+          busyRef.current = true;
+          mapContainerRef.current?.setAttribute('aria-busy', 'true');
+        }}
+        onIdle={() => {
+          busyRef.current = false;
+          mapContainerRef.current?.setAttribute('aria-busy', 'false');
+        }}
         mapLib={maplibregl}
-        mapStyle={mapStyles[theme]}
+        mapStyle={mapStyleFor(theme)}
         initialViewState={{ bounds: initialBounds }}
         transformRequest={transformRequest}
         maxZoom={17}
