@@ -25,7 +25,6 @@ interface Props {
   vacancyExpired: boolean;
   rank: number | null;
   distance: number | null;
-  highlightAges: number[];
   selected: boolean;
   onSelect: (id: string) => void;
   onShowOnMap: (id: string) => void;
@@ -36,7 +35,6 @@ export const FacilityCard = memo(function FacilityCard({
   vacancyExpired,
   rank,
   distance,
-  highlightAges,
   selected,
   onSelect,
   onShowOnMap,
@@ -92,12 +90,12 @@ export const FacilityCard = memo(function FacilityCard({
             if (group[0] !== age) return null;
             const label = group.length > 1 ? `${group.join('・')}歳` : AGE_LABELS[age];
             const state = v === null ? 'na' : v > 0 ? 'open' : 'full';
-            const focus = group.some((a) => highlightAges.includes(a));
             return (
               <div
                 key={age}
                 role="cell"
-                className={`${styles.vacancyCell} ${cellByVacancyState[state]}${focus ? ` ${styles.cellFocus}` : ''}`}
+                data-ages={group.join(' ')}
+                className={`${styles.vacancyCell} ${cellByVacancyState[state]}`}
                 style={group.length > 1 ? { gridColumn: `span ${group.length}` } : undefined}
                 title={v === null ? `${label}: 受入れ対象外` : `${label}: 空き${v}人${group.length > 1 ? '（共有）' : ''}`}
               >

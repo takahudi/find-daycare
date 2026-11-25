@@ -98,7 +98,6 @@ export function FacilityList({
             vacancyExpired={vacancyExpiredOf(pinnedFacility)}
             rank={showRank ? pinnedIndex + 1 : null}
             distance={distanceOf(pinnedFacility)}
-            highlightAges={ages}
             selected={pinnedFacility.id === selectedId}
             onSelect={onSelect}
             onShowOnMap={onShowOnMap}
@@ -115,7 +114,6 @@ export function FacilityList({
               vacancyExpired={vacancyExpiredOf(f)}
               rank={showRank ? i + 1 : null}
               distance={distanceOf(f)}
-              highlightAges={ages}
               selected={f.id === selectedId}
               onSelect={onSelect}
               onShowOnMap={onShowOnMap}

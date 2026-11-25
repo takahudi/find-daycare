@@ -1,4 +1,4 @@
-import { startTransition, useEffect, useEffectEvent, useRef, useState } from 'react';
+import { startTransition, useEffect, useEffectEvent, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { useSelectedFacility } from '../features/facilities/useSelectedFacility';
 import type { Dataset, Facility } from '../schema';
@@ -45,14 +45,9 @@ export default function App({ data }: { data: Dataset }) {
   const vacancyExpiredOf = (facility: Facility) => isFacilityVacancyExpired(facility, expiredWardIds);
   const summary = summarizeDataset(data);
   const { wardNames } = summary;
-  const homeState = useHome(wardNames);
-  const { home } = homeState;
+  const { home, setHome, clearHome } = useHome();
   const filters = useFilters({ wardIds: data.wards.map((w) => w.id), sort: home ? 'distance' : 'vacancy' });
   const { ages, wardIds, facilityTypes, onlyOpen, sort, setSort, followDefaultSort } = filters;
-  const onHomeChosen = (source: HomeChoice) => {
-    followDefaultSort();
-    if (source === 'search') deselect();
-  };
   const [mobileTab, setMobileTab] = useState<'list' | 'map'>('list');
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 860px)').matches);
@@ -73,6 +68,7 @@ export default function App({ data }: { data: Dataset }) {
   const legendRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef<HTMLElement>(null);
   const [MapView, setMapView] = useState<MapViewComponent | null>(() => (mapActivated ? loadedMapView : null));
+  useMobileBarHeight(appRef, mobileTabsRef);
   useEffect(() => {
     const media = window.matchMedia('(max-width: 860px)');
     const onChange = () => {
@@ -93,18 +89,22 @@ export default function App({ data }: { data: Dataset }) {
     };
   }, [mapActivated, MapView]);
 
-  const { visible, distanceOf, vacancyOf } = listFacilities(
-    data.facilities,
-    { ages, wardIds, facilityTypes, onlyOpen, sort },
-    home,
+  const { visible, distanceOf, vacancyOf } = useMemo(
+    () => listFacilities(data.facilities, { ages, wardIds, facilityTypes, onlyOpen, sort }, home),
+    [data.facilities, ages, wardIds, facilityTypes, onlyOpen, sort, home],
   );
-  useMobileBarHeight(appRef, mobileTabsRef);
 
   const { selectedId, setSelectedId } = useSelectedFacility(
     data.facilities.map((facility) => facility.id),
-    visible.map((facility) => facility.id),
+    visible,
   );
   const activePinnedId = isMobile && pinnedId !== null && pinnedId === selectedId ? pinnedId : null;
+  const activePinnedIdRef = useRef(activePinnedId);
+  const isMobileRef = useRef(isMobile);
+  useLayoutEffect(() => {
+    activePinnedIdRef.current = activePinnedId;
+    isMobileRef.current = isMobile;
+  }, [activePinnedId, isMobile]);
   const scrollToSelected = useEffectEvent(() => {
     if (selectedId) scrollToFacility(selectedId);
   });
@@ -151,16 +151,21 @@ export default function App({ data }: { data: Dataset }) {
     setPinnedId(null);
   };
 
+  const onHomeChosen = (source: HomeChoice) => {
+    followDefaultSort();
+    if (source === 'search') deselect();
+  };
+
   const select = (id: string, from: 'list' | 'map') => {
     setSelectedId(id);
     if (from === 'map') {
-      if (isMobile) {
+      if (isMobileRef.current) {
         setPinnedId(id);
       } else {
         setPinnedId(null);
         scrollToFacility(id);
       }
-    } else if (activePinnedId && id !== activePinnedId) {
+    } else if (activePinnedIdRef.current && id !== activePinnedIdRef.current) {
       unpinKeepingCardPosition(id);
     }
   };
@@ -170,6 +175,8 @@ export default function App({ data }: { data: Dataset }) {
     scrollToFacility(id);
   };
 
+  const focusAges = ages.length > 0 ? ages.join(' ') : undefined;
+
   return (
     <div ref={appRef} className={`${styles.app} ${mobileView === 'list' ? styles.listView : styles.mapView}`}>
       <header className={styles.topbar}>
@@ -178,7 +185,7 @@ export default function App({ data }: { data: Dataset }) {
         </div>
 
         <div className={styles.topbarHome}>
-          <HomeForm state={homeState} onHomeChosen={onHomeChosen} />
+          <HomeForm home={home} wardNames={wardNames} setHome={setHome} clearHome={clearHome} onHomeChosen={onHomeChosen} />
         </div>
 
         <div className={styles.topbarTheme}>
@@ -209,7 +216,7 @@ export default function App({ data }: { data: Dataset }) {
 
       <main className={styles.layout}>
         <div className={styles.listPane}>
-          <section ref={listRef} className={styles.list} aria-label="施設一覧">
+          <section ref={listRef} className={styles.list} aria-label="施設一覧" data-focus-ages={focusAges}>
             <FacilityList
               facilities={visible}
               distanceOf={distanceOf}

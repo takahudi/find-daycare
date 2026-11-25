@@ -5,8 +5,23 @@ import { centeredBoundsFor } from './map-bounds';
 import { syncViewportPadding } from './viewport-padding';
 
 const HOME_PADDING_MARGIN = 8;
+const NEAREST_FACILITY_COUNT = 5;
 // MapLibre のズームは 512px のタイルが基準なので、以前の Leaflet（256px）の16と同じ縮尺は15になる。
 export const DETAIL_ZOOM = 15;
+
+function nearestFacilities(targetHome: Home, targetFacilities: Facility[]): Facility[] {
+  const nearest: { facility: Facility; distance: number }[] = [];
+  for (const facility of targetFacilities) {
+    const distance = distanceMeters(targetHome, facility);
+    if (nearest.length < NEAREST_FACILITY_COUNT || distance < nearest[nearest.length - 1].distance) {
+      let insertAt = nearest.length;
+      while (insertAt > 0 && distance < nearest[insertAt - 1].distance) insertAt -= 1;
+      nearest.splice(insertAt, 0, { facility, distance });
+      if (nearest.length > NEAREST_FACILITY_COUNT) nearest.pop();
+    }
+  }
+  return nearest.map((entry) => entry.facility);
+}
 
 function homePadding(container: HTMLElement, legend: HTMLElement | null, mapPaddingBottom: number) {
   const mapRect = container.getBoundingClientRect();
@@ -29,7 +44,7 @@ export function centerOnHome(
   duration: number,
 ) {
   const mapPaddingBottom = syncViewportPadding(map, { force: true });
-  const nearest = [...targetFacilities].sort((a, b) => distanceMeters(targetHome, a) - distanceMeters(targetHome, b)).slice(0, 5);
+  const nearest = nearestFacilities(targetHome, targetFacilities);
   const padding = homePadding(map.getContainer(), legend, mapPaddingBottom);
   if (nearest.length === 0) {
     map.flyTo({

@@ -160,4 +160,20 @@ describe('ピンのクリック', () => {
     expect(secondRefs.length).toBe(4);
     secondRefs.forEach((ref, index) => expect(ref).toBe(firstRefs[index]));
   });
+  it('visibleBoundsを指定すると範囲外のピンは投影せずスキップする', () => {
+    const all = [facility('inside', 34.65, 135.5), facility('outside', 34.75, 135.6)];
+    const pins = facilityPins(all, all, () => 1);
+    const projected: [number, number][] = [];
+    const hit = pickPin(
+      scene({ facilities: pins }),
+      project([135.5, 34.65]),
+      (lngLat) => {
+        projected.push(lngLat);
+        return project(lngLat);
+      },
+      { west: 135.48, east: 135.52, south: 34.63, north: 34.67 },
+    );
+    expect(hit).toEqual({ kind: 'facility', id: 'inside' });
+    expect(projected).toHaveLength(1);
+  });
 });

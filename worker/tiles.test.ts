@@ -6,7 +6,7 @@ import { unstable_readConfig } from 'wrangler';
 import manifest from '../data/map/tiles.json' with { type: 'json' };
 import { createTileFixture, fixtureTiles } from '../scripts/map-tiles/tile-fixture.ts';
 import { serveTile } from './tiles.ts';
-import type { TileBucket } from './tiles.ts';
+import type { TileBucket, TileCache } from './tiles.ts';
 
 const tilePath = (z = 0, x = 0, y = 0) => `/map/tiles/${manifest.source.build}/${z}/${x}/${y}.mvt`;
 const request = (path = tilePath(), init?: RequestInit) => new Request(`https://example.test${path}`, init);
@@ -186,6 +186,69 @@ it('R2からPMTilesの指定位置だけを読み、2回目にはヘッダとデ
   expect(bucket.get.mock.calls).toEqual([
     [manifest.object.key, { range: { offset: header.tileDataOffset + first.bytes.length, length: second.bytes.length } }],
   ]);
+});
+
+function fakeCache() {
+  const store = new Map<string, { status: number; headers: Headers; body: ArrayBuffer }>();
+  const match = vi.fn<TileCache['match']>(async (req) => {
+    const entry = store.get(req.url);
+    if (!entry) return undefined;
+    return new Response(entry.body.slice(0), { status: entry.status, headers: entry.headers });
+  });
+  const put = vi.fn<TileCache['put']>(async (req, res) => {
+    store.set(req.url, { status: res.status, headers: new Headers(res.headers), body: await res.arrayBuffer() });
+  });
+  const cache: TileCache = { match, put };
+  return { cache, match, put, store };
+}
+
+it('キャッシュに保存されたタイルは2回目以降R2を読まずに返し、HEADやIf-None-Match:*にも対応する', async () => {
+  const bucket = fakeBucket();
+  const { cache, put } = fakeCache();
+  const pending: Promise<unknown>[] = [];
+  const waitUntil = (promise: Promise<unknown>) => {
+    pending.push(promise);
+  };
+  const first = await serveTile(request(tilePath() + '?v=1'), bucket, { cache, waitUntil });
+  expect(first.status).toBe(200);
+  await Promise.all(pending);
+  expect(put).toHaveBeenCalledTimes(1);
+  bucket.get.mockClear();
+
+  const second = await serveTile(request(tilePath() + '?v=2'), bucket, { cache, waitUntil });
+  expect(second.status).toBe(200);
+  expect(bucket.get).not.toHaveBeenCalled();
+  expect(Buffer.from(await second.arrayBuffer())).toEqual(fixtureTiles[0].bytes);
+
+  const head = await serveTile(request(tilePath(), { method: 'HEAD' }), bucket, { cache, waitUntil });
+  expect(head.status).toBe(200);
+  expect(head.headers.get('content-encoding')).toBe('gzip');
+  expect(await head.text()).toBe('');
+  expect(bucket.get).not.toHaveBeenCalled();
+
+  const notModified = await serveTile(request(tilePath(), { headers: { 'If-None-Match': '*' } }), bucket, { cache, waitUntil });
+  expect(notModified.status).toBe(304);
+  expect(await notModified.text()).toBe('');
+  expect(bucket.get).not.toHaveBeenCalled();
+});
+
+it('キャッシュの読み書きが失敗してもR2から通常どおり配信し、204と503はキャッシュしない', async () => {
+  const bucket = fakeBucket();
+  const failingCache: TileCache = {
+    match: vi.fn(async () => {
+      throw new Error('cache read failed');
+    }),
+    put: vi.fn(async () => {
+      throw new Error('cache write failed');
+    }),
+  };
+  const ok = await serveTile(request(), bucket, { cache: failingCache });
+  expect(ok.status).toBe(200);
+
+  const { cache, put } = fakeCache();
+  const missing = await serveTile(request(tilePath(1, 0, 1)), bucket, { cache });
+  expect(missing.status).toBe(204);
+  expect(put).not.toHaveBeenCalled();
 });
 
 it('ソース設定はタイルだけを先にWorkerへ渡し地図のR2だけを結び付ける', () => {
