@@ -166,7 +166,12 @@
   color: var(--full);
 }
 
-.cellFocus {
+:global([data-focus-ages~='0']) .vacancyCell[data-ages~='0'],
+:global([data-focus-ages~='1']) .vacancyCell[data-ages~='1'],
+:global([data-focus-ages~='2']) .vacancyCell[data-ages~='2'],
+:global([data-focus-ages~='3']) .vacancyCell[data-ages~='3'],
+:global([data-focus-ages~='4']) .vacancyCell[data-ages~='4'],
+:global([data-focus-ages~='5']) .vacancyCell[data-ages~='5'] {
   border-color: var(--accent);
 }
 

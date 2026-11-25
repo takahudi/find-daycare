@@ -17,16 +17,21 @@ function loadHome(): Home | null {
 
 export type HomeChoice = 'search' | 'location';
 
-export function useHome(wardNames: string[]) {
+export function useHome() {
   const [home, setHome] = useState<Home | null>(loadHome);
-  const [address, setAddress] = useState('');
-  const [searching, setSearching] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const searchAbort = useRef<AbortController | null>(null);
   useEffect(() => {
     if (home) localStorage.setItem(HOME_KEY, JSON.stringify(home));
     else localStorage.removeItem(HOME_KEY);
   }, [home]);
+
+  return { home, setHome, clearHome: () => setHome(null) };
+}
+
+export function useHomeSearch(wardNames: string[], setHome: (home: Home | null) => void) {
+  const [address, setAddress] = useState('');
+  const [searching, setSearching] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const searchAbort = useRef<AbortController | null>(null);
 
   function search(onHomeChosen: (source: HomeChoice) => void): void {
     if (!address.trim()) return;
@@ -64,5 +69,5 @@ export function useHome(wardNames: string[]) {
     );
   }
 
-  return { home, address, setAddress, searching, error, search, locateMe, clearHome: () => setHome(null) };
+  return { address, setAddress, searching, error, search, locateMe };
 }

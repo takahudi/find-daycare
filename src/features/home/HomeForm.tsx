@@ -1,15 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
+import type { Home } from '../../schema';
 import { formatHomeLabel } from './home-label';
-import type { HomeChoice, useHome } from './useHome';
+import { useHomeSearch, type HomeChoice } from './useHome';
 import styles from './HomeForm.module.css';
 
 interface Props {
-  state: ReturnType<typeof useHome>;
+  home: Home | null;
+  wardNames: string[];
+  setHome: (home: Home | null) => void;
+  clearHome: () => void;
   onHomeChosen: (source: HomeChoice) => void;
 }
 
-export function HomeForm({ state, onHomeChosen }: Props) {
-  const { home, address, setAddress, searching, error, search, locateMe, clearHome } = state;
+export function HomeForm({ home, wardNames, setHome, clearHome, onHomeChosen }: Props) {
+  const { address, setAddress, searching, error, search, locateMe } = useHomeSearch(wardNames, setHome);
   const [editing, setEditing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
