@@ -2,6 +2,7 @@ import { useId, useRef, useState, type RefObject } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
 import MapGL, { AttributionControl, NavigationControl } from 'react-map-gl/maplibre';
+import { useTheme, type Theme } from '../../app/theme';
 import type { Facility, Home } from '../../schema';
 import { formatDistance } from '../../lib/geo';
 import { AGE_LABELS } from '../../lib/vacancy';
@@ -12,13 +13,16 @@ import { HomeControl } from './HomeControl';
 import { FacilityPopup } from './FacilityPopup';
 import { boundsFor } from './map-bounds';
 import { createMapStyle } from './map-style';
-import styles from './MapView.module.css';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import styles from './MapView.module.css';
 import { PinOverlay } from './PinOverlay';
 
 maplibregl.setWorkerUrl(workerUrl);
 maplibregl.prewarm();
-const mapStyle = createMapStyle(window.location.origin);
+const mapStyles: Record<Theme, ReturnType<typeof createMapStyle>> = {
+  light: createMapStyle(window.location.origin, 'light'),
+  dark: createMapStyle(window.location.origin, 'dark'),
+};
 // Static Assets は @ を正規化するが、Vite は %40 を解決しないため、本番配信だけ書き換える。
 const transformRequest: maplibregl.RequestTransformFunction = (url) => ({
   url: import.meta.env.DEV ? url : url.replace('@2x.', '%402x.'),
@@ -51,6 +55,7 @@ export function MapView({
   onSelect,
   onDeselect,
 }: Props) {
+  const { theme } = useTheme();
   const hintId = useId();
   const popupRef = useRef<maplibregl.Popup>(null);
   const [busy, setBusy] = useState(true);
@@ -69,7 +74,7 @@ export function MapView({
     onSelect(id);
   };
   return (
-    <div className={styles.map} aria-busy={busy}>
+    <div className={`${styles.map}${theme === 'dark' ? ` ${styles.mapDark}` : ''}`} aria-busy={busy}>
       <p id={hintId} className="visually-hidden">
         地図のピンはクリックかタップで選べます。キーボードや読み上げでは、表示切替でリストを開き、施設一覧から施設を選んでください。
       </p>
@@ -78,7 +83,7 @@ export function MapView({
         onMoveStart={() => setBusy(true)}
         onIdle={() => setBusy(false)}
         mapLib={maplibregl}
-        mapStyle={mapStyle}
+        mapStyle={mapStyles[theme]}
         initialViewState={{ bounds: initialBounds }}
         transformRequest={transformRequest}
         maxZoom={17}
@@ -104,6 +109,7 @@ export function MapView({
         <AttributionControl compact={false} />
         <PinOverlay
           hintId={hintId}
+          theme={theme}
           facilities={facilities}
           allFacilities={allFacilities}
           vacancyOf={vacancyOf}

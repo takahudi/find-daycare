@@ -10,7 +10,9 @@
   display: flex;
   gap: 12px;
   padding: 6px 10px;
-  background: rgb(255 255 255 / 0.92);
+  border: 1px solid var(--line);
+  background: var(--map-legend-bg);
+  color: var(--ink);
   border-radius: 10px;
   box-shadow: var(--shadow);
   font-size: 0.78rem;

@@ -1,6 +1,7 @@
 .map {
   height: 100%;
   width: 100%;
+  background: var(--bg);
 }
 
 .popupMeta {
@@ -36,24 +37,82 @@
   color: var(--full);
 }
 
-:global(.maplibregl-popup-content) {
+.map :global(.maplibregl-popup-content) {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--floating-shadow);
   font-family: inherit;
   font-size: 0.9rem;
 }
 
-:global(.maplibregl-popup-close-button) {
+.map :global(.maplibregl-popup-anchor-top) :global(.maplibregl-popup-tip),
+.map :global(.maplibregl-popup-anchor-top-left) :global(.maplibregl-popup-tip),
+.map :global(.maplibregl-popup-anchor-top-right) :global(.maplibregl-popup-tip) {
+  border-bottom-color: var(--surface);
+}
+
+.map :global(.maplibregl-popup-anchor-bottom) :global(.maplibregl-popup-tip),
+.map :global(.maplibregl-popup-anchor-bottom-left) :global(.maplibregl-popup-tip),
+.map :global(.maplibregl-popup-anchor-bottom-right) :global(.maplibregl-popup-tip) {
+  border-top-color: var(--surface);
+}
+
+.map :global(.maplibregl-popup-anchor-left) :global(.maplibregl-popup-tip) {
+  border-right-color: var(--surface);
+}
+
+.map :global(.maplibregl-popup-anchor-right) :global(.maplibregl-popup-tip) {
+  border-left-color: var(--surface);
+}
+
+.map :global(.maplibregl-popup-close-button) {
   min-width: 24px;
   min-height: 24px;
+  color: var(--muted);
+}
+
+.map :global(.maplibregl-popup-close-button:hover) {
+  background-color: var(--accent-bg);
+  color: var(--accent-ink);
 }
 
 :global(.maplibregl-canvas-container) {
   isolation: isolate;
 }
 
-:global(.maplibregl-ctrl-group button) {
+.map :global(.maplibregl-ctrl-group) {
+  background: var(--surface);
+}
+
+.map :global(.maplibregl-ctrl-group:not(:empty)) {
+  box-shadow: var(--map-ctrl-shadow);
+}
+
+.map :global(.maplibregl-ctrl-group button) {
   width: 36px;
   height: 36px;
   touch-action: manipulation;
+}
+
+.map :global(.maplibregl-ctrl-group button + button) {
+  border-top-color: var(--line);
+}
+
+.map :global(.maplibregl-ctrl-group button:not(:disabled):hover) {
+  background-color: var(--accent-bg);
+}
+
+.mapDark :global(.maplibregl-ctrl-icon) {
+  filter: invert(0.92);
+}
+
+.map :global(.maplibregl-ctrl.maplibregl-ctrl-attrib) {
+  background-color: var(--map-attrib-bg);
+  color: var(--ink);
+}
+
+.map :global(.maplibregl-ctrl-attrib a) {
+  color: var(--ink);
 }
 
 :global(.maplibregl-ctrl-group) .homeControlButton {
@@ -75,6 +134,10 @@
 }
 
 @media (forced-colors: active) {
+  .mapDark :global(.maplibregl-ctrl-icon) {
+    filter: none;
+  }
+
   :global(.maplibregl-ctrl-group) .homeControlButton {
     color: ButtonText;
   }

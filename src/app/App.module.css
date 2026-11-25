@@ -10,9 +10,25 @@
   background: var(--surface);
   border-bottom: 1px solid var(--line);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 560px);
-  gap: 8px 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 560px) auto;
+  grid-template-areas: 'heading home theme';
+  gap: 8px 16px;
   align-items: center;
+}
+
+.topbarHeading {
+  grid-area: heading;
+  min-width: 0;
+}
+
+.topbarHome {
+  grid-area: home;
+  min-width: 0;
+}
+
+.topbarTheme {
+  grid-area: theme;
+  justify-self: end;
 }
 
 .layout {
@@ -51,9 +67,13 @@
   }
 
   .topbar {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'heading theme'
+      'home home';
     padding: 10px 14px;
-    gap: 8px;
+    gap: 8px 10px;
+    align-items: start;
   }
 
   .mobileTabs {

@@ -72,7 +72,7 @@
 }
 
 .badgeWard {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   color: var(--ink);
 }
@@ -162,7 +162,7 @@
 }
 
 .cellNa {
-  background: repeating-linear-gradient(135deg, #fafaf8 0 4px, #f1f0ec 4px 8px);
+  background: repeating-linear-gradient(135deg, var(--na-stripe-a) 0 4px, var(--na-stripe-b) 4px 8px);
   color: var(--full);
 }
 

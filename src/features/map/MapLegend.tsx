@@ -1,4 +1,5 @@
 import type { Ref } from 'react';
+import { useTheme } from '../../app/theme';
 import { LICENSING_LABELS } from '../../lib/facility-labels';
 import { facilityFace, HOME_FACE } from './pin-face';
 import { PinSwatch } from './PinSwatch';
@@ -11,17 +12,18 @@ const ENTRIES = [
 ] as const;
 
 export function MapLegend({ hasHome: home, ref }: { hasHome: boolean; ref?: Ref<HTMLDivElement> }) {
+  const { theme } = useTheme();
   return (
     <div className={styles.legendTrack}>
       <div ref={ref} className={styles.legend} role="group" aria-label="地図の凡例">
         {ENTRIES.map(({ face, label }) => (
           <span key={label}>
-            <PinSwatch face={face} /> {label}
+            <PinSwatch face={face} theme={theme} /> {label}
           </span>
         ))}
         {home && (
           <span>
-            <PinSwatch face={HOME_FACE} /> 自宅
+            <PinSwatch face={HOME_FACE} theme={theme} /> 自宅
           </span>
         )}
       </div>

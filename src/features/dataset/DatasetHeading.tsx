@@ -60,7 +60,19 @@ export function DatasetHeading({
             aria-controls={detailsId}
             onClick={() => setDetailsOpen((current) => !current)}
           >
-            <span aria-hidden="true">i</span>
+            <svg
+              className={styles.infoIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="7" r="1.25" fill="currentColor" stroke="none" />
+              <path d="M12 11v6.5" />
+            </svg>
           </button>
         </p>
         {detailsOpen && (

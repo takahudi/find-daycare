@@ -21,26 +21,29 @@
 
 .infoButton {
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border: 1.5px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 700;
-  line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
+.infoIcon {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
 .infoButton:hover,
 .infoButton[aria-expanded='true'] {
   border-color: var(--accent);
-  background: #fdeee5;
+  background: var(--accent-bg);
   color: var(--accent-ink);
 }
 

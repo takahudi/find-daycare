@@ -18,6 +18,12 @@
   border: 1.5px solid var(--line);
   border-radius: 999px;
   background: var(--bg);
+  color: var(--ink);
+}
+
+.search input::placeholder {
+  color: var(--muted);
+  opacity: 1;
 }
 
 .search input:focus {
@@ -105,7 +111,7 @@
 }
 
 .error {
-  color: #c0392b;
+  color: var(--error);
   white-space: normal;
 }
 

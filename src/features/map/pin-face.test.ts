@@ -15,10 +15,13 @@ import {
   type PinFace,
 } from './pin-face';
 
-const variables = new Map(
-  [.../:root\s*\{([^}]+)\}/.exec(indexCss)![1].matchAll(/(--[\w-]+):\s*([^;]+);/g)].map((match) => [match[1], match[2].trim()]),
-);
-const theme = pinTheme((name) => variables.get(name)!, 'sans-serif');
+function parseCssVars(block: string) {
+  return new Map([...block.matchAll(/(--[\w-]+):\s*([^;]+);/g)].map((match) => [match[1], match[2].trim()]));
+}
+const themes = {
+  light: parseCssVars(/:root\s*\{([^}]+)\}/.exec(indexCss)![1]),
+  dark: parseCssVars(/:root\[data-theme='dark'\]\s*\{([^}]+)\}/.exec(indexCss)![1]),
+} as const;
 function contrast(a: string, b: string): number {
   const luminance = (hex: string) => {
     const full =
@@ -100,7 +103,9 @@ describe('ピンの形', () => {
     expect(pinContains(circle, 15.5, 0)).toBe(false);
   });
 });
-describe('ピンの色の対比', () => {
+describe.each(['light', 'dark'] as const)('ピンの色の対比（%s）', (mode) => {
+  const variables = themes[mode];
+  const theme = pinTheme((name) => variables.get(name)!, 'sans-serif');
   it('テーマはindex.cssの変数から決まる', () => {
     for (const name of Object.values(PIN_THEME_VARS)) expect(variables.has(name), name).toBe(true);
   });
@@ -111,7 +116,7 @@ describe('ピンの色の対比', () => {
     }
   });
   it('施設ピンは塗りか縁がベースマップの地色に対して3:1以上', () => {
-    const flavor = namedFlavor('light');
+    const flavor = namedFlavor(mode);
     for (const ground of [flavor.earth, flavor.park_a, flavor.water, flavor.background]) {
       for (const face of facilityFaces) {
         const { fill, border } = pinColors(face, theme);
