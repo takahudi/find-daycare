@@ -9,11 +9,17 @@ const missingUpstreamRanges = new Map([
 ]);
 const fontstacks = Object.keys(coverage.requiredRanges);
 const ranges = ['0-255', '256-511', '8192-8447'];
+const spriteFlavors = ['light', 'dark'] as const;
 const paths = [
   ...Object.entries(coverage.requiredRanges).flatMap(([font, required]) =>
     [...new Set([...ranges, ...required])].map((range) => ({ path: `fonts/${font}/${range}.pbf`, range })),
   ),
-  ...['fonts/OFL.txt', ...['.json', '.png', '@2x.json', '@2x.png'].map((suffix) => `sprites/v4/light${suffix}`)].map((path) => ({
+  ...[
+    'fonts/OFL.txt',
+    ...spriteFlavors.flatMap((flavor) =>
+      ['.json', '.png', '@2x.json', '@2x.png'].map((suffix) => `sprites/v4/${flavor}${suffix}`),
+    ),
+  ].map((path) => ({
     path,
     range: null,
   })),
@@ -48,7 +54,7 @@ await writeFile(
       requiredRanges: coverage.requiredRanges,
       generated,
       glyphs: '/map/assets/fonts/{fontstack}/{range}.pbf',
-      sprite: '/map/assets/sprites/v4/light',
+      sprites: Object.fromEntries(spriteFlavors.map((flavor) => [flavor, `/map/assets/sprites/v4/${flavor}`])),
       files,
     },
     null,

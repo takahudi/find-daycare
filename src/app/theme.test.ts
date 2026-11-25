@@ -1,6 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
 import indexCss from '../index.css?raw';
-import { PIN_THEME_VARS } from '../features/map/pin-face';
 import {
   THEME_STORAGE_KEY,
   applyThemePreference,
@@ -110,24 +109,13 @@ describe('テーマ状態の解決と保存', () => {
 });
 
 describe('ダークモード CSS トークン', () => {
-  const lightVars = parseVariables(/:root\s*\{([^}]+)\}/.exec(indexCss)![1]);
   const darkAttrVars = parseVariables(/:root\[data-theme='dark'\]\s*\{([^}]+)\}/.exec(indexCss)![1]);
   const darkMediaVars = parseVariables(
     /@media\s*\(prefers-color-scheme:\s*dark\)\s*\{\s*:root:not\(\[data-theme='light'\]\)\s*\{([^}]+)\}/.exec(indexCss)![1],
   );
-  const lightSurfaceVars = parseVariables(/\.light-surface\s*\{([^}]+)\}/.exec(indexCss)![1]);
 
   it('手動ダークとシステムダークで同じトークンを定義する', () => {
     expect([...darkAttrVars.entries()]).toEqual([...darkMediaVars.entries()]);
-  });
-
-  it('地図用の .light-surface はピンと地図UIのライトトークンをすべて保つ', () => {
-    for (const cssVar of Object.values(PIN_THEME_VARS)) {
-      expect(lightSurfaceVars.get(cssVar), cssVar).toBe(lightVars.get(cssVar));
-    }
-    for (const [name, value] of lightSurfaceVars) {
-      expect(value, name).toBe(lightVars.get(name));
-    }
   });
 
   it('ダークモードの主要な文字色と背景色が WCAG AA（4.5:1以上）を満たす', () => {
@@ -139,6 +127,7 @@ describe('ダークモード CSS トークン', () => {
       ['muted on bg', v('--muted'), v('--bg')],
       ['muted on full-bg', v('--muted'), v('--full-bg')],
       ['accent on surface', v('--accent'), v('--surface')],
+      ['on-accent on accent', v('--on-accent'), v('--accent')],
       ['white on accent-fill', '#ffffff', v('--accent-fill')],
       ['accent-ink on surface', v('--accent-ink'), v('--surface')],
       ['accent-ink on bg', v('--accent-ink'), v('--bg')],

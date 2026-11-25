@@ -2,6 +2,7 @@ import { useEffect, useEffectEvent, useMemo, useRef } from 'react';
 import { useMap } from 'react-map-gl/maplibre';
 import type { GeoJSONSource, Map as MapLibreMap, MapMouseEvent, MapSourceDataEvent } from 'maplibre-gl';
 import type { GeoJSON } from 'geojson';
+import type { Theme } from '../../app/theme';
 import type { Facility, Home } from '../../schema';
 import { parsePinImageId } from './pin-face';
 import { pinImage, readPinTheme } from './pin-paint';
@@ -21,6 +22,7 @@ import { installPinProbe } from './pin-probe';
 
 export function PinOverlay({
   hintId,
+  theme,
   facilities,
   allFacilities,
   vacancyOf,
@@ -30,6 +32,7 @@ export function PinOverlay({
   onDeselect,
 }: {
   hintId: string;
+  theme: Theme;
   facilities: Facility[];
   allFacilities: Facility[];
   vacancyOf: (facility: Facility) => number;
@@ -110,21 +113,24 @@ export function PinOverlay({
     const hit = pick(point);
     return hit ? (hit.kind === 'home' ? 'home' : hit.id) : null;
   });
+  const cachedThemeRef = useRef<ReturnType<typeof readPinTheme> | null>(null);
+  const appliedThemeRef = useRef<Theme | null>(null);
   useEffect(() => {
     if (!map) return undefined;
     const canvas = map.getCanvas();
     canvas.setAttribute('aria-describedby', hintId);
     // 外側の地図 region と同名のランドマークを重ねない。
     canvas.setAttribute('role', 'group');
-    let cachedTheme: ReturnType<typeof readPinTheme> | null = null;
     const getTheme = () => {
-      if (!cachedTheme) cachedTheme = readPinTheme(map.getContainer());
-      return cachedTheme;
+      if (!cachedThemeRef.current) cachedThemeRef.current = readPinTheme(map.getContainer());
+      return cachedThemeRef.current;
     };
     const applyTheme = () => {
       if (!map.getLayer(ROUTE_SOURCE)) return;
-      map.setPaintProperty(ROUTE_SOURCE, 'line-color', getTheme().accent);
-      map.off('styledata', applyTheme);
+      const accent = getTheme().accent;
+      if (map.getPaintProperty(ROUTE_SOURCE, 'line-color') !== accent) {
+        map.setPaintProperty(ROUTE_SOURCE, 'line-color', accent);
+      }
     };
     map.on('styledata', applyTheme);
     applyTheme();
@@ -195,10 +201,32 @@ export function PinOverlay({
       removeProbe();
     };
   }, [map, hintId]);
+  useEffect(() => {
+    if (!map) return;
+    if (appliedThemeRef.current === theme) return;
+    const isSwitch = appliedThemeRef.current !== null;
+    appliedThemeRef.current = theme;
+    cachedThemeRef.current = null;
+    if (!isSwitch) return;
+    const nextTheme = readPinTheme(map.getContainer());
+    cachedThemeRef.current = nextTheme;
+    const pixelRatio = map.getPixelRatio();
+    for (const id of map.listImages()) {
+      const face = parsePinImageId(id);
+      if (face) map.updateImage(id, pinImage(face, nextTheme, pixelRatio));
+    }
+    if (map.getLayer(ROUTE_SOURCE) && map.getPaintProperty(ROUTE_SOURCE, 'line-color') !== nextTheme.accent) {
+      map.setPaintProperty(ROUTE_SOURCE, 'line-color', nextTheme.accent);
+    }
+  }, [map, theme]);
   return null;
 }
 
 function useSourceData(map: MapLibreMap | undefined, id: string, data: GeoJSON) {
+  const syncOnStyleLoad = useEffectEvent(() => {
+    const source = map?.getSource<GeoJSONSource>(id);
+    if (source) void source.setData(data);
+  });
   useEffect(() => {
     if (!map) return undefined;
     const apply = () => {
@@ -217,4 +245,11 @@ function useSourceData(map: MapLibreMap | undefined, id: string, data: GeoJSON) 
       map.off('styledata', retry);
     };
   }, [map, id, data]);
+  useEffect(() => {
+    if (!map) return undefined;
+    map.on('style.load', syncOnStyleLoad);
+    return () => {
+      map.off('style.load', syncOnStyleLoad);
+    };
+  }, [map]);
 }

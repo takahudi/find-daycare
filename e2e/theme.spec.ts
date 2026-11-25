@@ -1,8 +1,18 @@
 import { expect, test, type Page } from '@playwright/test';
-import { mapAxe, mapContrastSummary, openVisibleUnlicensedPopup, viewToggle } from './map.ts';
+import {
+  cssColor,
+  expectSelectedPinCount,
+  mapAxe,
+  mapContrastSummary,
+  openVisibleUnlicensedPopup,
+  pixelAt,
+  renderedPins,
+  viewToggle,
+} from './map.ts';
 
 const DARK_BG = 'rgb(20, 21, 24)';
 const DARK_SURFACE = 'rgb(29, 31, 36)';
+const DARK_INK = 'rgb(236, 238, 242)';
 const LIGHT_BG = 'rgb(246, 244, 239)';
 const LIGHT_SURFACE = 'rgb(255, 255, 255)';
 
@@ -88,19 +98,51 @@ for (const [device, viewport] of [
   });
 }
 
-test('ダークモードでも地図と凡例・ポップアップはライト配色を保ち、アクセシビリティ違反がない', async ({ page }, testInfo) => {
+test('ダークモードでは地図・凡例・ポップアップ・ピンもダーク配色に切り替わり、アクセシビリティ違反がない', async ({
+  page,
+}, testInfo) => {
   test.setTimeout(60_000);
   await page.setViewportSize({ width: 1280, height: 800 });
-  await page.emulateMedia({ colorScheme: 'dark' });
-  await page.goto('/');
+  const spritePaths: string[] = [];
+  page.on('response', (response) => {
+    const path = new URL(response.url()).pathname;
+    if (path.includes('/map/assets/sprites/')) spritePaths.push(path);
+  });
 
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.goto('/?facility=kita-13311');
   const mapRegion = page.locator('section[aria-label="地図"]');
+  const ready = page.locator('[aria-busy]:has(> .maplibregl-map)');
+  await expectSelectedPinCount(page, 1);
+  await expect(ready).toHaveAttribute('aria-busy', 'false');
+  await expect.poll(() => spritePaths.some((path) => path.includes('/sprites/v4/light'))).toBe(true);
+
+  // ライトからダークへ動的に切り替え、ダーク用スプライト・凡例・ポップアップ・ピンが更新されることを確かめる。
+  await page.getByRole('banner').getByRole('button', { name: 'ダークモードに切り替え', exact: true }).click();
+  await expect(page.locator(':root')).toHaveAttribute('data-theme', 'dark');
+  await expect.poll(() => spritePaths.some((path) => path.includes('/sprites/v4/dark'))).toBe(true);
+  await expect(ready).toHaveAttribute('aria-busy', 'false');
+
   const mapContainer = mapRegion.locator('[aria-busy]');
   const legend = mapRegion.getByRole('group', { name: '地図の凡例' });
-  await expect(mapContainer).toHaveCSS('background-color', LIGHT_BG);
-  await expect(legend).toHaveCSS('color', 'rgb(35, 38, 43)');
+  const popupContent = mapRegion.locator('.maplibregl-popup-content');
+  await expect(mapContainer).toHaveCSS('background-color', DARK_BG);
+  await expect(legend).toHaveCSS('color', DARK_INK);
+  await expect(popupContent).toHaveCSS('background-color', DARK_SURFACE);
+  await expect(popupContent).toHaveCSS('color', DARK_INK);
 
-  // 絞り込みパネルとポップアップも開いた状態でコントラストとアクセシビリティを検査する。
+  // ポップアップを閉じ、地図上のピンがダークモードの --open / --full-bg 色に再描画されていることを画素で確かめる。
+  await mapRegion.getByRole('button', { name: 'Close popup' }).click();
+  const pin = (await renderedPins(page)).find((candidate) => candidate.layer === 'facility-pin-selected')!;
+  const expectedFill = await cssColor(page, pin.face.kind === 'facility' && pin.face.vacancy > 0 ? '--open' : '--full-bg');
+  await expect
+    .poll(async () => {
+      const pixel = await pixelAt(page, pin.clientX + 7, pin.clientY);
+      return pixel.every((channel, index) => Math.abs(channel - expectedFill[index]) < 24);
+    })
+    .toBe(true);
+
+  // 絞り込みパネルとポップアップを開いた状態でコントラストとアクセシビリティを検査する。
   const filters = page.getByRole('region', { name: '絞り込み' });
   await filters.getByRole('button', { name: '0歳', exact: true }).click();
   await filters.getByRole('button', { name: /^種別 / }).click();

@@ -51,7 +51,10 @@
     }
   ],
   "glyphs": "/map/assets/fonts/{fontstack}/{range}.pbf",
-  "sprite": "/map/assets/sprites/v4/light",
+  "sprites": {
+    "light": "/map/assets/sprites/v4/light",
+    "dark": "/map/assets/sprites/v4/dark"
+  },
   "files": [
     {
       "path": "fonts/Noto Sans Devanagari Regular v1/0-255.pbf",
@@ -212,6 +215,26 @@
       "path": "sprites/v4/light@2x.png",
       "size": 28852,
       "sha256": "23f6e9df27c2e9a14385763980a24e3608966bfc8192a106058bc2ca959ab563"
+    },
+    {
+      "path": "sprites/v4/dark.json",
+      "size": 3549,
+      "sha256": "bfac76cf7ed5c2aa2992695904056a1c6b07785b7fd20e6c640cb44fd6244a2e"
+    },
+    {
+      "path": "sprites/v4/dark.png",
+      "size": 16054,
+      "sha256": "8920f68e8f9f7a4188da43e62a81bbc426532579fff7b5f27aad09e130f4246e"
+    },
+    {
+      "path": "sprites/v4/dark@2x.json",
+      "size": 3579,
+      "sha256": "1fb5b123fbe35d2e1f6ac171513ce01df89e671273a417ee89c44886a4c132f0"
+    },
+    {
+      "path": "sprites/v4/dark@2x.png",
+      "size": 28407,
+      "sha256": "6e01b4e366d304f27bbd55390511a3d4e39aa1d03eb3e82f873f7ea32e74cbe4"
     }
   ]
 }

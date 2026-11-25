@@ -38,11 +38,15 @@ describe('固定コミットから配信する地図アセット', () => {
     }
   });
 
-  it('各fontstackの全範囲とlightの1x・2xを配信する', () => {
+  it('各fontstackの全範囲とlight・darkの1x・2xを配信する', () => {
     const paths = new Set(manifest.files.map((file) => file.path));
     for (const font of manifest.fontstacks)
       for (const range of manifest.ranges) expect(paths.has(`fonts/${font}/${range}.pbf`)).toBe(true);
-    for (const suffix of ['.png', '.json', '@2x.png', '@2x.json']) expect(paths.has(`sprites/v4/light${suffix}`)).toBe(true);
+    for (const flavor of ['light', 'dark']) {
+      for (const suffix of ['.png', '.json', '@2x.png', '@2x.json']) {
+        expect(paths.has(`sprites/v4/${flavor}${suffix}`), `${flavor}${suffix}`).toBe(true);
+      }
+    }
     expect(paths.has('fonts/OFL.txt')).toBe(true);
   });
 

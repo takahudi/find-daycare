@@ -8,6 +8,7 @@
   --accent-fill: #b95c2f;
   --accent-ink: #b4501d;
   --accent-bg: #fdeee5;
+  --on-accent: #23262b;
   --open: #257b56;
   --open-bg: #e3f4ec;
   --full: #6a6e72;
@@ -29,6 +30,9 @@
   --na-stripe-a: #fafaf8;
   --na-stripe-b: #f1f0ec;
   --error: #c0392b;
+  --map-legend-bg: rgb(255 255 255 / 0.92);
+  --map-attrib-bg: rgb(255 255 255 / 0.78);
+  --map-ctrl-shadow: 0 0 0 2px rgb(0 0 0 / 0.1);
   --radius: 14px;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 4px 16px rgb(0 0 0 / 0.05);
   --floating-shadow: 0 4px 14px rgb(0 0 0 / 0.14), 0 1px 3px rgb(0 0 0 / 0.08);
@@ -51,6 +55,7 @@
   --accent-fill: #b55628;
   --accent-ink: #f59b6d;
   --accent-bg: #382319;
+  --on-accent: #1d1f24;
   --open: #63d4a0;
   --open-bg: #153326;
   --full: #a8adb6;
@@ -72,6 +77,9 @@
   --na-stripe-a: #22252b;
   --na-stripe-b: #2b2f36;
   --error: #ff8a80;
+  --map-legend-bg: rgb(29 31 36 / 0.92);
+  --map-attrib-bg: rgb(29 31 36 / 0.85);
+  --map-ctrl-shadow: 0 0 0 1px var(--line), 0 2px 8px rgb(0 0 0 / 0.45);
   --shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 4px 16px rgb(0 0 0 / 0.35);
   --floating-shadow: 0 4px 16px rgb(0 0 0 / 0.48), 0 1px 4px rgb(0 0 0 / 0.32);
 
@@ -89,6 +97,7 @@
     --accent-fill: #b55628;
     --accent-ink: #f59b6d;
     --accent-bg: #382319;
+    --on-accent: #1d1f24;
     --open: #63d4a0;
     --open-bg: #153326;
     --full: #a8adb6;
@@ -110,34 +119,14 @@
     --na-stripe-a: #22252b;
     --na-stripe-b: #2b2f36;
     --error: #ff8a80;
+    --map-legend-bg: rgb(29 31 36 / 0.92);
+    --map-attrib-bg: rgb(29 31 36 / 0.85);
+    --map-ctrl-shadow: 0 0 0 1px var(--line), 0 2px 8px rgb(0 0 0 / 0.45);
     --shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 4px 16px rgb(0 0 0 / 0.35);
     --floating-shadow: 0 4px 16px rgb(0 0 0 / 0.48), 0 1px 4px rgb(0 0 0 / 0.32);
 
     color-scheme: dark;
   }
-}
-
-/* ベースマップがライト専用のため、地図領域と凡例は常にライト配色を保つ。 */
-.light-surface {
-  --bg: #f6f4ef;
-  --surface: #ffffff;
-  --ink: #23262b;
-  --muted: #696e75;
-  --line: #e4e1d9;
-  --accent: #e8743b;
-  --accent-fill: #b95c2f;
-  --accent-ink: #b4501d;
-  --accent-bg: #fdeee5;
-  --open: #257b56;
-  --open-bg: #e3f4ec;
-  --full: #6a6e72;
-  --full-bg: #f0f0ee;
-  --unlicensed: #8a5a12;
-  --unlicensed-bg: #fbf1df;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 4px 16px rgb(0 0 0 / 0.05);
-
-  color-scheme: light;
-  color: var(--ink);
 }
 
 * {

@@ -1,12 +1,14 @@
+import type { Theme } from '../../app/theme';
 import { pinGeometry, type PinFace } from './pin-face';
 import { paintPin, readPinTheme } from './pin-paint';
 import styles from './MapLegend.module.css';
 
-export function PinSwatch({ face }: { face: PinFace }) {
+export function PinSwatch({ face, theme }: { face: PinFace; theme: Theme }) {
   const { box, extent } = pinGeometry(face, 'legend');
   const side = extent * 2;
   return (
     <canvas
+      key={theme}
       aria-hidden="true"
       className={styles.swatch}
       style={{ width: side, height: side, margin: box / 2 - extent }}
