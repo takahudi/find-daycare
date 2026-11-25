@@ -16,6 +16,7 @@ import { useHome, type HomeChoice } from '../features/home/useHome';
 import { HomeForm } from '../features/home/HomeForm';
 import { MapLegend } from '../features/map/MapLegend';
 import { ScrollToTopButton } from './ScrollToTopButton';
+import { ThemeToggle } from './ThemeToggle';
 import { useMobileBarHeight } from './useMobileBarHeight';
 import styles from './App.module.css';
 
@@ -172,9 +173,17 @@ export default function App({ data }: { data: Dataset }) {
   return (
     <div ref={appRef} className={`${styles.app} ${mobileView === 'list' ? styles.listView : styles.mapView}`}>
       <header className={styles.topbar}>
-        <DatasetHeading data={data} summary={summary} expiredWards={expiredWards} />
+        <div className={styles.topbarHeading}>
+          <DatasetHeading data={data} summary={summary} expiredWards={expiredWards} />
+        </div>
 
-        <HomeForm state={homeState} onHomeChosen={onHomeChosen} />
+        <div className={styles.topbarHome}>
+          <HomeForm state={homeState} onHomeChosen={onHomeChosen} />
+        </div>
+
+        <div className={styles.topbarTheme}>
+          <ThemeToggle />
+        </div>
       </header>
 
       <Filters wards={data.wards} state={filters} overlayPanelsOnMobile={mobileView === 'map'} />

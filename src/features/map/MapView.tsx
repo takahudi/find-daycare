@@ -69,7 +69,7 @@ export function MapView({
     onSelect(id);
   };
   return (
-    <div className={styles.map} aria-busy={busy}>
+    <div className={`${styles.map} light-surface`} aria-busy={busy}>
       <p id={hintId} className="visually-hidden">
         地図のピンはクリックかタップで選べます。キーボードや読み上げでは、表示切替でリストを開き、施設一覧から施設を選んでください。
       </p>

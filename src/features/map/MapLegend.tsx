@@ -13,7 +13,7 @@ const ENTRIES = [
 export function MapLegend({ hasHome: home, ref }: { hasHome: boolean; ref?: Ref<HTMLDivElement> }) {
   return (
     <div className={styles.legendTrack}>
-      <div ref={ref} className={styles.legend} role="group" aria-label="地図の凡例">
+      <div ref={ref} className={`${styles.legend} light-surface`} role="group" aria-label="地図の凡例">
         {ENTRIES.map(({ face, label }) => (
           <span key={label}>
             <PinSwatch face={face} /> {label}

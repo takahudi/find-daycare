@@ -42,33 +42,33 @@
 
 .on {
   border-color: var(--accent);
-  background: #fdeee5;
+  background: var(--accent-bg);
   color: var(--accent-ink);
   font-weight: 700;
 }
 
 .nursery.on {
-  border-color: var(--nursery);
-  background: #e7effb;
-  color: var(--nursery);
+  border-color: var(--nursery-ink);
+  background: var(--nursery-bg);
+  color: var(--nursery-ink);
 }
 
 .kodomoen.on {
-  border-color: var(--kodomoen);
-  background: #f8e8f1;
-  color: var(--kodomoen);
+  border-color: var(--kodomoen-ink);
+  background: var(--kodomoen-bg);
+  color: var(--kodomoen-ink);
 }
 
 .community.on {
-  border-color: var(--community);
-  background: #efeafa;
-  color: var(--community);
+  border-color: var(--community-ink);
+  background: var(--community-bg);
+  color: var(--community-ink);
 }
 
 .kigyo.on {
-  border-color: var(--kigyo);
-  background: #fbf1df;
-  color: var(--kigyo);
+  border-color: var(--kigyo-ink);
+  background: var(--kigyo-bg);
+  color: var(--kigyo-ink);
 }
 
 .toggleChip {

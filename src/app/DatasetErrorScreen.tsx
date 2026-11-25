@@ -1,11 +1,17 @@
 import { SiteTitle } from '../features/dataset/SiteTitle';
+import { ThemeToggle } from './ThemeToggle';
 import styles from './App.module.css';
 
 export default function DatasetErrorScreen({ error }: { error: Error }) {
   return (
     <div className={styles.app}>
       <header className={styles.topbar}>
-        <SiteTitle area="大阪市" />
+        <div className={styles.topbarHeading}>
+          <SiteTitle area="大阪市" />
+        </div>
+        <div className={styles.topbarTheme}>
+          <ThemeToggle />
+        </div>
       </header>
       <main className={styles.list}>
         <div role="alert">

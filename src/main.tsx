@@ -4,7 +4,10 @@ import { createRoot } from 'react-dom/client';
 import { loadDataset } from './lib/dataset';
 import DatasetErrorScreen from './app/DatasetErrorScreen.tsx';
 import App from './app/App.tsx';
+import { initTheme } from './app/theme';
 import './index.css';
+
+initTheme();
 
 const root = createRoot(document.getElementById('root')!);
 
