@@ -108,7 +108,9 @@ for (const viewport of [
   });
 }
 
-test('mobile: 地図で選んだ施設をヘッダー開閉を保ったまま先頭にピン留めし、一覧の位置へ移動できる', async ({ page }) => {
+test('mobile: 地図で選んだ施設をスクロール位置を保ったまま先頭にピン留めし、一覧の位置へ移動後に先頭へ戻れる', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 412, height: 915 });
   await page.goto('/');
   const cards = page.locator('article[data-facility-id]');
@@ -118,22 +120,21 @@ test('mobile: 地図で選んだ施設をヘッダー開閉を保ったまま先
   const originalIndex = initialOrder.indexOf(id);
   expect(originalIndex).toBeGreaterThanOrEqual(Math.floor(initialOrder.length / 2));
 
-  const headerToggle = viewToggle(page).getByRole('button', { name: /絞り込みとヘッダー/ });
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
+  const scrollToTop = page.getByRole('button', { name: '先頭に戻る', exact: true });
+  await expect(scrollToTop).toHaveCount(0);
 
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
   await expectFacilityPinCount(page, data.facilities.length);
   await zoomToPin(page, id);
   await clickPin(page, id);
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
 
   await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await waitForFrames(page);
 
-  // ヘッダーが開いたまま維持され、スクロール位置も動かない。
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
+  // スクロール位置は動かず、ヘッダーが見えたまま維持される。
   expect(await page.evaluate(() => window.scrollY)).toBe(0);
+  await expect(scrollToTop).toHaveCount(0);
 
   const pinned = page.getByRole('region', { name: '地図で選択中の施設', exact: true });
   await expect(pinned).toBeVisible();
@@ -148,12 +149,11 @@ test('mobile: 地図で選んだ施設をヘッダー開閉を保ったまま先
     tabs.y + tabs.height - 1,
   );
 
-  // 地図へ戻ってもヘッダーは開いたまま維持される。
+  // 地図へ戻ってもスクロール位置は維持される。
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'true');
   expect(await page.evaluate(() => window.scrollY)).toBe(0);
 
-  // リストへ戻り「一覧の位置へ移動」を押すとピン留めが解除され元の位置へスクロールする。
+  // リストへ戻り「一覧の位置へ移動」を押すとピン留めが解除され元の位置へスクロールし、先頭に戻るボタンで戻せる。
   await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await expect(pinned).toBeVisible();
   await pinned.getByRole('button', { name: '一覧の位置へ移動', exact: true }).click();
@@ -167,9 +167,13 @@ test('mobile: 地図で選んだ施設をヘッダー開閉を保ったまま先
   expect((await selected.boundingBox())!.y, '移動後もカードの上端が表示切替タブに隠れない').toBeGreaterThanOrEqual(
     tabsAfterJump.y + tabsAfterJump.height - 1,
   );
+  await expect(scrollToTop).toBeVisible();
+  await scrollToTop.click();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
+  await expect(scrollToTop).toHaveCount(0);
 });
 
-test('mobile: 地図でヘッダーを畳んだ状態でも維持してピン留めし、閉じるで解除できる', async ({ page }) => {
+test('mobile: 地図でヘッダーを隠した状態でもスクロール位置を維持してピン留めし、閉じるで解除できる', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   const cards = page.locator('article[data-facility-id]');
@@ -177,11 +181,11 @@ test('mobile: 地図でヘッダーを畳んだ状態でも維持してピン留
   const initialOrder = await cards.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-facility-id')));
   const id = 'tsurumi-184308';
 
-  const headerToggle = viewToggle(page).getByRole('button', { name: /絞り込みとヘッダー/ });
+  const scrollToTop = page.getByRole('button', { name: '先頭に戻る', exact: true });
   await viewToggle(page).getByRole('button', { name: '地図', exact: true }).click();
   await expect(page.locator('[aria-busy]:has(> .maplibregl-map)')).toHaveAttribute('aria-busy', 'false');
-  await headerToggle.click();
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'false');
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight - window.innerHeight));
+  await expect(scrollToTop).toBeVisible();
   const collapsedScrollY = await page.evaluate(() => window.scrollY);
   expect(collapsedScrollY).toBeGreaterThan(50);
 
@@ -192,7 +196,7 @@ test('mobile: 地図でヘッダーを畳んだ状態でも維持してピン留
   await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).click();
   await waitForFrames(page);
 
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(scrollToTop).toBeVisible();
   expect(Math.abs((await page.evaluate(() => window.scrollY)) - collapsedScrollY)).toBeLessThan(2);
 
   const pinned = page.getByRole('region', { name: '地図で選択中の施設', exact: true });
@@ -203,7 +207,7 @@ test('mobile: 地図でヘッダーを畳んだ状態でも維持してピン留
 
   await pinned.getByRole('button', { name: '閉じる', exact: true }).click();
   await expect(pinned).toHaveCount(0);
-  await expect(headerToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(scrollToTop).toBeVisible();
   expect(Math.abs((await page.evaluate(() => window.scrollY)) - collapsedScrollY)).toBeLessThan(2);
   const restoredOrder = await cards.evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-facility-id')));
   expect(restoredOrder).toEqual(initialOrder);
@@ -244,4 +248,21 @@ test('mobile: ピン留めされたカードの下までスクロールして別
   await waitForFrames(page, 4);
   const afterTop = (await selected.boundingBox())!.y;
   expect(Math.abs(afterTop - beforeTop)).toBeLessThan(2);
+});
+
+test('desktop: 一覧をスクロールすると先頭に戻るボタンが表示され、クリックで一覧の先頭に戻る', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/');
+  const list = page.getByRole('region', { name: '施設一覧', exact: true });
+  await expect(list.getByRole('article')).toHaveCount(data.facilities.length);
+  const scrollToTop = page.getByRole('button', { name: '先頭に戻る', exact: true });
+  await expect(scrollToTop).toHaveCount(0);
+
+  await list.evaluate((node) => {
+    node.scrollTop = 2000;
+  });
+  await expect(scrollToTop).toBeVisible();
+  await scrollToTop.click();
+  await expect.poll(() => list.evaluate((node) => node.scrollTop)).toBe(0);
+  await expect(scrollToTop).toHaveCount(0);
 });

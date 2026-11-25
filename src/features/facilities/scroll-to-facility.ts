@@ -2,9 +2,15 @@ export const FACILITY_ID_ATTRIBUTE = 'data-facility-id';
 
 let pendingFrame: number | undefined;
 
+export function cancelScrollToFacility() {
+  if (pendingFrame !== undefined) {
+    cancelAnimationFrame(pendingFrame);
+    pendingFrame = undefined;
+  }
+}
+
 export function scrollToFacility(id: string) {
-  if (pendingFrame !== undefined) cancelAnimationFrame(pendingFrame);
-  pendingFrame = undefined;
+  cancelScrollToFacility();
   const card = document.querySelector<HTMLElement>(`[${FACILITY_ID_ATTRIBUTE}="${CSS.escape(id)}"]`);
   if (!card) return;
 
