@@ -28,13 +28,16 @@
   border-radius: 999px;
   background: var(--surface);
   color: var(--muted);
-  font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.infoIcon {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .infoButton:hover,

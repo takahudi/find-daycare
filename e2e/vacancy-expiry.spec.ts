@@ -9,10 +9,24 @@ const card = (page: Page, id: string) => page.locator('article[data-facility-id=
 const licensed = data.facilities.find((facility) => facility.ward === 'kita' && facility.facilityType === 'nursery')!;
 const corporate = data.facilities.find((facility) => facility.ward === 'kita' && facility.facilityType === 'kigyo')!;
 
+async function waitForStableScroll(page: Page) {
+  let previous = await page.evaluate(() => window.scrollY);
+  await expect
+    .poll(async () => {
+      const current = await page.evaluate(() => window.scrollY);
+      const stable = current === previous;
+      previous = current;
+      return stable;
+    })
+    .toBe(true);
+}
+
 async function expectAccessible(
   page: Page,
   selectors: string[] = ['header:has(h1)', 'article[data-facility-id="' + licensed.id + '"]'],
 ) {
+  // 初期スクロールの補正途中で axe のグリッド位置がずれないよう、スクロール静止後に検査する。
+  await waitForStableScroll(page);
   const results = await mapAxe(page, selectors);
   expect(results.flatMap((result) => result.violations)).toEqual([]);
   expect(mapContrastSummary(results)).toEqual([]);
