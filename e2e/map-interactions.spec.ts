@@ -3,6 +3,7 @@ import {
   expectSelectedPinCount,
   homePinShown,
   pinCentre,
+  pinClickPoint,
   clickPin,
   pixelColors,
   cssColor,
@@ -485,4 +486,117 @@ test('地図を動かしても自宅に戻るボタンで自宅と近い5施設�
 
   await page.getByRole('banner').getByRole('button', { name: '解除', exact: true }).click();
   await expect(homeButton).toHaveCount(0);
+});
+
+test('施設を選択した状態で地図上の自宅ピンをクリックすると選択が解除される', async ({ page, context }) => {
+  const home = { lat: 34.675, lng: 135.535 };
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ latitude: home.lat, longitude: home.lng });
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/');
+  await expectPinProbe(page);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+
+  await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).click();
+  await waitForLocation(page);
+  await expect.poll(() => homePinShown(page)).toBe(true);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+
+  const canvas = page.locator('canvas.maplibregl-canvas');
+  const homePoint = (await pinClickPoint(page, 'home'))!;
+  expect(homePoint).not.toBeNull();
+
+  // 未選択のときは自宅ピンにカーソルを合わせても pointer にならず、クリックしても選択されない。
+  await page.mouse.move(homePoint.x, homePoint.y);
+  await expect(canvas).not.toHaveCSS('cursor', 'pointer');
+  await page.mouse.click(homePoint.x, homePoint.y);
+  await expectSelectedPinCount(page, 0);
+  await expect(page.locator('article[aria-current="true"]')).toHaveCount(0);
+
+  // 自宅より北側の近い施設を選び、ポップアップが自宅ピンに重ならない状態で検証する。
+  const facility = [...data.facilities]
+    .filter((candidate) => candidate.lat > home.lat)
+    .sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b))[0];
+  await clickPin(page, facility.id);
+  await expectSelectedPinCount(page, 1);
+  await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
+  await expect(page.locator('article[aria-current="true"]')).toHaveAttribute('data-facility-id', facility.id);
+  await expect.poll(() => new URL(page.url()).searchParams.get('facility')).toBe(facility.id);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+
+  const homeBeforeDeselect = (await pinClickPoint(page, 'home'))!;
+  expect(homeBeforeDeselect).not.toBeNull();
+  await page.mouse.move(homeBeforeDeselect.x, homeBeforeDeselect.y);
+  await expect(canvas).toHaveCSS('cursor', 'pointer');
+
+  await page.mouse.click(homeBeforeDeselect.x, homeBeforeDeselect.y);
+  await expectSelectedPinCount(page, 0);
+  await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
+  await expect(page.locator('article[aria-current="true"]')).toHaveCount(0);
+  await expect.poll(() => new URL(page.url()).searchParams.has('facility')).toBe(false);
+  await expect(canvas).not.toHaveCSS('cursor', 'pointer');
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  const homeAfterDeselect = (await pinCentre(page, 'home'))!;
+  expect(Math.hypot(homeAfterDeselect.x - homeBeforeDeselect.x, homeAfterDeselect.y - homeBeforeDeselect.y)).toBeLessThan(2);
+
+  // ポップアップだけ閉じた選択状態からも自宅ピンで選択を解除できる。
+  await clickPin(page, facility.id);
+  await expectSelectedPinCount(page, 1);
+  await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+  await page.getByRole('region', { name: '地図', exact: true }).getByRole('button', { name: 'Close popup' }).click();
+  await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
+  await expectSelectedPinCount(page, 1);
+  await clickPin(page, 'home');
+  await expectSelectedPinCount(page, 0);
+  await expect(page.locator('article[aria-current="true"]')).toHaveCount(0);
+  await expect.poll(() => new URL(page.url()).searchParams.has('facility')).toBe(false);
+});
+
+test('mobile: 地図で施設を選択した状態で自宅ピンをタップすると選択とピン留めが解除される', async ({ browser }) => {
+  const home = { lat: 34.675, lng: 135.535 };
+  const context = await browser.newContext({
+    hasTouch: true,
+    viewport: { width: 390, height: 844 },
+    permissions: ['geolocation'],
+    geolocation: { latitude: home.lat, longitude: home.lng },
+  });
+  const page = await context.newPage();
+  try {
+    await page.goto('/');
+    await page.getByRole('banner').getByRole('button', { name: '現在地', exact: true }).tap();
+    await waitForLocation(page);
+    await viewToggle(page).getByRole('button', { name: '地図', exact: true }).tap();
+    await expectPinProbe(page);
+    await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+    await expect.poll(() => homePinShown(page)).toBe(true);
+
+    const facility = [...data.facilities]
+      .filter((candidate) => candidate.lat > home.lat)
+      .sort((a, b) => distanceMeters(home, a) - distanceMeters(home, b))[0];
+    const facilityPoint = (await pinClickPoint(page, facility.id))!;
+    expect(facilityPoint).not.toBeNull();
+    await page.touchscreen.tap(facilityPoint.x, facilityPoint.y);
+    await expectSelectedPinCount(page, 1);
+    await expect(page.locator('.maplibregl-popup')).toHaveCount(1);
+    await expect.poll(() => new URL(page.url()).searchParams.get('facility')).toBe(facility.id);
+    await expect(ready(page)).toHaveAttribute('aria-busy', 'false');
+
+    const homePoint = (await pinClickPoint(page, 'home'))!;
+    expect(homePoint).not.toBeNull();
+    await page.touchscreen.tap(homePoint.x, homePoint.y);
+    await expectSelectedPinCount(page, 0);
+    await expect(page.locator('.maplibregl-popup')).toHaveCount(0);
+    await expect.poll(() => new URL(page.url()).searchParams.has('facility')).toBe(false);
+
+    await viewToggle(page).getByRole('button', { name: 'リスト', exact: true }).tap();
+    await expect(page.getByRole('region', { name: '地図で選択中の施設', exact: true })).toHaveCount(0);
+    await expect(page.locator('article[aria-current="true"]')).toHaveCount(0);
+
+    // 同じ施設をリストから選び直しても古いピン留めが復活しない。
+    await page.locator(`article[data-facility-id="${facility.id}"]`).getByRole('heading').tap();
+    await expect(page.locator('article[aria-current="true"]')).toHaveAttribute('data-facility-id', facility.id);
+    await expect(page.getByRole('region', { name: '地図で選択中の施設', exact: true })).toHaveCount(0);
+  } finally {
+    await context.close();
+  }
 });

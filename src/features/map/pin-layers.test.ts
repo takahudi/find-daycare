@@ -80,26 +80,43 @@ describe('ピンのクリック', () => {
   it('選択中 > 空きあり > 空きなし の順で手前を選ぶ', () => {
     const all = [facility('f', 0, 0), facility('o', 0, 0)];
     const pins = facilityPins(all, all, (f) => (f.id === 'o' ? 1 : 0));
-    expect(pickPin(scene({ facilities: pins }), { x: 0, y: 0 }, project)).toBe('o');
-    expect(pickPin(scene({ facilities: pins, selected: selectedPin(pins, 'f') }), { x: 0, y: 0 }, project)).toBe('f');
+    expect(pickPin(scene({ facilities: pins }), { x: 0, y: 0 }, project)).toEqual({ kind: 'facility', id: 'o' });
+    expect(pickPin(scene({ facilities: pins, selected: selectedPin(pins, 'f') }), { x: 0, y: 0 }, project)).toEqual({
+      kind: 'facility',
+      id: 'f',
+    });
   });
   it('同じ段では南を選び、同じ緯度ではデータの後の施設を選ぶ', () => {
     const all = [facility('south', 0, 0), facility('north', 0.01, 0)];
-    expect(pickPin(scene({ facilities: facilityPins(all, all, () => 1) }), { x: 0, y: -5 }, project)).toBe('south');
+    expect(pickPin(scene({ facilities: facilityPins(all, all, () => 1) }), { x: 0, y: -5 }, project)).toEqual({
+      kind: 'facility',
+      id: 'south',
+    });
     const tied = [facility('a', 0, 0), facility('b', 0, 0)];
-    expect(pickPin(scene({ facilities: facilityPins(tied, tied, () => 1) }), { x: 0, y: 0 }, project)).toBe('b');
+    expect(pickPin(scene({ facilities: facilityPins(tied, tied, () => 1) }), { x: 0, y: 0 }, project)).toEqual({
+      kind: 'facility',
+      id: 'b',
+    });
   });
-  it('自宅ピンの下では施設を選ばず、自宅の外では施設を選ぶ', () => {
+  it('自宅ピンの上では選択中の施設より手前の自宅ピンを選び、自宅の外では施設を選ぶ', () => {
     const all = [facility('a', 0, 0.02)];
-    const state = scene({ facilities: facilityPins(all, all, () => 1), home: homePin({ lat: 0, lng: 0, label: '自宅' }) });
-    expect(pickPin(state, { x: 10, y: 0 }, project)).toBeNull();
-    expect(pickPin(state, { x: 20, y: 0 }, project)).toBe('a');
+    const pins = facilityPins(all, all, () => 1);
+    const home = homePin({ lat: 0, lng: 0, label: '自宅' });
+    const state = scene({ facilities: pins, home });
+    expect(pickPin(state, { x: 10, y: 0 }, project)).toEqual({ kind: 'home' });
+    expect(pickPin(state, { x: 20, y: 0 }, project)).toEqual({ kind: 'facility', id: 'a' });
+    const withSelected = scene({ facilities: pins, selected: selectedPin(pins, 'a'), home });
+    expect(pickPin(withSelected, { x: 10, y: 0 }, project)).toEqual({ kind: 'home' });
+    expect(pickPin(withSelected, { x: 20, y: 0 }, project)).toEqual({ kind: 'facility', id: 'a' });
   });
   it('丸の角・影・何もない所では選ばず、四角の角では選ぶ', () => {
     const circle = [facility('circle', 0, 0)];
     const square = [facility('square', 0, 0, 'unlicensed')];
     expect(pickPin(scene({ facilities: facilityPins(circle, circle, () => 1) }), { x: 12, y: 12 }, project)).toBeNull();
-    expect(pickPin(scene({ facilities: facilityPins(square, square, () => 1) }), { x: 12, y: 12 }, project)).toBe('square');
+    expect(pickPin(scene({ facilities: facilityPins(square, square, () => 1) }), { x: 12, y: 12 }, project)).toEqual({
+      kind: 'facility',
+      id: 'square',
+    });
     for (const x of [17, 100])
       expect(pickPin(scene({ facilities: facilityPins(circle, circle, () => 1) }), { x, y: 0 }, project)).toBeNull();
   });
