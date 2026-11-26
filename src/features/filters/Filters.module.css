@@ -188,6 +188,8 @@
 /* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
 @media (max-width: 860px) {
   .filters {
+    position: relative;
+    z-index: 1200;
     padding: 8px 14px;
     gap: 7px;
   }
@@ -197,30 +199,11 @@
   }
 
   .popoverAnchor {
-    display: contents;
+    position: static;
   }
 
   .popoverPanel,
   .typePanel {
-    position: static;
-    order: 1;
-    flex-basis: 100%;
-    width: auto;
-    margin-top: 2px;
-    padding: 10px 12px;
-    border-radius: 12px;
-    background: var(--bg);
-    box-shadow: none;
-  }
-
-  .overlayPanels {
-    position: relative;
-    z-index: 1200;
-  }
-
-  .overlayPanels .popoverPanel,
-  .overlayPanels .typePanel {
-    position: absolute;
     top: calc(100% + 4px);
     left: 14px;
     right: 14px;
@@ -228,12 +211,5 @@
     max-height: min(60vh, 360px);
     max-height: min(60dvh, 360px);
     overflow-y: auto;
-    z-index: 1200;
-    margin-top: 0;
-    padding: 12px 14px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
-    box-shadow: var(--shadow);
   }
 }

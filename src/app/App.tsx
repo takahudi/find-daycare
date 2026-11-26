@@ -193,7 +193,7 @@ export default function App({ data }: { data: Dataset }) {
         </div>
       </header>
 
-      <Filters wards={data.wards} state={filters} overlayPanelsOnMobile={mobileView === 'map'} />
+      <Filters wards={data.wards} state={filters} />
 
       <nav ref={mobileTabsRef} className={styles.mobileTabs} aria-label="表示切替">
         <button

@@ -9,10 +9,9 @@ import styles from './Filters.module.css';
 interface Props {
   wards: Ward[];
   state: ReturnType<typeof useFilters>;
-  overlayPanelsOnMobile?: boolean;
 }
 
-export function Filters({ wards, state, overlayPanelsOnMobile }: Props) {
+export function Filters({ wards, state }: Props) {
   const {
     ages,
     wardIds,
@@ -30,7 +29,7 @@ export function Filters({ wards, state, overlayPanelsOnMobile }: Props) {
   const [openPanel, setOpenPanel] = useState<'ward' | 'type' | null>(null);
 
   return (
-    <section className={`${styles.filters}${overlayPanelsOnMobile ? ` ${styles.overlayPanels}` : ''}`} aria-label="絞り込み">
+    <section className={styles.filters} aria-label="絞り込み">
       <div className={styles.primaryRow}>
         {wards.length > 1 && (
           <WardFilter

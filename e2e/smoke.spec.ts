@@ -99,10 +99,15 @@ test('区の選択は折りたたまれ、展開して選択クリアと全区�
   await expect(trigger).toHaveText('区 すべて');
   await expect(page.getByRole('group', { name: '区', exact: true })).toHaveCount(0);
 
+  const list = page.getByRole('region', { name: '施設一覧' });
+  const listBefore = (await list.boundingBox())!;
+
   await trigger.click();
   await expect(trigger).toHaveAttribute('aria-expanded', 'true');
   const wards = page.getByRole('group', { name: '区', exact: true });
   await expect(wards).toBeVisible();
+  const listWhileOpen = (await list.boundingBox())!;
+  expect(Math.abs(listWhileOpen.y - listBefore.y), '区の選択パネルを開いても一覧が下に押し下げられない').toBeLessThan(1);
 
   const selectAll = filters.getByRole('button', { name: '全区を選択', exact: true });
   const clearAll = filters.getByRole('button', { name: '選択をクリア', exact: true });
