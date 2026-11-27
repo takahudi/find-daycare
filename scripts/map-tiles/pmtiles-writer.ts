@@ -2,7 +2,7 @@ import { Compression } from 'pmtiles';
 import type { TileType } from 'pmtiles';
 import { sha256 } from '../snapshots.ts';
 
-export type Bounds = readonly [west: number, south: number, east: number, north: number];
+type Bounds = readonly [west: number, south: number, east: number, north: number];
 export interface Tile {
   tileId: number;
   bytes: Uint8Array;

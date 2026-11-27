@@ -9,7 +9,7 @@ import {
   SnapshotDateSchema,
 } from '../src/schema.ts';
 
-export const PdfDetailSchema = v.strictObject({
+const PdfDetailSchema = v.strictObject({
   kana: v.nullable(TextSchema),
   capacity: v.nullable(CapacitySchema),
   weekday: v.nullable(TextSchema),
@@ -20,8 +20,8 @@ export const PdfDetailSchema = v.strictObject({
   approvedOn: v.nullable(TextSchema),
   note: v.optional(TextSchema),
 });
-export const ManualDetailSchema = v.omit(PdfDetailSchema, ['kana']);
-export const WardDetailSchema = v.strictObject({
+const ManualDetailSchema = v.omit(PdfDetailSchema, ['kana']);
+const WardDetailSchema = v.strictObject({
   name: v.optional(TextSchema),
   kana: v.optional(TextSchema),
   weekday: v.optional(TextSchema),
@@ -30,12 +30,12 @@ export const WardDetailSchema = v.strictObject({
   services: v.optional(v.array(TextSchema)),
   note: v.optional(TextSchema),
 });
-export const WebsiteSchema = v.strictObject({ url: v.nullable(HttpUrlSchema), label: TextSchema });
+const WebsiteSchema = v.strictObject({ url: v.nullable(HttpUrlSchema), label: TextSchema });
 /** 認可外保育施設一覧（詳細）PDFの様式の語（欄の見出しと選択肢）。施設名がこれで始まるなら別の欄を読んでいる */
 const KIGYO_FORM_WORD =
   /^(施設種別|施設所在地|電話番号|事業開始日|設置者|開所時間等|受入れ年齢等|定員|国の無償化|市の無償化|基準を満たす証明書|証明書|確認年月日|地域枠|月極|一時保育|平日延長|土曜延長|日祝延長)/;
 
-export const KigyoDetailSchema = v.pipe(
+const KigyoDetailSchema = v.pipe(
   v.strictObject({
     wardTag: TextSchema,
     phone: v.nullable(TextSchema),
@@ -66,12 +66,12 @@ export const KigyoDetailSchema = v.pipe(
     ({ input }) => `事業開始日が証明書発行日と同じです（証明書発行日を読んでいる）: ${input.startedOn}`,
   ),
 );
-export const GeocodePositionSchema = v.pipe(
+const GeocodePositionSchema = v.pipe(
   v.strictObject(HomeSchema.entries),
   v.check((position) => inOsakaCity(position), '座標が大阪市内の範囲外です'),
 );
 
-export const SnapshotPathSchema = v.pipe(
+const SnapshotPathSchema = v.pipe(
   v.string(),
   v.check(
     (name) =>

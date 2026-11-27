@@ -3,7 +3,7 @@ import { FACILITY_TYPES } from '../../lib/facility-labels';
 import { SORT_KEYS } from '../../lib/list-facilities';
 import { AGES } from '../../lib/vacancy';
 
-export function parseAsOrderedSelection<T extends string | number>(values: readonly T[]) {
+function parseAsOrderedSelection<T extends string | number>(values: readonly T[]) {
   return createParser({
     parse: (query) => {
       const tokens = query.split(',').filter(Boolean);
