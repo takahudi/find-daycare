@@ -23,7 +23,13 @@
 
 Node.js 26（`.node-version`）と pnpm 12（`package.json` の `packageManager`）を使用します。
 
-GitHub Actions の検証には `actionlint` と `zizmor` も PATH 上に必要です。Windows では `scoop install actionlint zizmor` でインストールできます。
+GitHub Actions の検証には `actionlint` と `zizmor` も PATH 上に必要です。actionlint は CI と同じ本家 rhysd/actionlint v1.7.12 を使います。Scoop の main バケットの `actionlint` はフォーク版に切り替わっているため、Windows では次のようにインストールします。
+
+```bash
+scoop install https://raw.githubusercontent.com/ScoopInstaller/Main/a087540af4a34e28c279d25ca048db89152fbdd8/bucket/actionlint.json
+scoop hold actionlint
+scoop install zizmor
+```
 
 ```bash
 pnpm install

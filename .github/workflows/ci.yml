@@ -27,8 +27,8 @@ jobs:
           persist-credentials: false
       - name: Run actionlint
         run: |
-          curl --fail --silent --show-error --location https://github.com/kjanat/actionlint/releases/download/v1.17.1/actionlint_1.17.1_linux_amd64.tar.gz --output "$RUNNER_TEMP/actionlint.tar.gz"
-          printf '%s  %s\n' '6bfe0f49f0e108b9b23732baf7de63bfa4d89174fa40f9cb98feb9676df3318f' "$RUNNER_TEMP/actionlint.tar.gz" | sha256sum --check --strict
+          curl --fail --silent --show-error --location https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz --output "$RUNNER_TEMP/actionlint.tar.gz"
+          printf '%s  %s\n' '8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8' "$RUNNER_TEMP/actionlint.tar.gz" | sha256sum --check --strict
           tar -xzf "$RUNNER_TEMP/actionlint.tar.gz" -C "$RUNNER_TEMP" actionlint
           "$RUNNER_TEMP/actionlint" -color
       - uses: zizmorcore/zizmor-action@1b4550e929643b8b26a62303c6bd64814271a4f1 # v0.9.2
