@@ -12,6 +12,9 @@ pre-commit:
     - name: actionlint
       glob: '.github/workflows/*.{yml,yaml}'
       run: actionlint {staged_files}
+    - name: zizmor
+      glob: '.github/workflows/*.{yml,yaml}'
+      run: zizmor {staged_files}
     - name: format
       glob: '*.{js,mjs,cjs,ts,tsx,json,jsonc,css,html,yaml,yml}'
       run: pnpm format --no-error-on-unmatched-pattern {staged_files}

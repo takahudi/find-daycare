@@ -23,7 +23,7 @@
 
 Node.js 26（`.node-version`）と pnpm 12（`package.json` の `packageManager`）を使用します。
 
-GitHub Actions の検証には `actionlint` も PATH 上に必要です。Windows では `scoop install actionlint` でインストールできます。
+GitHub Actions の検証には `actionlint` と `zizmor` も PATH 上に必要です。Windows では `scoop install actionlint zizmor` でインストールできます。
 
 ```bash
 pnpm install
