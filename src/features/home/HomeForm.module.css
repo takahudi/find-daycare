@@ -116,7 +116,7 @@
 }
 
 /* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
-@media (max-width: 860px) {
+@media (width <= 860px) {
   .search {
     gap: 6px;
   }
@@ -144,7 +144,7 @@
     width: 1px;
     height: 1px;
     overflow: hidden;
-    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
   }
 
   .search button.ghost {

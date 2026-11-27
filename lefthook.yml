@@ -5,6 +5,10 @@ pre-commit:
       glob: '*.{js,mjs,cjs,ts,tsx}'
       run: pnpm lint --fix {staged_files}
       stage_fixed: true
+    - name: lint-css
+      glob: '*.css'
+      run: pnpm exec stylelint --fix {staged_files}
+      stage_fixed: true
     - name: format
       glob: '*.{js,mjs,cjs,ts,tsx,json,jsonc,css,html,yaml,yml}'
       run: pnpm format --no-error-on-unmatched-pattern {staged_files}

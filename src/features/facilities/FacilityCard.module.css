@@ -3,7 +3,7 @@
 }
 
 .card {
-  scroll-margin-top: var(--mobile-bar-height, 0px);
+  scroll-margin-top: var(--mobile-bar-height, 0);
   display: flex;
   flex-direction: column;
   gap: 10px;

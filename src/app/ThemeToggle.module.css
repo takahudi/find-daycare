@@ -40,7 +40,7 @@
 }
 
 /* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css、DatasetHeading.module.css と共通。 */
-@media (max-width: 860px) {
+@media (width <= 860px) {
   .button {
     width: 36px;
     height: 36px;

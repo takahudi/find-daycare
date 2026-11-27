@@ -1,6 +1,6 @@
 :root {
   --bg: #f6f4ef;
-  --surface: #ffffff;
+  --surface: #fff;
   --ink: #23262b;
   --muted: #696e75;
   --line: #e4e1d9;
@@ -30,15 +30,15 @@
   --na-stripe-a: #fafaf8;
   --na-stripe-b: #f1f0ec;
   --error: #c0392b;
-  --map-legend-bg: rgb(255 255 255 / 0.92);
-  --map-attrib-bg: rgb(255 255 255 / 0.78);
-  --map-ctrl-shadow: 0 0 0 2px rgb(0 0 0 / 0.1);
+  --map-legend-bg: rgb(255 255 255 / 92%);
+  --map-attrib-bg: rgb(255 255 255 / 78%);
+  --map-ctrl-shadow: 0 0 0 2px rgb(0 0 0 / 10%);
   --radius: 14px;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 4px 16px rgb(0 0 0 / 0.05);
-  --floating-shadow: 0 4px 14px rgb(0 0 0 / 0.14), 0 1px 3px rgb(0 0 0 / 0.08);
+  --shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 4px 16px rgb(0 0 0 / 5%);
+  --floating-shadow: 0 4px 14px rgb(0 0 0 / 14%), 0 1px 3px rgb(0 0 0 / 8%);
 
   color-scheme: light;
-  font-family: 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic UI', 'Meiryo', system-ui, sans-serif;
+  font-family: 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic UI', Meiryo, system-ui, sans-serif;
   color: var(--ink);
   background: var(--bg);
   line-height: 1.5;
@@ -77,11 +77,11 @@
   --na-stripe-a: #22252b;
   --na-stripe-b: #2b2f36;
   --error: #ff8a80;
-  --map-legend-bg: rgb(29 31 36 / 0.92);
-  --map-attrib-bg: rgb(29 31 36 / 0.85);
-  --map-ctrl-shadow: 0 0 0 1px var(--line), 0 2px 8px rgb(0 0 0 / 0.45);
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 4px 16px rgb(0 0 0 / 0.35);
-  --floating-shadow: 0 4px 16px rgb(0 0 0 / 0.48), 0 1px 4px rgb(0 0 0 / 0.32);
+  --map-legend-bg: rgb(29 31 36 / 92%);
+  --map-attrib-bg: rgb(29 31 36 / 85%);
+  --map-ctrl-shadow: 0 0 0 1px var(--line), 0 2px 8px rgb(0 0 0 / 45%);
+  --shadow: 0 1px 2px rgb(0 0 0 / 35%), 0 4px 16px rgb(0 0 0 / 35%);
+  --floating-shadow: 0 4px 16px rgb(0 0 0 / 48%), 0 1px 4px rgb(0 0 0 / 32%);
 
   color-scheme: dark;
 }
@@ -119,11 +119,11 @@
     --na-stripe-a: #22252b;
     --na-stripe-b: #2b2f36;
     --error: #ff8a80;
-    --map-legend-bg: rgb(29 31 36 / 0.92);
-    --map-attrib-bg: rgb(29 31 36 / 0.85);
-    --map-ctrl-shadow: 0 0 0 1px var(--line), 0 2px 8px rgb(0 0 0 / 0.45);
-    --shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 4px 16px rgb(0 0 0 / 0.35);
-    --floating-shadow: 0 4px 16px rgb(0 0 0 / 0.48), 0 1px 4px rgb(0 0 0 / 0.32);
+    --map-legend-bg: rgb(29 31 36 / 92%);
+    --map-attrib-bg: rgb(29 31 36 / 85%);
+    --map-ctrl-shadow: 0 0 0 1px var(--line), 0 2px 8px rgb(0 0 0 / 45%);
+    --shadow: 0 1px 2px rgb(0 0 0 / 35%), 0 4px 16px rgb(0 0 0 / 35%);
+    --floating-shadow: 0 4px 16px rgb(0 0 0 / 48%), 0 1px 4px rgb(0 0 0 / 32%);
 
     color-scheme: dark;
   }
@@ -152,7 +152,7 @@ select {
   width: 1px;
   height: 1px;
   overflow: hidden;
-  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
 }
 
 /* 再読み込みと自宅解除で共有するリンク風ボタン。要素を限定せず利用できる。 */
@@ -207,7 +207,7 @@ select {
 }
 
 /* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
-@media (max-width: 860px) {
+@media (width <= 860px) {
   .loading-app {
     display: block;
     height: auto;

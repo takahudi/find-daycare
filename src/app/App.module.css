@@ -60,7 +60,7 @@
 }
 
 /* 860px は index.css の静的ローダー、HomeForm.module.css、Filters.module.css、DatasetHeading.module.css と共通。 */
-@media (max-width: 860px) {
+@media (width <= 860px) {
   .app {
     display: block;
     height: auto;
