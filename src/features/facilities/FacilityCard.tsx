@@ -93,9 +93,7 @@ export const FacilityCard = memo(function FacilityCard({
         )}
       </header>
 
-      {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- 共有年齢枠を CSS Grid の列結合で表すため、ネイティブの表レイアウトを使わない。 */}
       <div role="table" aria-label="年齢別の空き人数">
-        {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- 共有年齢枠を CSS Grid の列結合で表す行。 */}
         <div role="row" className={styles.vacancyRow}>
           {f.vacancies.map((v, age) => {
             // 共有枠（例: 1・2歳あわせて1人）は1つのセルにまとめて表示する
@@ -106,7 +104,6 @@ export const FacilityCard = memo(function FacilityCard({
             return (
               <div
                 key={age}
-                // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- 共有年齢枠を CSS Grid の列結合で表すセル。
                 role="cell"
                 data-ages={group.join(' ')}
                 className={`${styles.vacancyCell} ${cellByVacancyState[state]}`}

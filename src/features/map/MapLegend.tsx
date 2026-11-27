@@ -15,7 +15,6 @@ export function MapLegend({ hasHome: home, ref }: { hasHome: boolean; ref?: Ref<
   const { theme } = useTheme();
   return (
     <div className={styles.legendTrack}>
-      {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- 凡例はフォームや見出しの集合ではないため、ARIA でグループ化する。 */}
       <div ref={ref} className={styles.legend} role="group" aria-label="地図の凡例">
         {ENTRIES.map(({ face, label }) => (
           <span key={label}>
