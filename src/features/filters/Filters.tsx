@@ -57,6 +57,7 @@ export function Filters({ wards, state }: Props) {
           空きありのみ
         </label>
       </div>
+      {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- ラベルと押下ボタンを同じ Flex 行に置き、fieldset の legend 用レイアウトを使わない。 */}
       <div className={styles.group} role="group" aria-labelledby="filter-age">
         <span id="filter-age" className={styles.label}>
           年齢

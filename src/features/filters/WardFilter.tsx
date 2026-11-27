@@ -76,6 +76,7 @@ export function WardFilter({ wards, wardIds, open, onToggleOpen, onClose, onTogg
             </button>
           </div>
         </div>
+        {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- フォーム入力ではなく即時反映する押下ボタンの集合なので、ARIA でグループ化する。 */}
         <div className={styles.panelList} role="group" aria-label="区">
           {wards.map((w) => {
             const selected = wardIds.includes(w.id);

@@ -83,6 +83,7 @@ export function FacilityTypeFilter({ facilityTypes, open, onToggleOpen, onClose,
             </button>
           </div>
         </div>
+        {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- フォーム入力ではなく即時反映する押下ボタンの集合なので、ARIA でグループ化する。 */}
         <div className={styles.panelList} role="group" aria-label="種別">
           {FACILITY_TYPES.map((facilityType) => {
             const selected = facilityTypes.includes(facilityType);

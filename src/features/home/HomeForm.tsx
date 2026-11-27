@@ -37,13 +37,13 @@ export function HomeForm({ home, wardNames, setHome, clearHome, onHomeChosen }: 
     return (
       <div className={styles.root}>
         <div className={styles.homeBar}>
-          <p className={styles.status} role="status">
+          <output className={styles.status}>
             <span aria-hidden="true">🏠</span>{' '}
             <strong className={styles.homeLabel} title={home.label}>
               {displayLabel}
             </strong>
             <span className={styles.statusSuffix}> からの直線距離</span>
-          </p>
+          </output>
           <div className={styles.homeActions}>
             <button type="button" className="link-button" onClick={() => setEditing(true)}>
               変更
@@ -104,17 +104,15 @@ export function HomeForm({ home, wardNames, setHome, clearHome, onHomeChosen }: 
       {(error || (home && editing)) && (
         <div className={styles.editMeta}>
           {error ? (
-            <p className={`${styles.status} ${styles.error}`} role="status">
-              {error}
-            </p>
+            <output className={`${styles.status} ${styles.error}`}>{error}</output>
           ) : (
-            <p className={styles.status} role="status">
+            <output className={styles.status}>
               <span aria-hidden="true">🏠</span>{' '}
               <strong className={styles.homeLabel} title={home!.label}>
                 {displayLabel}
               </strong>
               <span className={styles.statusSuffix}> からの直線距離</span>
-            </p>
+            </output>
           )}
           {home && editing && (
             <button type="button" className="link-button" onClick={() => setEditing(false)}>

@@ -141,6 +141,7 @@ export function MapView({
             latitude={selected.lat}
             onClose={() => setClosedId(selected.id)}
           >
+            {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- 地図ポップアップの詳細はフォームや見出しの集合ではないため、ARIA でグループ化する。 */}
             <div role="group" aria-label="施設の詳細">
               <strong>{selected.name}</strong>
               <div className={styles.popupMeta}>

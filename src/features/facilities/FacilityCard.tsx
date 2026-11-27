@@ -46,6 +46,7 @@ export const FacilityCard = memo(function FacilityCard({
   const showDetailType = f.detailType && f.detailType !== typeLabel;
 
   return (
+    // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- カード背景のクリックは補助操作とし、キーボードでは施設名のボタンから同じ選択を行う。
     <article
       className={`${styles.card}${selected ? ` ${styles.cardSelected}` : ''}`}
       aria-labelledby={nameId}
@@ -54,6 +55,7 @@ export const FacilityCard = memo(function FacilityCard({
       onClick={() => onSelect(f.id)}
     >
       <header className={styles.cardHead}>
+        {/* oxlint-disable-next-line jsx-a11y/no-redundant-roles -- list-style を消したリストも Safari の読み上げでリストとして扱う。 */}
         <ul className={styles.cardBadges} role="list" aria-label="分類">
           <li className={`${styles.badge} ${styles.badgeWard}`}>{f.wardName}</li>
           <li className={`${styles.badge} ${badgeByFacilityType[f.facilityType]}`}>{typeLabel}</li>
@@ -65,7 +67,16 @@ export const FacilityCard = memo(function FacilityCard({
         </ul>
         <h2 id={nameId} className={styles.cardTitle}>
           {rank !== null && <span className={styles.cardRank}>{rank}</span>}
-          {f.name}
+          <button
+            type="button"
+            className={styles.cardSelectBtn}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect(f.id);
+            }}
+          >
+            {f.name}
+          </button>
         </h2>
         {f.kana && <p className={styles.cardKana}>{f.kana}</p>}
         {f.licensing === 'unlicensed' && (
@@ -82,7 +93,9 @@ export const FacilityCard = memo(function FacilityCard({
         )}
       </header>
 
+      {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- 共有年齢枠を CSS Grid の列結合で表すため、ネイティブの表レイアウトを使わない。 */}
       <div role="table" aria-label="年齢別の空き人数">
+        {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- 共有年齢枠を CSS Grid の列結合で表す行。 */}
         <div role="row" className={styles.vacancyRow}>
           {f.vacancies.map((v, age) => {
             // 共有枠（例: 1・2歳あわせて1人）は1つのセルにまとめて表示する
@@ -93,6 +106,7 @@ export const FacilityCard = memo(function FacilityCard({
             return (
               <div
                 key={age}
+                // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- 共有年齢枠を CSS Grid の列結合で表すセル。
                 role="cell"
                 data-ages={group.join(' ')}
                 className={`${styles.vacancyCell} ${cellByVacancyState[state]}`}
@@ -160,17 +174,30 @@ export const FacilityCard = memo(function FacilityCard({
       )}
       {f.note && <p className={styles.cardNote}>{f.note}</p>}
 
-      <footer className={styles.cardLinks} onClick={(e) => e.stopPropagation()}>
-        <button type="button" className={styles.cardMapBtn} onClick={() => onShowOnMap(f.id)}>
+      <footer className={styles.cardLinks}>
+        <button
+          type="button"
+          className={styles.cardMapBtn}
+          onClick={(e) => {
+            e.stopPropagation();
+            onShowOnMap(f.id);
+          }}
+        >
           📍 地図で見る
         </button>
         {f.website && (
-          <a href={f.website} target="_blank" rel="noreferrer" title={f.websiteLabel ?? undefined}>
+          <a
+            href={f.website}
+            target="_blank"
+            rel="noreferrer"
+            title={f.websiteLabel ?? undefined}
+            onClick={(e) => e.stopPropagation()}
+          >
             公式サイト ↗
           </a>
         )}
         {f.infoPdfUrl && (
-          <a href={f.infoPdfUrl} target="_blank" rel="noreferrer">
+          <a href={f.infoPdfUrl} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
             {f.infoPdfLabel} ↗
           </a>
         )}
@@ -178,6 +205,7 @@ export const FacilityCard = memo(function FacilityCard({
           href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${f.name} ${f.address}`)}`}
           target="_blank"
           rel="noreferrer"
+          onClick={(e) => e.stopPropagation()}
         >
           Googleマップ ↗
         </a>
