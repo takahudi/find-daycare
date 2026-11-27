@@ -23,6 +23,8 @@
 
 Node.js 26（`.node-version`）と pnpm 12（`package.json` の `packageManager`）を使用します。
 
+GitHub Actions の検証には `actionlint` も PATH 上に必要です。Windows では `scoop install actionlint` でインストールできます。
+
 ```bash
 pnpm install
 pnpm dev
@@ -36,6 +38,8 @@ Cloudflare Vite プラグインにより Workers 実行環境（workerd）で動
 ```bash
 pnpm check      # 整形確認・lint・型チェック・単体テスト・ビルド（CI と同一）
 pnpm lint       # Worker 型生成のうえ oxlint を実行
+pnpm lint:css   # Stylelint で CSS を検証
+pnpm knip       # 未使用ファイル・export・依存パッケージを検証
 pnpm typecheck  # Worker 型生成のうえ tsc -b を実行
 pnpm test       # 単体テスト（Vitest。src/data/facilities.json の検証を含む）
 pnpm test:e2e   # E2E・アクセシビリティテスト（Playwright + axe-core。初回は pnpm exec playwright install --only-shell chromium）

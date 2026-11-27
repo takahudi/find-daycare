@@ -9,6 +9,9 @@ pre-commit:
       glob: '*.css'
       run: pnpm exec stylelint --fix {staged_files}
       stage_fixed: true
+    - name: actionlint
+      glob: '.github/workflows/*.{yml,yaml}'
+      run: actionlint {staged_files}
     - name: format
       glob: '*.{js,mjs,cjs,ts,tsx,json,jsonc,css,html,yaml,yml}'
       run: pnpm format --no-error-on-unmatched-pattern {staged_files}

@@ -16,6 +16,21 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  workflow-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Run actionlint
+        run: |
+          curl --fail --silent --show-error --location https://github.com/kjanat/actionlint/releases/download/v1.17.1/actionlint_1.17.1_linux_amd64.tar.gz --output "$RUNNER_TEMP/actionlint.tar.gz"
+          printf '%s  %s\n' '6bfe0f49f0e108b9b23732baf7de63bfa4d89174fa40f9cb98feb9676df3318f' "$RUNNER_TEMP/actionlint.tar.gz" | sha256sum --check --strict
+          tar -xzf "$RUNNER_TEMP/actionlint.tar.gz" -C "$RUNNER_TEMP" actionlint
+          "$RUNNER_TEMP/actionlint" -color
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -42,7 +57,7 @@ jobs:
           retention-days: 7
 
   e2e:
-    needs: check
+    needs: [check, workflow-lint]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
