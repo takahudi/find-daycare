@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    // package.json のスクリプトは自動検出される。以下は node で直接実行する保守用 CLI。
+    "scripts/check-urls.ts",
+    "scripts/dump-pdf-text.ts",
+    "scripts/extract-ward-homepages.ts",
+    "scripts/kigyo-pdf-fixture.ts",
+  ],
+  "project": ["src/**/*.{ts,tsx}", "worker/**/*.ts", "scripts/**/*.ts", "e2e/**/*.ts", "*.{ts,mjs}"],
+  "vite": { "config": ["vite.config.ts"] },
+  // index.html のアプリ入口と wrangler.jsonc の Worker 入口は各プラグインが解決する。
+  "wrangler": { "config": ["wrangler.jsonc"] },
+  "playwright": { "config": ["playwright.config.ts"] },
+  "vitest": { "entry": ["{src,worker,scripts}/**/*.test.ts"] },
+}
