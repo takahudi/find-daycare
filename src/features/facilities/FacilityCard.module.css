@@ -3,9 +3,6 @@
 }
 
 .card {
-  content-visibility: auto;
-  /* 内容領域の実測中央値はスマホで370px。1列のデスクトップではやや大きめに見積もる。 */
-  contain-intrinsic-height: auto 370px;
   scroll-margin-top: var(--mobile-bar-height, 0px);
   display: flex;
   flex-direction: column;
@@ -19,12 +16,6 @@
   transition:
     border-color 0.15s,
     transform 0.15s;
-}
-
-/* 先頭付近は先頭へのスクロール復帰で直ちに画面内へ入るため、ロック解除レイアウトを避ける。 */
-.card:nth-child(-n + 6) {
-  content-visibility: visible;
-  contain-intrinsic-height: none;
 }
 
 .card:hover {
@@ -214,6 +205,14 @@
 
 .cardFacts dd {
   margin: 0;
+}
+
+.cardFacts a {
+  display: inline-flex;
+  align-items: center;
+  min-width: 24px;
+  min-height: 24px;
+  margin: -2px 0;
 }
 
 .cardTags {

@@ -86,13 +86,44 @@
 }
 
 .cards {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cardGroup {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 14px;
 }
 
+.deferredGroup {
+  content-visibility: auto;
+  /* 1列×12枚が収まる目安高さ。実寸より小さくすると未描画グループ同士が重なって誤判定される。 */
+  contain-intrinsic-height: auto 5000px;
+}
+
+@container (min-width: 654px) {
+  .deferredGroup {
+    contain-intrinsic-height: auto 2600px;
+  }
+}
+
+@container (min-width: 988px) {
+  .deferredGroup {
+    contain-intrinsic-height: auto 1800px;
+  }
+}
+
+@container (min-width: 1322px) {
+  .deferredGroup {
+    contain-intrinsic-height: auto 1400px;
+  }
+}
+
 @media (max-width: 680px) {
-  .cards {
+  .cardGroup {
     display: flex;
     flex-direction: column;
   }

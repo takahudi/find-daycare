@@ -57,39 +57,42 @@ export function WardFilter({ wards, wardIds, open, onToggleOpen, onClose, onTogg
         <span className={styles.triggerPrefix}>区</span> <span>{summary}</span>
         <span className={styles.caret} aria-hidden="true" />
       </button>
-      {open && (
-        <div id={panelId} className={styles.popoverPanel}>
-          <div className={styles.panelActions}>
-            <span className={styles.panelCount}>
-              {wardIds.length} / {wards.length}区を選択中
-            </span>
-            <div className={styles.panelActionButtons}>
-              <button type="button" className={styles.panelAction} disabled={allSelected} onClick={onSelectAll}>
-                全区を選択
-              </button>
-              <button type="button" className={styles.panelAction} disabled={noneSelected} onClick={onClearAll}>
-                選択をクリア
-              </button>
-            </div>
-          </div>
-          <div className={styles.panelList} role="group" aria-label="区">
-            {wards.map((w) => {
-              const selected = wardIds.includes(w.id);
-              return (
-                <button
-                  key={w.id}
-                  type="button"
-                  className={`${styles.chip}${selected ? ` ${styles.on}` : ''}`}
-                  aria-pressed={selected}
-                  onClick={() => onToggle(w.id)}
-                >
-                  {w.name}
-                </button>
-              );
-            })}
+      <div
+        id={panelId}
+        className={`${styles.popoverPanel}${open ? '' : ` ${styles.popoverPanelClosed}`}`}
+        aria-hidden={!open || undefined}
+        inert={!open}
+      >
+        <div className={styles.panelActions}>
+          <span className={styles.panelCount}>
+            {wardIds.length} / {wards.length}区を選択中
+          </span>
+          <div className={styles.panelActionButtons}>
+            <button type="button" className={styles.panelAction} disabled={allSelected} onClick={onSelectAll}>
+              全区を選択
+            </button>
+            <button type="button" className={styles.panelAction} disabled={noneSelected} onClick={onClearAll}>
+              選択をクリア
+            </button>
           </div>
         </div>
-      )}
+        <div className={styles.panelList} role="group" aria-label="区">
+          {wards.map((w) => {
+            const selected = wardIds.includes(w.id);
+            return (
+              <button
+                key={w.id}
+                type="button"
+                className={`${styles.chip}${selected ? ` ${styles.on}` : ''}`}
+                aria-pressed={selected}
+                onClick={() => onToggle(w.id)}
+              >
+                {w.name}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

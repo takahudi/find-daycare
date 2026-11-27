@@ -64,39 +64,42 @@ export function FacilityTypeFilter({ facilityTypes, open, onToggleOpen, onClose,
         <span className={styles.triggerPrefix}>種別</span> <span>{summary}</span>
         <span className={styles.caret} aria-hidden="true" />
       </button>
-      {open && (
-        <div id={panelId} className={`${styles.popoverPanel} ${styles.typePanel}`}>
-          <div className={styles.panelActions}>
-            <span className={styles.panelCount}>
-              {facilityTypes.length} / {FACILITY_TYPES.length}種別を選択中
-            </span>
-            <div className={styles.panelActionButtons}>
-              <button type="button" className={styles.panelAction} disabled={allSelected} onClick={onSelectAll}>
-                すべて選択
-              </button>
-              <button type="button" className={styles.panelAction} disabled={noneSelected} onClick={onClearAll}>
-                選択をクリア
-              </button>
-            </div>
-          </div>
-          <div className={styles.panelList} role="group" aria-label="種別">
-            {FACILITY_TYPES.map((facilityType) => {
-              const selected = facilityTypes.includes(facilityType);
-              return (
-                <button
-                  key={facilityType}
-                  type="button"
-                  className={`${styles.chip} ${chipByFacilityType[facilityType]}${selected ? ` ${styles.on}` : ''}`}
-                  aria-pressed={selected}
-                  onClick={() => onToggle(facilityType)}
-                >
-                  {FACILITY_TYPE_LABELS[facilityType].filterLabel}
-                </button>
-              );
-            })}
+      <div
+        id={panelId}
+        className={`${styles.popoverPanel} ${styles.typePanel}${open ? '' : ` ${styles.popoverPanelClosed}`}`}
+        aria-hidden={!open || undefined}
+        inert={!open}
+      >
+        <div className={styles.panelActions}>
+          <span className={styles.panelCount}>
+            {facilityTypes.length} / {FACILITY_TYPES.length}種別を選択中
+          </span>
+          <div className={styles.panelActionButtons}>
+            <button type="button" className={styles.panelAction} disabled={allSelected} onClick={onSelectAll}>
+              すべて選択
+            </button>
+            <button type="button" className={styles.panelAction} disabled={noneSelected} onClick={onClearAll}>
+              選択をクリア
+            </button>
           </div>
         </div>
-      )}
+        <div className={styles.panelList} role="group" aria-label="種別">
+          {FACILITY_TYPES.map((facilityType) => {
+            const selected = facilityTypes.includes(facilityType);
+            return (
+              <button
+                key={facilityType}
+                type="button"
+                className={`${styles.chip} ${chipByFacilityType[facilityType]}${selected ? ` ${styles.on}` : ''}`}
+                aria-pressed={selected}
+                onClick={() => onToggle(facilityType)}
+              >
+                {FACILITY_TYPE_LABELS[facilityType].filterLabel}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

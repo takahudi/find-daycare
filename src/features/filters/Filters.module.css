@@ -38,6 +38,12 @@
   font-size: 0.84rem;
   line-height: 1.4;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chip:active {
+  transform: translateY(1px);
 }
 
 .on {
@@ -107,16 +113,14 @@
 .caret {
   width: 6px;
   height: 6px;
-  margin-top: -2px;
   border-right: 1.5px solid currentColor;
   border-bottom: 1.5px solid currentColor;
-  transform: rotate(45deg);
+  transform: translateY(-2px) rotate(45deg);
   transition: transform 0.15s ease;
 }
 
 .dropdownTrigger[aria-expanded='true'] .caret {
-  margin-top: 2px;
-  transform: rotate(-135deg);
+  transform: translateY(2px) rotate(-135deg);
 }
 
 .popoverPanel {
@@ -130,6 +134,12 @@
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow);
+}
+
+/* 初回オープン時のDOM生成と文字シェーピングを避けるため、レイアウト済みの状態で隠す。 */
+.popoverPanelClosed {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .typePanel {
@@ -167,6 +177,8 @@
   font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .panelAction:hover:not(:disabled) {

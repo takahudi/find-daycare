@@ -7,6 +7,10 @@ import { FacilityCard } from './FacilityCard';
 import styles from './FacilityList.module.css';
 
 const SortKeySchema = v.picklist(SORT_KEYS);
+// 先頭付近は先頭へのスクロール復帰で直ちに画面内へ入るため、content-visibility: auto の外に出す。
+const EAGER_CARD_COUNT = 6;
+// 1・2・3・4列の公倍数で区切り、カード単位の content-visibility: auto が増やす交差判定コストを抑える。
+const CARD_CHUNK_SIZE = 12;
 
 interface Props {
   facilities: Facility[];
@@ -49,6 +53,10 @@ export function FacilityList({
   const openCount = facilities.filter((f) => vacancyOf(f) > 0).length;
   const pinnedIndex = pinnedId ? facilities.findIndex((f) => f.id === pinnedId) : -1;
   const pinnedFacility = pinnedIndex >= 0 ? facilities[pinnedIndex] : null;
+  const deferredStarts: number[] = [];
+  for (let start = EAGER_CARD_COUNT; start < facilities.length; start += CARD_CHUNK_SIZE) {
+    deferredStarts.push(start);
+  }
 
   return (
     <>
@@ -105,22 +113,48 @@ export function FacilityList({
         </section>
       )}
       <div className={styles.cards}>
-        {facilities.map((f, i) => {
-          if (f.id === pinnedFacility?.id) return null;
-          return (
-            <FacilityCard
-              key={f.id}
-              facility={f}
-              vacancyExpired={vacancyExpiredOf(f)}
-              rank={showRank ? i + 1 : null}
-              distance={distanceOf(f)}
-              selected={f.id === selectedId}
-              onSelect={onSelect}
-              onShowOnMap={onShowOnMap}
-            />
-          );
-        })}
-        {facilities.length === 0 && <p className={styles.empty}>条件に合う施設がありません。絞り込みを変更してください。</p>}
+        {facilities.length === 0 ? (
+          <p className={styles.empty}>条件に合う施設がありません。絞り込みを変更してください。</p>
+        ) : (
+          <>
+            <div className={styles.cardGroup}>
+              {facilities.slice(0, EAGER_CARD_COUNT).map((f, i) => {
+                if (f.id === pinnedFacility?.id) return null;
+                return (
+                  <FacilityCard
+                    key={f.id}
+                    facility={f}
+                    vacancyExpired={vacancyExpiredOf(f)}
+                    rank={showRank ? i + 1 : null}
+                    distance={distanceOf(f)}
+                    selected={f.id === selectedId}
+                    onSelect={onSelect}
+                    onShowOnMap={onShowOnMap}
+                  />
+                );
+              })}
+            </div>
+            {deferredStarts.map((start) => (
+              <div key={start} className={`${styles.cardGroup} ${styles.deferredGroup}`}>
+                {facilities.slice(start, start + CARD_CHUNK_SIZE).map((f, offset) => {
+                  if (f.id === pinnedFacility?.id) return null;
+                  return (
+                    <FacilityCard
+                      key={f.id}
+                      facility={f}
+                      vacancyExpired={vacancyExpiredOf(f)}
+                      rank={showRank ? start + offset + 1 : null}
+                      distance={distanceOf(f)}
+                      selected={f.id === selectedId}
+                      onSelect={onSelect}
+                      onShowOnMap={onShowOnMap}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </>
   );
