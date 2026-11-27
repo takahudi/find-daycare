@@ -14,19 +14,19 @@ export const HttpUrlSchema = v.pipe(
   v.url('有効なURLが必要です'),
   v.regex(/^https?:\/\//i, 'URLはhttpまたはhttpsが必要です'),
 );
-export const LatitudeSchema = v.pipe(
+const LatitudeSchema = v.pipe(
   v.number('緯度は数値が必要です'),
   v.minValue(-90, '緯度は-90以上が必要です'),
   v.maxValue(90, '緯度は90以下が必要です'),
 );
-export const LongitudeSchema = v.pipe(
+const LongitudeSchema = v.pipe(
   v.number('経度は数値が必要です'),
   v.minValue(-180, '経度は-180以上が必要です'),
   v.maxValue(180, '経度は180以下が必要です'),
 );
 export const FacilityTypeSchema = v.picklist(['nursery', 'kodomoen', 'community', 'kigyo'], '施設種別が不正です');
 
-export const LicensingSchema = v.picklist(['licensed', 'unlicensed'], '認可区分が不正です');
+const LicensingSchema = v.picklist(['licensed', 'unlicensed'], '認可区分が不正です');
 
 export type FacilityType = v.InferOutput<typeof FacilityTypeSchema>;
 export type Licensing = v.InferOutput<typeof LicensingSchema>;
@@ -116,7 +116,7 @@ export const FacilitySchema = v.pipe(
   }),
 );
 
-export const SourceSchema = v.object({ label: TextSchema, url: HttpUrlSchema });
+const SourceSchema = v.object({ label: TextSchema, url: HttpUrlSchema });
 const isRealDate = (date: string) => {
   const timestamp = Date.parse(date);
   return Number.isFinite(timestamp) && new Date(timestamp).toISOString().slice(0, 10) === date;
@@ -128,7 +128,7 @@ export const SnapshotDateSchema = v.pipe(
   v.check(isRealDate, '実在する取得日が必要です'),
 );
 
-export const AdmissionDateSchema = v.pipe(
+const AdmissionDateSchema = v.pipe(
   v.string(),
   v.isoDate('入所日はYYYY-MM-DD形式が必要です'),
   v.check((date) => date.endsWith('-01') && isRealDate(date), '入所日は実在する月初日が必要です'),

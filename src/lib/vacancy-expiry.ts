@@ -1,6 +1,6 @@
 import type { Facility, Ward } from '../schema';
 
-export function vacancyExpiryTime(admissionDate: string): number {
+function vacancyExpiryTime(admissionDate: string): number {
   // UTC の月初や端末のタイムゾーンでは、日本時間の入所日と最大1日ずれる。
   return Date.parse(admissionDate + 'T00:00:00+09:00');
 }

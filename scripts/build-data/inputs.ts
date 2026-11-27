@@ -9,7 +9,7 @@ import type { WardConfig } from '../wards.ts';
 import { cell } from './text.ts';
 
 export const SRC = path.resolve('sources');
-export const DATA = path.resolve('data');
+const DATA = path.resolve('data');
 
 const readJson = async <K extends keyof WardDataFiles>(wardId: string, name: K) => {
   const file = path.join(DATA, wardId, name);

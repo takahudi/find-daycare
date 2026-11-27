@@ -1,6 +1,6 @@
 import type { Facility } from '../../schema.ts';
 
-export type PinShape = 'circle' | 'square';
+type PinShape = 'circle' | 'square';
 export type PinTier = 'open' | 'full';
 export interface FacilityFace {
   readonly kind: 'facility';
@@ -20,7 +20,7 @@ export function facilityFace(facility: Pick<Facility, 'licensing'>, vacancy: num
 export function pinTier(face: FacilityFace): PinTier {
   return face.vacancy > 0 ? 'open' : 'full';
 }
-export function pinLabel(face: PinFace): string {
+function pinLabel(face: PinFace): string {
   return face.kind === 'home' ? '家' : face.vacancy > 0 ? String(face.vacancy) : '×';
 }
 export function pinImageId(face: PinFace): string {

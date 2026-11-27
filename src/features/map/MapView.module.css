@@ -127,9 +127,9 @@
   height: 19px;
 }
 
-@media (max-width: 860px) {
+@media (width <= 860px) {
   .map :global(.maplibregl-ctrl-bottom-right) {
-    bottom: var(--map-hidden-bottom, 0px);
+    bottom: var(--map-hidden-bottom, 0);
   }
 }
 

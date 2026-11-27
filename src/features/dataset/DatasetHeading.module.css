@@ -75,7 +75,7 @@
 }
 
 /* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
-@media (max-width: 860px) {
+@media (width <= 860px) {
   .detailsPanel {
     position: static;
     width: auto;

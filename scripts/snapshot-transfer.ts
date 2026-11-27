@@ -118,7 +118,7 @@ export async function archiveSnapshots(
   return totals;
 }
 
-export function restoreSelections(specs: string[]) {
+function restoreSelections(specs: string[]) {
   const parsed = specs.map((spec) => {
     const parts = spec.split('@');
     if (parts.length > 2 || (parts.length === 2 && !parts[1])) throw new Error(`復元指定が不正です: ${spec}`);

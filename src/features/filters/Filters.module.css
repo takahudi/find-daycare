@@ -107,14 +107,14 @@
 }
 
 .on .triggerPrefix {
-  color: currentColor;
+  color: currentcolor;
 }
 
 .caret {
   width: 6px;
   height: 6px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
+  border-right: 1.5px solid currentcolor;
+  border-bottom: 1.5px solid currentcolor;
   transform: translateY(-2px) rotate(45deg);
   transition: transform 0.15s ease;
 }
@@ -181,14 +181,14 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.panelAction:hover:not(:disabled) {
-  text-decoration: underline;
-}
-
 .panelAction:disabled {
   color: var(--muted);
   opacity: 0.55;
   cursor: default;
+}
+
+.panelAction:hover:not(:disabled) {
+  text-decoration: underline;
 }
 
 .panelList {
@@ -198,7 +198,7 @@
 }
 
 /* 860px は app/App.module.css、index.css、HomeForm.module.css、Filters.module.css で揃える。 */
-@media (max-width: 860px) {
+@media (width <= 860px) {
   .filters {
     position: relative;
     z-index: 1200;

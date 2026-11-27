@@ -70,6 +70,14 @@ test('施設のカードが表示される', async ({ page }) => {
   expect(await cards.count()).toBeGreaterThan(0);
 });
 
+test('施設名のボタンからキーボードでカードを選択できる', async ({ page }) => {
+  const card = page.getByRole('region', { name: '施設一覧' }).getByRole('article').first();
+  const select = card.getByRole('heading', { level: 2 }).getByRole('button');
+  await select.focus();
+  await page.keyboard.press('Enter');
+  await expect(card).toHaveAttribute('aria-current', 'true');
+});
+
 test('クラス年齢を選ぶと、その年齢を受け入れる施設と空きのある施設の件数に絞られる', async ({ page }) => {
   const { facilities } = data;
   const hasOpening = (f: { vacancies: (number | null)[] }, ages: number[]) => ages.some((a) => (f.vacancies[a] ?? 0) > 0);

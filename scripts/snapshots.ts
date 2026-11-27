@@ -35,7 +35,7 @@ export function validateDiscardIds(selected: string[], discarded: string[]) {
   }
 }
 
-export async function listLocalFiles(dir: string): Promise<string[]> {
+async function listLocalFiles(dir: string): Promise<string[]> {
   const files: string[] = [];
   async function visit(relative: string) {
     for (const entry of await readdir(path.join(dir, relative), { withFileTypes: true })) {
@@ -50,7 +50,7 @@ export async function listLocalFiles(dir: string): Promise<string[]> {
   return files.sort();
 }
 
-export async function hashTree(dir: string): Promise<Snapshot['files']> {
+async function hashTree(dir: string): Promise<Snapshot['files']> {
   const files: Snapshot['files'] = {};
   for (const name of await listLocalFiles(dir)) {
     const bytes = await readFile(path.join(dir, name));
@@ -84,7 +84,7 @@ export async function readManifestIfExists(id: string, data = path.resolve('data
   return (await optionalStat(path.join(data, id, 'snapshot.json'))) ? readManifest(id, data) : undefined;
 }
 
-export async function verifyLocalFiles(dir: string, manifest: Snapshot) {
+async function verifyLocalFiles(dir: string, manifest: Snapshot) {
   let actual: Snapshot['files'];
   try {
     actual = await hashTree(dir);
@@ -129,7 +129,7 @@ export async function existingDirectory(target: string) {
   return Boolean(old);
 }
 
-export async function renameWithRetry(from: string, to: string) {
+async function renameWithRetry(from: string, to: string) {
   for (let attempt = 0; ; attempt++) {
     try {
       await rename(from, to);
@@ -273,7 +273,7 @@ export async function stageManifest(id: string, manifest: Snapshot, dataDir: str
   };
 }
 
-export async function validateDownload(id: string, dir: string) {
+async function validateDownload(id: string, dir: string) {
   const files = await listLocalFiles(dir);
   const required =
     id === 'city' ? ['sukusukudata.csv', 'ninkagai_detail.pdf'] : ['list.xlsx', 'vacancy_page.html', 'kigyo_page.html'];

@@ -118,7 +118,7 @@ export const PIN_LAYER_IDS: readonly PinLayerId[] = PIN_LAYERS.map((layer) => la
 export const ROUTE_SOURCE = 'home-route';
 // タイルの描画順は列が優先される。z10 の1列に収め、南のピンが手前になる順を列境界でも保つ。
 export const FACILITY_PINS_MAXZOOM = 10;
-export interface PinProperties {
+interface PinProperties {
   readonly key: string;
   readonly image: string;
   readonly tier?: PinTier;
@@ -218,7 +218,7 @@ function computeTiledPosition(lng: number, lat: number): [number, number] {
 }
 // MapLibre の geojson-vt は Mercator 座標を extent 8192 の整数へ丸める。
 // 元座標を投影すると、z17 では描画位置から最大4pxずつ外れる。
-export function tiledFacilityPosition(pin: FacilityPin | HomePin): [number, number] {
+function tiledFacilityPosition(pin: FacilityPin | HomePin): [number, number] {
   let position = pinTiledPositionCache.get(pin);
   if (!position) {
     position = computeTiledPosition(pin.lng, pin.lat);
