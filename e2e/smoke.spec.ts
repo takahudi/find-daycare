@@ -16,9 +16,9 @@ function parseCsp(header: string) {
 
 const expectedCsp = {
   'default-src': ["'self'"],
-  'script-src': ["'self'"],
+  'script-src': ["'self'", 'https://static.cloudflareinsights.com'],
   'style-src': ["'self'"],
-  'connect-src': ["'self'", 'https://msearch.gsi.go.jp'],
+  'connect-src': ["'self'", 'https://msearch.gsi.go.jp', 'https://cloudflareinsights.com'],
   'img-src': ["'self'", 'data:'],
   'worker-src': ["'self'"],
   'font-src': ["'self'"],
